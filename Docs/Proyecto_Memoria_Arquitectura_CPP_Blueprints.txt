@@ -1,0 +1,365 @@
+PROYECTO MEMORIA
+ARQUITECTURA DE PROGRAMACIÓN C++ + BLUEPRINTS
+=============================================
+
+PROPÓSITO
+---------
+Este documento define cómo se distribuirá la programación del juego entre C++ y Blueprints.
+
+Debe entregarse a Codex o Claude Code cuando la tarea involucre:
+
+- Programación.
+- Creación de clases.
+- Sistemas del jugador.
+- IA.
+- Guardado.
+- Interacción.
+- Eventos narrativos.
+- UI.
+- Arquitectura del proyecto.
+- Refactorización.
+- Revisión de Blueprints.
+- Decisiones sobre Level Blueprint.
+
+DECISIÓN DEFINITIVA
+-------------------
+[X] Utilizar C++ y Blueprints.
+[X] Realizar la mayor parte de la lógica central en C++.
+[X] Utilizar Blueprints como capa de contenido, configuración y presentación.
+[D] Usar únicamente Blueprints.
+[D] Usar únicamente C++.
+
+PRINCIPIO GENERAL
+-----------------
+C++ proporciona sistemas estables, reutilizables y fáciles de revisar en Git.
+
+Blueprints proporcionan iteración rápida para:
+
+- Diseño.
+- Eventos.
+- Arte.
+- Audio.
+- UI.
+- Animación.
+- Configuración específica.
+
+REPARTO DE RESPONSABILIDADES
+----------------------------
+
+C++:
+- Movimiento.
+- Cámaras.
+- Interacción.
+- Inventario.
+- Evidencias.
+- Linterna.
+- Teléfono.
+- Radio.
+- Guardado.
+- Carga.
+- Capítulos.
+- Día y noche.
+- Objetivos.
+- Gameplay Tags.
+- Estados narrativos.
+- IA base.
+- Director de miedo.
+- Finales.
+- Gestión de niveles.
+- Herramientas de depuración.
+- Validaciones.
+- Pruebas automatizadas cuando sea viable.
+
+BLUEPRINTS:
+- Mallas.
+- Componentes visuales.
+- Configuración de puertas.
+- Eventos de terror.
+- Apariciones.
+- Luces.
+- Sonidos.
+- Cinemáticas.
+- UI.
+- Widgets.
+- Animaciones.
+- Materiales.
+- Acertijos concretos.
+- Diálogos.
+- Variantes de NPC.
+- Ajustes por edificio.
+- Secuencias locales.
+
+DATA ASSETS, DATA TABLES Y GAMEPLAY TAGS:
+- Capítulos.
+- Evidencias.
+- NPC.
+- Eventos sobrenaturales.
+- Condiciones.
+- Diálogos.
+- Finales.
+- Objetivos.
+- Estados.
+- Configuración de contenido.
+
+REGLAS OBLIGATORIAS
+-------------------
+[ ] No colocar sistemas centrales en Level Blueprint.
+[ ] Level Blueprint solo se usa para casos locales muy específicos y documentados.
+[ ] No duplicar lógica entre C++ y Blueprint.
+[ ] No escribir en C++ secuencias narrativas rígidas que deban ajustarse con frecuencia.
+[ ] Exponer a Blueprint solamente lo necesario.
+[ ] Usar BlueprintReadOnly cuando Blueprint no deba modificar una propiedad.
+[ ] Usar EditDefaultsOnly para valores que pertenecen a la clase.
+[ ] Usar EditInstanceOnly solo cuando sea necesario configurar instancias.
+[ ] Usar BlueprintCallable únicamente para funciones que Blueprint realmente necesita.
+[ ] Usar BlueprintImplementableEvent para presentación configurable.
+[ ] Usar BlueprintNativeEvent cuando se necesite implementación base en C++ y extensión en Blueprint.
+[ ] Mantener referencias débiles o suaves cuando convenga evitar cargas innecesarias.
+[ ] Evitar referencias circulares.
+[ ] Documentar dependencias.
+[ ] No cambiar una clase base sin revisar sus Blueprints hijos.
+[ ] Compilar completamente después de cambios estructurales.
+[ ] No depender exclusivamente de Hot Reload para cambios de UCLASS, USTRUCT o UPROPERTY.
+
+ESTRUCTURA PROPUESTA DE CÓDIGO
+------------------------------
+
+Source/ProyectoMemoria/
+├── ProyectoMemoria.Build.cs
+├── ProyectoMemoria.h
+├── ProyectoMemoria.cpp
+├── Player/
+│   ├── PMPlayerCharacter.h/.cpp
+│   ├── PMPlayerController.h/.cpp
+│   └── PMCameraModeComponent.h/.cpp
+├── Interaction/
+│   ├── PMInteractableInterface.h
+│   ├── PMInteractionComponent.h/.cpp
+│   └── PMInteractableActor.h/.cpp
+├── Inventory/
+│   ├── PMInventoryComponent.h/.cpp
+│   ├── PMItemDefinition.h/.cpp
+│   └── PMItemInstance.h/.cpp
+├── Evidence/
+│   ├── PMEvidenceComponent.h/.cpp
+│   └── PMEvidenceData.h/.cpp
+├── Equipment/
+│   ├── PMFlashlightComponent.h/.cpp
+│   ├── PMPhoneComponent.h/.cpp
+│   └── PMRadioComponent.h/.cpp
+├── AI/
+│   ├── PMNPCBase.h/.cpp
+│   ├── PMCompanionBase.h/.cpp
+│   ├── PMResidualNPCBase.h/.cpp
+│   ├── PMImitatorBase.h/.cpp
+│   └── PMChaserBase.h/.cpp
+├── Narrative/
+│   ├── PMChapterSubsystem.h/.cpp
+│   ├── PMNarrativeStateSubsystem.h/.cpp
+│   ├── PMObjectiveSubsystem.h/.cpp
+│   └── PMEndingSubsystem.h/.cpp
+├── Horror/
+│   ├── PMFearDirectorSubsystem.h/.cpp
+│   ├── PMHorrorEventBase.h/.cpp
+│   └── PMFearComponent.h/.cpp
+├── Time/
+│   └── PMDayNightSubsystem.h/.cpp
+├── Save/
+│   ├── PMSaveGame.h/.cpp
+│   └── PMSaveSubsystem.h/.cpp
+└── Data/
+    ├── PMChapterData.h/.cpp
+    ├── PMClueData.h/.cpp
+    ├── PMNPCData.h/.cpp
+    ├── PMHorrorEventData.h/.cpp
+    └── PMEndingData.h/.cpp
+
+ESTRUCTURA PROPUESTA DE BLUEPRINTS
+----------------------------------
+
+Content/Blueprints/
+├── Player/
+│   └── BP_PlayerCharacter
+├── Interaction/
+│   ├── BP_Door_Base
+│   ├── BP_InspectableObject
+│   └── BP_EvidenceObject
+├── NPC/
+│   ├── BP_Companion_Geiner
+│   ├── BP_Companion_Kenneth
+│   ├── BP_Companion_Brianna
+│   └── BP_Companion_Sharon
+├── Entities/
+│   ├── BP_Archivist
+│   ├── BP_EyelessWatchman
+│   ├── BP_FacelessProfessor
+│   └── BP_PlayerDouble
+├── HorrorEvents/
+├── Puzzles/
+├── UI/
+├── Cinematics/
+└── Levels/
+
+PATRÓN RECOMENDADO
+------------------
+Clase C++ base:
+APMDoorBase
+
+Blueprint hijo:
+BP_Door_Classroom_A
+
+C++ controla:
+- Estado abierta/cerrada.
+- Bloqueo.
+- Replicación si alguna vez se necesitara.
+- Interacción.
+- Guardado.
+- Validación.
+
+Blueprint controla:
+- Malla.
+- Sonido.
+- Animación visual.
+- Ángulo.
+- Tiempo.
+- Efectos.
+- Evento sobrenatural local.
+
+DATA-DRIVEN DESIGN
+------------------
+Evitar código rígido como:
+
+- Si es Noche 1.
+- Si Brianna habló.
+- Si el libro fue inspeccionado.
+- Entonces generar Archivista.
+
+En su lugar:
+
+Evento:
+Archivist.FirstAppearance
+
+Condiciones:
+- Chapter.Night01.Library.
+- Clue.Library.Book.Inspected.
+- Friend.Brianna.Present.
+
+Acciones:
+- Apagar luces.
+- Reproducir sonido.
+- Generar entidad.
+- Bloquear salida.
+- Iniciar objetivo.
+
+Estas condiciones deben poder configurarse mediante:
+
+- Data Assets.
+- Data Tables.
+- Gameplay Tags.
+- Blueprints de evento.
+- Componentes reutilizables.
+
+CONVENCIONES C++
+----------------
+Prefijo de clases del proyecto:
+PM
+
+Ejemplos:
+- APMPlayerCharacter.
+- UPMInteractionComponent.
+- FPMEvidenceRecord.
+- EPMCameraMode.
+- IPMInteractableInterface.
+
+Convenciones:
+[ ] A para Actor.
+[ ] U para UObject y ActorComponent.
+[ ] F para struct.
+[ ] E para enum.
+[ ] I para interfaz.
+[ ] b para booleanos.
+[ ] Nombres completos y claros.
+[ ] Categorías coherentes en UPROPERTY y UFUNCTION.
+[ ] Comentarios para decisiones, no para repetir el código.
+
+COMPILACIÓN Y ENTORNO
+---------------------
+Antes de comenzar:
+
+[ ] Definir versión exacta de Unreal.
+[ ] Instalar Visual Studio compatible.
+[ ] Instalar Desktop development with C++.
+[ ] Instalar Game development with C++.
+[ ] Instalar Windows SDK requerido.
+[ ] Instalar componentes de Unreal.
+[ ] Generar archivos del proyecto.
+[ ] Compilar Development Editor.
+[ ] Abrir el editor.
+[ ] Crear Blueprint hijo de una clase C++.
+[ ] Cerrar y recompilar.
+[ ] Probar desde clon limpio.
+
+PRUEBA MÍNIMA DE INTEGRACIÓN
+----------------------------
+[ ] Crear APMTestActor.
+[ ] Exponer una propiedad EditDefaultsOnly.
+[ ] Exponer una función BlueprintCallable.
+[ ] Crear evento BlueprintImplementableEvent.
+[ ] Crear BP_TestActor.
+[ ] Modificar propiedad desde Blueprint.
+[ ] Llamar función C++ desde Blueprint.
+[ ] Ejecutar evento Blueprint desde C++.
+[ ] Colocar en L_Developer_Testing.
+[ ] Compilar.
+[ ] Ejecutar.
+[ ] Confirmar funcionamiento.
+[ ] Eliminar la clase de prueba o conservarla como ejemplo documentado.
+
+POLÍTICA DE COMMITS
+-------------------
+Ejemplos:
+
+feat(player): add C++ player character base
+feat(interaction): add interactable interface and component
+feat(save): add campaign save subsystem
+refactor(ai): move companion logic to reusable C++ base
+fix(camera): prevent third-person camera clipping
+docs(architecture): update C++ and Blueprint ownership
+
+ANTES DE FUSIONAR
+-----------------
+[ ] Compilación limpia.
+[ ] Editor abre.
+[ ] Blueprints compilan.
+[ ] No hay referencias rotas.
+[ ] Pruebas relacionadas aprobadas.
+[ ] Documentación actualizada.
+[ ] Checklist de versiones actualizado.
+[ ] Commit descriptivo.
+[ ] main continúa jugable.
+
+INSTRUCCIÓN PARA CODEX O CLAUDE CODE
+------------------------------------
+Lee:
+
+1. Proyecto_Memoria_Arquitectura_CPP_Blueprints.txt
+2. Checklist_Versiones_CPP_Blueprints_Actualizado.txt
+3. Proyecto_Memoria_Control_Maestro_Produccion.txt
+
+Antes de modificar código, indica:
+
+- Versión actual.
+- Sistema que implementarás.
+- Clase C++ nueva o modificada.
+- Blueprint hijo afectado.
+- Archivos que modificarás.
+- Dependencias.
+- Criterios de aceptación.
+- Pruebas.
+- Riesgo de romper Blueprints existentes.
+
+No coloques sistemas centrales en Level Blueprint.
+No dupliques lógica existente.
+No modifiques main directamente.
+
+FIN DEL DOCUMENTO

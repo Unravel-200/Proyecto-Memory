@@ -1,0 +1,830 @@
+GUÍA MAESTRA DE DIMENSIONES Y PREPARACIÓN DE MODELOS
+BLENDER → UNREAL ENGINE
+Proyecto Memoria
+====================================================
+
+PROPÓSITO
+---------
+Esta guía reúne dimensiones recomendadas para personajes, arquitectura, mobiliario, objetos, calles, exteriores, transporte y elementos del campus. También incluye todo lo que debe revisarse antes de exportar desde Blender a Unreal Engine.
+
+Las medidas son referencias de diseño, no reglas absolutas. Deben probarse con el personaje real, la cámara en primera persona, la cámara en tercera persona y las colisiones dentro de Unreal.
+
+====================================================
+1. ESCALA GENERAL
+====================================================
+
+BLENDER
+-------
+- Unit System: Metric.
+- Unit Scale: 1.0.
+- Length: Meters.
+- 1 unidad de Blender = 1 metro.
+
+UNREAL ENGINE
+-------------
+- 1 Unreal Unit = 1 centímetro.
+- 100 Unreal Units = 1 metro.
+
+Regla principal:
+Modela cada objeto en Blender cerca de su tamaño final. En Unreal puedes hacer ajustes pequeños, pero no conviene usarlo para corregir de manera habitual objetos mal dimensionados.
+
+Escala recomendable en Unreal:
+- Ideal: 1.00 / 1.00 / 1.00.
+- Ajustes pequeños: 0.90 a 1.10.
+- Ajustes moderados uniformes: 0.80 a 1.25.
+- Evitar escalas no uniformes grandes.
+
+====================================================
+2. PERSONAJE Y CÁMARA
+====================================================
+
+PERSONAJE PRINCIPAL
+-------------------
+- Altura visual: 1,70 a 1,85 m.
+- Radio de cápsula: 0,42 m.
+- Media altura: 0,96 m.
+- Altura total aproximada: 1,92 m.
+- Diámetro: 0,84 m.
+- Altura de ojos en primera persona: 1,60 a 1,70 m.
+- Distancia inicial de cámara en tercera persona: 2,50 a 3,20 m.
+
+ESPACIO LIBRE
+-------------
+- Alrededor de objetos interactivos: mínimo 1,20 m.
+- Para girar cómodamente en tercera persona: 2,50 m.
+- Habitación jugable mínima: 3 x 3 m.
+- Habitación cómoda para tercera persona: 4 x 4 m o más.
+
+====================================================
+3. PUERTAS, VENTANAS Y ABERTURAS
+====================================================
+
+PUERTA INTERIOR SIMPLE
+----------------------
+- Ancho: 0,90 a 1,20 m.
+- Recomendado para el juego: 1,20 m.
+- Alto: 2,10 a 2,40 m.
+- Recomendado: 2,40 m.
+- Grosor de hoja: 0,04 a 0,06 m.
+
+PUERTA DOBLE
+------------
+- Ancho total: 1,80 a 2,40 m.
+- Recomendado: 2,20 m.
+- Alto: 2,40 a 2,80 m.
+
+PUERTA INDUSTRIAL
+-----------------
+- Ancho: 3,50 a 5,00 m.
+- Alto: 4,00 a 5,50 m.
+
+PUERTA DE EMERGENCIA
+--------------------
+- Ancho: 1,10 a 1,30 m.
+- Alto: 2,20 a 2,40 m.
+
+MARCO
+-----
+- Grosor visible: 0,08 a 0,15 m.
+- Profundidad según pared: 0,15 a 0,30 m.
+
+VENTANA DE AULA
+---------------
+- Ancho: 1,20 a 2,40 m.
+- Alto: 1,20 a 1,80 m.
+- Altura desde el piso: 0,80 a 1,10 m.
+
+VENTANAL
+--------
+- Ancho: 2,50 a 6,00 m.
+- Alto: 2,40 a 4,00 m.
+
+PIVOTES
+-------
+- Puerta: borde de las bisagras.
+- Ventana abatible: eje real de apertura.
+- Cajón: centro del eje de desplazamiento.
+
+====================================================
+4. PAREDES, PISOS, TECHOS Y COLUMNAS
+====================================================
+
+PARED INTERIOR
+--------------
+- Grosor: 0,12 a 0,20 m.
+- Recomendado: 0,15 m.
+
+PARED EXTERIOR O ESTRUCTURAL
+----------------------------
+- Grosor: 0,20 a 0,40 m.
+- Recomendado: 0,25 a 0,30 m.
+
+ALTURA DE PISO
+--------------
+- Edificio académico: 4,00 m.
+- Residencias: 3,20 a 3,60 m.
+- Laboratorios: 4,50 a 5,50 m.
+- Talleres: 7,00 a 9,00 m.
+- Auditorio: 8,00 a 16,00 m según sector.
+
+PISO Y LOSA
+-----------
+- Espesor visual: 0,15 a 0,30 m.
+- Losa visible: 0,20 a 0,40 m.
+
+COLUMNAS
+--------
+- Académicas: 0,30 x 0,30 m o 0,40 x 0,40 m.
+- Industriales: 0,50 x 0,50 m o 0,60 x 0,60 m.
+- Separación típica: 5 a 8 m.
+- En parqueos: 7 a 8 m.
+
+VIGAS
+-----
+- Ancho: 0,25 a 0,50 m.
+- Alto: 0,40 a 0,80 m.
+
+====================================================
+5. PASILLOS, ESCALERAS, RAMPAS Y BARANDAS
+====================================================
+
+PASILLOS
+--------
+- Secundario mínimo: 2,20 m.
+- Secundario recomendado: 2,50 m.
+- Principal: 3,50 a 4,00 m.
+- Técnico: 1,80 a 2,20 m.
+
+ESCALERAS
+---------
+- Principal: 2,00 a 2,40 m; recomendado 2,20 m.
+- Secundaria: 1,50 a 1,80 m.
+- Huella: 0,28 a 0,32 m; recomendado 0,30 m.
+- Contrahuella: 0,16 a 0,18 m; recomendado 0,17 m.
+- Descanso mínimo: 2,00 x 2,00 m.
+- Descanso recomendado: 2,20 x 2,20 m.
+
+BARANDA
+-------
+- Alto: 1,05 a 1,10 m.
+
+RAMPA PEATONAL
+--------------
+- Ancho: 1,50 a 2,00 m.
+- Pendiente suave jugable: 5 % a 8 %.
+
+====================================================
+6. AULAS, OFICINAS Y ESPACIOS ACADÉMICOS
+====================================================
+
+- Aula pequeña: 7 x 8 m.
+- Aula media: 8 x 10 m.
+- Aula grande: 10 x 12 m.
+- Laboratorio: 12 x 16 m, 14 x 18 m o 16 x 20 m.
+- Oficina individual: 3,50 x 4,00 m.
+- Oficina compartida: 5 x 6 m o 6 x 8 m.
+- Sala de profesores: 8 x 10 m.
+- Sala de reuniones pequeña: 5 x 6 m.
+- Sala de reuniones media: 8 x 10 m.
+- Sala de reuniones grande: 10 x 14 m.
+- Baño universitario: 6 x 8 m o 7 x 9 m.
+- Vestíbulo pequeño: 8 x 10 m.
+- Vestíbulo medio: 12 x 15 m.
+- Vestíbulo grande: 15 x 18 m.
+
+====================================================
+7. MOBILIARIO DE AULA
+====================================================
+
+PUPITRE INDIVIDUAL
+------------------
+- Ancho: 0,60 a 0,80 m.
+- Profundidad: 0,45 a 0,65 m.
+- Alto: 0,72 a 0,78 m.
+- Recomendado: 0,70 x 0,55 x 0,75 m.
+
+ESCRITORIO DE PROFESOR
+----------------------
+- Ancho: 1,20 a 1,60 m.
+- Profundidad: 0,60 a 0,80 m.
+- Alto: 0,72 a 0,78 m.
+- Recomendado: 1,40 x 0,70 x 0,75 m.
+
+SILLA DE ESTUDIANTE
+-------------------
+- Ancho: 0,45 a 0,55 m.
+- Profundidad: 0,45 a 0,55 m.
+- Alto del asiento: 0,43 a 0,48 m.
+- Alto total: 0,80 a 0,95 m.
+
+SILLA DE OFICINA
+----------------
+- Ancho: 0,55 a 0,70 m.
+- Profundidad: 0,55 a 0,70 m.
+- Alto total: 0,90 a 1,20 m.
+
+PIZARRA
+-------
+- Ancho: 2,40 a 4,80 m.
+- Alto: 1,20 a 1,50 m.
+- Borde inferior: 0,80 a 1,00 m sobre el piso.
+
+MESA DE LABORATORIO
+-------------------
+- Ancho: 1,50 a 2,40 m.
+- Profundidad: 0,75 a 1,20 m.
+- Alto: 0,85 a 0,95 m.
+
+SEPARACIÓN ENTRE PUPITRES
+-------------------------
+- Lateral: 0,60 a 0,90 m.
+- Pasillo central: 1,20 a 1,80 m.
+- Pasillo trasero: 1,20 a 1,50 m.
+
+====================================================
+8. MOBILIARIO DE BIBLIOTECA
+====================================================
+
+ESTANTERÍA BAJA
+---------------
+- Ancho: 0,90 a 1,20 m.
+- Profundidad: 0,30 a 0,40 m.
+- Alto: 1,20 a 1,50 m.
+
+ESTANTERÍA ALTA
+---------------
+- Ancho: 0,90 a 1,20 m.
+- Profundidad: 0,30 a 0,45 m.
+- Alto: 1,80 a 2,20 m.
+
+ESTANTERÍA DOBLE
+----------------
+- Ancho: 0,90 a 1,20 m.
+- Profundidad total: 0,60 a 0,90 m.
+- Alto: 1,80 a 2,20 m.
+
+PASILLOS ENTRE ESTANTERÍAS
+--------------------------
+- Mínimo realista: 1,20 m.
+- Recomendado para juego: 1,50 a 1,80 m.
+- Para persecución: 2,00 a 2,50 m.
+
+MESA DE LECTURA
+---------------
+- 1,80 x 0,90 x 0,75 m.
+- 2,40 x 1,00 x 0,75 m.
+
+MOSTRADOR
+---------
+- Alto: 1,00 a 1,10 m.
+- Profundidad: 0,60 a 0,80 m.
+- Ancho modular: 1,20 a 2,40 m.
+
+LIBROS
+------
+- Pequeño: 0,14 x 0,21 x 0,02 m.
+- Mediano: 0,17 x 0,24 x 0,03 m.
+- Grande: 0,22 x 0,30 x 0,04 m.
+
+====================================================
+9. MOBILIARIO DE OFICINA Y RESIDENCIAS
+====================================================
+
+- Escritorio de oficina: 1,20 a 1,80 m de ancho; 0,60 a 0,80 m de profundidad; 0,72 a 0,78 m de alto.
+- Archivero: 0,45 a 0,60 m de ancho; 0,55 a 0,70 m de profundidad; 1,00 a 1,40 m de alto.
+- Gabinete: 0,80 a 1,20 m de ancho; 0,40 a 0,60 m de profundidad; 1,80 a 2,20 m de alto.
+- Cama individual: 1,00 x 1,90 m.
+- Cama doble: 1,40 x 1,90 m o 1,50 x 2,00 m.
+- Mesa de noche: 0,40 x 0,40 x 0,50 m.
+- Armario: 0,90 a 1,20 m de ancho; 0,55 a 0,65 m de profundidad; 1,90 a 2,20 m de alto.
+- Sofá de dos plazas: 1,50 a 1,80 m.
+- Sofá de tres plazas: 2,00 a 2,40 m.
+- Profundidad de sofá: 0,80 a 1,00 m.
+
+====================================================
+10. PIEZAS MÓVILES
+====================================================
+
+Todo objeto que se moverá debe modelarse como pieza separada.
+
+PUERTA
+------
+- SM_DoorFrame_Classroom_A
+- SM_DoorLeaf_Classroom_A
+- SM_DoorHandle_Classroom_A
+
+ESCRITORIO
+----------
+- SM_Desk_Office_A
+- SM_Desk_Drawer_A
+- SM_Desk_Chair_A
+
+ESTANTERÍA
+----------
+- SM_Bookshelf_Library_A
+- SM_Bookshelf_Door_A
+- SM_Book_Row_A
+- SM_SingleBook_A
+
+ARCHIVERO
+---------
+- SM_FilingCabinet_A
+- SM_FilingDrawer_A_01
+- SM_FilingDrawer_A_02
+- SM_FilingDrawer_A_03
+
+No unir permanentemente una pieza que necesitará abrirse, caerse, girar, deslizarse, ser recogida o cambiar entre día y noche.
+
+====================================================
+11. OBJETOS PEQUEÑOS
+====================================================
+
+- Linterna: 0,18 a 0,30 m de largo; 0,03 a 0,06 m de diámetro.
+- Teléfono: 0,07 x 0,15 x 0,008 m.
+- Radio portátil: 0,06 x 0,15 x 0,04 m.
+- Llave: 0,05 a 0,09 m de largo.
+- Destornillador: 0,18 a 0,30 m.
+- Alicate: 0,16 a 0,25 m.
+- Martillo: 0,30 a 0,40 m.
+- Caja de herramientas: 0,40 a 0,60 m de ancho; 0,20 a 0,30 m de profundidad y alto.
+- Monitor: 0,50 a 0,65 m de ancho; 0,30 a 0,40 m de alto.
+- Teclado: 0,44 x 0,14 x 0,03 m.
+- Gabinete de computadora: 0,20 x 0,45 x 0,45 m.
+- Impresora: 0,40 a 0,60 m de ancho; 0,35 a 0,55 m de profundidad; 0,20 a 0,40 m de alto.
+
+====================================================
+12. MAQUINARIA Y TALLERES
+====================================================
+
+- Banco de trabajo: 1,80 a 2,40 m de ancho; 0,75 a 1,00 m de profundidad; 0,85 a 0,95 m de alto.
+- Taladro de banco: 0,50 a 0,80 m de ancho; 0,70 a 1,00 m de profundidad; 1,50 a 2,00 m de alto.
+- Torno: 1,80 a 3,00 m de largo; 0,80 a 1,20 m de profundidad; 1,20 a 1,60 m de alto.
+- Brazo robótico: base de 0,60 a 1,20 m; altura extendida de 1,50 a 3,00 m.
+- Impresora 3D pequeña: 0,45 x 0,45 x 0,60 m.
+- Impresora 3D industrial: 1,00 x 1,00 x 1,50 m.
+- Separación mínima entre máquinas: 1,50 m.
+- Separación jugable: 2,50 a 4,00 m.
+
+====================================================
+13. CALLES, ACERAS Y PARQUEOS
+====================================================
+
+- Avenida principal: 7 a 8 m de calzada.
+- Aceras principales: 2,50 a 3,00 m por lado.
+- Zona verde: 2 a 4 m.
+- Calle secundaria: 5 a 6 m.
+- Aceras secundarias: 1,80 a 2,50 m.
+- Calle de servicio: 4 a 5 m.
+- Sendero principal: 3 a 4 m.
+- Sendero secundario: 1,80 a 2,50 m.
+- Sendero junto a quebrada: 2 a 3 m.
+- Espacio de parqueo: 2,50 x 5,00 m.
+- Calle de circulación: 6 a 7 m.
+- Rampa vehicular: 4 a 6 m de ancho.
+- Altura libre de parqueo: 2,80 a 3,20 m.
+- Columnas de parqueo: cada 7 a 8 m.
+
+====================================================
+14. FUENTES, QUEBRADA Y PUENTES
+====================================================
+
+FUENTE CENTRAL
+--------------
+- Diámetro: 18 a 24 m.
+- Recomendado: 20 m.
+- Profundidad visual: 0,40 a 0,60 m.
+- Plaza: 45 x 45 m.
+
+FUENTE SECUNDARIA
+-----------------
+- Diámetro: 8 a 12 m.
+
+QUEBRADA
+--------
+- Ancho normal: 5 a 8 m.
+- Tramos amplios: 10 a 14 m.
+- Profundidad visible: 1 a 2,50 m.
+- Vegetación por lado: 8 a 15 m.
+
+PUENTE PEATONAL
+---------------
+- Ancho: 2,50 a 3,50 m.
+- Largo: 8 a 15 m.
+
+PUENTE VEHICULAR
+----------------
+- Ancho: 8 a 10 m.
+- Largo: 12 a 20 m.
+
+ALCANTARILLA JUGABLE
+--------------------
+- Ancho: 2 a 3 m.
+- Alto: 2,20 a 3,00 m.
+
+====================================================
+15. PARADAS Y AUTOBÚS
+====================================================
+
+- Parada normal: plataforma de 12 x 3 m; refugio de 6 x 2,50 m.
+- Parada principal: plataforma de 25 x 5 m; refugio de 12 x 3 m.
+- Autobús interno: 9 a 11 m de largo; 2,50 m de ancho; 3,00 a 3,30 m de alto.
+- Puerta de autobús: 0,90 a 1,20 m.
+- Pasillo interior: 0,55 a 0,75 m.
+
+====================================================
+16. ÁRBOLES Y VEGETACIÓN
+====================================================
+
+- Árbol grande: 12 a 25 m de alto.
+- Copa: 8 a 14 m de diámetro.
+- Tronco: 0,40 a 1,20 m de diámetro.
+- Arbusto: 0,50 a 1,80 m de alto.
+- Hierba: 0,05 a 0,50 m.
+
+No modelar cada hoja individual para árboles lejanos. Usar Foliage, LOD, Nanite cuando corresponda y Niagara para aves lejanas.
+
+====================================================
+17. DIMENSIONES GENERALES DE EDIFICIOS
+====================================================
+
+- Biblioteca Central: 55 x 45 m; 4 pisos; 2 sótanos; 18 a 20 m de alto.
+- Estudios Generales: 70 x 45 m; 5 niveles contando sótano; 19 a 22 m de alto.
+- Educación: 50 x 35 m; 4 pisos; 15 a 17 m de alto.
+- Mantenimiento: 40 x 25 m; 7 m de alto.
+- Ingeniería: 85 x 60 m; 4 pisos; taller de 50 x 35 m y 8 m de alto.
+- Ciencias: 75 x 55 m; 4 pisos; invernadero de 25 x 18 m.
+- Medicina: 75 x 50 m; 5 pisos; 1 sótano; 22 a 25 m de alto.
+- Psicología: 45 x 35 m; 3 pisos.
+- Informática: 55 x 40 m; 4 pisos; 1 sótano técnico.
+- Artes: 60 x 45 m; 3 pisos; teatro de 30 x 35 m.
+- Auditorio Central: 45 x 40 m; sala de 30 x 32 m; escenario de 18 x 12 m.
+- Historia: 50 x 40 m; 3 pisos.
+- Derecho y Administración: 55 x 40 m; 4 pisos.
+- Gimnasio: 65 x 45 m; 10 a 14 m de alto.
+- Piscina cubierta: edificio de 40 x 25 m; piscina de 25 x 12,50 m.
+- Residencias: cada bloque de 55 x 18 m; 5 pisos; 17 a 19 m de alto.
+- Rectoría: 50 x 40 m; 4 pisos; 2 sótanos; torre de 40 m.
+
+====================================================
+18. REVISIÓN TÉCNICA EN BLENDER
+====================================================
+
+ANTES DE EXPORTAR
+-----------------
+[ ] Unidades en Metric.
+[ ] Unit Scale = 1.0.
+[ ] Dimensiones aproximadamente reales.
+[ ] Escala aplicada.
+[ ] Rotación aplicada.
+[ ] Scale = 1, 1, 1.
+[ ] Rotation = 0, 0, 0.
+[ ] Orientación consistente.
+[ ] Pivote bien colocado.
+[ ] Normales correctas.
+[ ] Sin caras duplicadas.
+[ ] Sin vértices sueltos.
+[ ] Sin geometría interior innecesaria.
+[ ] Modificadores revisados.
+[ ] UV principal revisada.
+[ ] Materiales nombrados.
+[ ] Cantidad de materiales limitada.
+[ ] Partes móviles separadas.
+[ ] Colisión preparada o planificada.
+[ ] Nombre del objeto correcto.
+[ ] Colección de exportación limpia.
+[ ] Archivo .blend guardado.
+[ ] Commit de Git realizado antes de cambios grandes.
+
+====================================================
+19. TRANSFORMACIONES
+====================================================
+
+Antes de exportar en Blender:
+Ctrl + A → Rotation & Scale.
+
+Resultado esperado:
+- Rotation: 0, 0, 0.
+- Scale: 1, 1, 1.
+
+La ubicación no siempre debe aplicarse. Lo importante es que el origen esté correctamente colocado.
+
+Problemas por escala no aplicada:
+- Biseles inconsistentes.
+- Colisiones incorrectas.
+- Texturas deformadas.
+- Física inesperada.
+- Tamaños erróneos.
+- Exportación confusa.
+
+====================================================
+20. ORIENTACIÓN Y PIVOTES
+====================================================
+
+Convención recomendada:
+- Z = arriba.
+- Frente del objeto = +X.
+- Mantener la misma orientación en todos los activos.
+
+Pivotes:
+- Pupitre: centro inferior.
+- Escritorio: centro inferior o esquina trasera inferior.
+- Estantería: centro inferior o esquina trasera inferior.
+- Silla: centro inferior.
+- Puerta: bisagras.
+- Cajón: eje de desplazamiento.
+- Ventana: bisagra o centro según apertura.
+- Objeto recogible: centro de masa visual.
+- Edificio: esquina de referencia al nivel del suelo.
+
+====================================================
+21. UV Y DENSIDAD DE TEXEL
+====================================================
+
+La UV principal debe:
+- Evitar deformaciones.
+- Mantener escala de textura.
+- Evitar superposición accidental.
+- Tener margen entre islas.
+- Aprovechar el espacio.
+
+Objetos grandes:
+- Materiales tileables.
+- Máscaras.
+- Decals.
+- Materiales por capas.
+
+Objetos pequeños:
+- UV única.
+- Atlas.
+- Texturas compartidas cuando sea posible.
+
+====================================================
+22. MATERIALES
+====================================================
+
+Cada material adicional puede aumentar el costo de renderizado.
+
+Recomendado:
+- 1 a 3 materiales para muebles simples.
+- 2 a 4 para objetos medianos.
+- Evitar 8 o 10 materiales en un pupitre.
+
+Ejemplos:
+- M_Wood_Dark
+- M_Metal_Painted
+- M_Plastic_Black
+- M_Glass_Clear
+- M_Concrete_Worn
+
+En Unreal, crear Material Instances y reutilizar materiales.
+
+====================================================
+23. COLISIONES
+====================================================
+
+Para muebles:
+- Usar cajas simples.
+- Evitar copiar cada detalle.
+
+Pupitre:
+- Caja para superficie.
+- Caja para base o patas principales.
+
+Estantería:
+- Caja general.
+- No crear colisión por cada repisa si no es necesario.
+
+Puerta:
+- Marco con colisión.
+- Hoja separada con colisión propia.
+
+Nombres:
+- UCX_SM_Desk_Student_A_00
+- UCX_SM_Bookshelf_Library_A_00
+- UCX_SM_DoorFrame_Classroom_A_00
+
+Evitar:
+- Colisión compleja para objetos repetidos.
+- Colisiones que cierren huecos importantes.
+- Colisiones excesivamente detalladas.
+
+====================================================
+24. TOPOLOGÍA Y POLÍGONOS
+====================================================
+
+No existe un número único perfecto. Depende de:
+- Distancia.
+- Tamaño.
+- Cantidad de copias.
+- Importancia visual.
+- Plataforma objetivo.
+
+Regla práctica:
+Más repetido = más ligero.
+
+Revisar:
+- Caras invisibles.
+- Tornillos modelados sin necesidad.
+- Biseles excesivos.
+- Duplicados.
+- Subdivision Surface demasiado alta.
+
+Objetos importantes como el Libro Prohibido, el Árbol del Conocimiento y la Unidad Mnémica pueden tener más detalle.
+
+====================================================
+25. LOD Y NANITE
+====================================================
+
+Crear LOD si:
+- El objeto se verá a distancia.
+- Hay muchas copias.
+- No usa Nanite.
+- El costo es alto.
+
+Nanite es útil para:
+- Arquitectura compleja.
+- Estatuas.
+- Fachadas.
+- Rocas.
+- Objetos estáticos detallados.
+
+No depender automáticamente de Nanite para:
+- Piezas móviles pequeñas.
+- Objetos transparentes.
+- Elementos deformables.
+- Todo el mobiliario sin revisión.
+
+====================================================
+26. EXPORTACIÓN FBX
+====================================================
+
+Recomendado:
+- Export Selected.
+- Mesh únicamente.
+- No exportar cámaras ni luces si no se necesitan.
+- Desactivar animación en objetos estáticos.
+- Mantener nombres.
+- Exportar por activo o familia.
+
+Evitar:
+- Todo el campus en un FBX.
+- Un edificio con todos los muebles unidos.
+- Todas las puertas como una sola malla.
+- Todo el mobiliario unido.
+
+Ejemplos:
+- SM_Door_Classroom_A.fbx
+- SM_Desk_Student_A.fbx
+- SM_Bookshelf_Library_A.fbx
+- KIT_Library_Walls_A.fbx
+
+====================================================
+27. REVISIÓN EN UNREAL ENGINE
+====================================================
+
+DESPUÉS DE IMPORTAR
+-------------------
+[ ] Escala correcta.
+[ ] Orientación correcta.
+[ ] Pivote correcto.
+[ ] Colisión correcta.
+[ ] Materiales asignados.
+[ ] UV correcta.
+[ ] Normales correctas.
+[ ] Sombras correctas.
+[ ] Sin caras invisibles.
+[ ] Funciona en primera persona.
+[ ] Funciona en tercera persona.
+[ ] No bloquea puertas o pasillos.
+[ ] La interacción funciona.
+[ ] La animación funciona si existe.
+[ ] Rendimiento aceptable.
+[ ] Nombre correcto.
+
+====================================================
+28. NOMBRES RECOMENDADOS
+====================================================
+
+STATIC MESH
+-----------
+- SM_Desk_Student_A
+- SM_Bookshelf_Library_A
+- SM_Door_Classroom_A
+- SM_Chair_Office_A
+
+SKELETAL MESH
+-------------
+- SK_Character_Geiner
+- SK_Entity_Archivist
+
+MATERIAL
+--------
+- M_Wood_Dark
+- MI_Wood_Dark_Worn
+
+TEXTURE
+-------
+- T_Desk_Wood_BaseColor
+- T_Desk_Wood_Normal
+- T_Desk_Wood_Roughness
+
+COLLISION
+---------
+- UCX_SM_Desk_Student_A_00
+
+BLUEPRINT
+---------
+- BP_Door_Classroom_A
+- BP_Desk_Interactive_A
+
+====================================================
+29. ESTRUCTURA DE CARPETAS
+====================================================
+
+SourceAssets/
+├── Blender/
+│   ├── Architecture/
+│   ├── Furniture/
+│   ├── Props/
+│   ├── Characters/
+│   └── Vehicles/
+├── Textures/
+├── Audio/
+└── References/
+
+Exports/
+├── FBX/
+├── Textures/
+└── Audio/
+
+Unreal Content/
+├── Architecture/
+├── Furniture/
+├── Props/
+├── Characters/
+├── Materials/
+├── Blueprints/
+└── Maps/
+
+====================================================
+30. CHECKLIST RÁPIDO PARA CADA MODELO
+====================================================
+
+ANTES DE MODELAR
+----------------
+[ ] ¿Qué función tendrá?
+[ ] ¿Será estático o móvil?
+[ ] ¿Será interactivo?
+[ ] ¿Se verá de cerca?
+[ ] ¿Cuántas veces aparecerá?
+[ ] ¿Qué dimensiones reales debe tener?
+[ ] ¿Necesita piezas separadas?
+
+AL TERMINAR EN BLENDER
+----------------------
+[ ] Dimensiones correctas.
+[ ] Escala 1,1,1.
+[ ] Rotación 0,0,0.
+[ ] Pivote correcto.
+[ ] Normales correctas.
+[ ] UV revisada.
+[ ] Materiales limitados.
+[ ] Partes móviles separadas.
+[ ] Colisión preparada.
+[ ] Nombre correcto.
+
+AL IMPORTAR EN UNREAL
+---------------------
+[ ] Tamaño correcto.
+[ ] Cámara 1P correcta.
+[ ] Cámara 3P correcta.
+[ ] Colisión correcta.
+[ ] Pivote correcto.
+[ ] Materiales correctos.
+[ ] Rendimiento aceptable.
+[ ] Interacción probada.
+
+====================================================
+31. REGLA FINAL
+====================================================
+
+Modela en Blender con dimensiones cercanas a la realidad.
+
+Usa Unreal para:
+- Colocar.
+- Rotar.
+- Hacer pequeños ajustes de escala.
+- Aplicar materiales finales.
+- Configurar colisiones.
+- Programar interacción.
+- Crear variantes.
+- Iluminar.
+- Animar.
+- Probar jugabilidad.
+
+No uses Unreal como sustituto de una escala correcta en Blender.
+
+Regla práctica:
+“Si el modelo necesita una escala mayor de 1.25 o menor de 0.80 para verse correcto, probablemente conviene corregir sus dimensiones en Blender”.
+
+FIN DE LA GUÍA

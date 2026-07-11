@@ -1,0 +1,595 @@
+Sí. La recomendación principal es ser muy cuidadoso con el alcance, porque la versión actual de Proyecto Memoria incluye un campus grande, numerosos edificios, tres días, cuatro noches, compañeros con IA, muchos NPC, sistemas de imitación, primera y tercera persona, decisiones y varios finales. Para una sola persona es posible desarrollarlo, pero como proyecto de varios años. No conviene intentar producir todo simultáneamente.
+
+1. No empieces intentando hacer el juego completo
+
+Tu primera meta debería ser crear una demostración vertical de entre 30 y 60 minutos que contenga una pequeña parte de la experiencia final:
+
+Clase nocturna.
+Mensajes de Nicolás.
+Encuentro con los amigos.
+Biblioteca.
+Revisión de cámaras.
+Sótano.
+Libro prohibido.
+Un NPC inquietante.
+Una persecución.
+Escape hacia la plaza.
+Amanecer.
+Primera investigación diurna.
+
+Esa demostración debe probar prácticamente todos los sistemas importantes:
+
+Cambio de cámara.
+Interacción.
+Diálogos.
+NPC acompañantes.
+Linterna.
+Teléfono.
+Investigación.
+Día y noche.
+Terror.
+Guardado.
+Rendimiento.
+
+Si este fragmento no funciona o no da miedo, ampliar el mapa solamente multiplicaría los problemas.
+
+Alcance recomendado para la primera versión
+Elemento	Primera demostración	Juego completo
+Edificios detallados	2	15 o más
+Zonas exteriores	Plaza y sendero	Campus completo
+Amigos activos	1 o 2 inicialmente	Los 4
+Entidades	2 o 3	Varias
+Duración	30–60 minutos	14–18 horas
+Ciclo temporal	Una noche y un amanecer	Tres días y cuatro noches
+Finales	1 provisional	Múltiples
+2. Divide el desarrollo por episodios internos
+
+Aunque al final quieras entregar un único juego, debes producirlo como episodios:
+
+Episodio de producción 1
+
+Biblioteca, Generales, Educación y primer día de investigación.
+
+Episodio de producción 2
+
+Ingeniería, Ciencias, autobús, Medicina y Psicología.
+
+Episodio de producción 3
+
+Informática, Artes, Auditorio, Historia, Derecho y Gimnasio.
+
+Episodio de producción 4
+
+Residencias, Biblioteca Subterránea, Rectoría y finales.
+
+No empieces el episodio siguiente hasta que el anterior pueda jugarse de principio a fin, aunque todavía use modelos provisionales.
+
+3. Usa control de versiones desde el primer día
+
+No dependas únicamente de copias como:
+
+ProyectoFinal
+ProyectoFinal2
+ProyectoFinalAhoraSi
+ProyectoFinalDefinitivo
+
+Unreal tiene integración con sistemas de control de versiones y soporte incorporado para proveedores como Perforce y SVN. Para trabajar solo también puedes considerar Git con Git LFS, ya que los proyectos de juegos contienen archivos binarios grandes, como modelos, texturas, sonidos y archivos de Unreal; Git LFS mantiene referencias en el repositorio y almacena aparte el contenido pesado.
+
+Como mínimo debes tener:
+
+Repositorio de control de versiones.
+Copia local.
+Copia en otro disco.
+Copia remota.
+Una versión estable marcada antes de cambios grandes.
+Una rama separada para experimentos peligrosos.
+
+El control de versiones no reemplaza las copias de seguridad. Debes conservar ambos.
+
+Antes de permitir que una IA o una conexión MCP modifique muchos archivos:
+
+Guarda el proyecto.
+Haz un commit.
+Crea una rama.
+Solicita un cambio específico.
+Prueba el resultado.
+Revisa qué archivos fueron modificados.
+Fusiona únicamente si funciona.
+4. Congela tus herramientas principales
+
+No cambies constantemente de versión ni de programa.
+
+Define desde el inicio:
+
+Una versión específica de Unreal Engine.
+Una versión estable de Blender.
+Formato principal de intercambio.
+Sistema de control de versiones.
+Programa de audio.
+Programa de edición de imágenes.
+Convenciones de exportación.
+
+Blender admite FBX como formato de intercambio para modelos y datos de escenas, por lo que puedes mantener los archivos editables en Blender y exportar versiones preparadas para Unreal.
+
+Organización sugerida:
+
+ProyectoMemoria/
+│
+├── UnrealProject/
+├── SourceAssets/
+│   ├── Blender/
+│   ├── Textures/
+│   ├── Audio/
+│   ├── References/
+│   └── Documents/
+│
+├── Exports/
+│   ├── FBX/
+│   ├── Textures/
+│   └── Audio/
+│
+└── Backups/
+
+No guardes el único archivo editable de un edificio dentro de una carpeta temporal de exportación.
+
+5. Diseña una arquitectura técnica antes de crear capítulos
+
+Evita poner toda la programación dentro del Level Blueprint. Eso puede funcionar al principio, pero cuando tengas varios edificios, días, noches y NPC será difícil mantenerlo.
+
+Una estructura razonable sería:
+
+Sistema global del juego
+├── Estado del capítulo
+├── Día y noche
+├── Inventario
+├── Evidencias
+├── Confianza de amigos
+├── Estado de Nicolás
+├── Eventos sobrenaturales
+└── Guardado
+
+Sistemas de nivel
+├── Puertas
+├── Luces
+├── Puntos de aparición
+├── NPC
+├── Acertijos
+└── Persecuciones
+
+Componentes recomendados:
+
+Interfaces: para objetos interactuables.
+Actor Components: para linternas, puertas, miedo, evidencias y detección.
+Data Assets: para almacenar información de capítulos, NPC, pistas y eventos.
+Gameplay Tags: para identificar estados como Time.Night2, NPC.Imitator, Clue.Library.Book o Friend.Sharon.Missing.
+
+Los Gameplay Tags de Unreal funcionan como etiquetas jerárquicas que pueden evaluarse en la lógica del juego, mientras que el Asset Manager puede trabajar con clases Blueprint y Data Assets. Esto encaja bien con un proyecto que tendrá muchos estados narrativos.
+
+Ejemplo:
+
+Chapter.Night01.Library
+Chapter.Night01.Generales
+Time.Day02
+NPC.Type.Residual
+NPC.Type.Imitator
+NPC.State.Hostile
+Friend.Kenneth.Trust.High
+Clue.Engineering.Backpack
+Ending.FalseRescue.Available
+
+Así evitas crear decenas de variables booleanas como:
+
+SharonDesaparecida
+SharonEncontrada
+SharonEsFalsa
+SharonConfia
+SharonVioAlDoble
+6. Diseña el ciclo diurno y nocturno como estados, no como dos mapas duplicados
+
+No construyas una versión completa del campus de día y otra completamente independiente de noche. Mantén una base compartida y activa variaciones:
+
+Iluminación.
+NPC.
+puertas.
+sonidos.
+objetos.
+rutas.
+materiales.
+manchas.
+niebla.
+eventos.
+geometría alterada.
+
+World Partition subdivide un mundo en celdas cargables, y las Data Layers permiten organizar actores tanto en el editor como durante la ejecución. Para tu juego pueden servir para separar estados como campus diurno, campus nocturno, versión de 1974 y zonas alteradas.
+
+Ejemplo:
+
+DataLayer_CampusBase
+DataLayer_Day01
+DataLayer_Night01
+DataLayer_Day02
+DataLayer_Night02
+DataLayer_1974
+DataLayer_RealityDistortion
+
+No necesitas tener cuatro campus completos. Cambias únicamente lo necesario.
+
+7. Empieza con pocos tipos de IA
+
+No intentes desarrollar desde el inicio veinte NPC con comportamientos únicos.
+
+Primero crea tres arquetipos sólidos:
+
+NPC acompañante
+
+Para Geiner, Kenneth, Brianna y Sharon:
+
+Sigue al jugador.
+Mantiene distancia.
+Evita bloquear puertas.
+Se teletransporta discretamente si queda demasiado lejos.
+Tiene puntos predeterminados durante escenas.
+Puede esperar, correr, esconderse y conversar.
+NPC residual
+Repite una animación.
+Mira al jugador.
+Cambia de posición.
+Desaparece al perderse de vista.
+No necesita navegación compleja.
+NPC perseguidor
+Patrulla.
+Detecta ruido, luz o movimiento.
+Persigue.
+Busca durante unos segundos.
+Regresa a patrulla.
+Tiene una regla clara que permite evitarlo.
+
+Después puedes crear variantes visuales y sonoras. Un Archivista y un Vigilante podrían compartir parte de la base técnica, aunque se comporten de forma diferente.
+
+Problema importante con cuatro acompañantes
+
+Cuatro NPC siguiendo permanentemente al jugador pueden:
+
+Bloquear puertas.
+Chocar en escaleras.
+Romper escenas.
+Aumentar el costo de IA.
+Disminuir el miedo porque el jugador nunca está solo.
+
+Una mejor solución es que no siempre estén los cuatro físicamente junto al protagonista:
+
+Uno revisa cámaras.
+Otro espera en una entrada.
+Dos acompañan al jugador.
+Se separan durante acertijos.
+Se comunican por radio.
+Se reúnen en escenas importantes.
+
+Esto también mejora el terror sin eliminar al grupo.
+
+8. Haz una biblioteca modular de arquitectura
+
+Como desarrollador individual, no puedes modelar cada pared de cada edificio desde cero.
+
+Crea conjuntos reutilizables:
+
+KIT_Universidad_Moderno
+├── Paredes
+├── Puertas
+├── Ventanas
+├── Columnas
+├── Pisos
+├── Techos
+├── Escaleras
+└── Barandas
+
+KIT_Universidad_Antiguo
+├── Ladrillo
+├── Arcos
+├── Puertas de madera
+├── Tuberías
+└── Estanterías
+
+KIT_Industrial
+├── Paneles
+├── Vigas
+├── Rejillas
+├── Conductos
+└── Maquinaria
+
+Después diferencias cada facultad mediante:
+
+Materiales.
+Señalización.
+Iluminación.
+Props.
+Colores.
+Símbolos.
+Distribución.
+Sonido.
+
+Reserva el modelado único para elementos importantes:
+
+Árbol del Conocimiento.
+Libro Prohibido.
+Unidad de Persistencia.
+Torre del Reloj.
+Fuente central.
+Autobús.
+Elementos de cada entidad.
+9. El sonido debe desarrollarse desde el prototipo
+
+No dejes el audio para el final. En un juego de terror, una biblioteca gris con buen audio puede dar más miedo que un edificio terminado sin diseño sonoro.
+
+Desde el primer prototipo incluye:
+
+Sonido de pasos según superficie.
+Reverberación.
+Ambientes por piso.
+Puertas.
+Fluorescentes.
+Tuberías.
+Lluvia o quebrada.
+Sonidos direccionales.
+Silencio controlado.
+Voces distantes.
+Ruido del teléfono.
+Sonido identificable de cada entidad.
+
+Crea una identidad sonora para cada amenaza:
+
+Entidad	Señal sonora
+Archivista	Libros, páginas y ruedas de estante
+Vigilante	Llaves y radio con interferencia
+Niña de la Tiza	Tiza y pasos pequeños
+Profesor	Pizarra y varias voces
+Doble	Sonidos del propio jugador con retraso
+Pasajero	Asiento crujiendo y timbre de parada
+Operador	Motor eléctrico irregular
+
+El jugador debería aprender a temer un sonido antes de ver a la entidad.
+
+10. No confíes únicamente en sustos aleatorios
+
+El “Director de Miedo” es una buena idea, pero debe construirse después de que los eventos manuales funcionen.
+
+Orden correcto:
+
+Diseñar un susto manual.
+Probar que funciona.
+Crear variantes.
+Establecer condiciones.
+Permitir que el sistema seleccione una variante.
+Impedir repeticiones demasiado cercanas.
+
+Ejemplo de evento:
+
+Evento: NPC aparece al mirar atrás
+
+Condiciones:
+- Noche activa.
+- Jugador solo.
+- Pasillo con punto válido.
+- No ocurrió otro evento en 90 segundos.
+- NPC no visible por la cámara.
+
+Variantes:
+- Estudiante inmóvil.
+- Guarda.
+- Doble.
+- Silla ocupada.
+
+El sistema debe saber cuándo no generar algo. Si todo se mueve y aparecen entidades cada treinta segundos, el jugador se acostumbra y deja de sentir miedo.
+
+11. Define presupuestos de rendimiento desde temprano
+
+El rendimiento no debe revisarse únicamente cuando el mapa esté terminado. Unreal ofrece herramientas de perfilado para analizar costos de CPU, GPU, renderizado y contenido.
+
+Define desde el prototipo:
+
+Plataforma objetivo.
+Resolución objetivo.
+FPS mínimo.
+Número máximo de NPC activos.
+Distancia de sombras.
+Cantidad de luces dinámicas.
+Densidad de vegetación.
+Cantidad de materiales por modelo.
+Resolución máxima de texturas.
+Número de sonidos simultáneos.
+
+Una meta razonable para comenzar sería crear una escena de Biblioteca con:
+
+Dos acompañantes.
+Una entidad.
+Luces dinámicas.
+Estanterías.
+Sonido.
+Cambio de cámara.
+
+Y verificar que mantenga el rendimiento previsto antes de multiplicarla por todo el campus.
+
+12. Crea reglas estrictas para nombres y carpetas
+
+Ejemplo de prefijos:
+
+BP_     Blueprint
+BPI_    Blueprint Interface
+BPC_    Actor Component
+SM_     Static Mesh
+SK_     Skeletal Mesh
+M_      Material
+MI_     Material Instance
+T_      Texture
+S_      Sound
+SC_     Sound Cue
+DA_     Data Asset
+DT_     Data Table
+W_      Widget
+L_      Level
+AN_     Animation
+BT_     Behavior Tree
+BB_     Blackboard
+
+Estructura de Unreal:
+
+Content/ProjectMemory/
+├── Blueprints/
+│   ├── Characters/
+│   ├── Interactions/
+│   ├── Systems/
+│   ├── HorrorEvents/
+│   └── UI/
+├── Characters/
+├── Environments/
+│   ├── Library/
+│   ├── Generales/
+│   └── Shared/
+├── Audio/
+├── Materials/
+├── Maps/
+├── Data/
+└── Developer/
+
+No guardes recursos propios dentro de carpetas de paquetes descargados. Si después eliminas el paquete, podrías perderlos.
+
+13. Mantén un registro de licencias
+
+Crea una hoja con:
+
+Recurso	Autor o tienda	Licencia	Modificado	Usado en
+Sonido de puerta	Fuente X	Comercial	Sí	Biblioteca
+Animación caminar	Paquete Y	Licencia del paquete	No	NPC
+Textura concreto	Fuente Z	CC0	Sí	Generales
+
+Esto evita que al final no sepas qué recursos puedes distribuir comercialmente.
+
+No utilices temporalmente contenido que sabes que no podrás publicar, porque suele terminar integrado en escenas difíciles de reemplazar.
+
+14. Documenta cada sistema antes de pedírselo a una IA
+
+Como estás trabajando con una IA conectada a Unreal, evita instrucciones demasiado abiertas como:
+
+“Hazme el sistema de terror completo”.
+
+Utiliza solicitudes con límites y criterios de aceptación:
+
+Crea un Blueprint Component llamado BPC_Interactable. Debe permitir mostrar un mensaje, ejecutar una interacción y bloquear interacciones repetidas. No modifiques el personaje ni otros sistemas. Antes de realizar cambios, enumera los archivos que vas a crear. Al finalizar, explica cómo probarlo en un mapa vacío.
+
+Para edificios:
+
+Modifica únicamente el blockout de Biblioteca. No agregues materiales finales ni mobiliario. Mantén puertas de 1,20 × 2,40 m, pasillos mínimos de 2,50 m y pisos de 4 m. No cambies Plaza ni Generales.
+
+Después de cada cambio:
+
+Abre el proyecto.
+Revisa errores.
+Ejecuta el mapa.
+Prueba manualmente.
+Revisa referencias.
+Haz commit.
+
+No dejes que la IA modifique diez sistemas al mismo tiempo.
+
+15. Crea un mapa técnico separado
+
+Ten un nivel llamado, por ejemplo:
+
+L_Developer_Testing
+
+Debe incluir:
+
+Todas las puertas.
+Escaleras.
+Linternas.
+Objetos recogibles.
+NPC.
+Superficies de pasos.
+Escondites.
+Cámaras.
+Puntos de guardado.
+Eventos de miedo.
+Cambio día/noche.
+Pruebas de rendimiento.
+
+Así puedes probar sistemas sin cargar todo el campus.
+
+16. Recorta funciones que no mejoren el juego
+
+Para un proyecto individual, cada sistema tiene un costo.
+
+Pregúntate:
+
+¿El salto es necesario?
+¿Necesito un inventario con cuadrícula?
+¿Necesito personalización facial completa?
+¿Todos los edificios deben ser accesibles?
+¿Necesito vehículos conducibles?
+¿Cada NPC requiere diálogo hablado?
+¿Los cuatro amigos deben acompañar siempre?
+¿Necesito seis finales distintos en la primera versión?
+
+Es mejor tener:
+
+Cinco horas excelentes.
+Seis edificios memorables.
+Tres entidades bien diseñadas.
+
+Que tener:
+
+Quince horas incompletas.
+Dieciséis edificios vacíos.
+Veinte entidades que se comportan igual.
+17. Plan inicial realista de seis semanas
+Semana 1: base del proyecto
+Crear proyecto.
+Configurar control de versiones.
+Definir carpetas.
+Configurar personaje provisional.
+Primera y tercera persona.
+Mapa técnico.
+Semana 2: interacción
+Puertas.
+Linterna.
+Objetos.
+Teléfono básico.
+Texto de interacción.
+Sistema de evidencias.
+Semana 3: Biblioteca en blockout
+Vestíbulo.
+Un piso.
+Cámaras.
+Colección restringida.
+Sótano.
+Salida lateral.
+Semana 4: NPC
+Un acompañante.
+Un NPC residual.
+Archivista.
+Navegación.
+Detección.
+Persecución.
+Semana 5: terror
+Audio.
+Luces.
+Eventos al mirar atrás.
+Apagón.
+Libro.
+Escape.
+Semana 6: ciclo narrativo
+Clase inicial.
+Mensajes de Nicolás.
+Secuencia de Biblioteca.
+Amanecer.
+Mesa de investigación.
+Guardado y carga.
+
+Al terminar esas seis semanas deberías tener un fragmento pequeño, feo visualmente, pero completamente jugable. Ese resultado vale mucho más que un campus enorme con edificios bonitos donde todavía no existe un juego.
+
+Prioridad definitiva
+
+Tu orden debería ser:
+
+Proyecto protegido con control de versiones → personaje provisional → mapa técnico → Biblioteca en blockout → mecánicas principales → un NPC acompañante → una entidad funcional → audio y terror → primera noche corta → investigación diurna → campus general → arte final.
+
+La meta inicial no es construir la universidad. Es demostrar que puedes crear quince minutos realmente aterradores, funcionales y repetibles.

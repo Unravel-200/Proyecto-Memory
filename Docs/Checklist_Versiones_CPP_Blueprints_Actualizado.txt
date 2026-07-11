@@ -1,0 +1,1750 @@
+PROYECTO MEMORIA
+CHECKLIST MAESTRO DE DESARROLLO, CONTROL DE VERSIONES Y TRASPASO ENTRE CODEX Y CLAUDE CODE
+==========================================================================================
+
+PROPÓSITO DEL DOCUMENTO
+-----------------------
+Este archivo funciona como:
+
+1. Checklist completo del proyecto.
+2. Hoja de ruta por versiones jugables o de prueba.
+3. Registro de avance.
+4. Documento de traspaso entre Codex y Claude Code.
+5. Lista de requisitos de la versión final.
+6. Lista de pruebas mínimas antes de fusionar cambios a main.
+7. Registro de decisiones, bloqueos, errores y archivos modificados.
+
+REGLA PRINCIPAL
+---------------
+Cada vez que se cambie de Codex a Claude Code, o de Claude Code a Codex, el nuevo agente debe:
+
+1. Leer este documento completo.
+2. Revisar la sección "ESTADO ACTUAL".
+3. Revisar la versión en progreso.
+4. Leer los últimos commits de Git.
+5. Revisar los archivos indicados en "ARCHIVOS MODIFICADOS".
+6. No modificar tareas marcadas como completas sin autorización.
+7. Actualizar este documento al terminar.
+8. Guardar Blender o Unreal.
+9. Ejecutar pruebas.
+10. Hacer commit antes de cambiar de agente.
+
+SÍMBOLOS DE ESTADO
+------------------
+[ ] No iniciado.
+[~] En progreso.
+[X] Completado y probado.
+[!] Bloqueado.
+[?] Requiere decisión.
+[R] Requiere revisión.
+[D] Descartado.
+[P] Provisional.
+
+IMPORTANTE
+----------
+Una tarea solo debe marcarse como [X] cuando:
+
+- Está implementada.
+- Fue probada manualmente.
+- No rompe otras funciones.
+- El proyecto abre sin errores.
+- Existe un commit asociado.
+- Cumple los criterios de aceptación.
+
+==========================================================================================
+1. ESTADO ACTUAL CONFIRMADO
+==========================================================================================
+
+DOCUMENTACIÓN
+-------------
+[X] Historia general de Proyecto Memoria definida.
+[X] Versión narrativa con terror intenso definida.
+[X] Estructura de tres días y cuatro noches definida.
+[X] Personajes principales definidos.
+[X] Nicolás definido como hermano menor desaparecido.
+[X] Geiner Grajales definido.
+[X] Kenneth Vázquez definido.
+[X] Brianna Cordero definida.
+[X] Sharon Salazar definida.
+[X] Edificios principales definidos.
+[X] Exteriores definidos.
+[X] Animales definidos.
+[X] NPC sobrenaturales y ambiguos definidos.
+[X] Finales principales definidos.
+[X] Dimensiones generales de edificios definidas.
+[X] Guía de dimensiones Blender → Unreal creada.
+[X] Recomendaciones de producción inicial definidas.
+[X] Flujo Blender → Unreal definido.
+[X] Estrategia de GitHub definida.
+[X] Estrategia de ramas por función o activo definida.
+
+HERRAMIENTAS
+------------
+[X] Blender instalado y en uso.
+[X] Claude Code instalado en terminal.
+[X] Blender MCP conectado con Claude Code mediante:
+    uvx blender-mcp
+[X] Codex instalado en terminal.
+[X] Codex autenticado con cuenta de ChatGPT.
+[X] Codex MCP agregado o listo para agregarse con:
+    codex mcp add blender -- uvx blender-mcp
+[R] Verificar que Codex muestre "blender" dentro de /mcp.
+[R] Ejecutar prueba de inspección de escena con Codex.
+[R] Ejecutar prueba de creación de cubo con Codex.
+[X] GitHub elegido como control de versiones.
+[R] Verificar que Git LFS esté configurado.
+[R] Verificar archivo .gitignore de Unreal.
+[R] Verificar protección de la rama main.
+
+ACTIVOS YA EXISTENTES
+---------------------
+[X] Existen modelos 3D de estanterías.
+[X] Existen modelos 3D de escritorios.
+[X] Existen modelos 3D de pupitres.
+[R] Revisar dimensiones reales.
+[R] Revisar escala aplicada.
+[R] Revisar pivotes.
+[R] Revisar normales.
+[R] Revisar UV.
+[R] Revisar cantidad de materiales.
+[R] Revisar colisiones.
+[R] Probar importación de cada activo en Unreal.
+
+PROYECTO DE UNREAL
+------------------
+[?] Confirmar si el proyecto de Unreal ya fue creado.
+[?] Confirmar versión exacta de Unreal Engine.
+[?] Confirmar plantilla inicial.
+[X] Usar arquitectura híbrida: C++ + Blueprints.
+[X] Usar C++ para sistemas centrales y lógica reutilizable.
+[X] Usar Blueprints para contenido, configuración, presentación y eventos locales.
+[?] Confirmar plataforma objetivo inicial.
+[?] Confirmar resolución y FPS objetivo.
+[?] Confirmar si el proyecto usa World Partition.
+
+==========================================================================================
+2. DECISIONES GLOBALES PENDIENTES
+==========================================================================================
+
+[ ] Elegir nombre definitivo de la universidad ficticia.
+[ ] Elegir nombre definitivo del juego.
+[ ] Definir estilo visual:
+    - Realista.
+    - Semi-realista.
+    - Estilizado.
+[ ] Definir plataforma objetivo:
+    - Windows PC.
+    - Otras plataformas futuras.
+[ ] Definir hardware mínimo aproximado.
+[ ] Definir FPS mínimo:
+    - 30 FPS.
+    - 60 FPS recomendado.
+[ ] Definir resolución objetivo:
+    - 1080p.
+    - 1440p.
+[ ] Definir versión exacta de Unreal Engine.
+[X] Política de programación:
+    - C++ para sistemas base, lógica reutilizable, estados, guardado, IA base y herramientas.
+    - Blueprints para configuración, contenido narrativo, UI, animación, audio, iluminación y eventos locales.
+    - Clases Blueprint hijas de clases C++ cuando corresponda.
+    - No colocar sistemas centrales en Level Blueprint.
+[ ] Definir versión estable de Blender.
+[ ] Definir formato principal de exportación:
+    - FBX.
+    - GLTF solo para casos específicos.
+[ ] Definir sistema de audio:
+    - MetaSounds.
+    - Sound Cues.
+    - Combinación.
+[ ] Definir sistema de diálogos:
+    - Subtítulos.
+    - Voces completas.
+    - Voces parciales.
+[ ] Definir alcance de personalización del protagonista.
+[ ] Definir si el jugador podrá elegir pronombres.
+[ ] Definir cantidad definitiva de finales.
+[ ] Definir idioma inicial.
+[ ] Definir si habrá doblaje.
+[ ] Definir si habrá guardado manual además del automático.
+[ ] Definir si el juego será por capítulos internos.
+[ ] Definir si se publicará una demo separada.
+
+==========================================================================================
+3. REGLAS DE TRABAJO PARA CODEX Y CLAUDE CODE
+==========================================================================================
+
+ANTES DE INICIAR UNA TAREA
+--------------------------
+[ ] Leer este documento.
+[ ] Ejecutar git status.
+[ ] Revisar rama actual.
+[ ] Verificar que no existan cambios sin guardar.
+[ ] Verificar que Blender o Unreal tengan copia guardada.
+[ ] Confirmar archivo exacto a modificar.
+[ ] Confirmar qué archivos no deben modificarse.
+[ ] Confirmar criterios de aceptación.
+[ ] Crear commit de respaldo si la tarea es riesgosa.
+
+DURANTE LA TAREA
+----------------
+[ ] Modificar una sola función o activo por tarea.
+[ ] No cambiar configuraciones globales sin autorización.
+[ ] No renombrar carpetas principales.
+[ ] No eliminar activos sin confirmación.
+[ ] No modificar main directamente.
+[ ] No trabajar sobre el mismo .blend que otro agente.
+[ ] No sobrescribir exportaciones existentes sin copia.
+[ ] Mantener nombres consistentes.
+[ ] Documentar scripts generados.
+[ ] Guardar cambios frecuentes.
+
+AL TERMINAR
+-----------
+[ ] Guardar Blender.
+[ ] Guardar Unreal.
+[ ] Ejecutar pruebas.
+[ ] Revisar errores.
+[ ] Revisar escala y colisión.
+[ ] Ejecutar git diff cuando aplique.
+[ ] Actualizar este documento.
+[ ] Escribir archivos modificados.
+[ ] Escribir tareas pendientes.
+[ ] Hacer commit descriptivo.
+[ ] Indicar último commit.
+[ ] Cerrar el agente antes de abrir el otro.
+
+FORMATO DE TRASPASO
+-------------------
+Agente anterior:
+- Codex / Claude Code.
+
+Fecha:
+- AAAA-MM-DD.
+
+Rama:
+- feature/...
+
+Último commit:
+- hash y mensaje.
+
+Tarea completada:
+- Descripción.
+
+Archivos modificados:
+- Ruta 1.
+- Ruta 2.
+
+Pruebas realizadas:
+- Prueba 1.
+- Prueba 2.
+
+Problemas conocidos:
+- Problema 1.
+
+Siguiente tarea:
+- Descripción exacta.
+
+No modificar:
+- Archivo o sistema.
+
+==========================================================================================
+4. ESTRATEGIA DE RAMAS Y VERSIONES
+==========================================================================================
+
+RAMA PRINCIPAL
+--------------
+main:
+- Siempre debe abrir.
+- Siempre debe compilar.
+- Siempre debe ser jugable.
+- Solo recibe cambios probados.
+- No se trabaja directamente en ella.
+
+RAMAS RECOMENDADAS
+------------------
+feature/player-controller
+feature/camera-switch
+feature/interaction-system
+feature/flashlight
+feature/library-blockout
+feature/library-night-events
+feature/npc-companion
+feature/archivist-ai
+feature/day-night-state
+feature/investigation-table
+asset/bookshelf-library
+asset/student-desk
+asset/classroom-door
+fix/camera-collision
+fix/library-navmesh
+
+ETIQUETAS
+---------
+v0.0.1_setup
+v0.1.0_player
+v0.2.0_interaction
+v0.3.0_library_blockout
+v0.4.0_horror_prototype
+v0.5.0_vertical_slice
+v0.6.0_night_one
+v0.7.0_day_two
+v0.8.0_night_two
+v0.9.0_night_three
+v0.10.0_final_night
+v0.11.0_content_complete
+v0.12.0_beta
+v0.13.0_release_candidate
+v1.0.0_release
+
+
+==========================================================================================
+4.1. POLÍTICA C++ + BLUEPRINTS PARA TODAS LAS VERSIONES
+==========================================================================================
+
+DECISIÓN DEFINITIVA
+-------------------
+[X] Proyecto híbrido C++ + Blueprints.
+[D] Proyecto exclusivamente Blueprint.
+[D] Proyecto exclusivamente C++.
+
+RESPONSABILIDAD DE C++
+----------------------
+[ ] Sistemas centrales.
+[ ] Clases base reutilizables.
+[ ] Movimiento y cámaras.
+[ ] Interacción.
+[ ] Inventario.
+[ ] Evidencias.
+[ ] Guardado y carga.
+[ ] Estado de capítulos.
+[ ] Día y noche.
+[ ] Gameplay Tags.
+[ ] IA base.
+[ ] Director de miedo.
+[ ] Gestión de objetivos.
+[ ] Finales.
+[ ] Herramientas de depuración.
+[ ] Pruebas automatizadas cuando sea posible.
+
+RESPONSABILIDAD DE BLUEPRINTS
+-----------------------------
+[ ] Configuración de clases hijas.
+[ ] Mallas y componentes visuales.
+[ ] Eventos narrativos locales.
+[ ] Acertijos específicos.
+[ ] UI.
+[ ] Animaciones.
+[ ] Audio.
+[ ] Iluminación.
+[ ] Materiales.
+[ ] Sequencer.
+[ ] Ajustes por edificio.
+[ ] Variantes de NPC y entidades.
+
+REGLAS
+------
+[ ] No implementar sistemas centrales en Level Blueprint.
+[ ] No duplicar en Blueprint una función ya disponible en C++.
+[ ] Exponer a Blueprint únicamente propiedades y funciones necesarias.
+[ ] Mantener lógica narrativa configurable mediante Data Assets, Data Tables o Gameplay Tags.
+[ ] Evitar condiciones narrativas rígidas escritas directamente en C++.
+[ ] Crear Blueprints hijos de las clases base C++.
+[ ] Documentar qué clase C++ controla cada Blueprint importante.
+[ ] Compilar y probar antes de fusionar a main.
+[ ] No cambiar firmas públicas sin revisar Blueprints dependientes.
+[ ] No usar Hot Reload como sustituto de una compilación limpia para cambios estructurales.
+
+==========================================================================================
+5. PLAN COMPLETO POR VERSIONES JUGABLES
+==========================================================================================
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.0.1 — CONFIGURACIÓN BASE DEL PROYECTO
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Tener un proyecto limpio, protegido y reproducible.
+
+CHECKLIST
+---------
+[ ] Crear repositorio GitHub.
+[ ] Crear rama main.
+[ ] Crear rama develop si se decide usarla.
+[ ] Configurar Git LFS.
+[ ] Rastrear:
+    *.uasset
+    *.umap
+    *.blend
+    *.fbx
+    *.wav
+    *.tga
+    *.exr
+[ ] Crear .gitignore de Unreal.
+[ ] Ignorar:
+    Binaries/
+    DerivedDataCache/
+    Intermediate/
+    Saved/
+    .vs/
+[ ] Crear estructura de carpetas del repositorio.
+[ ] Crear proyecto Unreal con soporte C++.
+[ ] Definir versión exacta de Unreal.
+[ ] Instalar y verificar el entorno de compilación compatible.
+[ ] Instalar componentes de C++ requeridos por Unreal.
+[ ] Compilar el proyecto en Development Editor.
+[ ] Crear el módulo principal ProyectoMemoria.
+[ ] Crear una clase C++ mínima de prueba.
+[ ] Crear un Blueprint hijo de esa clase.
+[ ] Confirmar comunicación C++ → Blueprint.
+[ ] Confirmar comunicación Blueprint → C++.
+[ ] Confirmar que el proyecto recompila después de cerrarlo.
+[ ] Confirmar compilación desde un clon limpio.
+[ ] Crear carpeta SourceAssets.
+[ ] Crear carpeta Exports.
+[ ] Crear carpeta Docs.
+[ ] Guardar documentos narrativos.
+[ ] Guardar guía de dimensiones.
+[ ] Guardar este checklist.
+[ ] Configurar nombres y prefijos.
+[ ] Crear nivel L_Developer_Testing.
+[ ] Crear nivel L_AssetValidation.
+[ ] Crear nivel L_MainMenu_Placeholder.
+[ ] Crear primer commit.
+[ ] Crear tag v0.0.1_setup.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] El proyecto abre desde un clon limpio.
+[ ] No faltan archivos esenciales.
+[ ] Git LFS funciona.
+[ ] Unreal abre sin errores.
+[ ] El código C++ compila sin errores.
+[ ] Development Editor se genera correctamente.
+[ ] El Blueprint hijo reconoce la clase C++.
+[ ] El proyecto compila desde un clon limpio.
+[ ] Blender puede abrir activos de prueba.
+[ ] main está estable.
+
+ESTADO
+------
+[~] Parcialmente iniciado.
+Falta verificar configuración real.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.1.0 — PERSONAJE, MOVIMIENTO Y CÁMARAS
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Tener un personaje provisional completamente controlable.
+
+CHECKLIST
+---------
+[ ] Crear APMPlayerCharacter en C++.
+[ ] Crear APMPlayerController en C++.
+[ ] Crear UPMCameraModeComponent en C++ o componente equivalente.
+[ ] Crear BP_PlayerCharacter como hijo de APMPlayerCharacter.
+[ ] Configurar malla, cámaras y valores editables en Blueprint.
+[ ] Movimiento.
+[ ] Caminar.
+[ ] Correr.
+[ ] Agacharse.
+[ ] Desactivar salto si no es necesario.
+[ ] Configurar cápsula.
+[ ] Primera persona.
+[ ] Tercera persona.
+[ ] Cambio entre cámaras.
+[ ] Colisión de cámara.
+[ ] Sensibilidad.
+[ ] Invertir eje opcional.
+[ ] Movimiento de cámara reducido opcional.
+[ ] Interacción básica con teclado/mando.
+[ ] Probar pasillos de 2,50 m.
+[ ] Probar puertas de 1,20 m.
+[ ] Probar escaleras.
+[ ] Probar habitaciones pequeñas.
+[ ] Guardar configuración de perspectiva.
+[ ] Crear mapa de prueba.
+[ ] Crear tag v0.1.0_player.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Cambio 1P/3P sin errores.
+[ ] Cámara no atraviesa paredes.
+[ ] Personaje no queda atascado.
+[ ] Escaleras funcionan.
+[ ] Movimiento estable a 60 FPS objetivo.
+[ ] Inputs configurables.
+[ ] La lógica central está en C++.
+[ ] Los valores de diseño pueden ajustarse desde Blueprint.
+[ ] No existe lógica principal de movimiento en Level Blueprint.
+
+ESTADO
+------
+[ ] No confirmado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.2.0 — SISTEMA DE INTERACCIÓN Y OBJETOS
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Permitir interacción básica con el mundo.
+
+CHECKLIST
+---------
+[ ] Crear interfaz de interacción en C++.
+[ ] Exponer la interfaz a Blueprint.
+[ ] Crear UPMInteractionComponent en C++.
+[ ] Crear clases base C++ para objetos interactivos.
+[ ] Crear Blueprints hijos de prueba.
+[ ] Raycast o detección de interacción.
+[ ] Mensaje contextual.
+[ ] Abrir puerta.
+[ ] Cerrar puerta.
+[ ] Recoger objeto.
+[ ] Examinar objeto.
+[ ] Activar interruptor.
+[ ] Leer documento.
+[ ] Evitar interacción repetida.
+[ ] Sistema de objetos clave.
+[ ] Sistema básico de evidencia.
+[ ] Inventario simple.
+[ ] Sin inventario complejo de cuadrícula.
+[ ] Probar con pupitre.
+[ ] Probar con escritorio.
+[ ] Probar con estantería.
+[ ] Probar con puerta.
+[ ] Crear tag v0.2.0_interaction.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Interacción funciona en 1P y 3P.
+[ ] No se activa a través de paredes.
+[ ] Puertas mantienen estado.
+[ ] Objetos recogidos no se duplican.
+[ ] Evidencias se registran.
+[ ] La interfaz funciona con clases C++ y Blueprints hijos.
+[ ] No hay lógica central de interacción en Level Blueprint.
+[ ] Los objetos concretos pueden configurarse sin recompilar C++.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.3.0 — VALIDACIÓN DE ACTIVOS BLENDER → UNREAL
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Tener un flujo de activos confiable.
+
+CHECKLIST
+---------
+[ ] Validar estantería existente.
+[ ] Validar escritorio existente.
+[ ] Validar pupitre existente.
+[ ] Revisar escala.
+[ ] Aplicar rotación.
+[ ] Aplicar escala.
+[ ] Revisar pivote.
+[ ] Revisar normales.
+[ ] Revisar UV.
+[ ] Revisar materiales.
+[ ] Crear colisiones.
+[ ] Exportar FBX.
+[ ] Importar en Unreal.
+[ ] Probar en L_AssetValidation.
+[ ] Crear puerta modular.
+[ ] Crear pared modular.
+[ ] Crear ventana modular.
+[ ] Crear escalera modular.
+[ ] Crear convención de exportación.
+[ ] Crear script de validación Blender.
+[ ] Crear script de exportación por lotes.
+[ ] Crear tag v0.3.0_assets.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] 1 m en Blender = 1 m en Unreal.
+[ ] Escala del actor = 1,1,1.
+[ ] Pivotes correctos.
+[ ] Colisiones correctas.
+[ ] No hay caras invisibles.
+[ ] Materiales se asignan correctamente.
+[ ] Modelos funcionan en 1P y 3P.
+
+ESTADO
+------
+[~] Existen activos, pero falta validación.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.4.0 — BLOCKOUT DE LA BIBLIOTECA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Crear una Biblioteca jugable sin arte final.
+
+CHECKLIST
+---------
+[ ] Vestíbulo.
+[ ] Recepción.
+[ ] Sala de computadoras.
+[ ] Sala de lectura.
+[ ] Colección general.
+[ ] Colección restringida.
+[ ] Escaleras.
+[ ] Ascensor provisional.
+[ ] Cuarto de vigilancia.
+[ ] Cuatro pisos representados.
+[ ] Sótano 1.
+[ ] Ruta de escape.
+[ ] Salida lateral.
+[ ] NavMesh.
+[ ] Iluminación provisional.
+[ ] Sonido provisional.
+[ ] Puntos de aparición.
+[ ] Puntos de guardado.
+[ ] Tiempo de recorrido medido.
+[ ] Probar cámara.
+[ ] Probar NPC.
+[ ] Crear tag v0.4.0_library_blockout.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] La biblioteca puede recorrerse de inicio a fin.
+[ ] No hay espacios bloqueados accidentalmente.
+[ ] El sótano es accesible.
+[ ] La salida lateral funciona.
+[ ] El recorrido tarda lo previsto.
+[ ] Rendimiento estable.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.5.0 — PROTOTIPO DE TERROR
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Demostrar que el juego puede producir miedo.
+
+CHECKLIST
+---------
+[ ] Linterna funcional.
+[ ] Batería.
+[ ] Apagón.
+[ ] Sonido direccional.
+[ ] Pasos.
+[ ] Fluorescentes.
+[ ] Puertas.
+[ ] Libros que caen.
+[ ] Evento al mirar atrás.
+[ ] NPC residual.
+[ ] Archivista prototipo.
+[ ] Persecución corta.
+[ ] Escondite.
+[ ] Falsa zona segura.
+[ ] Cámara alterada.
+[ ] Evento variable.
+[ ] Director de miedo básico.
+[ ] Cooldown de eventos.
+[ ] Prueba con jugadores externos.
+[ ] Registrar reacciones.
+[ ] Ajustar ritmo.
+[ ] Crear tag v0.5.0_horror_prototype.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Al menos 15 minutos jugables.
+[ ] Al menos una secuencia produce tensión clara.
+[ ] No depende únicamente de jumpscares.
+[ ] Sonido anticipa peligro.
+[ ] Persecución es comprensible.
+[ ] El jugador puede escapar mediante reglas.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.6.0 — DEMO VERTICAL: CLASE + BIBLIOTECA + AMANECER
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Crear una demo completa de 30 a 60 minutos.
+
+CHECKLIST
+---------
+[ ] Clase nocturna.
+[ ] Mensajes de Nicolás.
+[ ] Presentación de amigos.
+[ ] Entrada a biblioteca.
+[ ] Guardas.
+[ ] Cámaras.
+[ ] Bibliotecaria Antigua.
+[ ] Grupo de estudio.
+[ ] Archivista.
+[ ] Libro Prohibido.
+[ ] Fotografía del Expositor.
+[ ] Brianna cae.
+[ ] Fluido oscuro.
+[ ] Escape del sótano.
+[ ] Biblioteca cerrada.
+[ ] Salida lateral.
+[ ] Plaza.
+[ ] Fuente.
+[ ] Guarda protector.
+[ ] Primer amanecer.
+[ ] Mesa de investigación básica.
+[ ] Guardado.
+[ ] Carga.
+[ ] Menú provisional.
+[ ] Subtítulos.
+[ ] Ajustes básicos.
+[ ] Crear tag v0.6.0_vertical_slice.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Se puede jugar de inicio a amanecer.
+[ ] No hay bloqueos de progreso.
+[ ] Guardado y carga funcionan.
+[ ] Los diálogos se muestran.
+[ ] La demo tiene inicio, desarrollo y cierre.
+[ ] El jugador entiende el objetivo.
+[ ] El miedo fue validado por pruebas externas.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.7.0 — SISTEMA DE COMPAÑEROS
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Tener compañeros funcionales sin bloquear el juego.
+
+CHECKLIST
+---------
+[ ] NPC base acompañante.
+[ ] Seguir jugador.
+[ ] Mantener distancia.
+[ ] Evitar puertas.
+[ ] Evitar escaleras bloqueadas.
+[ ] Esperar en puntos.
+[ ] Teletransporte discreto si queda atrás.
+[ ] Correr.
+[ ] Esconderse.
+[ ] Mirar objetivo.
+[ ] Conversar.
+[ ] Reaccionar a eventos.
+[ ] Separarse por guion.
+[ ] Comunicarse por radio.
+[ ] Geiner provisional.
+[ ] Kenneth provisional.
+[ ] Brianna provisional.
+[ ] Sharon provisional.
+[ ] Probar 1 NPC.
+[ ] Probar 2 NPC.
+[ ] Probar 4 NPC.
+[ ] Determinar cuándo no acompañan físicamente.
+[ ] Crear tag v0.7.0_companions.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] No bloquean puertas.
+[ ] No se amontonan.
+[ ] Pueden seguir rutas.
+[ ] No rompen persecuciones.
+[ ] Reaccionan a eventos básicos.
+[ ] Pueden quedarse atrás sin perderse.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.8.0 — NOCHE 1 COMPLETA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Completar Biblioteca, Generales, Educación y Mantenimiento.
+
+CHECKLIST
+---------
+BIBLIOTECA:
+[ ] Todos los eventos definitivos de Noche 1.
+
+GENERALES:
+[ ] Árbol del Conocimiento.
+[ ] Soda.
+[ ] Recibo de 1974.
+[ ] Profesora de Lista.
+[ ] Expositor.
+[ ] Profesor sin rostro.
+[ ] Vigilante sin ojos.
+[ ] Persecución.
+[ ] Separación de Sharon.
+
+EDUCACIÓN:
+[ ] Profesora de la Silla.
+[ ] Niña de la Tiza.
+[ ] Corredor.
+[ ] Pasillo infinito.
+[ ] Dibujos.
+[ ] Alarma.
+
+MANTENIMIENTO:
+[ ] Técnico Nocturno.
+[ ] Llaves.
+[ ] Vehículos.
+[ ] Vigilante.
+[ ] Plano.
+
+GENERAL:
+[ ] Amanecer 1.
+[ ] Estado de Sharon desaparecida.
+[ ] Evidencias.
+[ ] Guardado.
+[ ] Crear tag v0.8.0_night_one.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Noche 1 completa.
+[ ] Todos los objetivos funcionan.
+[ ] Sharon queda marcada como desaparecida.
+[ ] No hay contradicciones narrativas.
+[ ] Cada edificio responde una pregunta.
+[ ] Rendimiento estable.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.9.0 — DÍA 2 DE INVESTIGACIÓN
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Crear el primer día de investigación completo.
+
+CHECKLIST
+---------
+[ ] Centro Cultural.
+[ ] Memorial.
+[ ] Mesa de investigación mejorada.
+[ ] Marta Solís.
+[ ] Elena Mora.
+[ ] Laura Brenes.
+[ ] Samuel Araya.
+[ ] Sistema de entrevistas.
+[ ] Análisis de página.
+[ ] Identificación del Expositor.
+[ ] Fotografía del guarda.
+[ ] Reparar radio.
+[ ] Construir UV.
+[ ] Baterías.
+[ ] Decisión sobre seguridad.
+[ ] Memorial cambia.
+[ ] Preparación de Noche 2.
+[ ] Crear tag v0.9.0_day_two.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] El día no se siente como relleno.
+[ ] Todas las pistas tienen uso.
+[ ] El jugador prepara la siguiente noche.
+[ ] Las decisiones afectan diálogos.
+[ ] La mesa registra avance.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.10.0 — NOCHE 2 COMPLETA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Completar Ingeniería, Ciencias, Autobús, Medicina y Psicología.
+
+CHECKLIST
+---------
+INGENIERÍA:
+[ ] Máquinas.
+[ ] Operador.
+[ ] Estudiantes.
+[ ] Maniquí.
+[ ] Robot.
+[ ] Mochila.
+[ ] Planos.
+
+CIENCIAS:
+[ ] Invernadero.
+[ ] Óptica.
+[ ] Microscopía.
+[ ] Investigadora.
+[ ] Figura de óptica.
+[ ] Perezoso.
+[ ] Ruta de resonancia.
+
+AUTOBÚS:
+[ ] Modelo.
+[ ] Interior.
+[ ] Pasajeros progresivos.
+[ ] Conductor de reflejo.
+[ ] Pasajero final.
+[ ] Grabación.
+
+MEDICINA:
+[ ] Instructor.
+[ ] Internos.
+[ ] Ascensor.
+[ ] Simulación.
+[ ] Archivos.
+
+PSICOLOGÍA:
+[ ] Copias.
+[ ] Sharon falsa.
+[ ] Paciente sin voz.
+[ ] Sistema de preguntas.
+[ ] Regla de recuerdos nuevos.
+
+GENERAL:
+[ ] Amanecer 2.
+[ ] Crear tag v0.10.0_night_two.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] La paranoia funciona.
+[ ] Las copias pueden identificarse.
+[ ] Autobús funciona sin errores.
+[ ] Los acertijos son claros.
+[ ] La noche tiene ritmo creciente.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.11.0 — DÍA 3 DE ANÁLISIS
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Preparar la tercera noche y profundizar la paranoia.
+
+CHECKLIST
+---------
+[ ] Andrea Valverde.
+[ ] Don Emilio Rojas.
+[ ] Análisis de planos.
+[ ] Análisis de cintas.
+[ ] Detector de interferencia.
+[ ] Protocolo de imitadores.
+[ ] Último mensaje de Sharon.
+[ ] Parada fantasma.
+[ ] Distribución de objetos.
+[ ] Discusión de confianza.
+[ ] Horror diurno sutil.
+[ ] Reflejo desfasado.
+[ ] Fotografía cambiante.
+[ ] Memorial de Sharon.
+[ ] Crear tag v0.11.0_day_three.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] El día añade información nueva.
+[ ] La paranoia aumenta.
+[ ] Las herramientas preparadas se usan de noche.
+[ ] El jugador conoce las reglas de imitadores.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.12.0 — NOCHE 3 COMPLETA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Completar Informática, Artes, Auditorio, Historia, Derecho y Gimnasio.
+
+CHECKLIST
+---------
+INFORMÁTICA:
+[ ] Técnico de servidores.
+[ ] Operador de cámaras.
+[ ] Avatares.
+[ ] Kenneth falso.
+[ ] Videos.
+[ ] Localización de Sharon.
+
+ARTES:
+[ ] Actores.
+[ ] Directora.
+[ ] Coro.
+[ ] Esculturas.
+[ ] Reconstrucción teatral.
+
+AUDITORIO:
+[ ] Público de 1974.
+[ ] Consejo.
+[ ] Profesor sin rostro.
+[ ] Lista.
+[ ] Preguntas.
+
+HISTORIA:
+[ ] Fotografías.
+[ ] Mapas.
+[ ] Periódicos.
+[ ] Archivo.
+
+DERECHO:
+[ ] Actas.
+[ ] Encubrimiento.
+[ ] Secretaria.
+[ ] Abogado sin reflejo.
+
+GIMNASIO:
+[ ] Atleta.
+[ ] Salvavidas.
+[ ] Equipo.
+[ ] Piscina.
+[ ] Voces.
+[ ] Rescate de Sharon.
+[ ] Entrada a túneles.
+
+GENERAL:
+[ ] Amanecer 3.
+[ ] Crear tag v0.12.0_night_three.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Sharon es rescatada.
+[ ] La verdad de 1974 queda clara.
+[ ] El jugador entiende el encubrimiento.
+[ ] El doble es introducido claramente.
+[ ] La noche termina con una nueva meta.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.13.0 — DÍA 4 DE PREPARACIÓN FINAL
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Preparar nodos, finales y decisiones.
+
+CHECKLIST
+---------
+[ ] Reconstruir ocho nodos.
+[ ] Lista de voluntarios.
+[ ] Orden del Árbol.
+[ ] Signatura del libro.
+[ ] Energía de Ingeniería.
+[ ] Ruta de Ciencias.
+[ ] Estabilización de Medicina.
+[ ] Autenticidad de Psicología.
+[ ] Momento de Auditorio.
+[ ] Preguntas del doble.
+[ ] Preparar herramientas.
+[ ] Elegir ruta.
+[ ] Decidir destino de la entidad.
+[ ] Conversaciones finales.
+[ ] Horror diurno fuerte.
+[ ] Seis sombras.
+[ ] Foto desde Residencias.
+[ ] Silla invisible.
+[ ] Crear tag v0.13.0_day_four.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] El jugador puede revisar todo.
+[ ] Las decisiones afectan los finales.
+[ ] Los nodos están entendidos.
+[ ] No hay información obligatoria oculta sin indicación.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.14.0 — NOCHE 4 Y FINAL
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Completar Residencias, Biblioteca Subterránea, Rectoría y finales.
+
+CHECKLIST
+---------
+RESIDENCIAS:
+[ ] Encargada.
+[ ] Residentes.
+[ ] Compañero inexistente.
+[ ] Habitación.
+[ ] Doble.
+[ ] Confianza.
+[ ] Perezoso.
+[ ] Gato.
+
+BIBLIOTECA SUBTERRÁNEA:
+[ ] Lectores.
+[ ] Bibliotecaria Original.
+[ ] Futuros.
+[ ] Libros.
+[ ] Niña.
+[ ] Origen anterior a 1974.
+
+RECTORÍA:
+[ ] Parqueo.
+[ ] Guardas.
+[ ] Consejo.
+[ ] Copias.
+[ ] Profesor.
+[ ] Guarda protector.
+[ ] Nicolás.
+[ ] Ocho nodos.
+[ ] Cuenta regresiva.
+[ ] Decisión final.
+
+FINALES:
+[ ] Liberación completa.
+[ ] Contención.
+[ ] Intercambio.
+[ ] Falso rescate.
+[ ] Grupo dividido.
+[ ] Bucle.
+[ ] Final secreto.
+
+[ ] Crear tag v0.14.0_final_night.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] El juego puede terminar.
+[ ] Todos los finales son alcanzables.
+[ ] Los finales dependen de decisiones reales.
+[ ] No hay bloqueos.
+[ ] El clímax usa sistemas previos.
+[ ] Nicolás tiene función activa.
+[ ] La historia cierra coherentemente.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.15.0 — CONTENIDO COMPLETO
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Tener todo el contenido principal implementado.
+
+CHECKLIST
+---------
+[ ] Todos los capítulos.
+[ ] Todos los días.
+[ ] Todas las noches.
+[ ] Todos los NPC principales.
+[ ] Todos los edificios jugables.
+[ ] Todos los finales.
+[ ] Todos los animales.
+[ ] Todas las evidencias.
+[ ] Todos los documentos.
+[ ] Todos los diálogos.
+[ ] Todos los subtítulos.
+[ ] Todas las transiciones.
+[ ] Todos los sonidos esenciales.
+[ ] Menú.
+[ ] Ajustes.
+[ ] Guardado.
+[ ] Carga.
+[ ] Créditos.
+[ ] Crear tag v0.15.0_content_complete.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Juego completo de inicio a fin.
+[ ] Contenido provisional permitido.
+[ ] No faltan capítulos.
+[ ] Todas las rutas principales funcionan.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.16.0 — ALPHA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Corregir estructura, rendimiento y bloqueos graves.
+
+CHECKLIST
+---------
+[ ] Jugar campaña completa.
+[ ] Registrar bugs.
+[ ] Corregir softlocks.
+[ ] Corregir crashes.
+[ ] Corregir guardado.
+[ ] Corregir IA.
+[ ] Corregir cámaras.
+[ ] Corregir colisiones.
+[ ] Corregir navegación.
+[ ] Corregir carga de niveles.
+[ ] Corregir referencias rotas.
+[ ] Corregir materiales.
+[ ] Corregir textos.
+[ ] Perfilado CPU.
+[ ] Perfilado GPU.
+[ ] Perfilado memoria.
+[ ] Optimizar NPC.
+[ ] Optimizar luces.
+[ ] Optimizar vegetación.
+[ ] Optimizar audio.
+[ ] Crear tag v0.16.0_alpha.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Campaña completa sin bloqueos.
+[ ] Sin crashes reproducibles graves.
+[ ] Guardado confiable.
+[ ] Rendimiento dentro de meta mínima.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.17.0 — BETA
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Probar experiencia completa con jugadores externos.
+
+CHECKLIST
+---------
+[ ] Reclutar testers.
+[ ] Crear formulario.
+[ ] Medir miedo.
+[ ] Medir confusión.
+[ ] Medir duración.
+[ ] Medir dificultad.
+[ ] Medir orientación.
+[ ] Revisar accesibilidad.
+[ ] Revisar subtítulos.
+[ ] Revisar brillo.
+[ ] Revisar volumen.
+[ ] Revisar sensibilidad.
+[ ] Revisar mareo.
+[ ] Revisar tutorial.
+[ ] Revisar checkpoints.
+[ ] Ajustar persecuciones.
+[ ] Ajustar director de miedo.
+[ ] Ajustar finales.
+[ ] Crear tag v0.17.0_beta.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Testers pueden terminar el juego.
+[ ] Objetivos comprensibles.
+[ ] El miedo funciona.
+[ ] No hay frustración injusta.
+[ ] Accesibilidad mínima presente.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.18.0 — ARTE Y AUDIO FINAL
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Reemplazar contenido provisional y mejorar presentación.
+
+CHECKLIST
+---------
+[ ] Personaje final.
+[ ] Geiner final.
+[ ] Kenneth final.
+[ ] Brianna final.
+[ ] Sharon final.
+[ ] Nicolás final.
+[ ] Entidades finales.
+[ ] Animaciones finales.
+[ ] Materiales finales.
+[ ] Texturas finales.
+[ ] Iluminación final.
+[ ] Efectos finales.
+[ ] Sonido final.
+[ ] Música final.
+[ ] Voces finales.
+[ ] Cinemáticas finales.
+[ ] UI final.
+[ ] Iconos.
+[ ] Logo.
+[ ] Crear tag v0.18.0_art_audio_final.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] No quedan placeholders visibles.
+[ ] Dirección artística coherente.
+[ ] Audio mezclado.
+[ ] Modelos optimizados.
+[ ] No se rompe rendimiento.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 0.19.0 — RELEASE CANDIDATE
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Preparar una versión publicable.
+
+CHECKLIST
+---------
+[ ] Compilación Shipping.
+[ ] Instalable.
+[ ] Desinstalable.
+[ ] Configuración gráfica.
+[ ] Configuración de audio.
+[ ] Controles.
+[ ] Créditos.
+[ ] Licencias.
+[ ] Avisos.
+[ ] Política de privacidad si aplica.
+[ ] Guardado en instalación limpia.
+[ ] Prueba en PC limpio.
+[ ] Prueba con control.
+[ ] Prueba con teclado.
+[ ] Prueba de resolución.
+[ ] Prueba de ultrawide si se soporta.
+[ ] Prueba de idioma.
+[ ] Revisión ortográfica.
+[ ] Revisión legal de activos.
+[ ] Crear tag v0.19.0_rc1.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] No hay bugs críticos.
+[ ] No hay activos sin licencia.
+[ ] La instalación funciona.
+[ ] El juego se puede completar.
+
+ESTADO
+------
+[ ] No iniciado.
+
+------------------------------------------------------------------------------------------
+VERSIÓN 1.0.0 — VERSIÓN FINAL
+------------------------------------------------------------------------------------------
+
+OBJETIVO
+--------
+Publicar Proyecto Memoria.
+
+CHECKLIST
+---------
+[ ] Build final.
+[ ] Tag v1.0.0.
+[ ] Copia de seguridad.
+[ ] Rama main protegida.
+[ ] Documentación archivada.
+[ ] Código fuente respaldado.
+[ ] Activos fuente respaldados.
+[ ] Página de publicación.
+[ ] Capturas.
+[ ] Tráiler.
+[ ] Descripción.
+[ ] Requisitos mínimos.
+[ ] Requisitos recomendados.
+[ ] Créditos.
+[ ] Licencias.
+[ ] Plan de parches.
+[ ] Sistema de reporte de errores.
+
+CRITERIOS DE ACEPTACIÓN
+-----------------------
+[ ] Producto estable.
+[ ] Historia completa.
+[ ] Rendimiento aceptable.
+[ ] Contenido legalmente utilizable.
+[ ] Copias de seguridad verificadas.
+
+ESTADO
+------
+[ ] No iniciado.
+
+==========================================================================================
+6. SISTEMAS OBLIGATORIOS DE LA VERSIÓN FINAL
+==========================================================================================
+
+JUGADOR
+-------
+[ ] Primera persona.
+[ ] Tercera persona.
+[ ] Cambio libre.
+[ ] Caminar.
+[ ] Correr.
+[ ] Agacharse.
+[ ] Interacción.
+[ ] Linterna.
+[ ] Teléfono.
+[ ] Radio.
+[ ] Evidencias.
+[ ] Inventario simple.
+[ ] Guardado.
+[ ] Carga.
+
+NARRATIVA
+---------
+[ ] Tres días de investigación.
+[ ] Cuatro noches.
+[ ] Nicolás.
+[ ] Cuatro amigos.
+[ ] Proyecto Memoria.
+[ ] Libro Prohibido.
+[ ] Anomalía anterior a 1974.
+[ ] Doble.
+[ ] Ocho nodos.
+[ ] Finales.
+
+TERROR
+------
+[ ] Director de miedo.
+[ ] Eventos variables.
+[ ] NPC ambiguos.
+[ ] NPC residuales.
+[ ] Imitadores.
+[ ] Perseguidores.
+[ ] Falsas zonas seguras.
+[ ] Sonido direccional.
+[ ] Cambios al mirar atrás.
+[ ] Persecuciones.
+[ ] Reglas por entidad.
+
+NPC
+---
+[ ] Compañeros.
+[ ] Guarda protector.
+[ ] Vigilante sin ojos.
+[ ] Archivista.
+[ ] Niña de la Tiza.
+[ ] Profesor sin rostro.
+[ ] Doble.
+[ ] Voz imitadora.
+[ ] NPC de cada edificio.
+[ ] NPC diurnos.
+
+EDIFICIOS
+---------
+[ ] Biblioteca.
+[ ] Generales.
+[ ] Educación.
+[ ] Mantenimiento.
+[ ] Ingeniería.
+[ ] Ciencias.
+[ ] Medicina.
+[ ] Psicología.
+[ ] Informática.
+[ ] Artes.
+[ ] Auditorio.
+[ ] Historia.
+[ ] Derecho.
+[ ] Gimnasio.
+[ ] Residencias.
+[ ] Biblioteca Subterránea.
+[ ] Rectoría.
+[ ] Centro Cultural.
+[ ] Soda.
+
+EXTERIORES
+----------
+[ ] Plaza.
+[ ] Fuentes.
+[ ] Calles.
+[ ] Quebrada.
+[ ] Puentes.
+[ ] Parqueos.
+[ ] Paradas.
+[ ] Vegetación.
+[ ] Ruta de autobús.
+
+ANIMALES
+--------
+[ ] Perezoso.
+[ ] Perro.
+[ ] Gatos.
+[ ] Aves negras.
+
+UI
+--
+[ ] Menú principal.
+[ ] Pausa.
+[ ] Ajustes.
+[ ] Subtítulos.
+[ ] Diario.
+[ ] Evidencias.
+[ ] Objetivos.
+[ ] Guardado.
+[ ] Carga.
+[ ] Créditos.
+
+ACCESIBILIDAD
+-------------
+[ ] Subtítulos.
+[ ] Tamaño de texto.
+[ ] Volumen por categoría.
+[ ] Sensibilidad.
+[ ] Invertir eje.
+[ ] Reducir movimiento de cámara.
+[ ] Indicadores de interacción.
+[ ] Brillo.
+[ ] Contraste.
+[ ] Remapeo de controles.
+[ ] Opción de reducir destellos.
+[ ] Opción de reducir sonidos repentinos si se decide incluir.
+
+==========================================================================================
+7. CHECKLIST DE CALIDAD POR ACTIVO 3D
+==========================================================================================
+
+ANTES DE MODELAR
+----------------
+[ ] Función del activo definida.
+[ ] Dimensiones definidas.
+[ ] Referencias definidas.
+[ ] Parte móvil definida.
+[ ] Nivel de detalle definido.
+[ ] Cantidad de copias estimada.
+
+EN BLENDER
+----------
+[ ] Metric.
+[ ] Unit Scale 1.0.
+[ ] Dimensiones reales.
+[ ] Rotation aplicada.
+[ ] Scale aplicada.
+[ ] Pivote correcto.
+[ ] Normales correctas.
+[ ] Sin duplicados.
+[ ] Sin geometría interna innecesaria.
+[ ] UV.
+[ ] Materiales limitados.
+[ ] Nombre correcto.
+[ ] Colección correcta.
+[ ] Partes móviles separadas.
+[ ] Colisión planificada.
+
+EN UNREAL
+---------
+[ ] Escala 1,1,1.
+[ ] Pivote.
+[ ] Colisión.
+[ ] Material.
+[ ] UV.
+[ ] Sombras.
+[ ] Rendimiento.
+[ ] Primera persona.
+[ ] Tercera persona.
+[ ] Interacción.
+[ ] LOD o Nanite según corresponda.
+
+==========================================================================================
+8. CHECKLIST DE PRUEBAS ANTES DE FUSIONAR A MAIN
+==========================================================================================
+
+[ ] Proyecto abre.
+[ ] No hay errores críticos.
+[ ] No hay referencias faltantes.
+[ ] No hay cambios no relacionados.
+[ ] Nivel de prueba funciona.
+[ ] Sistema afectado funciona.
+[ ] Guardado funciona si fue afectado.
+[ ] Cámara funciona.
+[ ] Colisión funciona.
+[ ] IA funciona.
+[ ] Rendimiento aceptable.
+[ ] No se rompió otra versión.
+[ ] Documentación actualizada.
+[ ] Commit descriptivo.
+[ ] Pull Request revisado.
+[ ] main sigue jugable.
+
+==========================================================================================
+9. REGISTRO DE TRABAJO ACTUAL
+==========================================================================================
+
+AGENTE ACTUAL
+-------------
+[ ] Codex.
+[ ] Claude Code.
+[X] Ninguno indicado al crear este documento.
+
+RAMA ACTUAL
+-----------
+Pendiente de completar:
+________________________________________
+
+VERSIÓN EN PROGRESO
+-------------------
+Recomendación inicial:
+v0.0.1 — Configuración base.
+
+TAREA ACTUAL
+------------
+Pendiente de completar:
+________________________________________
+
+ÚLTIMO COMMIT
+-------------
+Pendiente:
+________________________________________
+
+ARCHIVOS MODIFICADOS
+--------------------
+Pendiente:
+________________________________________
+
+PRUEBAS REALIZADAS
+------------------
+Pendiente:
+________________________________________
+
+PROBLEMAS CONOCIDOS
+-------------------
+Pendiente:
+________________________________________
+
+SIGUIENTE TAREA
+---------------
+Recomendación:
+1. Confirmar creación del proyecto Unreal.
+2. Configurar Git LFS.
+3. Configurar .gitignore.
+4. Crear L_Developer_Testing.
+5. Probar Codex MCP con Blender.
+6. Validar un pupitre existente.
+7. Exportarlo a Unreal.
+8. Confirmar escala y colisión.
+
+NO MODIFICAR
+------------
+Hasta confirmar:
+- Documentos narrativos.
+- Guía de dimensiones.
+- main directamente.
+
+==========================================================================================
+10. PLANTILLA DE ACTUALIZACIÓN DESPUÉS DE CADA SESIÓN
+==========================================================================================
+
+FECHA:
+________________________________________
+
+AGENTE:
+Codex / Claude Code
+
+RAMA:
+________________________________________
+
+VERSIÓN:
+________________________________________
+
+OBJETIVO DE LA SESIÓN:
+________________________________________
+
+TAREAS COMPLETADAS:
+[ ]
+[ ]
+[ ]
+
+TAREAS PENDIENTES:
+[ ]
+[ ]
+[ ]
+
+ARCHIVOS MODIFICADOS:
+-
+-
+-
+
+PRUEBAS REALIZADAS:
+-
+-
+-
+
+RESULTADO:
+[ ] Funciona.
+[ ] Funciona parcialmente.
+[ ] No funciona.
+[ ] Revertido.
+
+ERRORES:
+-
+-
+
+DECISIONES TOMADAS:
+-
+-
+
+ÚLTIMO COMMIT:
+________________________________________
+
+PRÓXIMO PASO:
+________________________________________
+
+NO MODIFICAR:
+________________________________________
+
+==========================================================================================
+11. REGLA FINAL DEL PROYECTO
+==========================================================================================
+
+La prioridad no es construir todo el campus de inmediato.
+
+La prioridad es avanzar mediante versiones pequeñas, estables, jugables y comprobables:
+
+1. Proyecto protegido.
+2. Personaje funcional.
+3. Interacción.
+4. Activos validados.
+5. Biblioteca en blockout.
+6. Quince minutos de terror.
+7. Demo vertical.
+8. Primera noche.
+9. Primer día.
+10. Resto de noches y días.
+11. Final.
+12. Optimización.
+13. Beta.
+14. Lanzamiento.
+
+Cada versión debe poder abrirse, jugarse y probarse antes de comenzar la siguiente.
+
+FIN DEL DOCUMENTO

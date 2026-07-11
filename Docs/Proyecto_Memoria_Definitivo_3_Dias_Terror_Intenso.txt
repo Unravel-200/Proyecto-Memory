@@ -1,0 +1,1783 @@
+PROYECTO MEMORIA
+DOCUMENTO DEFINITIVO DE DISEÑO NARRATIVO, ESPACIAL Y JUGABLE
+VERSIÓN DE TERROR INTENSO CON CICLO DE TRES DÍAS Y CUATRO NOCHES
+================================================================
+
+Género:
+Terror psicológico, terror sobrenatural, exploración narrativa, misterio, supervivencia sin combate como sistema principal.
+
+Motor previsto:
+Unreal Engine.
+
+Ambientación:
+Campus universitario costarricense ficticio.
+
+Duración estimada:
+- Historia principal: 14 a 18 horas.
+- Exploración completa, contenido opcional y finales alternativos: 20 a 28 horas.
+
+OBJETIVO DE ESTA VERSIÓN
+------------------------
+Este documento integra en una única propuesta coherente:
+
+- La desaparición de Nicolás.
+- El grupo formado por Geiner, Kenneth, Brianna y Sharon.
+- El Proyecto Memoria.
+- El campus completo.
+- Todos los edificios y sus dimensiones.
+- Calles, fuentes, quebrada, parqueos y paradas.
+- Animales con función narrativa.
+- Cambio entre primera y tercera persona.
+- Nombre personalizable.
+- Herramientas, pistas y acertijos.
+- NPC normales, ambiguos, repetitivos, imitadores y hostiles.
+- Terror intenso y constante.
+- Investigación diurna.
+- Exploración sobrenatural nocturna.
+- Tres días completos de investigación y cuatro noches de progresión.
+- Biblioteca subterránea.
+- Rectoría y Torre del Reloj.
+- Sistema de decisiones.
+- Varios finales.
+
+La historia no termina al amanecer de la primera noche. Cada amanecer cierra temporalmente la capa sobrenatural del campus. Durante el día, el grupo debe analizar pruebas, comparar documentos, construir herramientas, entrevistar testigos y preparar la siguiente incursión. La amenaza crece noche tras noche hasta alcanzar su punto máximo durante la cuarta noche.
+
+================================================================
+1. IDENTIDAD GENERAL DEL PROYECTO
+================================================================
+
+Título de trabajo:
+PROYECTO MEMORIA
+
+Premisa:
+El personaje principal asiste a una clase nocturna en el edificio de Estudios Generales. Su hermano menor, Nicolás, de 15 años, lo espera en la Biblioteca Central porque disfruta leer y participa en un club juvenil asociado a la biblioteca.
+
+Durante la clase, Nicolás envía mensajes cada vez más inquietantes:
+
+“Estoy en la biblioteca.”
+“Encontré un libro que no aparece en el catálogo.”
+“Hay alguien moviendo los libros.”
+“Vi a una persona que se parece a ti.”
+“No confíes en…”
+
+El último mensaje queda incompleto.
+
+Al terminar la clase, el protagonista se reúne con cuatro amigos:
+
+- Geiner Grajales.
+- Kenneth Vázquez.
+- Brianna Cordero.
+- Sharon Salazar.
+
+Todos ayudan a buscar a Nicolás.
+
+La búsqueda revela que el campus está construido sobre un lugar donde los recuerdos intensos quedan adheridos a los espacios. En 1974, una investigación interdisciplinaria llamada Proyecto Memoria intentó transformar esa propiedad en una tecnología capaz de conservar conocimientos, emociones y experiencias humanas.
+
+El experimento no creó la anomalía, pero la amplificó. Durante una demostración pública, las memorias de muchas personas quedaron unidas a la red física del campus. De esa unión surgió una conciencia colectiva sin identidad estable.
+
+La entidad puede:
+
+- Imitar voces.
+- Copiar rostros.
+- Reconstruir escenas.
+- Alterar cámaras.
+- Reorganizar edificios.
+- Crear NPC basados en recuerdos.
+- Producir dobles incompletos.
+- Manipular archivos, libros, pantallas y teléfonos.
+
+No puede crear experiencias genuinamente nuevas. Solo reorganiza información que ya absorbió.
+
+Nicolás activa un nuevo ciclo al abrir el Libro de las Historias Prohibidas. La entidad lo escoge como ancla para intentar construir una identidad coherente y abandonar el campus.
+
+================================================================
+2. DIRECCIÓN DE TERROR
+================================================================
+
+El juego debe producir miedo fuerte y sostenido.
+
+No será un juego de terror moderado con pocos momentos intensos. La calma existe únicamente para preparar el siguiente acontecimiento. El jugador debe sentir que cualquier persona, reflejo, cámara, pasillo o sonido podría ser una manifestación del campus.
+
+El terror se construye mediante:
+
+- Tensión constante.
+- NPC impredecibles.
+- Apariciones silenciosas.
+- Persecuciones breves e intensas.
+- Cambios al mirar atrás.
+- Voces imitadas.
+- Falsas zonas seguras.
+- Alteraciones espaciales.
+- Eventos variables.
+- Desconfianza entre amigos.
+- Figuras que siguen al jugador entre edificios.
+- Uso agresivo del sonido y del silencio.
+- Momentos en los que el jugador observa algo peligroso sin poder enfrentarlo.
+
+El juego no debe convertirse en un título de acción. Las entidades no se derrotan con armas. Se evitan, se comprenden, se engañan o se contienen mediante reglas específicas.
+
+TONO VISUAL
+-----------
+- Exteriores nocturnos con niebla baja y faroles incompletos.
+- Interiores con zonas demasiado oscuras y luces que no cubren por completo las habitaciones.
+- Espacios diurnos normales, pero con pequeñas contradicciones.
+- Cambios de época visibles en reflejos y ventanas.
+- Colores fríos durante la noche.
+- Luz diurna progresivamente menos cálida conforme avanza la historia.
+- El residuo mnémico se representa como un fluido oscuro no gráfico, semejante a tinta, agua contaminada o interferencia líquida.
+
+TONO SONORO
+-----------
+- Pasos en pisos vacíos.
+- Sillas arrastrándose.
+- Llaves.
+- Herramientas funcionando lejos.
+- Respiración detrás del jugador.
+- Teléfonos sonando en oficinas cerradas.
+- Susurros provenientes de tuberías.
+- Altavoces que pronuncian nombres.
+- Aves que abandonan los árboles.
+- Autobuses que se escuchan sin aparecer.
+- Silencio total antes de encuentros importantes.
+
+================================================================
+3. ESTRUCTURA TEMPORAL: TRES DÍAS Y CUATRO NOCHES
+================================================================
+
+La campaña transcurre desde la tarde del primer día hasta el amanecer del quinto día. Entre la primera y la última noche existen tres jornadas completas de investigación diurna.
+
+RESUMEN
+-------
+Día 1:
+Presentación del campus, Nicolás y el grupo.
+
+Noche 1:
+Biblioteca, Plaza, Estudios Generales, Educación y Mantenimiento.
+
+Día 2:
+Investigación de la primera noche, entrevistas, reconstrucción de pruebas y preparación técnica.
+
+Noche 2:
+Ingeniería, Ciencias, autobús, Medicina y Psicología.
+
+Día 3:
+Análisis científico, revisión de grabaciones, preparación de sistemas de detección y búsqueda institucional de Sharon y Nicolás.
+
+Noche 3:
+Informática, Artes, Auditorio, Historia, Derecho y Gimnasio.
+
+Día 4:
+Reconstrucción completa del incidente, preparación de los ocho nodos, análisis de los libros y planificación de la entrada final.
+
+Noche 4:
+Residencias, Biblioteca Subterránea, Rectoría y Torre del Reloj.
+
+Amanecer del Día 5:
+Desenlace y epílogo.
+
+REGLA DEL UMBRAL NOCTURNO
+-------------------------
+La capa sobrenatural aparece aproximadamente entre las 10:00 p. m. y las 5:00 a. m.
+
+Durante ese periodo:
+
+- Se abren rutas inexistentes.
+- Las cámaras muestran otras épocas.
+- Los NPC residuales aparecen.
+- Los edificios cambian.
+- La entidad puede copiar personas.
+- Los objetos del Proyecto Memoria se activan.
+
+Al amanecer:
+
+- Las rutas ocultas se cierran.
+- Los NPC paranormales desaparecen.
+- Los edificios recuperan su forma pública.
+- Los guardas y estudiantes normales regresan.
+- Los objetos sobrenaturales quedan inertes o incompletos.
+- El grupo puede analizar lo que encontró.
+
+El tiempo no funciona como un cronómetro continuo durante todas las noches. Avanza en bloques narrativos para que el jugador pueda explorar. La cuarta noche sí incluye una cuenta regresiva visible en momentos específicos, porque es el último ciclo antes de que la entidad consiga estabilizarse.
+
+POR QUÉ NO PUEDEN BUSCAR DE DÍA
+-------------------------------
+Durante el día:
+
+- Los sótanos sobrenaturales no aparecen.
+- Las puertas ocultas se convierten en paredes normales.
+- Los videos muestran grabaciones comunes.
+- Los NPC residuales no pueden ser interrogados.
+- Las rutas subterráneas quedan selladas.
+- El libro pierde partes de su texto.
+- Los reflejos dejan de mostrar otras épocas.
+
+Por eso el grupo no puede continuar la búsqueda física de Nicolás durante el día.
+
+Sin embargo, el día es fundamental para:
+
+- Analizar fotografías.
+- Comparar horarios.
+- Recuperar datos.
+- Entrevistar empleados.
+- Solicitar mapas.
+- Revisar periódicos.
+- Armar dispositivos.
+- Reparar linternas y radios.
+- Ordenar páginas.
+- Decidir qué ruta seguir.
+- Determinar qué NPC nocturnos pertenecen a otras épocas.
+- Preparar las soluciones para los nodos finales.
+
+================================================================
+4. PERSONAJES PRINCIPALES
+================================================================
+
+4.1. PERSONAJE PRINCIPAL
+------------------------
+Personalización:
+- Nombre.
+- Pronombres.
+- Apariencia básica.
+- Ropa inicial.
+- Apodo de voz.
+- Perspectiva inicial.
+
+El nombre aparece dinámicamente en:
+
+- Listas.
+- Pantallas.
+- Libros.
+- Recibos.
+- Fotografías.
+- Mensajes.
+- Pizarras.
+- Expedientes.
+
+Para diálogos de voz se utiliza un apodo pregrabado o una forma de tratamiento.
+
+Conflicto:
+Debe rescatar a Nicolás y demostrar su propia identidad cuando la entidad crea un doble perfecto en apariencia.
+
+4.2. NICOLÁS
+------------
+Edad:
+15 años.
+
+Personalidad:
+- Curioso.
+- Buen lector.
+- Valiente.
+- Observador.
+- Interesado en leyendas.
+
+Función activa:
+Nicolás deja mensajes, grabaciones, notas, símbolos y páginas arrancadas. Comprende antes que el grupo que el libro registra posibilidades, no destinos inevitables.
+
+4.3. GEINER GRAJALES
+--------------------
+Rasgos:
+- Valiente.
+- Impulsivo.
+- Protector.
+- Escéptico.
+
+Capacidades:
+- Mover obstáculos.
+- Mantener puertas abiertas.
+- Ayudar durante persecuciones.
+- Crear distracciones.
+
+Debilidad:
+Actúa antes de analizar.
+
+4.4. KENNETH VÁZQUEZ
+--------------------
+Rasgos:
+- Analítico.
+- Tecnológico.
+- Metódico.
+- Curioso.
+
+Capacidades:
+- Cámaras.
+- Redes.
+- Planos.
+- Sistemas eléctricos ficticios.
+- Recuperación de archivos.
+
+Debilidad:
+Confía demasiado en los datos digitales.
+
+4.5. BRIANNA CORDERO
+--------------------
+Rasgos:
+- Observadora.
+- Empática.
+- Sensible al entorno.
+- Conoce historias del campus.
+
+Capacidades:
+- Detectar cambios.
+- Reconocer voces falsas.
+- Interpretar dibujos.
+- Calmar al grupo.
+- Comparar símbolos.
+
+Debilidad:
+La entidad intenta implantarle recuerdos de otras personas.
+
+4.6. SHARON SALAZAR
+-------------------
+Rasgos:
+- Prudente.
+- Directa.
+- Orientada a la seguridad.
+- Buena para reconocer rutas.
+
+Capacidades:
+- Encontrar salidas.
+- Evaluar riesgos.
+- Conocer transporte y accesos.
+- Mantener comunicación.
+
+Debilidad:
+El miedo puede hacer que se separe del grupo.
+
+================================================================
+5. NPC DIURNOS
+================================================================
+
+Los NPC diurnos hacen que el campus se sienta vivo. Algunos ayudan, otros ocultan información y unos pocos pueden estar influidos por recuerdos residuales.
+
+5.1. MARTA SOLÍS, BIBLIOTECARIA PRINCIPAL
+------------------------------------------
+- Trabaja desde hace décadas.
+- Conoce historias del sótano.
+- Niega haber visto a la Bibliotecaria Antigua.
+- Ayuda a identificar la signatura del Libro Prohibido.
+- Recuerda que Nicolás preguntó por una colección retirada.
+
+5.2. ELENA MORA, JEFA DE SEGURIDAD
+----------------------------------
+- Coordina la búsqueda oficial.
+- No encuentra registros del guarda protector.
+- Entrega mapas de cámaras.
+- Sospecha que alguien modificó los archivos.
+- Puede convertirse en aliada si el jugador comparte suficientes pruebas.
+
+5.3. PROFESOR SAMUEL ARAYA, HISTORIA
+------------------------------------
+- Investiga el campus de 1974.
+- Conoce rumores sobre el Auditorio.
+- Ayuda a fechar fotografías.
+- No cree inicialmente en el fenómeno.
+- Cambia de opinión al ver documentos que llevan su propia firma, aunque nunca los escribió.
+
+5.4. INGENIERA LAURA BRENES, MANTENIMIENTO
+------------------------------------------
+- Explica qué túneles existen oficialmente.
+- Ayuda a construir herramientas ficticias.
+- Reconoce llaves antiguas.
+- Descubre que algunos planos fueron modificados.
+
+5.5. DOCTORA ANDREA VALVERDE, PSICOLOGÍA
+----------------------------------------
+- Ayuda a diseñar preguntas para detectar imitadores.
+- Explica cómo contrastar recuerdos recientes.
+- Advierte que el miedo puede producir errores.
+- Puede ser imitada durante la tercera noche.
+
+5.6. DON EMILIO ROJAS, EXCONDUCTOR
+----------------------------------
+- Condujo autobuses internos.
+- Recuerda una parada que desapareció del mapa.
+- Conserva un horario de 1974.
+- Describe un pasajero que nunca se bajaba.
+
+5.7. ELENA SOLANO, ARCHIVISTA
+-----------------------------
+- Trabaja en Historia y Derecho.
+- Ayuda a localizar actas.
+- Sabe que faltan páginas en varios documentos.
+- Su versión nocturna puede ser un NPC residual diferente.
+
+================================================================
+6. CLASES DE NPC NOCTURNOS
+================================================================
+
+6.1. NPC APARENTEMENTE NORMALES
+-------------------------------
+- Estudiantes.
+- Profesores.
+- Guardas.
+- Técnicos.
+- Bibliotecarios.
+- Conductores.
+- Residentes.
+
+Parecen reales, pero pueden pertenecer a otra época.
+
+6.2. RECUERDOS REPETITIVOS
+--------------------------
+Repiten una acción:
+
+- Guardar un libro.
+- Pasar lista.
+- Esperar un autobús.
+- Limpiar una mancha.
+- Abrir una puerta.
+- Correr por una pista.
+- Escribir una frase.
+
+6.3. IMITADORES
+---------------
+Copian personas conocidas.
+
+Indicadores:
+- Errores de memoria.
+- Falta de reflejo.
+- Voz desfasada.
+- Movimiento demasiado preciso.
+- Conocimiento incompleto.
+- Reacción de animales.
+- Aparición simultánea.
+
+6.4. NPC HOSTILES
+-----------------
+- Vigilante sin ojos.
+- Archivista.
+- Corredor del Pasillo.
+- Operador de Máquinas.
+- Pasajero del Último Asiento.
+- Profesor sin rostro.
+- Doble del protagonista.
+- Copias incompletas.
+
+6.5. NPC AMBIGUOS
+-----------------
+- Guarda protector.
+- Niña de la Tiza.
+- Bibliotecaria Antigua.
+- Investigadora del Invernadero.
+- Bibliotecaria Original.
+- Técnico Nocturno.
+- Abogado sin reflejo.
+
+Pueden ayudar o manipular.
+
+================================================================
+7. ENTIDADES PRINCIPALES
+================================================================
+
+7.1. GUARDA PROTECTOR
+---------------------
+- Rostro visible.
+- Uniforme de 1974.
+- Entrega linternas.
+- Aparece en fotos antiguas.
+- Intentó detener el proyecto.
+- No puede explicar todo directamente.
+- Los perros no le temen.
+
+7.2. VIGILANTE SIN OJOS
+-----------------------
+- Uniforme moderno.
+- Ojos ausentes o cubiertos por sombra.
+- Patrulla exteriores, Mantenimiento y túneles.
+- Detecta luz, movimiento y ruido.
+- Se escucha por el sonido de llaves.
+- Los perros reaccionan con miedo.
+
+7.3. ARCHIVISTA
+---------------
+- Figura alta.
+- Coloca libros.
+- Reacciona al desorden.
+- Reorganiza estanterías.
+- Apaga luces.
+- No corre, pero siempre reduce la distancia.
+
+7.4. NIÑA DE LA TIZA
+--------------------
+- Voluntaria de 1974.
+- Dibuja advertencias.
+- Activa alarmas.
+- Señala rutas.
+- A veces imita la voz de Nicolás.
+- Borra rostros en sus dibujos.
+- Huye de entidades hostiles.
+
+7.5. PROFESOR SIN ROSTRO
+------------------------
+- Interfaz intelectual de la entidad.
+- Habla con varias voces.
+- Escribe sin tocar la pizarra.
+- Aparece más alto cuando se apagan las luces.
+- No corre.
+- Hace preguntas.
+- Se acerca cuando el jugador responde mal.
+
+7.6. DOBLE DEL PROTAGONISTA
+---------------------------
+- Aparece primero en cámaras y reflejos.
+- Camina con Nicolás.
+- Habla con Sharon.
+- Conoce recuerdos antiguos.
+- Interpreta mal decisiones recientes.
+- Intenta salir del campus.
+
+7.7. VOZ IMITADORA
+------------------
+- No tiene cuerpo fijo.
+- Utiliza altavoces, teléfonos, radios y tuberías.
+- Intenta separar al grupo.
+- Puede imitar a Nicolás y a los amigos.
+
+================================================================
+8. MECÁNICAS PRINCIPALES
+================================================================
+
+8.1. PRIMERA Y TERCERA PERSONA
+------------------------------
+Cambio libre en cualquier momento.
+
+Primera persona:
+- Lectura.
+- Pistas pequeñas.
+- Reflejos cercanos.
+- Mayor inmersión.
+
+Tercera persona:
+- Sombras detrás del personaje.
+- NPC que se acercan.
+- Cambios corporales.
+- Mejor visión en persecuciones.
+
+Algunos eventos cambian de presentación:
+- En primera persona una figura aparece en un espejo.
+- En tercera persona se observa detrás del personaje.
+- Ninguna perspectiva ofrece seguridad total.
+
+8.2. TELÉFONO
+-------------
+Funciones:
+- Mensajes.
+- Cámara.
+- Grabadora.
+- Notas.
+- Mapas.
+- Linterna débil.
+
+Amenazas:
+- Mensajes falsos.
+- Contactos duplicados.
+- Fotografías alteradas.
+- Batería drenada.
+- Sonidos sin notificación.
+
+8.3. LINTERNA
+-------------
+- Baterías.
+- Haz normal.
+- Enfoque.
+- Luz ultravioleta construida durante el día.
+- Algunas entidades se acercan si se mantiene encendida.
+- Otras se mueven cuando se apaga.
+
+8.4. RADIO
+----------
+- Canales de seguridad.
+- Frecuencias antiguas.
+- Voces de otras épocas.
+- Comunicación del grupo.
+- Interferencia utilizada para detectar nodos.
+
+8.5. DIARIO DE INVESTIGACIÓN
+----------------------------
+Secciones:
+- Hechos confirmados.
+- Testimonios.
+- NPC observados.
+- Símbolos.
+- Horarios.
+- Preguntas sin resolver.
+- Piezas de nodos.
+- Contradicciones.
+
+8.6. MESA DE INVESTIGACIÓN DIURNA
+---------------------------------
+Ubicada en una sala segura del Centro Cultural.
+
+Permite:
+- Unir fotografías.
+- Ordenar páginas.
+- Comparar mapas.
+- Escuchar cintas.
+- Construir dispositivos.
+- Elegir objetivos nocturnos.
+- Revisar confianza del grupo mediante diálogos.
+- Preparar inventario.
+
+8.7. CONFIANZA
+--------------
+Cada amigo recuerda:
+- Si fue ayudado.
+- Si sus advertencias fueron escuchadas.
+- Si el jugador mintió.
+- Si se abandonó a alguien.
+- Si se identificó correctamente una copia.
+
+La confianza afecta:
+- Seguimiento de órdenes.
+- Ayuda en persecuciones.
+- Encuentro con el doble.
+- Finales.
+
+8.8. DIRECTOR DE MIEDO
+----------------------
+Sistema dinámico que selecciona eventos según:
+
+- Perspectiva.
+- Tiempo sin amenaza.
+- Luz disponible.
+- Separación del grupo.
+- Nivel de ruido.
+- Historial de sustos.
+- Edificio.
+- NPC vistos.
+
+Eventos posibles:
+- Figura adicional.
+- Puerta cerrada.
+- Silla ocupada.
+- Rostro diferente.
+- Voz detrás.
+- Pasos.
+- Cambio de cartel.
+- NPC más cercano.
+- Objeto movido.
+- Amigo duplicado.
+
+No todos los eventos aparecen en todas las partidas.
+
+8.9. FALSAS ZONAS SEGURAS
+-------------------------
+- Oficina iluminada.
+- Cuarto de guardas.
+- Sala docente.
+- Autobús.
+- Habitación.
+- Punto de guardado.
+
+Algunas se alteran después de ser utilizadas varias veces. No todos los puntos de guardado son atacados, para evitar frustración.
+
+8.10. PERSECUCIONES
+-------------------
+Características:
+- Breves.
+- Intensidad alta.
+- Rutas alternativas.
+- Reglas diferentes por enemigo.
+- Sin armas.
+- Posibilidad de esconderse, cerrar puertas, apagar luz o usar sonido.
+
+================================================================
+9. ESCALA PARA UNREAL ENGINE
+================================================================
+
+Equivalencia:
+1 Unreal Unit = 1 centímetro.
+
+PERSONAJE
+---------
+- Radio de cápsula: 42 cm.
+- Media altura: 96 cm.
+- Altura total aproximada: 192 cm.
+- Diámetro: 84 cm.
+
+ARQUITECTURA
+------------
+- Puerta sencilla: 1,20 x 2,40 m.
+- Puerta doble: 2,20 x 2,60 m.
+- Puerta industrial: 4 x 5 m.
+- Pasillo secundario: 2,50 m.
+- Pasillo principal: 3,50 a 4 m.
+- Pasillo técnico: 1,80 a 2,20 m.
+- Escalera principal: 2,20 m.
+- Escalera secundaria: 1,50 a 1,80 m.
+- Baranda: 1,10 m.
+- Piso normal: 4 m.
+- Laboratorio: 4,50 a 5,50 m.
+- Taller: 7 a 9 m.
+- Aula media: 8 x 10 m.
+- Aula grande: 10 x 12 m.
+- Oficina: 3,50 x 4 m.
+- Baño: 6 x 8 m.
+
+TERRENO
+-------
+- Campus: 700 x 850 m.
+- Área: 59,5 hectáreas.
+- Edificios cercanos: 50 a 100 m.
+- Sectores: 120 a 200 m.
+- Máximo habitual: 250 m.
+
+OPTIMIZACIÓN
+------------
+- World Partition.
+- Celdas de diseño aproximadas de 200 x 200 m.
+- Level Streaming.
+- Data Layers.
+- HLOD.
+- Nanite.
+- Lumen ajustado.
+- Occlusion Culling.
+- Niagara para aves.
+- Interiores completos solo en edificios narrativos.
+
+================================================================
+10. DIMENSIONES DE EDIFICIOS
+================================================================
+
+10.1. BIBLIOTECA CENTRAL
+------------------------
+- Planta: 55 x 45 m.
+- Cuatro pisos.
+- Dos sótanos.
+- Altura: 18 a 20 m.
+- Vestíbulo: 12 x 15 m.
+- Vigilancia: 5 x 7 m.
+- Colección restringida: 10 x 14 m.
+- Sótano 1: 45 x 35 m.
+- Sótano 2: 35 x 30 m.
+
+10.2. ESTUDIOS GENERALES
+------------------------
+- Planta: 70 x 45 m.
+- Cinco niveles contando sótano.
+- Sótano: 60 x 35 m.
+- Altura: 19 a 22 m.
+- Auditorio parcial: 20 x 18 m.
+- Soda: 15 x 12 m.
+- Aulas: 8 x 10 m.
+- Árbol: 20 a 22 m de ancho y 12 a 15 m de alto.
+
+10.3. EDUCACIÓN
+---------------
+- Planta: 50 x 35 m.
+- Cuatro pisos.
+- Aulas: 8 x 9 m.
+- Archivo: 8 x 12 m.
+- Laboratorio pedagógico: 10 x 12 m.
+- Pasillo paranormal: 2,20 x 15 m en estado normal.
+
+10.4. MANTENIMIENTO
+-------------------
+- Planta: 40 x 25 m.
+- Altura: 7 m.
+- Taller: 20 x 20 m.
+- Bodega: 10 x 15 m.
+- Garaje: 12 x 15 m.
+- Cuarto de llaves: 5 x 8 m.
+
+10.5. INGENIERÍA
+----------------
+- Edificio: 85 x 60 m.
+- Cuatro pisos.
+- Taller: 50 x 35 m.
+- Taller mecánico: 25 x 30 m.
+- Materiales: 15 x 18 m.
+- Eléctrica: 16 x 20 m.
+- Electrónica: 14 x 18 m.
+- Robótica: 18 x 22 m.
+- Prototipos: 14 x 18 m.
+
+10.6. CIENCIAS
+--------------
+- Planta: 75 x 55 m.
+- Cuatro pisos.
+- Invernadero: 25 x 18 m.
+- Física: 14 x 18 m.
+- Óptica: 12 x 16 m.
+- Química: 14 x 18 m.
+- Biología: 15 x 20 m.
+- Herbario: 10 x 14 m.
+
+10.7. MEDICINA
+--------------
+- Planta: 75 x 50 m.
+- Cinco pisos.
+- Un sótano.
+- Biblioteca: 22 x 25 m.
+- Laboratorios: 12 x 16 m.
+- Simulación: 10 x 12 m.
+- Auditorio: 18 x 22 m.
+
+10.8. PSICOLOGÍA
+----------------
+- Planta: 45 x 35 m.
+- Tres pisos.
+- Entrevistas: 4 x 5 m.
+- Cámara de Gesell: 7 x 9 m.
+- Percepción: 10 x 14 m.
+- Archivo: 8 x 10 m.
+
+10.9. INFORMÁTICA
+-----------------
+- Planta: 55 x 40 m.
+- Cuatro pisos.
+- Sótano técnico.
+- Laboratorios: 12 x 16 m.
+- Servidores: 15 x 20 m.
+- Monitoreo: 12 x 14 m.
+
+10.10. ARTES
+------------
+- Planta: 60 x 45 m.
+- Tres pisos.
+- Teatro experimental: 30 x 35 m.
+- Escenario: 18 x 12 m.
+- Galería: 15 x 20 m.
+- Escultura: 15 x 18 m.
+
+10.11. AUDITORIO CENTRAL
+------------------------
+- Edificio: 45 x 40 m.
+- Sala: 30 x 32 m.
+- Escenario: 18 x 12 m.
+- Capacidad visual: 500 a 700 personas.
+
+10.12. HISTORIA
+---------------
+- Planta: 50 x 40 m.
+- Tres pisos.
+- Hemeroteca: 15 x 18 m.
+- Mapoteca: 12 x 15 m.
+- Archivo fotográfico: 10 x 12 m.
+- Museo: 15 x 20 m.
+
+10.13. DERECHO Y ADMINISTRACIÓN
+-------------------------------
+- Planta: 55 x 40 m.
+- Cuatro pisos.
+- Sala de juicio: 14 x 18 m.
+- Archivo: 15 x 20 m.
+- Consejo: 12 x 16 m.
+- Bóveda: 8 x 12 m.
+
+10.14. SODA
+-----------
+- Planta: 35 x 25 m.
+- Comedor: 20 x 18 m.
+- Cocina: 10 x 12 m.
+- Bodega: 6 x 8 m.
+
+10.15. GIMNASIO
+---------------
+- Gimnasio: 65 x 45 m.
+- Piscina cubierta: 40 x 25 m.
+- Piscina: 25 x 12,5 m.
+- Cancha: 40 x 20 m.
+- Vestidores: 10 x 12 m.
+- Graderías: 40 x 10 m.
+
+10.16. RESIDENCIAS
+------------------
+Tres bloques:
+- 55 x 18 m.
+- Cinco pisos.
+- Habitaciones individuales: 3,5 x 4,5 m.
+- Dobles: 4,5 x 5 m.
+- Cocina: 8 x 10 m.
+- Sala: 10 x 12 m.
+- Lavandería: 6 x 8 m.
+
+10.17. RECTORÍA
+---------------
+- Planta: 50 x 40 m.
+- Cuatro pisos.
+- Dos sótanos.
+- Torre: 40 m.
+- Núcleo: 35 x 35 m y 10 m de altura.
+
+10.18. CENTRO CULTURAL Y MEMORIAL
+---------------------------------
+- Edificio: 30 x 20 m.
+- Dos pisos.
+- Plaza memorial: 25 x 20 m.
+- Sala de investigación diurna.
+
+================================================================
+11. EXTERIORES
+================================================================
+
+FUENTE CENTRAL
+--------------
+- Diámetro: 20 m.
+- Plaza: 45 x 45 m.
+
+FUENTE DE ARTES
+---------------
+- Diámetro: 10 m.
+
+FUENTE RESIDENCIAL
+------------------
+- Diámetro: 10 m.
+- Entrada oculta.
+
+CALLES
+------
+- Avenida: 7 a 8 m.
+- Aceras: 2,5 a 3 m.
+- Calle secundaria: 5 a 6 m.
+- Servicio: 4 a 5 m.
+- Senderos: 1,8 a 4 m.
+
+QUEBRADA
+--------
+- Ancho: 5 a 8 m.
+- Tramos amplios: 10 a 14 m.
+- Profundidad: 1 a 2,5 m.
+- Longitud: 600 a 900 m.
+- Vegetación: 8 a 15 m por lado.
+
+PARQUEOS
+--------
+- Pequeño: 25 x 30 m.
+- Mediano: 45 x 55 m.
+- Grande: 70 x 90 m.
+- Subterráneo: 60 x 45 m.
+
+PARADAS
+-------
+- Normal: 12 x 3 m.
+- Principal: 25 x 5 m.
+- Autobús: 9 a 11 m de largo.
+
+================================================================
+12. ANIMALES
+================================================================
+
+PEREZOSO
+--------
+- Aparece en Ciencias.
+- Reaparece en Residencias.
+- Señala zonas estables o ventanas alteradas.
+- Nunca está en peligro.
+
+PERRO
+-----
+- Merodea por la soda y las paradas.
+- Acompaña al grupo.
+- Detecta imitadores.
+- Reacciona al Vigilante sin ojos.
+- Guía hacia Sharon.
+
+GATOS
+-----
+- Biblioteca.
+- Ingeniería.
+- Artes.
+- Residencias.
+- Señalan puertas.
+- Observan espacios invisibles.
+- Aparecen en fotografías antiguas.
+
+AVES NEGRAS
+------------
+- Bandada pequeña: nodo activo.
+- Bandada que huye: peligro.
+- Aves inmóviles: imitación cercana.
+- Gran concentración: evento principal.
+
+================================================================
+13. HISTORIA COMPLETA
+================================================================
+
+DÍA 1: PRESENTACIÓN
+-------------------
+El protagonista llega al campus con Nicolás.
+
+Actividades:
+- Recorrer la plaza.
+- Conocer la biblioteca.
+- Ver la fuente.
+- Identificar paradas.
+- Encontrar al perro.
+- Hablar con amigos.
+- Dejar a Nicolás en la biblioteca.
+- Asistir a la clase nocturna.
+
+Se muestra:
+- Un estudiante que luego será reconocido como el Expositor de Otra Época.
+- El Profesor sin rostro reflejado brevemente en una ventana.
+- Una bandada de aves sobre el Auditorio.
+
+NOCHE 1
+=======
+
+CAPÍTULO 1: BIBLIOTECA
+----------------------
+NPC:
+- Guardas reales.
+- Bibliotecaria Antigua.
+- Grupo de estudio inmóvil.
+- Archivista.
+- Estudiante del ascensor.
+
+Eventos:
+- Nicolás aparece en cámaras contradictorias.
+- Computadoras escriben el nombre del protagonista.
+- Un libro se cae tres veces.
+- En la tercera caída se dobla antes de ser lanzado.
+- La Bibliotecaria Antigua dice:
+“Ese muchacho pidió un libro que todavía no ha sido escrito”.
+- Los guardas niegan que exista esa bibliotecaria.
+- El grupo de estudio comienza a mirar al jugador uno por uno.
+- El Archivista reorganiza estantes.
+
+Sótano:
+- Bombilla vieja.
+- Libro Prohibido.
+- Fotografía del Expositor.
+- Registro de su muerte misteriosa décadas atrás.
+- Fluido oscuro.
+- Puerta cerrada.
+
+Brianna cae y encuentra el rastro.
+
+Salida:
+- Escapan del sótano.
+- Descubren el edificio cerrado.
+- Buscan una salida.
+- Salen por una puerta lateral.
+
+Pista:
+Página arrancada con el símbolo del Árbol.
+
+CAPÍTULO 2: PLAZA Y GENERALES
+-----------------------------
+El guarda protector entrega linternas.
+
+NPC:
+- Expositor de Otra Época.
+- Profesora de Lista.
+- Estudiantes silenciosos.
+- Profesor sin rostro.
+- Vigilante sin ojos.
+
+Soda:
+- Recibo de Nicolás fechado en 1974.
+- Bandejas para personas ausentes.
+- Altavoz con pedidos.
+
+Generales:
+- Árbol alterado.
+- Voz falsa de Nicolás.
+- Espejo con mensajes.
+- Profesora pasando lista.
+- Sillas girando al pronunciar el nombre del jugador.
+- Clase imposible del Profesor sin rostro.
+- Expositor señalando aulas.
+
+Persecución:
+El Vigilante sin ojos aparece al final del pasillo y persigue al grupo.
+
+Sharon se separa para buscar ayuda.
+
+CAPÍTULO 3: EDUCACIÓN
+---------------------
+NPC:
+- Profesora de la Silla.
+- Estudiantes de práctica.
+- Niña de la Tiza.
+- Corredor del Pasillo.
+
+Eventos:
+- Silla que cambia.
+- Voz detrás del jugador.
+- Clase infantil con nombres de desaparecidos.
+- Pasillo infinito.
+- Alarma.
+- Dibujos.
+- Corredor que primero se escucha, luego se ve y finalmente persigue.
+
+Pista:
+Mapa hacia Mantenimiento e Ingeniería.
+
+CAPÍTULO 4: MANTENIMIENTO
+-------------------------
+NPC:
+- Técnico Nocturno.
+- Vigilante sin ojos.
+- Guarda protector a distancia.
+
+Eventos:
+- Técnico entrega una llave antigua.
+- Repara una puerta que aún no está dañada.
+- Vehículos se encienden.
+- Llaves suenan en pasillos.
+- El Vigilante obliga a esconderse.
+
+Pista:
+Plano parcial de túneles y fotografía del guarda protector.
+
+AMANECER 1
+----------
+Las luces vuelven.
+Los edificios se normalizan.
+Sharon no aparece.
+Nicolás sigue desaparecido.
+La búsqueda oficial comienza.
+
+DÍA 2: INVESTIGACIÓN DE LA PRIMERA NOCHE
+========================================
+
+Ubicación principal:
+Centro Cultural y Memorial.
+
+Objetivos:
+- Comparar la página del libro.
+- Identificar al Expositor.
+- Confirmar que el guarda protector no trabaja actualmente.
+- Analizar el recibo de 1974.
+- Revisar el plano.
+- Reparar radios.
+- Construir luz ultravioleta.
+- Conseguir baterías.
+- Entrevistar a Marta Solís y Elena Mora.
+
+NPC diurnos:
+- Marta Solís.
+- Elena Mora.
+- Laura Brenes.
+- Samuel Araya.
+
+Actividades:
+- Minijuego de unir documentos.
+- Escuchar mensajes de Sharon.
+- Descubrir una frecuencia de radio.
+- Encontrar una fotografía de la Niña de la Tiza.
+- Visitar el memorial, donde aparece un nombre nuevo.
+
+Decisión:
+Elegir entre informar todo a seguridad o guardar parte de la evidencia. Esto afecta la ayuda futura de Elena Mora.
+
+NOCHE 2
+=======
+
+CAPÍTULO 5: INGENIERÍA
+----------------------
+NPC:
+- Operador de Máquinas.
+- Estudiantes de laboratorio.
+- Maniquí de Seguridad.
+- Robot Rastreador.
+- Técnico Nocturno.
+
+Eventos:
+- Máquinas se activan.
+- Estudiantes levantan la cabeza al mismo tiempo.
+- Uno muestra el rostro de Nicolás.
+- Maniquí cambia de posición.
+- Robot reproduce mensajes falsos.
+- Operador aparece tras cristales y desaparece.
+
+Acertijos:
+- Energía ficticia.
+- Poleas.
+- Paneles.
+- Secuencia de brazos robóticos.
+
+Pista:
+Mochila de Nicolás y planos del núcleo.
+
+CAPÍTULO 6: CIENCIAS
+--------------------
+NPC:
+- Investigadora del Invernadero.
+- Estudiantes de Microscopía.
+- Figura de Óptica.
+
+Eventos:
+- Investigadora aparece al otro lado de un vidrio sin puerta.
+- Microscopio muestra una persona detrás del grupo.
+- Figura solo visible en prismas.
+- Plantas siguen tuberías.
+- Péndulos apuntan a imitadores.
+- Perezoso marca una zona estable.
+
+Acertijo:
+Alinear luz y patrones para revelar la ruta de resonancia.
+
+Pista:
+El autobús conecta nodos.
+
+CAPÍTULO 7: AUTOBÚS
+-------------------
+NPC:
+- Pasajeros progresivos.
+- Conductor del reflejo.
+- Pasajero del último asiento.
+- Copia del protagonista.
+
+Cada apagón añade un pasajero:
+- Estudiante mojada.
+- Profesor con papeles.
+- Niño con libro.
+- Guarda.
+- Copia del protagonista.
+
+Grabación de Nicolás:
+“Las voces no son fantasmas. Son recuerdos intentando convertirse en personas”.
+
+Persecución:
+El pasajero avanza entre apagones.
+
+CAPÍTULO 8: MEDICINA
+--------------------
+NPC:
+- Instructor de Simulación.
+- Internos silenciosos.
+- Operadora del Ascensor.
+- Paciente de Simulación.
+
+Eventos:
+- Instructor describe recuerdos privados.
+- Internos entran en un cuarto sin salida.
+- Ascensor ofrece pisos llamados Recuerdos, Transferencia y Desconexión.
+- Maniquí reproduce mensajes de Nicolás.
+- Monitores muestran nombres.
+
+Pista:
+Nicolás es el ancla del ciclo.
+
+CAPÍTULO 9: PSICOLOGÍA
+----------------------
+NPC:
+- Terapeuta duplicada.
+- Grupo de observadores.
+- Sharon falsa.
+- Paciente sin voz.
+- Copias de amigos.
+
+La falsa Sharon acompaña al grupo durante parte del capítulo y ofrece información útil.
+
+El Paciente sin voz escribe:
+“Uno de ustedes ya fue reemplazado”.
+
+Pruebas:
+- Preguntas sobre hechos recientes.
+- Observación de reflejos.
+- Reacción del perro grabada.
+- Contradicciones de orden.
+
+Pista:
+Las copias fallan con recuerdos nuevos.
+
+AMANECER 2
+----------
+Las copias desaparecen.
+El grupo conserva cintas, planos y una grabación.
+Sharon sigue perdida.
+La entidad ya conoce más recuerdos personales.
+
+DÍA 3: ANÁLISIS Y PREPARACIÓN
+=============================
+
+Objetivos:
+- Analizar planos de Ingeniería.
+- Revisar muestras de Ciencias.
+- Escuchar cintas de Medicina.
+- Diseñar protocolo para imitadores.
+- Recuperar cámaras.
+- Rastrear el último mensaje de Sharon.
+- Reparar un dispositivo de radio.
+- Identificar la parada fantasma.
+
+NPC:
+- Andrea Valverde.
+- Laura Brenes.
+- Don Emilio Rojas.
+- Elena Mora.
+
+Actividades:
+- Construir detector de interferencia.
+- Marcar reglas de NPC.
+- Preparar códigos.
+- Comparar grabaciones.
+- Decidir quién llevará cada objeto.
+- Discutir la confianza entre amigos.
+
+Horror diurno sutil:
+- Un NPC aparece en dos lugares.
+- Un reflejo tarda en copiar.
+- Una fotografía cambia.
+- El memorial añade el nombre de Sharon y luego lo borra.
+
+NOCHE 3
+=======
+
+CAPÍTULO 10: INFORMÁTICA
+------------------------
+NPC:
+- Técnico de Servidores.
+- Operador de Cámaras.
+- Avatares digitales.
+- Kenneth falso.
+
+Eventos:
+- Rostros en monitores.
+- Técnico cambia de rostro.
+- Cámara muestra al jugador desde la misma habitación.
+- Kenneth desaparece.
+- Dos Kenneth regresan.
+
+Prueba:
+Datos recientes y diálogo.
+
+Pista:
+Sharon está en el gimnasio.
+Nicolás camina con el doble.
+
+CAPÍTULO 11: ARTES
+------------------
+NPC:
+- Actores inmóviles.
+- Directora Escénica.
+- Coro Universitario.
+- Esculturas Humanas.
+
+Eventos:
+- Actores cambian con la luz.
+- Directora nunca entra en iluminación.
+- Coro canta nombres.
+- Escultura nueva copia la postura del jugador.
+- Maniquíes representan el accidente.
+
+Pista:
+La demostración ocurrió en el Auditorio Central.
+
+CAPÍTULO 12: AUDITORIO
+----------------------
+NPC:
+- Público de 1974.
+- Consejo Universitario.
+- Profesor sin rostro.
+- Versiones de los amigos.
+
+Eventos:
+- Aplausos sin sonido.
+- Todos giran al mismo tiempo.
+- Rostros cambian.
+- Carteles muestran decisiones del jugador.
+- Profesor hace preguntas.
+- Cada respuesta incorrecta lo acerca.
+
+Pista:
+Lista original de participantes.
+
+CAPÍTULO 13: HISTORIA Y DERECHO
+-------------------------------
+NPC:
+- Archivista de Historia.
+- Consejeros residuales.
+- Secretaria Administrativa.
+- Abogado sin reflejo.
+
+Historia:
+- Fotografías.
+- Mapas.
+- Periódicos futuros.
+- Evidencia anterior a 1974.
+
+Derecho:
+- Actas.
+- Encubrimiento.
+- Protocolos.
+- Desapariciones clasificadas de otra manera.
+- Guarda protector identificado.
+
+El Abogado ofrece una salida a cambio del libro.
+
+Pista:
+El Proyecto amplificó una anomalía antigua.
+
+CAPÍTULO 14: GIMNASIO Y PISCINA
+-------------------------------
+NPC:
+- Atleta del Circuito.
+- Salvavidas.
+- Equipo inmóvil.
+- Voces de Vestidores.
+- Perro guía.
+
+Eventos:
+- Atleta corre cada vez más rápido.
+- Sale de la pista.
+- Salvavidas mira desde el reflejo.
+- Equipo comienza a seguir.
+- Voces dan rutas contradictorias.
+- Piscina muestra a Sharon.
+
+Rescate:
+Sharon sale por ventilación.
+
+Revelación:
+Nicolás está con el doble del protagonista.
+
+Pista:
+Entrada a túneles de Residencias.
+
+AMANECER 3
+----------
+El grupo se reúne completo.
+Sharon explica lo que vio.
+Las pruebas ya permiten reconstruir el Proyecto.
+
+DÍA 4: PREPARACIÓN FINAL
+========================
+
+Objetivos:
+- Unir los ocho nodos.
+- Identificar el orden.
+- Comparar lista de 1974.
+- Reconstruir páginas.
+- Preparar herramientas.
+- Elegir ruta.
+- Establecer preguntas de identidad.
+- Decidir qué hacer con la entidad.
+
+Mesa de investigación:
+- Biblioteca.
+- Generales.
+- Educación.
+- Ingeniería.
+- Ciencias.
+- Medicina.
+- Psicología.
+- Informática/Auditorio.
+
+Contenido opcional:
+- Memorial.
+- Soda.
+- Mantenimiento.
+- Piscina.
+- Centro Cultural.
+- Entrevista final con Elena Mora.
+
+Consecuencias:
+La ayuda de seguridad depende de decisiones anteriores.
+El grupo discute si revelar, contener o destruir el Proyecto.
+
+Horror diurno:
+- Las sombras del grupo son seis.
+- El teléfono recibe una foto tomada desde Residencias.
+- Una silla en la mesa aparece ocupada en fotografías, pero vacía al mirar.
+
+NOCHE 4
+=======
+
+CAPÍTULO 15: RESIDENCIAS
+------------------------
+NPC:
+- Encargada del Edificio.
+- Residentes nocturnos.
+- Compañero de cuarto inexistente.
+- Doble del protagonista.
+
+La Encargada dice:
+“Su hermano lleva años esperando”.
+
+Residentes:
+- Entran a sus habitaciones al mismo tiempo.
+- Sus puertas tienen nombres conocidos.
+- Algunos aparecen en fotos antiguas.
+
+Habitación:
+- Reproduce la infancia del protagonista.
+- Contiene objetos.
+- Presenta recuerdos alterados.
+
+Doble:
+Afirma que el jugador es la copia.
+
+Prueba:
+- Decisiones.
+- Frases.
+- Ayuda a amigos.
+- Objetos.
+- Orden de hechos.
+- Confianza.
+
+Resultados:
+- Doble identificado.
+- Doble escapa.
+- Amigo engañado.
+- Grupo dividido.
+
+Pista:
+Mapa de la fuente residencial.
+
+CAPÍTULO 16: BIBLIOTECA SUBTERRÁNEA
+-----------------------------------
+NPC:
+- Lectores antiguos.
+- Bibliotecaria Original.
+- Versiones futuras del grupo.
+- Niña de la Tiza.
+
+Eventos:
+- Libros con nombres.
+- Futuros posibles.
+- Personas envejecidas.
+- Bibliotecaria ofrece una solución incompleta.
+- Niña señala páginas arrancadas.
+
+Verdad:
+La anomalía es anterior a 1974.
+
+Pista:
+Ruta al núcleo.
+
+CAPÍTULO 17: RECTORÍA Y TORRE
+-----------------------------
+NPC:
+- Guardas de distintas épocas.
+- Consejo del Núcleo.
+- Copias incompletas.
+- Profesor sin rostro.
+- Doble.
+- Guarda protector.
+
+Núcleo:
+- Nicolás dentro de sensores.
+- Ocho terminales.
+- Cables.
+- Servidores.
+- Tuberías.
+- Residuo oscuro.
+
+OCHO NODOS
+----------
+1. Biblioteca:
+Signatura del libro.
+
+2. Generales:
+Orden del Árbol.
+
+3. Educación:
+Voluntarios.
+
+4. Ingeniería:
+Energía ficticia.
+
+5. Ciencias:
+Ruta natural.
+
+6. Medicina:
+Estabilización.
+
+7. Psicología:
+Autenticidad.
+
+8. Informática/Auditorio:
+Momento de la demostración.
+
+Historia, Derecho, Artes y Biblioteca Subterránea entregan claves.
+
+CUENTA REGRESIVA FINAL
+----------------------
+La cuarta noche sí tiene un límite narrativo.
+
+No es solamente el amanecer:
+La entidad ha utilizado tres noches para recopilar recuerdos. Si llega al amanecer de la cuarta noche con un doble completo, puede salir del campus.
+
+El jugador debe:
+- Resolver nodos.
+- Mantener al grupo unido.
+- Identificar copias.
+- Proteger la consola.
+- Decidir el destino del Proyecto.
+
+================================================================
+14. FINALES
+================================================================
+
+FINAL 1: LIBERACIÓN COMPLETA
+----------------------------
+- Ocho nodos.
+- Todos vivos y juntos.
+- Doble identificado.
+- Evidencias completas.
+
+La entidad se fragmenta en recuerdos individuales.
+Nicolás es liberado.
+El campus deja de repetir las noches.
+
+FINAL 2: CONTENCIÓN
+-------------------
+La entidad queda encerrada.
+Nicolás sale.
+El Proyecto permanece bajo vigilancia.
+El peligro no desaparece totalmente.
+
+FINAL 3: INTERCAMBIO
+--------------------
+El protagonista sustituye a Nicolás como ancla.
+Nicolás y los amigos salen.
+Una rama del Árbol lleva el nombre del jugador.
+
+FINAL 4: FALSO RESCATE
+----------------------
+Una copia sale del campus.
+El grupo cree haber ganado.
+El reflejo revela la verdad.
+
+FINAL 5: GRUPO DIVIDIDO
+-----------------------
+La desconfianza destruye la coordinación.
+Algunos amigos salen.
+Otros quedan atrapados como recuerdos residuales.
+El campus continúa activo.
+
+FINAL 6: BUCLE
+--------------
+La cuarta noche termina sin resolver el núcleo.
+La historia reinicia.
+El protagonista no recuerda a Nicolás.
+Los NPC repiten diálogos.
+
+FINAL SECRETO: MEMORIA RESTITUIDA
+---------------------------------
+Todas las pruebas, contenido opcional y decisiones correctas.
+
+Los recuerdos se separan.
+El memorial recupera nombres.
+La Biblioteca crea un archivo público.
+El Libro queda con páginas en blanco.
+Nicolás y el grupo abandonan el campus al amanecer del quinto día.
+
+================================================================
+15. CURVA DE INTENSIDAD
+================================================================
+
+NOCHE 1:
+Incomodidad y primer acecho.
+
+NOCHE 2:
+Amenaza física y reglas sobrenaturales.
+
+NOCHE 3:
+Paranoia, dobles y grandes grupos de NPC.
+
+NOCHE 4:
+Suplantación, persecución directa y colapso del campus.
+
+Cada capítulo debe incluir:
+- Dos o tres alteraciones menores.
+- Dos NPC inquietantes.
+- Una aparición principal.
+- Una amenaza.
+- Un evento variable.
+- Una revelación.
+- Una transición con tensión.
+
+================================================================
+16. REGLAS DE DISEÑO PARA CONSERVAR EL MIEDO
+================================================================
+
+1. No mostrar demasiado pronto a las entidades.
+2. Mantener NPC normales mezclados con residuales.
+3. Repetir personajes entre capítulos.
+4. Cambiar detalles al mirar atrás.
+5. Usar persecuciones cortas.
+6. Evitar combate.
+7. No convertir todo en sustos repentinos.
+8. Combinar sustos con anticipación.
+9. Utilizar el día para aumentar la inquietud.
+10. Hacer que la cuarta noche recupere pistas de todas las anteriores.
+11. Permitir que algunas apariciones no tengan explicación inmediata.
+12. No usar daño gráfico.
+13. No dañar animales.
+14. Mantener reglas coherentes.
+15. Variar eventos entre partidas.
+
+================================================================
+17. ORDEN DE PRODUCCIÓN RECOMENDADO
+================================================================
+
+FASE 1:
+- Biblioteca.
+- Plaza.
+- Generales.
+- Cambio de cámara.
+- NPC básicos.
+- Director de miedo.
+
+FASE 2:
+- Educación.
+- Mantenimiento.
+- Primer ciclo día/noche.
+- Mesa de investigación.
+
+FASE 3:
+- Ingeniería.
+- Ciencias.
+- Autobús.
+- Medicina.
+- Psicología.
+
+FASE 4:
+- Informática.
+- Artes.
+- Auditorio.
+- Historia.
+- Derecho.
+- Gimnasio.
+
+FASE 5:
+- Residencias.
+- Biblioteca Subterránea.
+- Rectoría.
+- Finales.
+
+FASE 6:
+- Eventos variables.
+- Animales.
+- NPC persistentes.
+- Optimización.
+- Accesibilidad.
+- Balance de miedo.
+
+================================================================
+18. RESULTADO DEFINITIVO
+================================================================
+
+Proyecto Memoria queda establecido como un juego de terror intenso que transcurre durante tres días completos de investigación y cuatro noches de exploración sobrenatural.
+
+Durante el día:
+- El campus parece normal.
+- El grupo investiga.
+- Se arman piezas.
+- Se preparan herramientas.
+- Se interroga a NPC reales.
+- Se interpretan pistas.
+
+Durante la noche:
+- Los edificios cambian.
+- Los NPC residuales aparecen.
+- Los imitadores se infiltran.
+- Las entidades persiguen.
+- Se abren rutas.
+- Se encuentran piezas físicas.
+- Se avanza hacia Nicolás.
+
+La primera noche descubre el fenómeno.
+La segunda explica su funcionamiento.
+La tercera revela el encubrimiento y rescata a Sharon.
+La cuarta enfrenta al doble, descubre el origen antiguo y resuelve el Proyecto Memoria.
+
+El amanecer ya no representa el final inmediato del juego. Cada amanecer es una pausa temporal que permite comprender lo encontrado. El verdadero límite es el amanecer posterior a la cuarta noche, cuando la entidad intenta abandonar el campus con una identidad completa.
+
+FIN DEL DOCUMENTO

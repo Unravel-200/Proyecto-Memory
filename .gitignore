@@ -5,6 +5,11 @@ DerivedDataCache/
 Intermediate/
 Saved/
 
+# NO ignorar (necesarios para abrir el proyecto en otra computadora):
+# Config/
+# Source/
+# *.uproject
+
 # Compilados y paquetes
 *.pak
 *.sig

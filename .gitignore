@@ -1,0 +1,27 @@
+# ---- Unreal Engine ----
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Compilados y paquetes
+*.pak
+*.sig
+
+# Visual Studio
+.vs/
+*.sln
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# Otros generados por el editor
+*.tmp
+*.log

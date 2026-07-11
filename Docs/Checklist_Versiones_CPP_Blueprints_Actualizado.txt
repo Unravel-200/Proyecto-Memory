@@ -368,11 +368,11 @@ Tener un proyecto limpio, protegido y reproducible.
 
 CHECKLIST
 ---------
-[ ] Crear repositorio GitHub.
-[ ] Crear rama main.
+[X] Crear repositorio GitHub.
+[X] Crear rama main.
 [ ] Crear rama develop si se decide usarla.
-[ ] Configurar Git LFS.
-[ ] Rastrear:
+[X] Configurar Git LFS.
+[X] Rastrear:
     *.uasset
     *.umap
     *.blend
@@ -380,21 +380,21 @@ CHECKLIST
     *.wav
     *.tga
     *.exr
-[ ] Crear .gitignore de Unreal.
-[ ] Ignorar:
+[X] Crear .gitignore de Unreal.
+[X] Ignorar:
     Binaries/
     DerivedDataCache/
     Intermediate/
     Saved/
     .vs/
-[ ] Crear estructura de carpetas del repositorio.
-[ ] Crear proyecto Unreal con soporte C++.
-[ ] Definir versión exacta de Unreal.
+[X] Crear estructura de carpetas del repositorio.
+[~] Crear proyecto Unreal con soporte C++.
+[X] Definir versión exacta de Unreal.
 [ ] Instalar y verificar el entorno de compilación compatible.
 [ ] Instalar componentes de C++ requeridos por Unreal.
 [ ] Compilar el proyecto en Development Editor.
-[ ] Crear el módulo principal ProyectoMemoria.
-[ ] Crear una clase C++ mínima de prueba.
+[~] Crear el módulo principal ProyectoMemoria.
+[~] Crear una clase C++ mínima de prueba.
 [ ] Crear un Blueprint hijo de esa clase.
 [ ] Confirmar comunicación C++ → Blueprint.
 [ ] Confirmar comunicación Blueprint → C++.
@@ -402,15 +402,15 @@ CHECKLIST
 [ ] Confirmar compilación desde un clon limpio.
 [ ] Crear carpeta SourceAssets.
 [ ] Crear carpeta Exports.
-[ ] Crear carpeta Docs.
-[ ] Guardar documentos narrativos.
-[ ] Guardar guía de dimensiones.
-[ ] Guardar este checklist.
-[ ] Configurar nombres y prefijos.
+[X] Crear carpeta Docs.
+[X] Guardar documentos narrativos.
+[X] Guardar guía de dimensiones.
+[X] Guardar este checklist.
+[X] Configurar nombres y prefijos.
 [ ] Crear nivel L_Developer_Testing.
 [ ] Crear nivel L_AssetValidation.
 [ ] Crear nivel L_MainMenu_Placeholder.
-[ ] Crear primer commit.
+[X] Crear primer commit.
 [ ] Crear tag v0.0.1_setup.
 
 CRITERIOS DE ACEPTACIÓN

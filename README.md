@@ -11,8 +11,10 @@ Campus universitario costarricense ficticio.
 ## Estructura del repositorio
 
 - `UnrealProject/` — Proyecto de Unreal Engine.
-- `Docs/` — Documentación de diseño, arquitectura, checklists y guías de producción.
 - `Backups/` — Copias de seguridad locales.
+
+La documentación de diseño, arquitectura, checklists y guías de producción
+vive únicamente en el repositorio hermano `Proyecto-Memoria-docs`, no en este.
 
 ## Control de versiones
 
@@ -24,4 +26,22 @@ git lfs install
 
 ## Documentación
 
-Consulta `Docs/Proyecto_Memoria_Control_Maestro_Produccion.txt` antes de iniciar cualquier tarea de desarrollo.
+La documentación oficial está en el repositorio hermano:
+
+```text
+C:\Users\jeffa\Desktop\Proyecto\Proyecto-Memoria-docs
+```
+
+Antes de programar, revisar:
+
+```text
+Proyecto-Memoria-docs\Produccion\Proyecto_Memoria_Control_Maestro_Produccion.txt
+Proyecto-Memoria-docs\Produccion\Checklist_Versiones_CPP_Blueprints_Actualizado.txt
+Proyecto-Memoria-docs\Unreal\Proyecto_Memoria_Arquitectura_CPP_Blueprints.txt
+```
+
+Para contenido narrativo, revisar:
+
+```text
+Proyecto-Memoria-docs\General\Proyecto_Memoria_Definitivo_3_Dias_Terror_Intenso.txt
+```

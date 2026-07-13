@@ -11,6 +11,7 @@ public class ProyectoMemoria : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
+			"EnhancedInput",
 			"InputCore"
 		});
 

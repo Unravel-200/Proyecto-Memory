@@ -52,7 +52,7 @@ void APMPlayerController::BeginPlay()
 
 void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	HandleCrouchCanceled();
+	ResetTransientPawnInputState();
 
 	// El LocalPlayer puede sobrevivir a este controller; por eso retiramos el IMC propio.
 	if (bMappingContextAdded && PlayerMappingContext)
@@ -73,8 +73,8 @@ void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void APMPlayerController::OnUnPossess()
 {
-	// Restaura el Pawn que inició el gesto antes de cambiar la posesión.
-	HandleCrouchCanceled();
+	// Limpia las órdenes mantenidas antes de que Super elimine la referencia al Pawn.
+	ResetTransientPawnInputState();
 	Super::OnUnPossess();
 }
 
@@ -296,6 +296,17 @@ void APMPlayerController::ResetCrouchInputState()
 	CrouchInputCharacter.Reset();
 	bCrouchInputActive = false;
 	bWasCrouchedWhenInputStarted = false;
+}
+
+void APMPlayerController::ResetTransientPawnInputState()
+{
+	// Completed puede no llegar si se pierde la posesión con Sprint presionado.
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		PMCharacter->SetSprinting(false);
+	}
+
+	HandleCrouchCanceled();
 }
 
 void APMPlayerController::HandleToggleCamera()

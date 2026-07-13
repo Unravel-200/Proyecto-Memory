@@ -95,6 +95,7 @@ private:
 	void HandleCrouchCanceled();
 	void HandleToggleCamera();
 	void ResetCrouchInputState();
+	void ResetTransientPawnInputState();
 
 	/** Personaje que recibió el inicio de la pulsación, aunque cambie la posesión. */
 	TWeakObjectPtr<APMPlayerCharacter> CrouchInputCharacter;

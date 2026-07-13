@@ -111,6 +111,8 @@ Responsabilidades implementadas:
 - Sensibilidad X/Y editable.
 - Inversión opcional del eje Y.
 - Sprint al mantener una acción; se cancela en Completed y Canceled.
+- Sprint y gesto de crouch se limpian también en EndPlay y OnUnPossess para que
+  el Pawn anterior no conserve órdenes si se pierde la posesión.
 - Agachado híbrido con una acción Digital: toque corto alterna; mantener presionado
   agacha inmediatamente y levanta al soltar.
 - Umbral de mantener presionado editable, 0,25 s por defecto.
@@ -205,6 +207,8 @@ Valores editables desde defaults de Blueprint:
 5. Compilación final incremental, limitada a una acción paralela: exitosa.
 6. Agachado híbrido añadido el 2026-07-13; UHT, PMPlayerCharacter,
    PMPlayerController y enlace recompilados con resultado exitoso.
+7. Auditoría de memoria/ciclo de vida: no requiere destructores personalizados;
+   se añadió limpieza de sprint al terminar o perder la posesión.
 
 Comando final:
 
@@ -226,8 +230,11 @@ Avisos externos observados:
 - Compilación Development Editor para Win64 con Unreal Engine 5.8: exitosa.
 - Recompilación incremental del agachado híbrido con una acción paralela:
   exitosa en el primer intento.
+- Recompilación de la limpieza sprint/crouch en EndPlay y OnUnPossess: exitosa.
 - Matriz estática del agachado híbrido: PASS para toque desde pie, segundo toque,
   mantener desde pie y mantener desde agachado.
+- Inspección de ownership: sin new/delete, timers, handles o recursos nativos
+  manuales; default subobjects, TObjectPtr y TWeakObjectPtr correctamente usados.
 - CompileAllBlueprints en UnrealEditor-Cmd con NullRHI y modo unattended:
   0 errores, 0 warnings y 0 Blueprints que no pudieron cargar.
 - BP_TestActor existente: compilación exitosa dentro del commandlet.

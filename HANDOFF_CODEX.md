@@ -41,6 +41,7 @@ El trabajo siguió este orden solicitado:
 - UnrealProject/Source/ProyectoMemoria/Player/PMPlayerController.cpp
 - UnrealProject/Source/ProyectoMemoria/Player/PMCameraModeComponent.h
 - UnrealProject/Source/ProyectoMemoria/Player/PMCameraModeComponent.cpp
+- EDITOR_SETUP_V0.1.md
 - HANDOFF_CODEX.md
 
 ## Archivo existente modificado por Codex
@@ -50,6 +51,13 @@ El trabajo siguió este orden solicitado:
 
 No se crearon ni editaron assets binarios, Blueprints, mapas, archivos de
 configuración, Level Blueprints ni contenido de los repositorios excluidos.
+
+### Guía operativa del Editor
+
+EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible para crear Input
+Actions, IMC_Player, Blueprints, GameMode, geometría de prueba y ejecutar PIE
+cuando exista acceso a una PC adecuada. Su creación no abrió Unreal Editor ni
+confirma que la integración jugable haya sido realizada.
 
 ## Arquitectura implementada
 

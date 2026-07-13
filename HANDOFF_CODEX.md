@@ -3,8 +3,8 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-12 (America/Costa_Rica).
-- Última actualización: 2026-07-13 — agachado híbrido solicitado por el propietario.
+- Fecha local: 2026-07-13 (America/Costa_Rica).
+- Última actualización: 2026-07-13 — guía de Editor, checklist oficial y punto de reanudación.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma compilada: Windows 64-bit, Development Editor.
@@ -17,11 +17,52 @@ auditoría y una futura preparación de publicación. No sustituye la documentac
 oficial de Proyecto-Memoria-docs y no establece por sí mismo licencia, titularidad
 legal ni obligaciones de atribución.
 
+## Reanudación rápida — próxima sesión
+
+### Punto de control
+
+- Repositorio de código: Proyecto-Memory.
+- Rama obligatoria: feature/v0.1-player-cameras.
+- Commits funcionales de v0.1.0:
+  - f8dfb21 — personaje, movimiento y cámaras.
+  - e8095b4 — agachado híbrido.
+  - 5eccd8e — limpieza de sprint/crouch al perder posesión.
+  - 947681f — guía reproducible de integración en Unreal Editor.
+- Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
+- No existe push, merge, rebase ni tag de esta rama.
+- Modelos-3D contiene dos archivos sin seguimiento del propietario que deben
+  preservarse: Plaza/SM_Tree_PlazaCentral_A.blend y
+  Plaza/SM_Tree_PlazaCentral_A.py.
+
+### Próxima acción recomendada
+
+En la laptop actual no abrir Unreal, compilar, ejecutar PIE ni generar shaders. La
+siguiente tarea liviana es crear QA_PLAYER_V0.1.md como matriz de evidencia basada
+en EDITOR_SETUP_V0.1.md. Cuando exista acceso a una PC adecuada, ejecutar la guía
+de Editor desde la sección 1 y registrar cada prueba como PASS, FAIL o BLOCKED.
+
+No comenzar v0.2.0, fusionar la rama ni crear v0.1.0_player hasta completar los
+Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
+
+### Prompt para copiar mañana
+
+> Continúa Proyecto Memoria. Trabaja únicamente en Proyecto-Memory y lee primero
+> HANDOFF_CODEX.md y EDITOR_SETUP_V0.1.md completos. Verifica en solo lectura que
+> la rama sea feature/v0.1-player-cameras, muestra los últimos commits y confirma
+> que el worktree esté limpio. No abras Unreal, no compiles y no ejecutes PIE en
+> esta laptop. No hagas push, merge, rebase ni tag. No toques Modelos-3D y preserva
+> sus archivos sin seguimiento. Mantén Proyecto-Memoria-docs en solo lectura hasta
+> que yo autorice otra actualización. El siguiente trabajo liviano es preparar
+> QA_PLAYER_V0.1.md a partir de EDITOR_SETUP_V0.1.md; antes de editar, informa
+> rama, archivos, dependencias, criterios de aceptación y pruebas.
+
 ## Alcance autorizado y respetado
 
-Se trabajó únicamente en Proyecto-Memory. Proyecto-Memoria-docs se consultó en
-modo de solo lectura y Modelos-3D no se modificó. Tampoco se cambió el checklist
-compartido.
+La implementación C++ y sus documentos se realizaron únicamente en
+Proyecto-Memory. El 2026-07-13 el propietario autorizó expresamente actualizar el
+checklist compartido; se modificó solo
+Produccion/Checklist_Versiones_CPP_Blueprints_Actualizado.txt en
+Proyecto-Memoria-docs y se creó el commit local 6a270af. Modelos-3D no se modificó.
 
 El trabajo siguió este orden solicitado:
 
@@ -249,8 +290,10 @@ Avisos externos observados:
 - Inspección estática de macros UHT, firmas de Enhanced Input y API UE 5.8.
 - git diff --check: sin errores de whitespace; Git solo avisa la política local
   futura LF a CRLF de Build.cs.
-- Auditoría de alcance: los cambios persistentes están dentro de Proyecto-Memory;
-  Proyecto-Memoria-docs y Modelos-3D permanecen limpios.
+- Auditoría de alcance: el C++ y sus documentos permanecen dentro de
+  Proyecto-Memory. La única edición autorizada fuera fue el checklist del commit
+  6a270af. Los dos archivos de árbol sin seguimiento en Modelos-3D pertenecen al
+  propietario y se preservaron sin modificación.
 
 Los artefactos de build y logs quedaron en carpetas ignoradas por Git:
 Binaries, Intermediate y Saved.
@@ -274,7 +317,10 @@ jugable. En una PC adecuada se debe:
 9. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
 10. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
-    Probar alrededor de 0,24/0,25/0,26 s a 30, 60 y 120 FPS.
+    En manual, comparar un toque claramente corto con una pulsación de al menos
+    0,5 s. Los límites 0,24/0,25/0,26 s requieren instrumentación o automatización;
+    no deben validarse por estimación humana. Repetir a 30, 60 y 120 FPS cuando el
+    hardware lo permita.
 11. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
 12. Probar 1P/3P, paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
@@ -311,12 +357,11 @@ Antes de publicar el juego se deberá mantener este registro y resolver, como m�
 No se inventó ni añadió una licencia o aviso legal porque esa decisión corresponde
 al propietario del proyecto.
 
-## Delta acumulado del checklist — NO APLICAR SIN PERMISO
+## Actualización aplicada al checklist oficial
 
-La documentación oficial debe permanecer sin cambios hasta autorización explícita.
-Este es el registro local para una actualización futura:
-
-Listo en código y compilado, pero todavía no debe cerrarse oficialmente:
+El propietario autorizó la actualización el 2026-07-13. Se registró en
+Proyecto-Memoria-docs mediante el commit local 6a270af. Los avances siguientes
+quedaron como [~] y no como [X], porque todavía falta validación manual:
 
 - Crear APMPlayerCharacter en C++.
 - Crear APMPlayerController en C++.
@@ -325,7 +370,7 @@ Listo en código y compilado, pero todavía no debe cerrarse oficialmente:
 - Agachado híbrido configurable: toque para alternar y mantener para soltar.
 - Configuración nativa de cápsula.
 - Base C++ de primera persona, tercera persona y cambio de cámara.
-- Prueba de colisión de cámara implementada para tercera persona.
+- Configuración de colisión de cámara implementada para tercera persona.
 - Sensibilidad e inversión opcional expuestas.
 - Lógica central en C++.
 - Valores de diseño ajustables desde defaults de Blueprint.
@@ -342,9 +387,9 @@ Debe continuar pendiente hasta completar Editor y pruebas:
 - Decisión sobre salto y movimiento reducido de cámara.
 - Tag v0.1.0_player, merge y cualquier declaración de versión estable.
 
-## Guía de revisión pedagógica
+## Revisión pedagógica realizada
 
-Orden recomendado para que el propietario revise y aprenda el código:
+El propietario revisó con Codex los archivos en este orden:
 
 1. PMCameraModeComponent.h: tipos, retornos y contrato público.
 2. PMCameraModeComponent.cpp: aplicación del modo y política de rotación.
@@ -355,3 +400,5 @@ Orden recomendado para que el propietario revise y aprenda el código:
 
 Cada archivo .h documenta responsabilidades, tipos y retornos; los .cpp explican
 las decisiones que no son evidentes solo por leer la instrucción de código.
+No es necesario repetir esta revisión al reanudar, salvo que el propietario lo
+solicite o aparezca una duda concreta.

@@ -26,6 +26,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Movement")
 	void SetSprinting(bool bEnabled);
 
+	/** Solicita explícitamente agacharse o volver a estar de pie. */
+	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Movement")
+	void SetCrouching(bool bEnabled);
+
 	/** Alterna entre estar de pie y agachado. */
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Movement")
 	void ToggleCrouch();

@@ -7,6 +7,7 @@
 class APMPlayerCharacter;
 class UInputAction;
 class UInputMappingContext;
+struct FInputActionInstance;
 struct FInputActionValue;
 
 /**
@@ -35,6 +36,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void OnUnPossess() override;
 	virtual void SetupInputComponent() override;
 
 	/** IMC_Player: contexto que agrupa todos los controles de esta versión. */
@@ -53,9 +55,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
 	TObjectPtr<UInputAction> SprintAction;
 
-	/** IA_Crouch debe ser una acción Digital de pulsación. */
+	/**
+	 * IA_Crouch debe ser Digital con trigger predeterminado o Down. No debe usar
+	 * Hold, Tap, Pressed, Released ni Pulse: C++ mide la duración completa.
+	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
 	TObjectPtr<UInputAction> CrouchAction;
+
+	/** Duración mínima para interpretar IA_Crouch como mantener presionado. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input",
+		meta = (ClampMin = "0.05", UIMin = "0.05", UIMax = "1.0", Units = "s"))
+	float CrouchHoldThreshold;
 
 	/** IA_ToggleCamera debe ser una acción Digital de pulsación. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
@@ -80,8 +90,20 @@ private:
 	void HandleLook(const FInputActionValue& Value);
 	void HandleSprintStarted();
 	void HandleSprintCompleted();
-	void HandleCrouch();
+	void HandleCrouchStarted();
+	void HandleCrouchCompleted(const FInputActionInstance& Instance);
+	void HandleCrouchCanceled();
 	void HandleToggleCamera();
+	void ResetCrouchInputState();
+
+	/** Personaje que recibió el inicio de la pulsación, aunque cambie la posesión. */
+	TWeakObjectPtr<APMPlayerCharacter> CrouchInputCharacter;
+
+	/** Permite ignorar eventos Completed/Canceled sin un Started correspondiente. */
+	bool bCrouchInputActive;
+
+	/** Postura que se restaurará si Enhanced Input cancela la acción. */
+	bool bWasCrouchedWhenInputStarted;
 
 	/** Evita retirar del subsistema un contexto que este controller no agregó. */
 	bool bMappingContextAdded;

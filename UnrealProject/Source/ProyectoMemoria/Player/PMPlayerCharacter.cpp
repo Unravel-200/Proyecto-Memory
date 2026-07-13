@@ -83,16 +83,21 @@ void APMPlayerCharacter::SetSprinting(const bool bEnabled)
 	ApplyMovementSpeed();
 }
 
-void APMPlayerCharacter::ToggleCrouch()
+void APMPlayerCharacter::SetCrouching(const bool bEnabled)
 {
-	if (bIsCrouched)
+	if (bEnabled)
 	{
-		UnCrouch();
+		SetSprinting(false);
+		Crouch();
 		return;
 	}
 
-	SetSprinting(false);
-	Crouch();
+	UnCrouch();
+}
+
+void APMPlayerCharacter::ToggleCrouch()
+{
+	SetCrouching(!IsCrouched());
 }
 
 bool APMPlayerCharacter::IsSprinting() const

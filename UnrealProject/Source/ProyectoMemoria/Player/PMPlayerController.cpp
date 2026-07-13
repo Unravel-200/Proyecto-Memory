@@ -3,6 +3,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
+#include "InputAction.h"
 #include "InputActionValue.h"
 #include "PMCameraModeComponent.h"
 #include "PMPlayerCharacter.h"
@@ -15,6 +16,9 @@ APMPlayerController::APMPlayerController()
 	LookSensitivityY = 1.0f;
 	bInvertLookY = false;
 	MappingPriority = 0;
+	CrouchHoldThreshold = 0.25f;
+	bCrouchInputActive = false;
+	bWasCrouchedWhenInputStarted = false;
 	bMappingContextAdded = false;
 }
 
@@ -48,6 +52,8 @@ void APMPlayerController::BeginPlay()
 
 void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	HandleCrouchCanceled();
+
 	// El LocalPlayer puede sobrevivir a este controller; por eso retiramos el IMC propio.
 	if (bMappingContextAdded && PlayerMappingContext)
 	{
@@ -63,6 +69,13 @@ void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 	bMappingContextAdded = false;
 	Super::EndPlay(EndPlayReason);
+}
+
+void APMPlayerController::OnUnPossess()
+{
+	// Restaura el Pawn que inició el gesto antes de cambiar la posesión.
+	HandleCrouchCanceled();
+	Super::OnUnPossess();
 }
 
 void APMPlayerController::SetupInputComponent()
@@ -131,7 +144,17 @@ void APMPlayerController::SetupInputComponent()
 			CrouchAction,
 			ETriggerEvent::Started,
 			this,
-			&APMPlayerController::HandleCrouch);
+			&APMPlayerController::HandleCrouchStarted);
+		EnhancedInput->BindAction(
+			CrouchAction,
+			ETriggerEvent::Completed,
+			this,
+			&APMPlayerController::HandleCrouchCompleted);
+		EnhancedInput->BindAction(
+			CrouchAction,
+			ETriggerEvent::Canceled,
+			this,
+			&APMPlayerController::HandleCrouchCanceled);
 	}
 
 	if (ToggleCameraAction)
@@ -206,12 +229,73 @@ void APMPlayerController::HandleSprintCompleted()
 	}
 }
 
-void APMPlayerController::HandleCrouch()
+void APMPlayerController::HandleCrouchStarted()
 {
-	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	// Recupera un gesto anterior si Enhanced Input perdió su evento de cierre.
+	if (bCrouchInputActive)
 	{
-		PMCharacter->ToggleCrouch();
+		HandleCrouchCanceled();
 	}
+
+	APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter();
+	if (!PMCharacter)
+	{
+		return;
+	}
+
+	CrouchInputCharacter = PMCharacter;
+	bCrouchInputActive = true;
+	bWasCrouchedWhenInputStarted = PMCharacter->IsCrouched();
+
+	// La respuesta visual es inmediata; al soltar se decide entre toque y hold.
+	if (!bWasCrouchedWhenInputStarted)
+	{
+		PMCharacter->SetCrouching(true);
+	}
+}
+
+void APMPlayerController::HandleCrouchCompleted(const FInputActionInstance& Instance)
+{
+	if (!bCrouchInputActive)
+	{
+		return;
+	}
+
+	if (APMPlayerCharacter* PMCharacter = CrouchInputCharacter.Get())
+	{
+		const bool bWasHeld = Instance.GetElapsedTime() >= CrouchHoldThreshold;
+
+		// Hold siempre termina de pie. Un toque solo levanta si empezó agachado.
+		if (bWasHeld || bWasCrouchedWhenInputStarted)
+		{
+			PMCharacter->SetCrouching(false);
+		}
+	}
+
+	ResetCrouchInputState();
+}
+
+void APMPlayerController::HandleCrouchCanceled()
+{
+	if (!bCrouchInputActive)
+	{
+		return;
+	}
+
+	if (APMPlayerCharacter* PMCharacter = CrouchInputCharacter.Get())
+	{
+		// Una cancelación no cuenta como toque: restaura la postura inicial.
+		PMCharacter->SetCrouching(bWasCrouchedWhenInputStarted);
+	}
+
+	ResetCrouchInputState();
+}
+
+void APMPlayerController::ResetCrouchInputState()
+{
+	CrouchInputCharacter.Reset();
+	bCrouchInputActive = false;
+	bWasCrouchedWhenInputStarted = false;
 }
 
 void APMPlayerController::HandleToggleCamera()

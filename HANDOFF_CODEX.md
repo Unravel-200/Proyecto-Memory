@@ -4,6 +4,7 @@
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
 - Fecha local: 2026-07-12 (America/Costa_Rica).
+- Última actualización: 2026-07-13 — agachado híbrido solicitado por el propietario.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma compilada: Windows 64-bit, Development Editor.
@@ -79,6 +80,8 @@ Responsabilidades implementadas:
 - Soporte de crouch habilitado en las propiedades públicas del agente de navegación.
 - Sincronización del sprint al agacharse, incluso si Crouch se invoca desde un
   Blueprint o un sistema futuro.
+- Orden explícita SetCrouching(bool) para separar la postura física de cómo se
+  interpreta una pulsación en el Controller.
 - Cámara de primera persona unida a la cápsula.
 - Spring Arm y cámara de tercera persona.
 - Propiedad del UPMCameraModeComponent.
@@ -88,6 +91,7 @@ API pública:
 | Método | Entrada | Retorno | Contrato |
 |---|---|---|---|
 | SetSprinting | bool bEnabled | void | Activa sprint solo si el personaje no está agachado. |
+| SetCrouching | bool bEnabled | void | Solicita Crouch o UnCrouch y cancela sprint al agacharse. |
 | ToggleCrouch | ninguna | void | Alterna Crouch/UnCrouch y cancela sprint al agacharse. |
 | IsSprinting | ninguna | bool | Devuelve el estado lógico de sprint. |
 | GetCameraModeComponent | ninguna | UPMCameraModeComponent* | Devuelve el componente propiedad del Character. |
@@ -107,7 +111,12 @@ Responsabilidades implementadas:
 - Sensibilidad X/Y editable.
 - Inversión opcional del eje Y.
 - Sprint al mantener una acción; se cancela en Completed y Canceled.
-- Agacharse y cambiar cámara mediante acciones Digital.
+- Agachado híbrido con una acción Digital: toque corto alterna; mantener presionado
+  agacha inmediatamente y levanta al soltar.
+- Umbral de mantener presionado editable, 0,25 s por defecto.
+- Restauración de la postura inicial si Enhanced Input cancela IA_Crouch.
+- Recuperación ante un Started duplicado y limpieza al terminar o cambiar el Pawn.
+- Cambio de cámara mediante una acción Digital.
 - Diagnóstico en log cuando faltan el Mapping Context o Input Actions.
 - Comportamiento seguro si todavía no hay assets asignados.
 
@@ -119,7 +128,7 @@ Contrato de assets:
 | MoveAction | IA_Move | Axis2D |
 | LookAction | IA_Look | Axis2D |
 | SprintAction | IA_Sprint | Digital |
-| CrouchAction | IA_Crouch | Digital |
+| CrouchAction | IA_Crouch | Digital, trigger predeterminado o Down |
 | ToggleCameraAction | IA_ToggleCamera | Digital |
 
 API pública:
@@ -171,6 +180,7 @@ Valores editables desde defaults de Blueprint:
 | WalkSpeed | float, cm/s | 300 |
 | SprintSpeed | float, cm/s | 550 |
 | CrouchSpeed | float, cm/s | 180 |
+| CrouchHoldThreshold | float, segundos | 0.25 |
 | LookSensitivityX | float | 1.0 |
 | LookSensitivityY | float | 1.0 |
 | bInvertLookY | bool | false |
@@ -193,6 +203,8 @@ Valores editables desde defaults de Blueprint:
    Mapping Context, validaciones de cámara, diagnósticos y sincronización
    sprint/crouch.
 5. Compilación final incremental, limitada a una acción paralela: exitosa.
+6. Agachado híbrido añadido el 2026-07-13; UHT, PMPlayerCharacter,
+   PMPlayerController y enlace recompilados con resultado exitoso.
 
 Comando final:
 
@@ -212,6 +224,10 @@ Avisos externos observados:
 ## Pruebas ejecutadas
 
 - Compilación Development Editor para Win64 con Unreal Engine 5.8: exitosa.
+- Recompilación incremental del agachado híbrido con una acción paralela:
+  exitosa en el primer intento.
+- Matriz estática del agachado híbrido: PASS para toque desde pie, segundo toque,
+  mantener desde pie y mantener desde agachado.
 - CompileAllBlueprints en UnrealEditor-Cmd con NullRHI y modo unattended:
   0 errores, 0 warnings y 0 Blueprints que no pudieron cargar.
 - BP_TestActor existente: compilación exitosa dentro del commandlet.
@@ -235,11 +251,17 @@ jugable. En una PC adecuada se debe:
 4. Decidir y crear BP_PlayerController hijo de APMPlayerController para asignar
    IMC_Player y las cinco IA.
 5. Crear IA_Move, IA_Look, IA_Sprint, IA_Crouch, IA_ToggleCamera e IMC_Player.
-6. Mapear teclado, ratón y mando.
-7. Configurar un GameMode/World Settings de prueba con Pawn y Controller correctos.
-8. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
-9. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
-10. Probar 1P/3P, paredes, sensibilidad, inversión y objetivo de 60 FPS.
+6. Mantener IA_Crouch como Digital con comportamiento predeterminado o trigger
+   Down. No usar Hold, Tap, Pressed, Released ni Pulse porque C++ mide la duración.
+   Asignar CrouchHoldThreshold (0,25 s por defecto).
+7. Mapear teclado, ratón y mando.
+8. Configurar un GameMode/World Settings de prueba con Pawn y Controller correctos.
+9. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
+10. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
+    de IA_Crouch.
+    Probar alrededor de 0,24/0,25/0,26 s a 30, 60 y 120 FPS.
+11. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
+12. Probar 1P/3P, paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
 ## Decisiones y deudas abiertas de v0.1.0
 
@@ -254,6 +276,10 @@ jugable. En una PC adecuada se debe:
   single-player actual.
 - El cambio 3P a 1P debe probarse visualmente para descartar un salto de yaw.
 - No hay todavía pruebas funcionales de colisión, escaleras, espacios o mando.
+- El agachado híbrido está compilado y revisado por matriz de estados, pero su
+  temporización de 0,25 s debe ajustarse mediante prueba de usuario en PIE.
+- Un futuro cambio a contexto UI o pausa debe cancelar explícitamente el gesto de
+  crouch antes de deshabilitar el input, igual que ya hacen EndPlay y OnUnPossess.
 
 ## Preparación futura para publicación
 
@@ -281,6 +307,7 @@ Listo en código y compilado, pero todavía no debe cerrarse oficialmente:
 - Crear APMPlayerController en C++.
 - Crear UPMCameraModeComponent en C++.
 - Base C++ de movimiento, caminar, correr y agacharse.
+- Agachado híbrido configurable: toque para alternar y mantener para soltar.
 - Configuración nativa de cápsula.
 - Base C++ de primera persona, tercera persona y cambio de cámara.
 - Prueba de colisión de cámara implementada para tercera persona.

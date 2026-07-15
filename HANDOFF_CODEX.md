@@ -3,13 +3,13 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-13 (America/Costa_Rica).
-- Última actualización: 2026-07-13 — guía de Editor, checklist oficial y punto de reanudación.
+- Fecha local: 2026-07-15 (America/Costa_Rica).
+- Última actualización: 2026-07-15 — matriz QA, verificador pre/postflight y punto de reanudación.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma compilada: Windows 64-bit, Development Editor.
 - Trabajo técnico generado por: Codex, bajo dirección y revisión del propietario del proyecto.
-- Estado: código C++ compilado y carga headless verificada; integración jugable en Unreal Editor pendiente.
+- Estado: código C++ compilado y carga headless verificada; matriz y verificador QA preparados; integración jugable en Unreal Editor pendiente.
 - Publicación remota: ninguna. No se hizo push, merge ni tag.
 
 Este documento registra lo realizado por Codex para facilitar revisión, continuidad,
@@ -23,11 +23,15 @@ legal ni obligaciones de atribución.
 
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
-- Commits funcionales de v0.1.0:
+- Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
   - 5eccd8e — limpieza de sprint/crouch al perder posesión.
   - 947681f — guía reproducible de integración en Unreal Editor.
+  - d82ea86 — punto de reanudación y restricciones de la laptop.
+  - efc931c — matriz de evidencia QA del Player.
+  - 9132738 — verificador QA de solo lectura para preflight y postflight.
+  - 73de57b — endurecimiento de Git/LFS, assets, matriz QA y Output Log.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - No existe push, merge, rebase ni tag de esta rama.
 - Modelos-3D contiene dos archivos sin seguimiento del propietario que deben
@@ -36,10 +40,28 @@ legal ni obligaciones de atribución.
 
 ### Próxima acción recomendada
 
-En la laptop actual no abrir Unreal, compilar, ejecutar PIE ni generar shaders. La
-siguiente tarea liviana es crear QA_PLAYER_V0.1.md como matriz de evidencia basada
-en EDITOR_SETUP_V0.1.md. Cuando exista acceso a una PC adecuada, ejecutar la guía
-de Editor desde la sección 1 y registrar cada prueba como PASS, FAIL o BLOCKED.
+En la laptop actual no abrir Unreal, compilar, ejecutar PIE ni generar shaders.
+`QA_PLAYER_V0.1.md` y `Tools/QA/Invoke-PlayerQACheck.ps1` ya están preparados; no
+volver a crearlos. El trabajo liviano restante requiere decisiones del propietario:
+persistencia de perspectiva, Jump, suavizado de cámara y tolerancias finales.
+
+Cuando exista acceso a una PC adecuada, ejecutar primero el preflight con
+confirmación humana del hardware. Solo si no hay FAIL, continuar con
+`EDITOR_SETUP_V0.1.md` desde la sección 1 y registrar cada prueba como PASS, FAIL
+o BLOCKED. Al cerrar Unreal, ejecutar el postflight con la ruta al Output Log.
+
+~~~powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
+  .\Tools\QA\Invoke-PlayerQACheck.ps1 -Phase Preflight -ConfirmHardwareReady
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
+  .\Tools\QA\Invoke-PlayerQACheck.ps1 -Phase Postflight `
+  -LogPath .\UnrealProject\Saved\Logs\ProyectoMemoria.log
+~~~
+
+No usar `-AllowDirty` para una sesión real; existe únicamente para desarrollar el
+script. `-AsJson` permite capturar la salida mediante redirección sin que el script
+escriba archivos por sí mismo.
 
 No comenzar v0.2.0, fusionar la rama ni crear v0.1.0_player hasta completar los
 Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
@@ -52,9 +74,11 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > que el worktree esté limpio. No abras Unreal, no compiles y no ejecutes PIE en
 > esta laptop. No hagas push, merge, rebase ni tag. No toques Modelos-3D y preserva
 > sus archivos sin seguimiento. Mantén Proyecto-Memoria-docs en solo lectura hasta
-> que yo autorice otra actualización. El siguiente trabajo liviano es preparar
-> QA_PLAYER_V0.1.md a partir de EDITOR_SETUP_V0.1.md; antes de editar, informa
-> rama, archivos, dependencias, criterios de aceptación y pruebas.
+> que yo autorice otra actualización. QA_PLAYER_V0.1.md y el verificador QA ya
+> existen desde los commits efc931c y 9132738; el verificador vigente incluye el
+> endurecimiento de 73de57b. No los recrees. Si seguimos en esta laptop, revisa
+> conmigo las decisiones abiertas de v0.1.0. En una PC adecuada, ejecuta primero
+> el preflight y después EDITOR_SETUP_V0.1.md desde la sección 1.
 
 ## Alcance autorizado y respetado
 
@@ -84,6 +108,8 @@ El trabajo siguió este orden solicitado:
 - UnrealProject/Source/ProyectoMemoria/Player/PMCameraModeComponent.cpp
 - EDITOR_SETUP_V0.1.md
 - HANDOFF_CODEX.md
+- QA_PLAYER_V0.1.md
+- Tools/QA/Invoke-PlayerQACheck.ps1
 
 ## Archivo existente modificado por Codex
 
@@ -99,6 +125,27 @@ EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible para crear Input
 Actions, IMC_Player, Blueprints, GameMode, geometría de prueba y ejecutar PIE
 cuando exista acceso a una PC adecuada. Su creación no abrió Unreal Editor ni
 confirma que la integración jugable haya sido realizada.
+
+### Matriz y verificador QA
+
+`QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
+de assets, geometría, las 22 pruebas de la guía desglosadas, regresión, evidencias,
+incidencias y trazabilidad de aceptación. Sus 79 IDs comienzan en NOT RUN; ninguna
+prueba de Editor o PIE fue aprobada al preparar la plantilla.
+
+`Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
+
+- Preflight valida rama, commit mínimo, worktree, instalación UE 5.8, hidratación
+  de los assets LFS base, Enhanced Input, fuentes y ausencia de procesos Unreal.
+- Postflight rechaza conflictos, renombres, copias, eliminaciones, assets ignorados
+  y rutas fuera de la allowlist; comprueba 79 IDs/estados/evidencias QA y exige un
+  Output Log reconocible de ProyectoMemoria.
+- Devuelve exit 1 ante FAIL y puede emitir JSON con `-AsJson`.
+- No abre Unreal, no compila, no cambia Git y no crea evidencias.
+
+El operador debe pasar el Output Log de la sesión recién cerrada. El verificador
+registra tamaño y fecha y valida marcadores del proyecto, pero no puede demostrar
+por sí solo que un log válido corresponda a esa ejecución concreta.
 
 ## Arquitectura implementada
 
@@ -288,6 +335,15 @@ Avisos externos observados:
   0 errores, 0 warnings y 0 Blueprints que no pudieron cargar.
 - BP_TestActor existente: compilación exitosa dentro del commandlet.
 - Inspección estática de macros UHT, firmas de Enhanced Input y API UE 5.8.
+- Matriz QA validada en UTF-8: 79 IDs únicos, tablas consistentes, cobertura de
+  los 22 puntos de EDITOR_SETUP y trazabilidad de las deudas conocidas.
+- `Invoke-PlayerQACheck.ps1` analizado con el parser de Windows PowerShell 5.1;
+  salida humana y JSON válidas.
+- Preflight estricto sobre worktree limpio: 0 FAIL y 1 WARN esperado porque esta
+  laptop no se confirmó como hardware apto; Unreal permaneció cerrado.
+- Casos negativos del verificador: worktree sucio, commit mínimo inválido, assets
+  ausentes, filas NOT RUN y diagnósticos prohibidos producen FAIL y exit 1 sin
+  abortar la salida estructurada.
 - git diff --check: sin errores de whitespace; Git solo avisa la política local
   futura LF a CRLF de Build.cs.
 - Auditoría de alcance: el C++ y sus documentos permanecen dentro de

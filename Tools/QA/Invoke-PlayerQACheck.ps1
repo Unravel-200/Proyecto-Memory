@@ -25,7 +25,11 @@ Convierte un worktree sucio en WARN durante Preflight. Solo sirve para desarroll
 y probar este script; no debe usarse para iniciar una sesión real de Editor.
 
 .PARAMETER LogPath
-Ruta opcional al Output Log que se inspeccionará durante Postflight.
+Ruta al Output Log que se inspeccionará; es obligatoria durante Postflight.
+
+.PARAMETER EngineRoot
+Ruta opcional a la instalación de UE 5.8. Si se omite, se busca en el registro de
+Epic y en la ruta predeterminada de Program Files.
 
 .PARAMETER AsJson
 Emite un único objeto JSON para archivarlo como evidencia mediante redirección.
@@ -50,6 +54,8 @@ param(
     [switch]$AllowDirty,
 
     [string]$LogPath,
+
+    [string]$EngineRoot,
 
     [switch]$AsJson
 )
@@ -87,6 +93,11 @@ $ExpectedAssetPaths = @(
     "UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset",
     "UnrealProject/Content/Blueprints/Player/BP_PlayerController.uasset",
     "UnrealProject/Content/Blueprints/Levels/BP_GameMode_DeveloperTesting.uasset",
+    "UnrealProject/Content/Maps/L_Developer_Testing.umap"
+)
+
+$RequiredBaselineLfsPaths = @(
+    "UnrealProject/Content/Blueprints/Test/BP_TestActor.uasset",
     "UnrealProject/Content/Maps/L_Developer_Testing.umap"
 )
 
@@ -158,7 +169,7 @@ function Invoke-GitReadOnly {
         # Continue localmente para poder capturarlo y devolver un check estructurado.
         $ErrorActionPreference = "Continue"
         $Output = @(
-            & git -C $script:RepoRoot @Arguments 2>&1 |
+            & git --no-optional-locks -C $script:RepoRoot @Arguments 2>&1 |
                 ForEach-Object { [string]$_ }
         )
         $ExitCode = $LASTEXITCODE
@@ -185,7 +196,7 @@ function Test-PathGroup {
     $Missing = @(
         $RelativePaths |
             Where-Object {
-                -not (Test-Path -LiteralPath (Join-Path $script:RepoRoot $_))
+                -not (Test-Path -LiteralPath (Join-Path $script:RepoRoot $_) -PathType Leaf)
             }
     )
 
@@ -383,6 +394,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $RepoRoot ".git"))) {
 
 Add-QACheck -Status "PASS" -Name "Git" -Detail ("Detectado: {0}" -f $GitCommand.Source)
 Test-PathGroup -Name "Documentos, configuración y C++" -RelativePaths $RequiredProjectPaths
+Test-PathGroup -Name "Assets base LFS" -RelativePaths $RequiredBaselineLfsPaths
 
 $TopLevel = Invoke-GitReadOnly -Arguments @("rev-parse", "--show-toplevel")
 if ($TopLevel.ExitCode -eq 0 -and [System.IO.Path]::GetFullPath($TopLevel.Output) -eq $RepoRoot) {
@@ -400,6 +412,14 @@ else {
     Add-QACheck -Status "FAIL" -Name "Rama" -Detail ("Esperada {0}; actual {1}." -f $ExpectedBranch, $Branch.Output)
 }
 
+$Head = Invoke-GitReadOnly -Arguments @("rev-parse", "HEAD")
+if ($Head.ExitCode -eq 0 -and $Head.Output -match "^[0-9a-f]{40}$") {
+    Add-QACheck -Status "PASS" -Name "HEAD" -Detail $Head.Output
+}
+else {
+    Add-QACheck -Status "FAIL" -Name "HEAD" -Detail ("No se pudo resolver HEAD: {0}" -f $Head.Output)
+}
+
 $Ancestor = Invoke-GitReadOnly -Arguments @("merge-base", "--is-ancestor", $MinimumCommit, "HEAD")
 if ($Ancestor.ExitCode -eq 0) {
     Add-QACheck -Status "PASS" -Name "Commit mínimo" -Detail ("HEAD contiene {0}." -f $MinimumCommit)
@@ -413,7 +433,7 @@ $StatusExitCode = -1
 $PreviousErrorActionPreference = $ErrorActionPreference
 try {
     $ErrorActionPreference = "Continue"
-    $StatusOutput = (& git -C $RepoRoot -c core.quotepath=false status --porcelain=v1 -z --untracked-files=all 2>&1 | Out-String)
+    $StatusOutput = (& git --no-optional-locks -C $RepoRoot -c core.quotepath=false status --porcelain=v1 -z --untracked-files=all 2>&1 | Out-String)
     $StatusExitCode = $LASTEXITCODE
 }
 finally {
@@ -492,6 +512,45 @@ else {
     Add-QACheck -Status "FAIL" -Name "Git LFS" -Detail "Git LFS no está disponible; no abrir una sesión que creará uasset/umap."
 }
 
+if ($LfsVersion.ExitCode -eq 0) {
+    $LfsListing = Invoke-GitReadOnly -Arguments @("lfs", "ls-files", "--long")
+    if ($LfsListing.ExitCode -ne 0) {
+        Add-QACheck -Status "FAIL" -Name "Objetos LFS base" -Detail ("No se pudo consultar Git LFS: {0}" -f $LfsListing.Output)
+    }
+    else {
+        $LfsEntries = @{}
+        foreach ($Line in ($LfsListing.Output -split "\r?\n")) {
+            if ($Line -match "^([0-9a-f]{64}) ([*-]) (.+)$") {
+                $LfsEntries[$Matches[3].Replace("\", "/")] = [PSCustomObject]@{
+                    Oid = $Matches[1]
+                    Marker = $Matches[2]
+                }
+            }
+        }
+
+        $MissingLfsEntries = @($RequiredBaselineLfsPaths | Where-Object {
+            -not $LfsEntries.ContainsKey($_)
+        })
+        $PointerOnlyEntries = @($RequiredBaselineLfsPaths | Where-Object {
+            $LfsEntries.ContainsKey($_) -and $LfsEntries[$_].Marker -eq "-"
+        })
+
+        if ($MissingLfsEntries.Count -eq 0 -and $PointerOnlyEntries.Count -eq 0) {
+            Add-QACheck -Status "PASS" -Name "Objetos LFS base" -Detail "BP_TestActor y L_Developer_Testing están registrados e hidratados."
+        }
+        else {
+            $Problems = @()
+            if ($MissingLfsEntries.Count -gt 0) {
+                $Problems += "no registrados: {0}" -f ($MissingLfsEntries -join ", ")
+            }
+            if ($PointerOnlyEntries.Count -gt 0) {
+                $Problems += "solo pointer, ejecutar git lfs pull: {0}" -f ($PointerOnlyEntries -join ", ")
+            }
+            Add-QACheck -Status "FAIL" -Name "Objetos LFS base" -Detail ($Problems -join " | ")
+        }
+    }
+}
+
 $Attributes = Invoke-GitReadOnly -Arguments @(
     "check-attr", "filter", "--",
     "UnrealProject/Content/__QA_Probe__.uasset",
@@ -508,14 +567,57 @@ $UProjectPath = Join-Path $RepoRoot "UnrealProject/ProyectoMemoria.uproject"
 try {
     $UProject = Get-Content -Raw -Encoding UTF8 -LiteralPath $UProjectPath | ConvertFrom-Json
     if ([string]$UProject.EngineAssociation -eq "5.8") {
-        Add-QACheck -Status "PASS" -Name "Unreal Engine" -Detail "EngineAssociation=5.8."
+        Add-QACheck -Status "PASS" -Name "Asociación uproject" -Detail "EngineAssociation=5.8."
     }
     else {
-        Add-QACheck -Status "FAIL" -Name "Unreal Engine" -Detail ("EngineAssociation={0}; se requiere 5.8." -f $UProject.EngineAssociation)
+        Add-QACheck -Status "FAIL" -Name "Asociación uproject" -Detail ("EngineAssociation={0}; se requiere 5.8." -f $UProject.EngineAssociation)
     }
 }
 catch {
-    Add-QACheck -Status "FAIL" -Name "Unreal Engine" -Detail ("No se pudo leer el uproject: {0}" -f $_.Exception.Message)
+    Add-QACheck -Status "FAIL" -Name "Asociación uproject" -Detail ("No se pudo leer el uproject: {0}" -f $_.Exception.Message)
+}
+
+$DetectedEngineRoot = $EngineRoot
+if ([string]::IsNullOrWhiteSpace($DetectedEngineRoot)) {
+    $EngineRegistryPaths = @(
+        "HKLM:\SOFTWARE\EpicGames\Unreal Engine\5.8",
+        "HKLM:\SOFTWARE\WOW6432Node\EpicGames\Unreal Engine\5.8"
+    )
+    foreach ($RegistryPath in $EngineRegistryPaths) {
+        if (Test-Path -LiteralPath $RegistryPath) {
+            $RegistryValue = Get-ItemProperty -LiteralPath $RegistryPath -ErrorAction SilentlyContinue
+            $InstalledProperty = if ($RegistryValue) {
+                $RegistryValue.PSObject.Properties["InstalledDirectory"]
+            }
+            else {
+                $null
+            }
+            if ($InstalledProperty -and -not [string]::IsNullOrWhiteSpace([string]$InstalledProperty.Value)) {
+                $DetectedEngineRoot = [string]$InstalledProperty.Value
+                break
+            }
+        }
+    }
+}
+
+if ([string]::IsNullOrWhiteSpace($DetectedEngineRoot) -and $env:ProgramFiles) {
+    $DefaultEngineRoot = Join-Path $env:ProgramFiles "Epic Games/UE_5.8"
+    if (Test-Path -LiteralPath $DefaultEngineRoot -PathType Container) {
+        $DetectedEngineRoot = $DefaultEngineRoot
+    }
+}
+
+if ([string]::IsNullOrWhiteSpace($DetectedEngineRoot)) {
+    Add-QACheck -Status "FAIL" -Name "Instalación UE 5.8" -Detail "No se encontró; proporcione -EngineRoot."
+}
+else {
+    $EditorExecutable = Join-Path $DetectedEngineRoot "Engine/Binaries/Win64/UnrealEditor.exe"
+    if (Test-Path -LiteralPath $EditorExecutable -PathType Leaf) {
+        Add-QACheck -Status "PASS" -Name "Instalación UE 5.8" -Detail $EditorExecutable
+    }
+    else {
+        Add-QACheck -Status "FAIL" -Name "Instalación UE 5.8" -Detail ("No existe UnrealEditor.exe bajo {0}." -f $DetectedEngineRoot)
+    }
 }
 
 $DefaultInputPath = Join-Path $RepoRoot "UnrealProject/Config/DefaultInput.ini"
@@ -529,12 +631,22 @@ if (-not (Test-Path -LiteralPath $DefaultInputPath)) {
 else {
     try {
         $DefaultInput = Get-Content -Raw -Encoding UTF8 -LiteralPath $DefaultInputPath
-        $MissingInputLines = @($ExpectedInputLines | Where-Object { -not $DefaultInput.Contains($_) })
-        if ($MissingInputLines.Count -eq 0) {
+        $ActiveInputLines = @(
+            $DefaultInput -split "\r?\n" |
+                ForEach-Object { $_.Trim() } |
+                Where-Object { $_ -and $_ -notmatch "^[;#]" }
+        )
+        $PlayerInputAssignments = @($ActiveInputLines | Where-Object { $_ -match "^DefaultPlayerInputClass=" })
+        $InputComponentAssignments = @($ActiveInputLines | Where-Object { $_ -match "^DefaultInputComponentClass=" })
+        if ($PlayerInputAssignments.Count -eq 1 -and
+            $InputComponentAssignments.Count -eq 1 -and
+            $PlayerInputAssignments[0] -eq $ExpectedInputLines[0] -and
+            $InputComponentAssignments[0] -eq $ExpectedInputLines[1]) {
             Add-QACheck -Status "PASS" -Name "Enhanced Input config" -Detail "Las clases Enhanced predeterminadas están configuradas."
         }
         else {
-            Add-QACheck -Status "FAIL" -Name "Enhanced Input config" -Detail ("Faltan: {0}" -f ($MissingInputLines -join ", "))
+            $ObservedAssignments = @($PlayerInputAssignments) + @($InputComponentAssignments)
+            Add-QACheck -Status "FAIL" -Name "Enhanced Input config" -Detail ("Asignaciones activas inesperadas o duplicadas: {0}" -f ($ObservedAssignments -join ", "))
         }
     }
     catch {
@@ -549,7 +661,7 @@ if (-not (Test-Path -LiteralPath $BuildCsPath)) {
 else {
     try {
         $BuildCs = Get-Content -Raw -Encoding UTF8 -LiteralPath $BuildCsPath
-        if ($BuildCs -match '"EnhancedInput"') {
+        if ($BuildCs -match '(?m)^\s*"EnhancedInput"\s*,?\s*$') {
             Add-QACheck -Status "PASS" -Name "Enhanced Input module" -Detail "ProyectoMemoria.Build.cs declara EnhancedInput."
         }
         else {
@@ -582,6 +694,39 @@ if ($Phase -eq "Preflight") {
 }
 else {
     Test-PathGroup -Name "Assets requeridos" -RelativePaths $ExpectedAssetPaths
+
+    $ExistingExpectedAssets = @($ExpectedAssetPaths | Where-Object {
+        Test-Path -LiteralPath (Join-Path $RepoRoot $_) -PathType Leaf
+    })
+    $IgnoredAssets = @()
+    $InvisibleAssets = @()
+    $VisibleStatusPaths = @($StatusEntries | ForEach-Object { $_.Path })
+    foreach ($AssetPath in $ExistingExpectedAssets) {
+        $IgnoreCheck = Invoke-GitReadOnly -Arguments @("check-ignore", "-q", "--", $AssetPath)
+        if ($IgnoreCheck.ExitCode -eq 0) {
+            $IgnoredAssets += $AssetPath
+            continue
+        }
+
+        $TrackedCheck = Invoke-GitReadOnly -Arguments @("ls-files", "--error-unmatch", "--", $AssetPath)
+        if ($TrackedCheck.ExitCode -ne 0 -and $VisibleStatusPaths -notcontains $AssetPath) {
+            $InvisibleAssets += $AssetPath
+        }
+    }
+
+    if ($IgnoredAssets.Count -eq 0 -and $InvisibleAssets.Count -eq 0) {
+        Add-QACheck -Status "PASS" -Name "Visibilidad Git de assets" -Detail ("{0} assets existentes están tracked o visibles como cambios." -f $ExistingExpectedAssets.Count)
+    }
+    else {
+        $VisibilityProblems = @()
+        if ($IgnoredAssets.Count -gt 0) {
+            $VisibilityProblems += "ignorados: {0}" -f ($IgnoredAssets -join ", ")
+        }
+        if ($InvisibleAssets.Count -gt 0) {
+            $VisibilityProblems += "no tracked ni visibles: {0}" -f ($InvisibleAssets -join ", ")
+        }
+        Add-QACheck -Status "FAIL" -Name "Visibilidad Git de assets" -Detail ($VisibilityProblems -join " | ")
+    }
 
     $QAPath = Join-Path $RepoRoot "QA_PLAYER_V0.1.md"
     if (-not (Test-Path -LiteralPath $QAPath)) {
@@ -643,7 +788,7 @@ else {
     }
 
     if ([string]::IsNullOrWhiteSpace($LogPath)) {
-        Add-QACheck -Status "WARN" -Name "Output Log" -Detail "No se proporcionó -LogPath; la evidencia de logs queda pendiente."
+        Add-QACheck -Status "FAIL" -Name "Output Log" -Detail "Postflight requiere -LogPath para validar la evidencia de la sesión."
     }
     else {
         $ResolvedLogPath = if ([System.IO.Path]::IsPathRooted($LogPath)) {
@@ -653,20 +798,39 @@ else {
             Join-Path $RepoRoot $LogPath
         }
 
-        if (-not (Test-Path -LiteralPath $ResolvedLogPath)) {
-            Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ("No existe: {0}" -f $ResolvedLogPath)
+        if (-not (Test-Path -LiteralPath $ResolvedLogPath -PathType Leaf)) {
+            Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ("No existe como archivo: {0}" -f $ResolvedLogPath)
         }
         else {
             try {
-                $LogHits = @(
-                    Select-String -LiteralPath $ResolvedLogPath -SimpleMatch -Pattern $ForbiddenLogMessages
-                )
-                if ($LogHits.Count -eq 0) {
-                    Add-QACheck -Status "PASS" -Name "Output Log" -Detail "No contiene los cuatro diagnósticos propios prohibidos."
+                $LogItem = Get-Item -LiteralPath $ResolvedLogPath
+                if ($LogItem.Length -le 0) {
+                    Add-QACheck -Status "FAIL" -Name "Output Log" -Detail "El archivo está vacío."
+                }
+                elseif ($LogItem.Extension -ne ".log") {
+                    Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ("La extensión debe ser .log; se recibió {0}." -f $LogItem.Extension)
                 }
                 else {
-                    $HitMessages = $LogHits | ForEach-Object { "línea {0}: {1}" -f $_.LineNumber, $_.Line.Trim() }
-                    Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ($HitMessages -join " | ")
+                    $RequiredLogMarkers = @(
+                        "Log file open,",
+                        "LogInit: Display: Running engine for game: ProyectoMemoria"
+                    )
+                    $MissingLogMarkers = @($RequiredLogMarkers | Where-Object {
+                        -not (Select-String -LiteralPath $ResolvedLogPath -SimpleMatch -Quiet -Pattern $_)
+                    })
+                    if ($MissingLogMarkers.Count -gt 0) {
+                        Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ("No parece un log de ProyectoMemoria: faltan {0}." -f ($MissingLogMarkers -join ", "))
+                    }
+                    else {
+                        $LogHits = @(Select-String -LiteralPath $ResolvedLogPath -SimpleMatch -Pattern $ForbiddenLogMessages)
+                        if ($LogHits.Count -eq 0) {
+                            Add-QACheck -Status "PASS" -Name "Output Log" -Detail ("Log UE válido, {0} bytes, modificado {1:o}; sin diagnósticos propios prohibidos." -f $LogItem.Length, $LogItem.LastWriteTime)
+                        }
+                        else {
+                            $HitMessages = $LogHits | ForEach-Object { "línea {0}: {1}" -f $_.LineNumber, $_.Line.Trim() }
+                            Add-QACheck -Status "FAIL" -Name "Output Log" -Detail ($HitMessages -join " | ")
+                        }
+                    }
                 }
             }
             catch {

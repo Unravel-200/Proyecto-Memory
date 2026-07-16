@@ -71,10 +71,14 @@ $Checks = @()
 $RequiredProjectPaths = @(
     "EDITOR_SETUP_V0.1.md",
     "HANDOFF_CODEX.md",
+    "PLAYER_SETTINGS_V0.1.md",
     "QA_PLAYER_V0.1.md",
     "UnrealProject/ProyectoMemoria.uproject",
     "UnrealProject/Config/DefaultInput.ini",
+    "UnrealProject/Config/DefaultEngine.ini",
     "UnrealProject/Source/ProyectoMemoria/ProyectoMemoria.Build.cs",
+    "UnrealProject/Source/ProyectoMemoria/Player/PMGameUserSettings.h",
+    "UnrealProject/Source/ProyectoMemoria/Player/PMGameUserSettings.cpp",
     "UnrealProject/Source/ProyectoMemoria/Player/PMPlayerCharacter.h",
     "UnrealProject/Source/ProyectoMemoria/Player/PMPlayerCharacter.cpp",
     "UnrealProject/Source/ProyectoMemoria/Player/PMPlayerController.h",
@@ -88,6 +92,7 @@ $ExpectedAssetPaths = @(
     "UnrealProject/Content/Input/Actions/IA_Look.uasset",
     "UnrealProject/Content/Input/Actions/IA_Sprint.uasset",
     "UnrealProject/Content/Input/Actions/IA_Crouch.uasset",
+    "UnrealProject/Content/Input/Actions/IA_Jump.uasset",
     "UnrealProject/Content/Input/Actions/IA_ToggleCamera.uasset",
     "UnrealProject/Content/Input/Mappings/IMC_Player.uasset",
     "UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset",
@@ -107,14 +112,16 @@ $ForbiddenLogMessages = @(
     "has no IMC_Player assigned",
     "has one or more unassigned IA_* assets",
     "has an incomplete camera setup",
-    "APMPlayerController requires EnhancedInputComponent"
+    "APMPlayerController requires EnhancedInputComponent",
+    "PMGameUserSettings is not active",
+    "Could not persist the preferred camera mode"
 )
 
 $ExpectedQAIds = @(
     "PRE-01", "PRE-02", "PRE-03", "PRE-04", "PRE-05", "PRE-06",
     "PRE-07", "PRE-08", "PRE-09",
     "SET-01", "SET-02", "SET-03",
-    "MAP-01", "MAP-02", "MAP-03", "MAP-04", "MAP-05", "MAP-06",
+    "MAP-01", "MAP-02", "MAP-03", "MAP-04", "MAP-05", "MAP-06", "MAP-07",
     "BP-01", "BP-02", "BP-03", "BP-04", "BP-05", "BP-06", "LVL-01",
     "GEO-01", "GEO-02", "GEO-03", "GEO-04", "GEO-05", "GEO-06", "GEO-07",
     "PLR-PIE-001",
@@ -123,8 +130,9 @@ $ExpectedQAIds = @(
     "PLR-CRO-001", "PLR-CRO-002", "PLR-CRO-003", "PLR-CRO-004",
     "PLR-CRO-005", "PLR-CRO-006", "PLR-CRO-007", "PLR-CRO-008",
     "PLR-CRO-AUT-001", "PLR-CRO-009",
+    "PLR-JMP-001", "PLR-JMP-002", "PLR-JMP-003",
     "PLR-CAM-001", "PLR-CAM-002", "PLR-CAM-003", "PLR-CAM-004",
-    "PLR-CAM-005", "PLR-CAM-006", "PLR-VIS-001",
+    "PLR-CAM-005", "PLR-CAM-006", "PLR-CAM-007", "PLR-VIS-001",
     "PLR-ENV-001", "PLR-ENV-002", "PLR-ENV-003", "PLR-ENV-004",
     "PLR-PAD-001", "PLR-PAD-002", "PLR-PERF-001",
     "PLR-REG-001", "PLR-REG-002", "PLR-REG-003", "PLR-REG-004",
@@ -631,14 +639,19 @@ if (-not (Test-Path -LiteralPath $DefaultInputPath)) {
 else {
     try {
         $DefaultInput = Get-Content -Raw -Encoding UTF8 -LiteralPath $DefaultInputPath
+        $InputSettingsSection = [Regex]::Match(
+            $DefaultInput,
+            '(?ms)^\[/Script/Engine\.InputSettings\]\s*(?<Body>.*?)(?=^\[|\z)'
+        )
         $ActiveInputLines = @(
-            $DefaultInput -split "\r?\n" |
+            $InputSettingsSection.Groups["Body"].Value -split "\r?\n" |
                 ForEach-Object { $_.Trim() } |
                 Where-Object { $_ -and $_ -notmatch "^[;#]" }
         )
         $PlayerInputAssignments = @($ActiveInputLines | Where-Object { $_ -match "^DefaultPlayerInputClass=" })
         $InputComponentAssignments = @($ActiveInputLines | Where-Object { $_ -match "^DefaultInputComponentClass=" })
-        if ($PlayerInputAssignments.Count -eq 1 -and
+        if ($InputSettingsSection.Success -and
+            $PlayerInputAssignments.Count -eq 1 -and
             $InputComponentAssignments.Count -eq 1 -and
             $PlayerInputAssignments[0] -eq $ExpectedInputLines[0] -and
             $InputComponentAssignments[0] -eq $ExpectedInputLines[1]) {
@@ -646,7 +659,39 @@ else {
         }
         else {
             $ObservedAssignments = @($PlayerInputAssignments) + @($InputComponentAssignments)
-            Add-QACheck -Status "FAIL" -Name "Enhanced Input config" -Detail ("Asignaciones activas inesperadas o duplicadas: {0}" -f ($ObservedAssignments -join ", "))
+            Add-QACheck -Status "FAIL" -Name "Enhanced Input config" -Detail ("Falta la sección InputSettings correcta o contiene asignaciones inesperadas/duplicadas: {0}" -f ($ObservedAssignments -join ", "))
+        }
+
+        $ResponseIssues = @()
+        $ExpectedZeroDeadZoneAxes = @(
+            "Gamepad_LeftX",
+            "Gamepad_LeftY",
+            "Gamepad_RightX",
+            "Gamepad_RightY"
+        )
+        foreach ($AxisName in $ExpectedZeroDeadZoneAxes) {
+            $AxisPattern = '^\+AxisConfig=\(AxisKeyName="{0}",AxisProperties=\(.*DeadZone=0(?:\.0+)?(?:,|\))' -f [Regex]::Escape($AxisName)
+            $AxisAssignments = @($ActiveInputLines | Where-Object {
+                $_ -match ('^\+AxisConfig=\(AxisKeyName="{0}",' -f [Regex]::Escape($AxisName))
+            })
+            if ($AxisAssignments.Count -ne 1 -or $AxisAssignments[0] -notmatch $AxisPattern) {
+                $ResponseIssues += "{0} no tiene una única asignación activa con DeadZone=0" -f $AxisName
+            }
+        }
+
+        $MouseSmoothingAssignments = @($ActiveInputLines | Where-Object {
+            $_ -match "^bEnableMouseSmoothing="
+        })
+        if ($MouseSmoothingAssignments.Count -ne 1 -or
+            $MouseSmoothingAssignments[0] -ne "bEnableMouseSmoothing=False") {
+            $ResponseIssues += "bEnableMouseSmoothing debe aparecer una vez con valor False"
+        }
+
+        if ($ResponseIssues.Count -eq 0) {
+            Add-QACheck -Status "PASS" -Name "Respuesta de input" -Detail "Mouse sin smoothing y sticks principales con zona muerta 0."
+        }
+        else {
+            Add-QACheck -Status "FAIL" -Name "Respuesta de input" -Detail ($ResponseIssues -join " | ")
         }
     }
     catch {
@@ -670,6 +715,41 @@ else {
     }
     catch {
         Add-QACheck -Status "FAIL" -Name "Enhanced Input module" -Detail ("No se pudo leer Build.cs: {0}" -f $_.Exception.Message)
+    }
+}
+
+$DefaultEnginePath = Join-Path $RepoRoot "UnrealProject/Config/DefaultEngine.ini"
+if (-not (Test-Path -LiteralPath $DefaultEnginePath -PathType Leaf)) {
+    Add-QACheck -Status "FAIL" -Name "Preferencias persistentes" -Detail ("No existe: {0}" -f $DefaultEnginePath)
+}
+else {
+    try {
+        $DefaultEngine = Get-Content -Raw -Encoding UTF8 -LiteralPath $DefaultEnginePath
+        $EngineSection = [Regex]::Match(
+            $DefaultEngine,
+            '(?ms)^\[/Script/Engine\.Engine\]\s*(?<Body>.*?)(?=^\[|\z)'
+        )
+        $EngineSectionLines = @(
+            $EngineSection.Groups["Body"].Value -split "\r?\n" |
+                ForEach-Object { $_.Trim() } |
+                Where-Object { $_ -and $_ -notmatch "^[;#]" }
+        )
+        $SettingsClassAssignments = @($EngineSectionLines | Where-Object {
+            $_ -match "^GameUserSettingsClassName="
+        })
+        $ExpectedSettingsClass =
+            "GameUserSettingsClassName=/Script/ProyectoMemoria.PMGameUserSettings"
+        if ($EngineSection.Success -and
+            $SettingsClassAssignments.Count -eq 1 -and
+            $SettingsClassAssignments[0] -eq $ExpectedSettingsClass) {
+            Add-QACheck -Status "PASS" -Name "Preferencias persistentes" -Detail "PMGameUserSettings está configurado como clase de ajustes."
+        }
+        else {
+            Add-QACheck -Status "FAIL" -Name "Preferencias persistentes" -Detail ("Falta la sección Engine correcta o contiene una asignación inesperada/duplicada: {0}" -f ($SettingsClassAssignments -join ", "))
+        }
+    }
+    catch {
+        Add-QACheck -Status "FAIL" -Name "Preferencias persistentes" -Detail ("No se pudo leer DefaultEngine.ini: {0}" -f $_.Exception.Message)
     }
 }
 
@@ -778,7 +858,7 @@ else {
                     Add-QACheck -Status "WARN" -Name "Resultados QA" -Detail ("QA obligatorio aprobado; bloqueos condicionales documentados: {0}" -f ($BlockedSummary -join ", "))
                 }
                 else {
-                    Add-QACheck -Status "PASS" -Name "Resultados QA" -Detail "Las 79 filas esperadas están en PASS con evidencia."
+                    Add-QACheck -Status "PASS" -Name "Resultados QA" -Detail ("Las {0} filas esperadas están en PASS con evidencia." -f $ExpectedQAIds.Count)
                 }
             }
         }

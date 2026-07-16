@@ -3,7 +3,9 @@
 ## Propósito
 
 Esta guía describe cómo integrar en Unreal Editor 5.8 el código C++ de personaje,
-movimiento y cámaras que ya compila en Proyecto-Memory.
+movimiento y cámaras de Proyecto-Memory. La base anterior fue compilada; el delta
+actual de salto y persistencia de perspectiva está preparado y revisado
+estáticamente, pero todavía no se ha compilado.
 
 Estado de partida verificado:
 
@@ -11,12 +13,18 @@ Estado de partida verificado:
 - Commit base mínimo: 5eccd8e.
 - Unreal Engine: 5.8.
 - Plataforma compilada: Win64 Development Editor.
-- Resultado C++ más reciente: Succeeded.
+- Resultado C++ base más reciente: Succeeded.
+- Delta posterior: salto, `UPMGameUserSettings` y restauración de cámara pendientes
+  de compilación completa en una PC adecuada.
 - Assets existentes: BP_TestActor y L_Developer_Testing.
 - Assets de Player/Input: todavía no existen.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
+
+Las decisiones de cámara, salto y controles aprobadas el 2026-07-15 están en
+`PLAYER_SETTINGS_V0.1.md`. Ese documento prevalece cuando una instrucción antigua
+de esta guía todavía describa una opción que ya fue cerrada.
 
 ## Resultado esperado
 
@@ -33,6 +41,7 @@ Content/
 ├── Input/
 │   ├── Actions/
 │   │   ├── IA_Crouch
+│   │   ├── IA_Jump
 │   │   ├── IA_Look
 │   │   ├── IA_Move
 │   │   ├── IA_Sprint
@@ -135,7 +144,7 @@ En /Game/Input/Actions:
 
 1. Clic derecho.
 2. Input > Input Action.
-3. Crear los cinco assets.
+3. Crear los seis assets.
 4. Abrir cada asset y configurar Value Type.
 
 | Asset | Value Type | Triggers del asset |
@@ -144,6 +153,7 @@ En /Game/Input/Actions:
 | IA_Look | Axis2D | Ninguno |
 | IA_Sprint | Digital/Bool | Ninguno |
 | IA_Crouch | Digital/Bool | Ninguno |
+| IA_Jump | Digital/Bool | Ninguno |
 | IA_ToggleCamera | Digital/Bool | Ninguno |
 
 ### Contrato obligatorio de IA_Crouch
@@ -191,17 +201,16 @@ Agregar:
 Gamepad Left Thumbstick 2D-Axis
 ~~~
 
-DefaultInput.ini ya define DeadZone=0.25 para los ejes del mando. En la primera
-prueba no añadir otro modificador Dead Zone hasta observar los valores reales en
-PIE: no se debe asumir que una configuración heredada y un modificador de
-Enhanced Input se combinan de una forma concreta sin medirlo.
+`DefaultInput.ini` define zona muerta 0 para los cuatro ejes principales del
+mando, por decisión del propietario. No añadir un modificador Dead Zone en
+Enhanced Input: los movimientos pequeños y cualquier drift real deben permanecer
+visibles durante QA.
 
-Si existe drift después de probar:
+Si existe drift después de probar, no corregirlo por suposición:
 
 1. Registrar el dispositivo.
-2. Decidir una sola capa de zona muerta.
-3. Preferir Dead Zone radial en Enhanced Input.
-4. Volver a probar valores analógicos completos.
+2. Registrar el valor y el efecto observado.
+3. Mantener la decisión de zona muerta 0 hasta nueva autorización del propietario.
 
 Los nombres de las teclas pueden aparecer traducidos en el Editor. Para los
 sticks y el ratón se debe elegir la entrada 2D-Axis, no mapear X e Y como acciones
@@ -243,13 +252,25 @@ Gamepad Face Button Right
 
 Sin triggers ni modificadores. Mantener el contrato descrito en la sección 4.
 
+### IA_Jump
+
+Agregar:
+
+~~~text
+Space Bar
+Gamepad Face Button Bottom
+~~~
+
+Sin triggers ni modificadores. Al presionar desde crouch, el C++ debe intentar
+levantar al personaje y saltar solo si recuperó espacio suficiente.
+
 ### IA_ToggleCamera
 
 Agregar:
 
 ~~~text
 V
-Gamepad Right Thumbstick Button
+Gamepad Face Button Top
 ~~~
 
 Sin triggers adicionales.
@@ -283,6 +304,7 @@ En Class Defaults, categoría ProyectoMemoria > Player > Input, asignar:
 | Look Action | IA_Look |
 | Sprint Action | IA_Sprint |
 | Crouch Action | IA_Crouch |
+| Jump Action | IA_Jump |
 | Toggle Camera Action | IA_ToggleCamera |
 | Look Sensitivity X | 1.0 |
 | Look Sensitivity Y | 1.0 |
@@ -536,7 +558,7 @@ Controller posee Character
         ↓
 BeginPlay añade IMC_Player
         ↓
-CameraMode aplica First Person
+CameraMode aplica la vista guardada o First Person en la primera ejecución
 ~~~
 
 Hacer clic dentro del viewport para capturar input.
@@ -548,6 +570,8 @@ has no IMC_Player assigned
 has one or more unassigned IA_* assets
 has an incomplete camera setup
 APMPlayerController requires EnhancedInputComponent
+PMGameUserSettings is not active
+Could not persist the preferred camera mode
 ~~~
 
 ## 12. Orden de pruebas
@@ -577,9 +601,39 @@ Registrar cada prueba como PASS, FAIL o BLOCKED.
 17. Colisión de cámara contra pared.
 18. Pasillo, puerta, habitación y escaleras.
 19. Mando físico y drift; un mapping por sí solo no prueba compatibilidad.
-20. Sensibilidad e inversión Y.
+20. Sensibilidad compartida actual e inversión Y. La separación mouse/mando se
+    valida después con el menú de ajustes.
 21. Rendimiento.
 22. Cerrar y reabrir el Editor para confirmar que las referencias persisten.
+23. Salto normal con Espacio y con A/X; soltar el botón detiene la orden de salto.
+24. Saltar desde crouch con espacio: primero se levanta y después salta.
+25. Saltar agachado bajo techo: no atraviesa el techo ni salta inesperadamente al
+    salir más tarde.
+26. Cambiar de perspectiva y sustituir el Pawn mediante un arnés controlado de
+    respawn, sin lógica central en Level Blueprint; confirmar que el nuevo Pawn
+    conserva la vista del anterior.
+27. Cambiar de perspectiva, cerrar completamente el juego y volver a abrirlo:
+    conserva la última vista; una instalación sin preferencia inicia en 1P.
+
+### Preparación reproducible de las pruebas 26 y 27
+
+La versión actual no incluye todavía un sistema de muerte. Para la prueba 26 se
+necesita un arnés que destruya el Pawn y haga que el mismo PlayerController reciba
+otro mediante `AGameModeBase::RestartPlayer`. Si ese arnés C++ o automatizado no
+existe, registrar `PLR-CAM-007` como `BLOCKED`; no improvisar lógica central en el
+Level Blueprint ni confundir reiniciar PIE con un respawn.
+
+Para la prueba 27:
+
+1. Probar primero el perfil existente: cambiar a 3P, cerrar el juego normalmente
+   y volver a abrirlo.
+2. Para simular la primera ejecución, usar preferentemente un usuario nuevo de
+   Windows en la PC de QA.
+3. Si no es posible, cerrar Unreal, respaldar fuera del repositorio el
+   `GameUserSettings.ini` generado bajo `UnrealProject/Saved/Config`, apartarlo
+   temporalmente y restaurarlo al terminar.
+4. Nunca borrar una preferencia del propietario sin respaldo ni marcar 1P como
+   primera ejecución si aún se cargó una configuración previa.
 
 Comandos útiles en la consola:
 
@@ -657,7 +711,7 @@ No hacer push, merge o tag hasta autorización.
 
 - Hacer clic dentro del viewport.
 - Confirmar Player Controller Class.
-- Confirmar IMC_Player y las cinco IA en BP_PlayerController.
+- Confirmar IMC_Player y las seis IA en BP_PlayerController.
 - Revisar LogPMPlayerController.
 - Confirmar las clases Enhanced en Project Settings.
 
@@ -722,15 +776,16 @@ Detener, guardar y registrar BLOCKED si:
 ## 16. Decisiones que esta guía no cierra
 
 - Malla y Animation Blueprint definitivos.
-- Desactivar Jump o conservarlo.
-- Persistencia de First Person/Third Person entre sesiones.
-- Movimiento reducido o suavizado adicional de cámara.
 - Valor final de Crouched Half Height.
 - Valor final de Crouch Hold Threshold.
 - Convención oficial para BP_PlayerController y GameMode.
-- Configuración final de mando y zona muerta.
-- Reasignación de controles en tiempo de ejecución; esta guía configura assets,
-  pero todavía no implementa un menú de bindings.
+
+Jump, persistencia de perspectiva, cámara inmediata, layout de mando y zona muerta
+0 ya están decididos en `PLAYER_SETTINGS_V0.1.md`. Su C++ y configuración están
+preparados, pero siguen pendientes de compilación y prueba, no de decisión.
+
+La reasignación de controles en tiempo de ejecución es obligatoria en la etapa
+posterior de menús y ajustes. No bloquea v0.1.0 y esta guía todavía no crea su UI.
 
 ## 17. Deudas y contradicciones documentales conocidas
 
@@ -743,8 +798,9 @@ documentación oficial:
   cerrada, mientras este trabajo de v0.1.0 permanece aislado en
   feature/v0.1-player-cameras. No hacer merge ni crear tags saltando esa revisión
   secuencial.
-- El checklist de v0.1.0 pide guardar la perspectiva. CurrentMode es Transient y
-  aún no existe persistencia; cerrar y abrir el juego vuelve al Initial Mode.
+- El propietario aprobó guardar la perspectiva. La implementación usa
+  `UPMGameUserSettings`, pero debe compilarse y validarse antes de ejecutar las
+  pruebas 26 y 27.
 - El checklist menciona interacción básica, pero la interfaz y el componente de
   interacción pertenecen a v0.2.0. Por eso esta guía no crea IA_Interact.
 - El mapa de arquitectura indica Gameplay Tags desde v0.1.0, pero el checklist

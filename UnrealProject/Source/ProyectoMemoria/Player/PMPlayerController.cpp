@@ -6,6 +6,7 @@
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "PMCameraModeComponent.h"
+#include "PMGameUserSettings.h"
 #include "PMPlayerCharacter.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPMPlayerController, Log, All);
@@ -20,11 +21,15 @@ APMPlayerController::APMPlayerController()
 	bCrouchInputActive = false;
 	bWasCrouchedWhenInputStarted = false;
 	bMappingContextAdded = false;
+	PreferredCameraMode = EPMCameraMode::FirstPerson;
+	bCameraPreferenceLoaded = false;
 }
 
 void APMPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ApplyPreferredCameraModeToPawn();
 
 	ULocalPlayer* LocalPlayer = GetLocalPlayer();
 	if (!LocalPlayer)
@@ -78,6 +83,12 @@ void APMPlayerController::OnUnPossess()
 	Super::OnUnPossess();
 }
 
+void APMPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	ApplyPreferredCameraModeToPawn();
+}
+
 void APMPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -92,7 +103,8 @@ void APMPlayerController::SetupInputComponent()
 		return;
 	}
 
-	if (!MoveAction || !LookAction || !SprintAction || !CrouchAction || !ToggleCameraAction)
+	if (!MoveAction || !LookAction || !SprintAction || !CrouchAction
+		|| !JumpAction || !ToggleCameraAction)
 	{
 		UE_LOG(
 			LogPMPlayerController,
@@ -155,6 +167,25 @@ void APMPlayerController::SetupInputComponent()
 			ETriggerEvent::Canceled,
 			this,
 			&APMPlayerController::HandleCrouchCanceled);
+	}
+
+	if (JumpAction)
+	{
+		EnhancedInput->BindAction(
+			JumpAction,
+			ETriggerEvent::Started,
+			this,
+			&APMPlayerController::HandleJumpStarted);
+		EnhancedInput->BindAction(
+			JumpAction,
+			ETriggerEvent::Completed,
+			this,
+			&APMPlayerController::HandleJumpCompleted);
+		EnhancedInput->BindAction(
+			JumpAction,
+			ETriggerEvent::Canceled,
+			this,
+			&APMPlayerController::HandleJumpCompleted);
 	}
 
 	if (ToggleCameraAction)
@@ -291,6 +322,29 @@ void APMPlayerController::HandleCrouchCanceled()
 	ResetCrouchInputState();
 }
 
+void APMPlayerController::HandleJumpStarted()
+{
+	JumpInputCharacter.Reset();
+
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		if (PMCharacter->TryJumpFromCurrentPosture())
+		{
+			JumpInputCharacter = PMCharacter;
+		}
+	}
+}
+
+void APMPlayerController::HandleJumpCompleted()
+{
+	if (APMPlayerCharacter* PMCharacter = JumpInputCharacter.Get())
+	{
+		PMCharacter->StopJumping();
+	}
+
+	JumpInputCharacter.Reset();
+}
+
 void APMPlayerController::ResetCrouchInputState()
 {
 	CrouchInputCharacter.Reset();
@@ -306,6 +360,7 @@ void APMPlayerController::ResetTransientPawnInputState()
 		PMCharacter->SetSprinting(false);
 	}
 
+	HandleJumpCompleted();
 	HandleCrouchCanceled();
 }
 
@@ -319,6 +374,88 @@ void APMPlayerController::HandleToggleCamera()
 
 	if (UPMCameraModeComponent* CameraMode = PMCharacter->GetCameraModeComponent())
 	{
-		CameraMode->ToggleCameraMode();
+		const EPMCameraMode NewMode =
+			CameraMode->GetCameraMode() == EPMCameraMode::FirstPerson
+			? EPMCameraMode::ThirdPerson
+			: EPMCameraMode::FirstPerson;
+		SetPlayerCameraMode(NewMode);
 	}
+}
+
+bool APMPlayerController::EnsureCameraPreferenceLoaded()
+{
+	if (bCameraPreferenceLoaded)
+	{
+		return true;
+	}
+
+	if (!GetLocalPlayer())
+	{
+		return false;
+	}
+
+	bCameraPreferenceLoaded = true;
+	if (const UPMGameUserSettings* Settings =
+		UPMGameUserSettings::GetPMGameUserSettings())
+	{
+		PreferredCameraMode = Settings->GetPreferredCameraMode();
+		return true;
+	}
+
+	UE_LOG(
+		LogPMPlayerController,
+		Warning,
+		TEXT("PMGameUserSettings is not active; camera preference will last only for this session."));
+	return true;
+}
+
+void APMPlayerController::ApplyPreferredCameraModeToPawn()
+{
+	if (!EnsureCameraPreferenceLoaded())
+	{
+		return;
+	}
+
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		if (UPMCameraModeComponent* CameraMode = PMCharacter->GetCameraModeComponent())
+		{
+			CameraMode->SetCameraMode(PreferredCameraMode);
+		}
+	}
+}
+
+bool APMPlayerController::SetPlayerCameraMode(const EPMCameraMode NewMode)
+{
+	APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter();
+	if (!PMCharacter)
+	{
+		return false;
+	}
+
+	UPMCameraModeComponent* CameraMode = PMCharacter->GetCameraModeComponent();
+	if (!CameraMode || !CameraMode->SetCameraMode(NewMode))
+	{
+		return false;
+	}
+
+	PreferredCameraMode = CameraMode->GetCameraMode();
+	bCameraPreferenceLoaded = true;
+	PersistPreferredCameraMode();
+	return true;
+}
+
+void APMPlayerController::PersistPreferredCameraMode()
+{
+	UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings();
+	if (!Settings || !Settings->SetPreferredCameraMode(PreferredCameraMode))
+	{
+		UE_LOG(
+			LogPMPlayerController,
+			Warning,
+			TEXT("Could not persist the preferred camera mode."));
+		return;
+	}
+
+	Settings->SaveSettings();
 }

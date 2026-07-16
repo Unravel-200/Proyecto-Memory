@@ -111,4 +111,11 @@ private:
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Camera",
 		meta = (AllowPrivateAccess = "true"))
 	EPMCameraMode CurrentMode;
+
+	/**
+	 * Evita que BeginPlay reemplace una preferencia aplicada al poseer el Pawn
+	 * antes de que el componente haya iniciado.
+	 */
+	UPROPERTY(Transient)
+	bool bHasRuntimeModeOverride;
 };

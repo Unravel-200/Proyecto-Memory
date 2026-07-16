@@ -7,6 +7,7 @@
 class APMPlayerCharacter;
 class UInputAction;
 class UInputMappingContext;
+enum class EPMCameraMode : uint8;
 struct FInputActionInstance;
 struct FInputActionValue;
 
@@ -37,6 +38,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void OnUnPossess() override;
+	virtual void SetPawn(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
 
 	/** IMC_Player: contexto que agrupa todos los controles de esta versión. */
@@ -67,6 +69,10 @@ protected:
 		meta = (ClampMin = "0.05", UIMin = "0.05", UIMax = "1.0", Units = "s"))
 	float CrouchHoldThreshold;
 
+	/** IA_Jump debe ser una acción Digital de pulsación. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
+	TObjectPtr<UInputAction> JumpAction;
+
 	/** IA_ToggleCamera debe ser una acción Digital de pulsación. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
 	TObjectPtr<UInputAction> ToggleCameraAction;
@@ -93,12 +99,21 @@ private:
 	void HandleCrouchStarted();
 	void HandleCrouchCompleted(const FInputActionInstance& Instance);
 	void HandleCrouchCanceled();
+	void HandleJumpStarted();
+	void HandleJumpCompleted();
 	void HandleToggleCamera();
 	void ResetCrouchInputState();
 	void ResetTransientPawnInputState();
+	bool EnsureCameraPreferenceLoaded();
+	void ApplyPreferredCameraModeToPawn();
+	bool SetPlayerCameraMode(EPMCameraMode NewMode);
+	void PersistPreferredCameraMode();
 
 	/** Personaje que recibió el inicio de la pulsación, aunque cambie la posesión. */
 	TWeakObjectPtr<APMPlayerCharacter> CrouchInputCharacter;
+
+	/** Personaje que recibió Jump Started; Completed no afectará un Pawn nuevo. */
+	TWeakObjectPtr<APMPlayerCharacter> JumpInputCharacter;
 
 	/** Permite ignorar eventos Completed/Canceled sin un Started correspondiente. */
 	bool bCrouchInputActive;
@@ -108,4 +123,9 @@ private:
 
 	/** Evita retirar del subsistema un contexto que este controller no agregó. */
 	bool bMappingContextAdded;
+
+	/** Preferencia de sesión; sobrevive al reemplazo del Pawn durante un respawn. */
+	EPMCameraMode PreferredCameraMode;
+
+	bool bCameraPreferenceLoaded;
 };

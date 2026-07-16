@@ -34,6 +34,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Movement")
 	void ToggleCrouch();
 
+	/**
+	 * Intenta levantarse inmediatamente si está agachado y salta solo si la
+	 * cápsula de pie cabe. Nunca deja una orden de salto latente bajo un techo.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Movement")
+	bool TryJumpFromCurrentPosture();
+
 	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Player|Movement")
 	bool IsSprinting() const;
 

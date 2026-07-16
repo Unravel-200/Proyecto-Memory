@@ -13,6 +13,7 @@ UPMCameraModeComponent::UPMCameraModeComponent()
 
 	InitialMode = EPMCameraMode::FirstPerson;
 	CurrentMode = InitialMode;
+	bHasRuntimeModeOverride = false;
 	FirstPersonFieldOfView = 90.0f;
 	ThirdPersonFieldOfView = 90.0f;
 	ThirdPersonArmLength = 300.0f;
@@ -22,7 +23,10 @@ void UPMCameraModeComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (!SetCameraMode(InitialMode))
+	const EPMCameraMode ModeToApply = bHasRuntimeModeOverride
+		? CurrentMode
+		: InitialMode;
+	if (!SetCameraMode(ModeToApply))
 	{
 		UE_LOG(
 			LogPMCameraMode,
@@ -53,6 +57,7 @@ bool UPMCameraModeComponent::SetCameraMode(const EPMCameraMode NewMode)
 
 	const EPMCameraMode PreviousMode = CurrentMode;
 	CurrentMode = NewMode;
+	bHasRuntimeModeOverride = true;
 	ApplyCameraMode();
 
 	if (PreviousMode != CurrentMode)

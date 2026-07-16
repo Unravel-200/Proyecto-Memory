@@ -38,6 +38,8 @@ APMPlayerCharacter::APMPlayerCharacter()
 	ThirdPersonCameraBoom->TargetArmLength = 300.0f;
 	ThirdPersonCameraBoom->bUsePawnControlRotation = true;
 	ThirdPersonCameraBoom->bDoCollisionTest = true;
+	ThirdPersonCameraBoom->bEnableCameraLag = false;
+	ThirdPersonCameraBoom->bEnableCameraRotationLag = false;
 	ThirdPersonCameraBoom->ProbeSize = 12.0f;
 	ThirdPersonCameraBoom->ProbeChannel = ECC_Camera;
 
@@ -98,6 +100,33 @@ void APMPlayerCharacter::SetCrouching(const bool bEnabled)
 void APMPlayerCharacter::ToggleCrouch()
 {
 	SetCrouching(!IsCrouched());
+}
+
+bool APMPlayerCharacter::TryJumpFromCurrentPosture()
+{
+	StopJumping();
+
+	if (IsCrouched())
+	{
+		SetCrouching(false);
+
+		// ACharacter::UnCrouch solo cambia la intención. Ejecutar la operación
+		// pública del Movement permite saber en esta misma pulsación si hay
+		// espacio real para recuperar la cápsula de pie.
+		if (UCharacterMovementComponent* Movement = GetCharacterMovement())
+		{
+			Movement->UnCrouch(false);
+		}
+	}
+
+	if (IsCrouched() || !CanJump())
+	{
+		StopJumping();
+		return false;
+	}
+
+	Jump();
+	return true;
 }
 
 bool APMPlayerCharacter::IsSprinting() const

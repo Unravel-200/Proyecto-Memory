@@ -3,21 +3,39 @@
 ## Propósito
 
 Esta guía describe cómo integrar en Unreal Editor 5.8 el código C++ de personaje,
-movimiento y cámaras de Proyecto-Memory. La base anterior fue compilada; el delta
-actual de salto y persistencia de perspectiva está preparado y revisado
-estáticamente, pero todavía no se ha compilado.
+movimiento y cámaras de Proyecto-Memory. El código vigente, incluido el salto y la
+persistencia de perspectiva, fue compilado correctamente y revisado
+estáticamente. Su comportamiento todavía no ha sido probado en PIE.
 
 Estado de partida verificado:
 
 - Rama de código: feature/v0.1-player-cameras.
-- Commit base mínimo: 5eccd8e.
+- Commit base mínimo verificado: 336aa91; se admite un descendiente limpio.
 - Unreal Engine: 5.8.
 - Plataforma compilada: Win64 Development Editor.
-- Resultado C++ base más reciente: Succeeded.
-- Delta posterior: salto, `UPMGameUserSettings` y restauración de cámara pendientes
-  de compilación completa en una PC adecuada.
+- Resultado C++ vigente más reciente: Succeeded.
+- Salto, `UPMGameUserSettings` y restauración de cámara: compilados; pruebas
+  funcionales pendientes.
 - Assets existentes: BP_TestActor y L_Developer_Testing.
-- Assets de Player/Input: todavía no existen.
+- Assets de Input: existen las seis Input Actions y `IMC_Player`; este último
+  todavía no tiene mappings.
+- Assets de Player: todavía no existen.
+
+### Sesión corta preparada para el 2026-07-23
+
+La base de enfriamiento ya está disponible, pero no puede usarse el 2026-07-22;
+por eso hoy no se abre Unreal. La primera apertura de mañana se limita a:
+
+1. Encender la base, conectar el cargador si está disponible y abrir HWiNFO en
+   modo Sensors-only.
+2. Reiniciar los valores mínimo/máximo y anotar la temperatura inicial.
+3. Abrir Unreal sin recompilar y completar solamente la sección 5,
+   `IMC_Player`.
+4. Guardar y validar los assets, anotar la temperatura máxima y cerrar Unreal.
+
+No ejecutar PIE ni continuar a Blueprints en esa misma apertura. Pausar y cerrar
+si la temperatura actual llega a 90 °C; detener de inmediato si alcanza 95 °C,
+hay olor extraño, congelamiento, stutter severo o apagado.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -276,6 +294,62 @@ Gamepad Face Button Top
 Sin triggers adicionales.
 
 Guardar IMC_Player.
+
+### Procedimiento MCP seguro para IMC_Player
+
+El MCP oficial de Unreal 5.8 puede automatizar esta sección, pero su conversión
+completa de `UInputMappingContext` no se ha probado todavía de extremo a extremo.
+Usar llamadas en serie y aplicar este control antes de guardar:
+
+1. Leer `defaultKeyMappings` y confirmar que `mappings` está vacío. No escribir en
+   la propiedad superior `mappings`, porque está obsoleta desde Unreal 5.7.
+2. Escribir únicamente D → IA_Move, sin modificadores, y leer el resultado.
+3. Si acción, tecla y arrays vacíos coinciden, probar W → IA_Move con
+   `InputModifierSwizzleAxis` y comprobar que su orden sea `YXZ`.
+4. Solo si ambas pruebas coinciden, escribir las 16 filas de esta sección y volver
+   a leerlas antes de guardar.
+5. Si una lectura difiere, no guardar: configurar el asset manualmente en el
+   Editor.
+
+Para `ObjectTools.set_properties`, `values` debe ser un texto que contiene JSON y
+la ruta raíz correcta es:
+
+~~~json
+{
+  "defaultKeyMappings": {
+    "mappings": []
+  }
+}
+~~~
+
+Rutas de los modificadores:
+
+~~~text
+/Script/EnhancedInput.InputModifierNegate
+/Script/EnhancedInput.InputModifierSwizzleAxis
+~~~
+
+Sus valores predeterminados ya producen Negate en los tres ejes y Swizzle `YXZ`;
+no añadir campos dentro del mismo objeto de referencia porque el convertidor puede
+ignorarlos silenciosamente. Nombres internos de las teclas no alfabéticas:
+
+| Control visible | `keyName` interno |
+|---|---|
+| Espacio | SpaceBar |
+| Shift izquierdo | LeftShift |
+| Ctrl izquierdo | LeftControl |
+| Palanca izquierda 2D | Gamepad_Left2D |
+| Palanca derecha 2D | Gamepad_Right2D |
+| Botón de palanca izquierda | Gamepad_LeftThumbstick |
+| Botón derecho | Gamepad_FaceButton_Right |
+| Botón inferior | Gamepad_FaceButton_Bottom |
+| Botón superior | Gamepad_FaceButton_Top |
+| Mouse XY | Mouse2D |
+
+Después de la lectura final deben existir exactamente 16 filas: Move 5, Look 2,
+Sprint 2, Crouch 3, Jump 2 y ToggleCamera 2. Todos los triggers quedan vacíos;
+solo W, S y A tienen modificadores, S conserva el orden Negate seguido de Swizzle,
+y no existe ningún modificador Dead Zone.
 
 ## 6. Crear BP_PlayerController
 
@@ -782,7 +856,7 @@ Detener, guardar y registrar BLOCKED si:
 
 Jump, persistencia de perspectiva, cámara inmediata, layout de mando y zona muerta
 0 ya están decididos en `PLAYER_SETTINGS_V0.1.md`. Su C++ y configuración están
-preparados, pero siguen pendientes de compilación y prueba, no de decisión.
+compilados, pero siguen pendientes de prueba funcional, no de decisión.
 
 La reasignación de controles en tiempo de ejecución es obligatoria en la etapa
 posterior de menús y ajustes. No bloquea v0.1.0 y esta guía todavía no crea su UI.

@@ -5,10 +5,12 @@
 - Versión objetivo inmediata: v0.1.0 — personaje, movimiento y cámaras.
 - Decisiones confirmadas por el propietario: 2026-07-15.
 - Fuente de verdad para estas decisiones: este documento.
-- Estado técnico: especificación aprobada; C++ y configuración preparados;
-  compilación, Input Assets y pruebas todavía pendientes.
-- Restricción actual: no abrir Unreal, compilar, ejecutar PIE ni generar shaders en
-  esta laptop.
+- Estado técnico: especificación aprobada; el C++ vigente compiló correctamente y
+  existen las seis Input Actions y `IMC_Player`. Todavía faltan los mappings,
+  Blueprints y todas las pruebas funcionales.
+- Restricción del 2026-07-22: no abrir Unreal, compilar, ejecutar PIE ni generar
+  shaders hoy. La base de enfriamiento ya está disponible, pero no podrá usarse
+  hasta el 2026-07-23.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
 jugador. No afirma que las funciones pendientes ya existan.
@@ -85,8 +87,8 @@ como terminada la etapa futura de ajustes.
 
 ## Diferencias con el estado actual
 
-Después de aprobar esta especificación quedaron preparados, pero todavía sin
-compilar ni probar:
+Después de aprobar esta especificación, las siguientes funciones quedaron
+implementadas y compiladas, pero todavía sin pruebas funcionales en PIE:
 
 - binding C++ de salto y levantado inmediato con comprobación de techo;
 - memoria de perspectiva para respawn y futuras ejecuciones mediante
@@ -96,12 +98,14 @@ compilar ni probar:
 - zona muerta 0 para las cuatro direcciones de los sticks;
 - guía, matriz QA y layout del mando actualizados a A/X y Y/triángulo.
 
-Los Input Assets, el menú y sus widgets todavía no existen. El C++ actual conserva
-una sensibilidad compartida para mouse y mando; separarlas dinámicamente pertenece
-a la etapa de ajustes.
+Las seis Input Actions y el contenedor `IMC_Player` ya existen. `IMC_Player`
+todavía no tiene mappings; tampoco existen los Blueprints de Player, el menú ni
+sus widgets. El C++ actual conserva una sensibilidad compartida para mouse y
+mando; separarlas dinámicamente pertenece a la etapa de ajustes.
 
-Estas diferencias son trabajo pendiente, no fallos observados en PIE. Todavía no
-se ha abierto ni probado Unreal para implementar esta especificación.
+Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
+abrió únicamente para verificar la configuración y crear los Input Assets; no se
+ha ejecutado PIE ni se ha probado el Player.
 
 ## Separación de alcance
 

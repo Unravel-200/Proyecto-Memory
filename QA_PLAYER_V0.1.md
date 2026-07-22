@@ -4,8 +4,8 @@
 
 Esta matriz registra la evidencia de integración del personaje, movimiento,
 salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
-desde la sección 1 de esa guía, únicamente en una PC adecuada para Unreal Engine
-5.8.
+desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
+Unreal Engine 5.8.
 
 Estado al crear este documento: **plantilla preparada; ninguna prueba de Editor o
 PIE ejecutada**. Preparar esta matriz no demuestra que existan los assets, que la
@@ -16,8 +16,10 @@ Referencias y línea base:
 - `EDITOR_SETUP_V0.1.md`: procedimiento y criterios operativos.
 - `HANDOFF_CODEX.md`: alcance, contratos C++ y restricciones de reanudación.
 - Rama requerida: `feature/v0.1-player-cameras`.
-- Commit mínimo: `5eccd8e`; se admite un descendiente con worktree limpio.
-- HEAD al preparar esta plantilla: `d82ea86`.
+- Commit mínimo verificado: `336aa91`; se admite un descendiente con worktree
+  limpio.
+- Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
+  los mappings, Blueprints y todas las pruebas funcionales siguen pendientes.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -28,7 +30,8 @@ prueba, teclado, ratón, mando físico, rendimiento y persistencia de referencia
 
 No autoriza:
 
-- abrir Unreal, compilar o ejecutar PIE en la laptop actual;
+- abrir Unreal sin la base de enfriamiento activa y monitoreo térmico;
+- recompilar sin necesidad o ejecutar PIE antes de completar la integración;
 - añadir lógica central al Level Blueprint o a los Event Graphs;
 - duplicar componentes nativos o reimplementar movimiento/cámaras en Blueprint;
 - usar Hot Reload, habilitar plugins extra o convertir el proyecto;

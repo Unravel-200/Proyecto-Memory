@@ -66,11 +66,12 @@ obligaciones de atribución.
 
 ### Próxima acción recomendada
 
-En la laptop Lenovo actual no volver a abrir Unreal hasta confirmar una base de
-enfriamiento adecuada. La compilación y una apertura controlada ya se hicieron;
-un trabajo posterior con MCP llevó la CPU a un máximo de 99,2 °C. Unreal fue
-cerrado, los assets fueron guardados y la temperatura bajó a 44 °C. No existe una
-compra de enfriador confirmada en este documento.
+En la laptop Lenovo actual no volver a abrir Unreal sin la base de enfriamiento.
+El propietario confirmó el 2026-07-22 que ya tiene una base, pero no podrá usarla
+hasta el 2026-07-23. Por eso el 2026-07-22 se limita a preparación documental y no
+se abre Unreal. La compilación y una apertura controlada ya se hicieron; un
+trabajo posterior con MCP llevó la CPU a un máximo de 99,2 °C. Unreal fue cerrado,
+los assets fueron guardados y la temperatura bajó a 44 °C.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
@@ -395,6 +396,50 @@ Resultados verificados:
 - el warning de `LogModelContextProtocol` sobre Licensed Technology y el EULA de
   Unreal es una advertencia del plugin oficial, no un error del proyecto.
 
+Preparación offline del 2026-07-22 para `IMC_Player`:
+
+- en Unreal 5.8 la propiedad vigente es `defaultKeyMappings.mappings`; no usar el
+  `mappings` superior, obsoleto desde 5.7;
+- `ObjectTools.set_properties` recibe `values` como un texto que contiene JSON;
+- antes de escribir las 16 filas se hará una prueba sin guardar con D → IA_Move,
+  lectura de vuelta y luego W con `InputModifierSwizzleAxis` en `YXZ`;
+- solo si ambas lecturas coinciden se aplicará el asset completo, se verificará el
+  conteo 5/2/2/3/2/2 y se guardará;
+- ante cualquier diferencia, no guardar y completar manualmente la sección 5 de
+  `EDITOR_SETUP_V0.1.md`.
+
+Preparación offline para una segunda sesión posterior, no para la primera apertura
+del 2026-07-23:
+
+- `BlueprintTools` expone `create`, `compile_blueprint` y `get_parent`;
+  `ObjectTools` expone `search_subclasses`, `list_properties`, `get_properties` y
+  `set_properties`; `AssetTools` expone `exists`, `load_asset`, `save_assets` e
+  `is_dirty`;
+- antes de crear un Blueprint, usar `exists`; intentar crear un duplicado puede
+  fallar y abrir un diálogo modal;
+- padres nativos exactos: `/Script/ProyectoMemoria.PMPlayerController`,
+  `/Script/ProyectoMemoria.PMPlayerCharacter` y `/Script/Engine.GameModeBase`;
+- crear, compilar con warnings-as-errors, comprobar el padre y modificar valores
+  en grupos pequeños con lectura de vuelta. `set_properties` puede aplicar una
+  parte antes de devolver error;
+- en `BP_PlayerController`, probar primero solo los escalares 1.0, 1.0, false, 0
+  y 0.25; luego probar una sola referencia a `IMC_Player` y leerla antes de
+  asignar las seis Input Actions;
+- el formato canónico esperado es
+  `InputMappingContext'/Game/Input/Mappings/IMC_Player.IMC_Player'` para el
+  contexto y `InputAction'/Game/Input/Actions/IA_Move.IA_Move'` para cada acción,
+  cambiando el nombre; su aceptación efectiva se confirmará en vivo campo por
+  campo antes de guardar;
+- `BP_PlayerCharacter` debe heredar los componentes y valores que ya fija el
+  constructor C++; no reescribir subobjetos por MCP ni fijar todavía el valor
+  provisional de Crouched Half Height;
+- para GameMode, las clases generadas esperadas terminan en
+  `BP_PlayerCharacter_C` y `BP_PlayerController_C`; asignarlas de una en una y
+  releer cada propiedad. Usar el formato canónico
+  `BlueprintGeneratedClass'/Game/.../BP_Name.BP_Name_C'`;
+- guardar rutas explícitas. Una lista vacía en `save_assets` guarda todos los
+  paquetes sucios y no debe usarse. Mantener los Event Graphs vacíos.
+
 Esta configuración global no viaja con Git ni con la conversación. En otra PC se
 debe repetir el alta del servidor, reiniciar Codex, lanzar Unreal con los flags y
 verificar el puerto. El 2026-07-20 también se agregó globalmente
@@ -441,11 +486,18 @@ una secuencia ordenada de apagado del Editor; después se confirmó que Unreal y
 estaba ejecutándose. No se ejecutó postflight, por lo que no debe declararse un
 postflight exitoso.
 
-Regla vigente para esta laptop: no reabrir Unreal sin enfriamiento y condiciones
-seguras confirmadas. Detener la carga si la CPU se mantiene en 95 °C o más, hay
-olor extraño, congelamiento, stutter severo o apagado. El propietario eligió como
-opción económica la base Argom 1594 de aproximadamente ₡5.500, pero su compra no
-está confirmada en esta entrega.
+Regla vigente para esta laptop: no reabrir Unreal sin la base encendida y
+condiciones seguras confirmadas. Pausar y cerrar si la temperatura actual llega a
+90 °C; detener de inmediato si alcanza 95 °C, hay olor extraño, congelamiento,
+stutter severo o apagado. El propietario confirmó que ya tiene una base de
+enfriamiento; su modelo no fue reconfirmado en esta sesión y podrá usarla a partir
+del 2026-07-23.
+
+Primera sesión preparada para el 2026-07-23: base encendida, HWiNFO en modo
+Sensors-only con mínimo/máximo reiniciados, Unreal sin recompilar y una sola meta:
+completar los mappings de `IMC_Player`, guardar, validar y cerrar. No ejecutar PIE
+ni comenzar Blueprints durante esa primera apertura. Registrar temperatura
+inicial, máxima y final antes de decidir si se programa una segunda sesión.
 
 ## Transferencia segura a otra PC
 

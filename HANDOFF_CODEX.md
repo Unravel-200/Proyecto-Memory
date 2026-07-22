@@ -3,21 +3,32 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-16 (America/Costa_Rica).
-- Última actualización: 2026-07-16 — decisiones del Player, salto y persistencia preparados.
+- Fecha local: 2026-07-20 (America/Costa_Rica).
+- Última actualización: 2026-07-20 — entrega consolidada para continuar en otra PC.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
-- Trabajo técnico generado por: Codex, bajo dirección y revisión del propietario del proyecto.
-- Estado: base C++ anterior compilada y carga headless verificada; delta de salto,
-  cámara inmediata y persistencia revisado estáticamente pero todavía no
-  compilado; integración jugable en Unreal Editor pendiente.
-- Publicación remota: ninguna. No se hizo push, merge ni tag.
+- Autoría operativa declarada por el propietario: base inicial y línea de modelado
+  3D trabajadas con Claude; rama del Player, QA, compilación reciente e integración
+  parcial de Input trabajadas con Codex. Git registra los commits como
+  `unknown <jefferson.amador@ucr.ac.cr>`, por lo que esta separación se apoya en la
+  confirmación del propietario y en los documentos de trazabilidad, no en el campo
+  Author de Git.
+- Estado: el C++ vigente, incluido salto y persistencia, ya recibió compilación
+  Development Editor completa y exitosa. Unreal Editor 5.8, Enhanced Input y el
+  servidor oficial Unreal MCP fueron verificados. Existen las seis Input Actions y
+  `IMC_Player`; todavía faltan los mappings de teclado/mouse/mando, los Blueprints,
+  la geometría funcional y todas las pruebas PIE. La última sesión de Editor se
+  detuvo por un pico térmico de CPU de 99,2 °C en la laptop actual.
+- Publicación remota de la rama del Player: ninguna. En esta línea de trabajo no
+  se hizo push, merge, rebase ni tag. Los repositorios hermanos conservan sus
+  propios estados remotos, detallados en el punto de control.
 
-Este documento registra lo realizado por Codex para facilitar revisión, continuidad,
-auditoría y una futura preparación de publicación. No sustituye la documentación
-oficial de Proyecto-Memoria-docs y no establece por sí mismo licencia, titularidad
-legal ni obligaciones de atribución.
+Este documento consolida lo realizado con Claude y Codex para facilitar una
+transferencia entre computadoras, revisión, continuidad, auditoría y una futura
+preparación de publicación. No sustituye la documentación oficial de
+Proyecto-Memoria-docs y no establece por sí mismo licencia, titularidad legal ni
+obligaciones de atribución.
 
 ## Reanudación rápida — próxima sesión
 
@@ -25,6 +36,8 @@ legal ni obligaciones de atribución.
 
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
+- HEAD padre antes del commit de transferencia: a97762a. La entrega del
+  2026-07-20 añade un commit posterior con este handoff y los siete Input Assets.
 - Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
@@ -34,30 +47,52 @@ legal ni obligaciones de atribución.
   - efc931c — matriz de evidencia QA del Player.
   - 9132738 — verificador QA de solo lectura para preflight y postflight.
   - 73de57b — endurecimiento de Git/LFS, assets, matriz QA y Output Log.
+  - a7236e0 — handoff actualizado con la matriz y el verificador QA.
   - 20e8fd2 — salto seguro, cámara inmediata y persistencia de perspectiva.
   - 59ed2cf — decisiones aprobadas, guía de 27 pasos y matriz de 84 pruebas.
   - e2fbad7 — verificador sincronizado con IA_Jump y las configuraciones aprobadas.
+  - a97762a — handoff de salto, persistencia y estado pendiente anterior a Editor.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
-- No existe push, merge, rebase ni tag de esta rama.
+- El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
+  push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
+  en `origin`; no se hizo merge, rebase ni tag.
+- Proyecto-Memoria-docs queda en `main`, HEAD 7c44472, sincronizado con
+  `origin/main` después de publicar 6a270af, 005f910 y 7c44472.
+- Modelos-3D queda en `main`, HEAD a1e3952, sincronizado con `origin/main` después
+  de publicar el blockout del aula.
 - Modelos-3D contiene dos archivos sin seguimiento del propietario que deben
   preservarse: Plaza/SM_Tree_PlazaCentral_A.blend y
   Plaza/SM_Tree_PlazaCentral_A.py.
 
 ### Próxima acción recomendada
 
-En la laptop actual no abrir Unreal, compilar, ejecutar PIE ni generar shaders.
-`PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
-`Tools/QA/Invoke-PlayerQACheck.ps1` ya están preparados; no volver a crearlos. Las
-decisiones de perspectiva, Jump, respuesta inmediata, teclado/mouse, mando y menú
-posterior están cerradas. Siguen abiertos los valores finales de crouch y las
-tolerancias cuantitativas.
+En la laptop Lenovo actual no volver a abrir Unreal hasta confirmar una base de
+enfriamiento adecuada. La compilación y una apertura controlada ya se hicieron;
+un trabajo posterior con MCP llevó la CPU a un máximo de 99,2 °C. Unreal fue
+cerrado, los assets fueron guardados y la temperatura bajó a 44 °C. No existe una
+compra de enfriador confirmada en este documento.
 
-Cuando exista acceso a una PC adecuada, ejecutar primero el preflight con
-confirmación humana del hardware. Solo si no hay FAIL, hacer una compilación
-completa Development Editor del delta `20e8fd2`, sin Hot Reload. Si compila,
-repetir el preflight, continuar con `EDITOR_SETUP_V0.1.md` desde la sección 1 y
-registrar cada prueba como PASS, FAIL o BLOCKED. Al cerrar Unreal, ejecutar el
-postflight con la ruta al Output Log.
+En una PC adecuada, no repetir las secciones ya completadas por costumbre.
+Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
+oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
+desde la sección 5: completar los mappings de `IMC_Player`. Después seguir con
+`BP_PlayerController`, `BP_PlayerCharacter`, GameMode, mapa, geometría y PIE.
+`PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
+`Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
+
+Esta entrega incluye `HANDOFF_CODEX.md` y los siete `.uasset` en el mismo commit,
+con los binarios gestionados por Git LFS. En el equipo nuevo, el preflight debe
+ejecutarse únicamente después de comprobar que el clone/pull está limpio. Si Git
+muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
+`-AllowDirty` para evitar esta protección.
+
+Nota de precedencia: algunos párrafos históricos de estado en
+`PLAYER_SETTINGS_V0.1.md` y al inicio de `EDITOR_SETUP_V0.1.md` todavía dicen que
+el delta no está compilado, que Unreal no se abrió o que los Input Assets no
+existen. Esas frases quedaron obsoletas el 2026-07-16. Para estado ejecutado manda
+este handoff; las decisiones de diseño y las instrucciones de mappings de esos
+documentos continúan vigentes. `QA_PLAYER_V0.1.md` sí conserva correctamente todas
+las pruebas funcionales como `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -77,18 +112,17 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 
 ### Prompt para copiar mañana
 
-> Continúa Proyecto Memoria. Trabaja únicamente en Proyecto-Memory y lee primero
-> HANDOFF_CODEX.md, PLAYER_SETTINGS_V0.1.md y EDITOR_SETUP_V0.1.md completos.
-> Verifica en solo lectura que
-> la rama sea feature/v0.1-player-cameras, muestra los últimos commits y confirma
-> que el worktree esté limpio. No abras Unreal, no compiles y no ejecutes PIE en
-> esta laptop. No hagas push, merge, rebase ni tag. No toques Modelos-3D y preserva
-> sus archivos sin seguimiento. Mantén Proyecto-Memoria-docs en solo lectura hasta
-> que yo autorice otra actualización. QA_PLAYER_V0.1.md y el verificador QA ya
-> existen desde los commits efc931c y 9132738; el verificador vigente incluye
-> 73de57b y e2fbad7. No los recrees. El delta 20e8fd2 no se ha compilado. En una
-> PC adecuada, ejecuta el preflight, compila completamente y después sigue
-> EDITOR_SETUP_V0.1.md desde la sección 1.
+> Continúa Proyecto Memoria en esta PC nueva. Trabaja únicamente en
+> Proyecto-Memory y lee HANDOFF_CODEX.md, PLAYER_SETTINGS_V0.1.md,
+> EDITOR_SETUP_V0.1.md y QA_PLAYER_V0.1.md completos. Verifica que la rama sea
+> feature/v0.1-player-cameras y que existan los siete assets bajo
+> UnrealProject/Content/Input. No hagas push, merge, rebase ni tag sin mi permiso.
+> No edites Proyecto-Memoria-docs y no toques Modelos-3D; preserva especialmente
+> Plaza/SM_Tree_PlazaCentral_A.blend y .py. El C++ vigente ya compiló correctamente.
+> Las seis Input Actions ya existen con sus tipos correctos e IMC_Player existe
+> vacío. Continúa desde EDITOR_SETUP_V0.1.md sección 5 configurando los mappings de
+> teclado, mouse y mando; luego crea los Blueprints. No ejecutes herramientas de
+> Unreal en paralelo y no declares pruebas PIE como aprobadas hasta ejecutarlas.
 
 ## Alcance autorizado y respetado
 
@@ -108,7 +142,140 @@ El trabajo siguió este orden solicitado:
 6. Tercera persona.
 7. Cambio de cámara.
 
+## Trabajo realizado con Claude
+
+La atribución de esta sección procede de la confirmación del propietario y del
+informe `Proyecto-Memoria-docs/Modelos3D/Trazabilidad_Modelos_3D_IA.txt`, que
+identifica expresamente una sesión con Claude (Sonnet 5). Todos los commits de los
+tres repositorios usan el autor genérico `unknown`; Git por sí solo no distingue a
+Claude, Codex o al propietario.
+
+### Base de Proyecto-Memory anterior a la rama de Codex
+
+Según la confirmación del propietario, la base anterior se trabajó con Claude. El
+rango termina en `45dcfcb`, padre directo de `f8dfb21`, primer commit documentado
+de Codex en la rama del Player.
+
+| Commit | Trabajo registrado |
+|---|---|
+| 579001e | Importación inicial de documentos, juego, checklist, historia y recomendaciones. |
+| 9c253c2 | Estructura base del repositorio, `.gitattributes` con LFS, `.gitignore`, README y `.gitkeep`. |
+| 1242222 | Aclaración de que Config, Source y el `.uproject` deben rastrearse. |
+| 45dd085 | Scaffold UE 5.8/C++: proyecto, Targets, módulo, configuraciones y `APMTestActor`. |
+| 2c49e3e | Actualización del checklist v0.0.1 que entonces vivía dentro del repo. |
+| 76b89bf | Retiro de la copia de Docs al migrarla a Proyecto-Memoria-docs. |
+| 26a14e7 | Primera compilación exitosa y creación de `L_Developer_Testing.umap`. |
+| 9a4fbb6 | Creación de `BP_TestActor.uasset` y comprobación de herencia C++ a Blueprint. |
+| 45dcfcb | Corrección del README para apuntar al repositorio hermano de documentación. |
+
+### Línea de modelado 3D de Claude
+
+Claude generó 34 activos mediante scripts Python ejecutados con Blender 5.1 en
+modo headless. El propietario abrió y revisó visualmente cada `.blend` y pidió
+correcciones por chat. Los materiales son procedurales; el informe no registra
+texturas, fuentes ni assets externos descargados. Esto no certifica originalidad,
+licencia ni aptitud para publicación.
+
+- Estado Blender: 32 `[X] Listo en Blender` y 2 `[P] Provisional`.
+- Estado Unreal: los 34 siguen `[UE] Pendiente`; ninguno fue exportado, importado
+  ni validado dentro de Unreal.
+- Los primeros 20 activos conservan el `.blend`, pero sus scripts temporales se
+  eliminaron y la lógica se reconstruyó desde la conversación.
+- Desde `ARC-LIB-005` se conservaron 14 scripts `.py` junto al `.blend`.
+- Fuente exhaustiva de prompts, correcciones y decisiones:
+  `Proyecto-Memoria-docs/Modelos3D/Trazabilidad_Modelos_3D_IA.txt`.
+- Fuente de estado vigente:
+  `Proyecto-Memoria-docs/Modelos3D/Registro_Maestro_Activos_Proyecto_Memoria.txt`.
+- Infraestructura del repositorio de modelos: `a5980cd` creó el repositorio y
+  `3f18671` agregó el README hacia Proyecto-Memoria-docs. Junto con los commits de
+  la tabla y `23954c7`, esto cubre los 40 commits actuales de Modelos-3D.
+
+Inventario completo generado y documentado:
+
+| ID | Archivo base dentro de Modelos-3D | Estado | Commit(s) |
+|---|---|---|---|
+| FUR-LIB-007 | Biblioteca/SM_Bookshelf_Library_A.blend | Listo en Blender | 0bab614 |
+| PRP-LIB-006 | Biblioteca/SM_BookRow_Library_A.blend | Listo en Blender | 5d215b3 |
+| FUR-LIB-008 | Biblioteca/SM_Bookshelf_Door_A.blend | Listo en Blender | 22fcaeb |
+| ARC-LIB-002 | Biblioteca/SM_Hatch_Library_A.blend | Listo en Blender | 00016a6 |
+| PRP-LIB-007 | Biblioteca/SM_HangingBulb_Library_A.blend | Listo en Blender | 8a8b2f3 |
+| FUR-LIB-009 | Biblioteca/SM_MetalShelf_LibraryBasement_A.blend | Listo en Blender | 2a74c69 |
+| DOC-LIB-001 | Biblioteca/SM_Manuscript_ForbiddenHistories_Library.blend | Listo en Blender | 3508618 |
+| ARC-LIB-003 | Biblioteca/SM_Door_LibraryBasement_A.blend | Listo en Blender | ee9232a |
+| FUR-LIB-001 | Biblioteca/SM_Desk_LibraryLobby_A.blend | Listo en Blender | efc807f |
+| FUR-LIB-002 | Biblioteca/SM_Bench_LibraryLobby_A.blend | Listo en Blender | c14c700 |
+| PRP-LIB-001 | Biblioteca/SM_DirectorySign_Library_A.blend | Listo en Blender | d5d8713 |
+| ARC-LIB-001 | Biblioteca/SM_Door_LibraryMain_A.blend | Listo en Blender | d5d93f4 |
+| FUR-LIB-003 | Biblioteca/SM_Desk_LibraryGuard_A.blend | Listo en Blender | 3c09ee9 |
+| PRP-LIB-002 | Biblioteca/SM_Phone_LibraryReception_A.blend | Listo en Blender | b35f463 |
+| PRP-LIB-003 | Biblioteca/SM_LogBook_LibraryReception_A.blend | Listo en Blender | b619bf0 |
+| FUR-LIB-005 | Biblioteca/SM_Desk_LibrarySurveillance_A.blend | Listo en Blender | 98f020f |
+| PRP-LIB-004 | Biblioteca/SM_MonitorSet_LibrarySurveillance_A.blend | Listo en Blender | 6ff0e00 |
+| PRP-LIB-005 | Biblioteca/SM_Console_LibrarySurveillance_A.blend | Listo en Blender | 697801d |
+| ARC-LIB-004 | Biblioteca/SM_Door_LibraryService_A.blend | Listo en Blender | 06eac60 |
+| PRP-LIB-008 | Biblioteca/SM_ExitSign_Library_A.blend | Listo en Blender | fcadb6e |
+| ARC-LIB-005 | Biblioteca/SM_VestibuloBlockout_Library_A.blend + .py | Listo en Blender | 717d311, bf88451 |
+| ARC-LIB-006 | Biblioteca/SM_RecepcionBlockout_Library_A.blend + .py | Listo en Blender | 973060d |
+| ARC-LIB-007 | Biblioteca/SM_VigilanciaBlockout_Library_A.blend + .py | Listo en Blender | 7dae03a, def2789 |
+| ARC-LIB-008 | Biblioteca/SM_ColeccionRestringidaBlockout_Library_A.blend + .py | Listo en Blender | def2789 |
+| ARC-LIB-009 | Biblioteca/SM_Sotano1Blockout_Library_A.blend + .py | Listo en Blender | 3181829 |
+| ARC-EXT-001 | Plaza/SM_PlazaFloorBlockout_A.blend + .py | Listo en Blender | dca3df8 |
+| ARC-EXT-002 | Plaza/SM_Fountain_PlazaCentral_A.blend + .py | Provisional | c124c80, 9a88a45 |
+| FUR-EXT-001 | Plaza/SM_Bench_PlazaCentral_A.blend + .py | Listo en Blender | 87b2169 |
+| PRP-EXT-001 | Plaza/SM_Lamppost_PlazaCentral_A.blend + .py | Listo en Blender | d8b8944 |
+| ARC-GEN-002 | Generales/SM_VestibuloBlockout_Generales_A.blend + .py | Listo en Blender | 542699e |
+| ARC-GEN-003 | Generales/SM_SodaBlockout_Generales_A.blend + .py | Listo en Blender | ca991a7 |
+| ARC-GEN-004 | Generales/SM_Stairs_Generales_A.blend + .py | Provisional | cecb76d |
+| FUR-GEN-001 | Generales/SM_DiningSet_Soda_A.blend + .py | Listo en Blender | fc5c973 |
+| ARC-GEN-005 | Generales/SM_AulaBlockout_Generales_A.blend + .py | Listo en Blender | a1e3952 |
+
+Dimensiones y relaciones arquitectónicas principales registradas por Claude:
+
+- Biblioteca: vestíbulo 12 x 15 m con salida lateral de 1,10 m; recepción 6 x 8 m;
+  vigilancia 5 x 7 m con apertura de 1,80 m; colección restringida 10 x 14 m; y
+  sótano 45 x 35 m con techo de 3,5 m, conectado únicamente por la compuerta.
+- Plaza: piso base 45 x 45 m; fuente de 20 m de diámetro y 0,5 m de profundidad,
+  además de banca y farola en L.
+- Generales: vestíbulo 14 x 12 m, soda 15 x 12 m, escalera en U que sube 4,5 m,
+  set de mesa con cuatro sillas y aula 8 x 10 m del cuarto piso con puerta de
+  1,20 m. El aula usa origen local porque los pisos 1-3 y el pasillo del piso 4
+  todavía no tienen blockout.
+
+Decisiones, descartes y límites que deben preservarse:
+
+- `FUR-LIB-004` y `FUR-LIB-006`, sillas basadas en referencias fotográficas no
+  deseadas, fueron descartadas y eliminadas. No recrearlas sin solicitud.
+- Dos archivos de murales decorativos y una estantería con libros procedentes de
+  una sesión anterior de Claude Code también fueron excluidos por el propietario;
+  no se conservan la sesión ni los scripts para auditarlos.
+- `ARC-EXT-002` conserva el centro vacío: se rechazaron cinco conceptos de
+  escultura y el detalle queda para arte final.
+- `ARC-GEN-004` es provisional porque aún no tiene zancas continuas.
+- `ENV-EXT-001` tuvo dos intentos por script rechazados. Los archivos
+  `Plaza/SM_Tree_PlazaCentral_A.blend` y `.py` permanecen sin seguimiento y son
+  trabajo manual del propietario: no tocarlos ni reintentarlos por script.
+- `FUR-GEN-003`, pupitre tipo tablet-arm, tuvo 13 intentos rechazados el
+  2026-07-15. El propietario decidió modelarlo a mano; no reintentar sin pedido.
+- No intentar por script la fachada `ARC-GEN-001` con el Árbol del Conocimiento
+  sin confirmación expresa.
+- Siguen planeados `FUR-GEN-002`, `PRP-GEN-001`, `FUR-GEN-004`, `PRP-GEN-002` y
+  `VFX-LIB-001`.
+- El commit de limpieza `23954c7` retiró activos descartados por decisión del
+  propietario.
+
+Documentación local asociada a la última sesión de Claude:
+
+- `005f910`: registra `ARC-GEN-005`, el aula 8 x 10 m con puerta de 1,20 m.
+- `7c44472`: registra los 13 intentos fallidos de `FUR-GEN-003` y la decisión de
+  modelarlo manualmente.
+- `6a270af`, aunque está entre los tres commits locales de docs, corresponde a la
+  actualización autorizada del Player realizada por Codex, no a modelado Claude.
+
 ## Archivos creados por Codex
+
+Antes del commit de transferencia, el rango `45dcfcb..a97762a` contenía 13 commits
+documentados de Codex, 16 archivos afectados, 4008 inserciones y 5 eliminaciones.
+La entrega del 2026-07-20 agrega un commit adicional para el handoff y los assets.
 
 - UnrealProject/Source/ProyectoMemoria/Player/PMPlayerCharacter.h
 - UnrealProject/Source/ProyectoMemoria/Player/PMPlayerCharacter.cpp
@@ -124,6 +291,24 @@ El trabajo siguió este orden solicitado:
 - QA_PLAYER_V0.1.md
 - Tools/QA/Invoke-PlayerQACheck.ps1
 
+Assets binarios creados con el Unreal MCP oficial el 2026-07-16 e incluidos en el
+commit de transferencia mediante Git LFS:
+
+| Ruta | Configuración verificada | Tamaño observado |
+|---|---|---:|
+| UnrealProject/Content/Input/Actions/IA_Move.uasset | Axis2D; sin triggers ni modifiers | 1350 B |
+| UnrealProject/Content/Input/Actions/IA_Look.uasset | Axis2D; sin triggers ni modifiers | 1350 B |
+| UnrealProject/Content/Input/Actions/IA_Sprint.uasset | Boolean; sin triggers ni modifiers | 1164 B |
+| UnrealProject/Content/Input/Actions/IA_Crouch.uasset | Boolean; sin triggers ni modifiers | 1164 B |
+| UnrealProject/Content/Input/Actions/IA_Jump.uasset | Boolean; sin triggers ni modifiers | 1154 B |
+| UnrealProject/Content/Input/Actions/IA_ToggleCamera.uasset | Boolean; sin triggers ni modifiers | 1194 B |
+| UnrealProject/Content/Input/Mappings/IMC_Player.uasset | Existe, pero `mappings` sigue vacío | 1197 B |
+
+También se crearon las carpetas `/Game/Blueprints/Player` y
+`/Game/Blueprints/Levels`. Están vacías: Git no conserva directorios vacíos, por
+lo que deben recrearse en una clonación si no aparecen. `BP_TestActor` y
+`L_Developer_Testing` no se movieron ni modificaron.
+
 ## Archivo existente modificado por Codex
 
 - UnrealProject/Source/ProyectoMemoria/ProyectoMemoria.Build.cs
@@ -133,17 +318,18 @@ El trabajo siguió este orden solicitado:
 - UnrealProject/Config/DefaultInput.ini
   - Se desactivó mouse smoothing y se fijó zona muerta 0 para los sticks.
 
-Durante el trabajo local del 2026-07-15 y 2026-07-16 no se crearon ni editaron
-assets binarios, Blueprints, mapas, Level Blueprints ni contenido de los
-repositorios excluidos. La única excepción histórica es la actualización
-autorizada `6a270af` del 2026-07-13 ya descrita arriba.
+Hasta antes de la sesión controlada del Editor no se habían creado assets
+binarios. El 2026-07-16 se crearon únicamente los siete assets de Input listados
+arriba. No se crearon Blueprints, no se editaron mapas o Level Blueprints y no se
+tocaron los repositorios excluidos. La única edición autorizada de Codex fuera de
+Proyecto-Memory continúa siendo `6a270af` del 2026-07-13.
 
 ### Guía operativa del Editor
 
-EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible para crear Input
-Actions, IMC_Player, Blueprints, GameMode, geometría de prueba y ejecutar PIE
-cuando exista acceso a una PC adecuada. Su creación no abrió Unreal Editor ni
-confirma que la integración jugable haya sido realizada.
+EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible. Las secciones 3 y 4
+ya se ejecutaron y la creación inicial de `IMC_Player` de la sección 5 está hecha;
+faltan sus mappings. Las secciones de Blueprints, GameMode, geometría y PIE no se
+han ejecutado. La existencia de los assets no confirma una integración jugable.
 
 ### Matriz y verificador QA
 
@@ -166,6 +352,135 @@ prueba de Editor o PIE fue aprobada al preparar la plantilla.
 El operador debe pasar el Output Log de la sesión recién cerrada. El verificador
 registra tamaño y fecha y valida marcadores del proyecto, pero no puede demostrar
 por sí solo que un log válido corresponda a esa ejecución concreta.
+
+## Unreal MCP y configuración local de Codex
+
+Se usó únicamente el MCP oficial experimental incluido con Unreal Engine 5.8; no
+se instaló un plugin de terceros y no se modificó `ProyectoMemoria.uproject` para
+habilitarlo permanentemente.
+
+Configuración global aplicada en esta PC, fuera del repositorio:
+
+~~~toml
+[mcp_servers.unreal-mcp]
+url = "http://127.0.0.1:8000/mcp"
+
+[mcp_servers.unreal-mcp.tools.call_tool]
+approval_mode = "approve"
+~~~
+
+Comando equivalente:
+
+~~~powershell
+codex mcp add unreal-mcp --url http://127.0.0.1:8000/mcp
+~~~
+
+Unreal se lanzó para esa sesión con habilitación temporal:
+
+~~~text
+-EnablePlugins=ModelContextProtocol,EditorToolset
+-ModelContextProtocolStartServer
+~~~
+
+Resultados verificados:
+
+- servidor local escuchando solo en `127.0.0.1:8000`;
+- protocolo MCP `2025-06-18` negociado correctamente;
+- `EditorToolset` registró 19 toolsets descubribles;
+- lectura del Output Log, inspección/creación de carpetas, creación/configuración
+  de Data Assets y guardado funcionaron desde Codex;
+- se habilitó `EditorToolset`, no `AllToolsets`, para reducir consumo;
+- las llamadas a herramientas de Unreal deben ejecutarse en serie, nunca en
+  paralelo, porque se despachan en el game thread;
+- el warning de `LogModelContextProtocol` sobre Licensed Technology y el EULA de
+  Unreal es una advertencia del plugin oficial, no un error del proyecto.
+
+Esta configuración global no viaja con Git ni con la conversación. En otra PC se
+debe repetir el alta del servidor, reiniciar Codex, lanzar Unreal con los flags y
+verificar el puerto. El 2026-07-20 también se agregó globalmente
+`openaiDeveloperDocs` con URL `https://developers.openai.com/mcp`; tampoco forma
+parte del repositorio. Fue agregado correctamente, pero esta sesión todavía no lo
+descubrió porque Codex requiere reinicio; no se ha probado después de reiniciar.
+La configuración global ya contenía Blender MCP, pero la línea de trabajo de
+Codex no debe usarlo ni tocar Modelos-3D.
+
+## Hardware, memoria y límite térmico de la laptop actual
+
+Equipo inspeccionado:
+
+- Lenovo IdeaPad 5 2-in-1 16AHP9, modelo de sistema 83DS.
+- AMD Ryzen 7 8845HS, 8 núcleos / 16 hilos.
+- Radeon 780M integrada.
+- 16 GB LPDDR5-6400 soldados; alrededor de 13,77 GB utilizables por Windows.
+- HWiNFO 64 portable v8.50-6020 utilizado en modo Sensors-only; consumo observado
+  cercano a 90 MB. AMD Adrenalin solo mostraba temperatura GPU, no CPU.
+
+Preparación realizada antes de Unreal:
+
+- se cerraron Edge, Widgets, Phone Link, Settings, la interfaz de AMD y Card
+  Middleware; cerrar Card Middleware no eliminó datos y puede abrirse cuando haga
+  falta;
+- no se deshabilitaron servicios esenciales ni se instaló un monitor residente;
+- durante la sesión sin cargador se observaron 48 % de batería, aproximadamente
+  3,7 GB de RAM libre en una comprobación y cerca de 2,54 GB libres con Unreal en
+  ejecución.
+
+Registro térmico observado:
+
+| Momento | Temperatura CPU |
+|---|---:|
+| Reposo inicial | aproximadamente 35 °C |
+| Compilación completa | máximo 68,1 °C |
+| Primera apertura controlada del Editor | máximo 52,1 °C |
+| Trabajo posterior con Unreal MCP/Input | 66 °C actual y máximo 99,2 °C |
+| Después de cerrar Unreal y enfriar | 44 °C |
+
+Los siete assets se guardaron mediante MCP antes de cerrar. El cierre requirió
+solicitudes repetidas, pero el log final registra `QUIT_EDITOR`, `CloseEditor` y
+una secuencia ordenada de apagado del Editor; después se confirmó que Unreal ya no
+estaba ejecutándose. No se ejecutó postflight, por lo que no debe declararse un
+postflight exitoso.
+
+Regla vigente para esta laptop: no reabrir Unreal sin enfriamiento y condiciones
+seguras confirmadas. Detener la carga si la CPU se mantiene en 95 °C o más, hay
+olor extraño, congelamiento, stutter severo o apagado. El propietario eligió como
+opción económica la base Argom 1594 de aproximadamente ₡5.500, pero su compra no
+está confirmada en esta entrega.
+
+## Transferencia segura a otra PC
+
+No depender únicamente de que esta conversación aparezca en el otro equipo. La
+otra sesión debe recibir este handoff y los archivos locales reales.
+
+Opciones seguras, con Unreal cerrado:
+
+1. Copiar la carpeta completa `C:\Users\jeffa\Desktop\Proyecto` mediante una
+   unidad externa o red local, conservando las carpetas `.git`; o
+2. usar el commit y la rama remota publicados el 2026-07-20. Esta fue la opción
+   autorizada y ejecutada para la transferencia.
+
+En el equipo destino se debe instalar Git LFS antes de hidratar los binarios y
+usar el HEAD más reciente de `origin/feature/v0.1-player-cameras`; detenerse en el
+padre `a97762a` sí perdería los siete Input Assets. Las carpetas vacías
+`Blueprints/Player` y `Blueprints/Levels` deben recrearse si no se copian
+físicamente.
+
+SHA-256 de los assets para comprobar una copia directa:
+
+~~~text
+IA_Crouch.uasset       CF45D82FA8ADFA12DD62E0630807C8FF954B79077E028D62C3C7F304788D35F4
+IA_Jump.uasset         D42596F590C5071BC57B6515F517172BE7B71A0BE8A54A945147E4088A59D46E
+IA_Look.uasset         E93A45E67A2228BC71F59E752799CFBE92E3AE3689FD0DABCD5FA53BEC2074E0
+IA_Move.uasset         04096D4C59781FAF5132CFE25B1B1871C871B92CFF095674D6E306D713C9E9AE
+IA_Sprint.uasset       917FC61CCBA1A1437DB4FFA511F22B3731A440A38FC1EC264A73EB7C9806B9B1
+IA_ToggleCamera.uasset C564D0CE3A39881067D049E34A9E18E3DC690C11FAA64A52951E933C3ACE490E
+IMC_Player.uasset      8B09373EBC60FDE0E7A36418BAFFB7CC0E304751E83C62A996DC3D26A57DADC4
+~~~
+
+Después de copiar, abrir Codex en la raíz `Proyecto`, pegar el prompt de
+reanudación de este documento y dejar que lea primero los archivos indicados. La
+configuración MCP global debe repetirse en el equipo nuevo; no copiar directorios
+internos de sesiones de Codex como sustituto de este handoff.
 
 ## Arquitectura implementada
 
@@ -350,7 +665,12 @@ Valores editables desde defaults de Blueprint:
    se añadió limpieza de sprint al terminar o perder la posesión.
 8. El 2026-07-16 se prepararon salto, `UPMGameUserSettings`, restauración en
    `SetPawn` y respuesta inmediata. Sus firmas y flujo se revisaron contra el
-   source local de UE 5.8, pero no se ejecutó UHT, compilación ni enlace.
+   source local de UE 5.8 antes de compilar.
+9. El 2026-07-16 se ejecutó una compilación Development Editor completa del HEAD
+   vigente: UHT, cinco fuentes C++ y enlace de DLL/lib terminaron en `Succeeded`
+   en aproximadamente 68 segundos.
+10. Después del build se abrió el Editor 5.8, se cargó el proyecto y se verificó
+    el Map Check antes de la integración parcial de Input.
 
 Comando final:
 
@@ -358,11 +678,9 @@ Comando final:
       -Project=<ruta>/ProyectoMemoria.uproject
       -WaitMutex -NoHotReloadFromIDE -MaxParallelActions=1
 
-Resultado de la base anterior: Succeeded. UHT, compilación y enlace de
-UnrealEditor-ProyectoMemoria.dll completados antes del delta `20e8fd2`.
-
-El estado “Succeeded” no cubre `20e8fd2`. Ese commit debe recibir una compilación
-Development Editor completa en una PC adecuada antes de abrir el Editor.
+Resultado vigente: `Succeeded`. La compilación sí cubre `20e8fd2`,
+`UPMGameUserSettings`, IA_Jump, la restauración de cámara y el HEAD `a97762a`.
+`UnrealEditor-ProyectoMemoria.dll` quedó con fecha 2026-07-16 22:17:04 local.
 
 Avisos externos observados:
 
@@ -372,8 +690,8 @@ Avisos externos observados:
 
 ## Pruebas ejecutadas
 
-- Compilación Development Editor para Win64 con Unreal Engine 5.8 de la base
-  anterior: exitosa.
+- Compilación Development Editor completa para Win64 con Unreal Engine 5.8 del
+  estado vigente: UHT + cinco fuentes + enlace DLL/lib, exitosa en ~68 s.
 - Recompilación incremental del agachado híbrido con una acción paralela:
   exitosa en el primer intento.
 - Recompilación de la limpieza sprint/crouch en EndPlay y OnUnPossess: exitosa.
@@ -392,8 +710,23 @@ Avisos externos observados:
   los 27 puntos de EDITOR_SETUP y trazabilidad de requisitos.
 - `Invoke-PlayerQACheck.ps1` analizado con el parser de Windows PowerShell 5.1;
   salida humana y JSON válidas.
-- Preflight estricto sobre worktree limpio: 0 FAIL y 1 WARN esperado porque esta
-  laptop no se confirmó como hardware apto; Unreal permaneció cerrado.
+- Preflight histórico sin confirmación humana del hardware: 0 FAIL y 1 WARN
+  esperado; Unreal permaneció cerrado.
+- Preflight con hardware confirmado inmediatamente antes del build completo:
+  19/19 PASS, 0 FAIL y 0 WARN.
+- El mismo preflight se repitió después del build: 19/19 PASS, 0 FAIL y 0 WARN.
+- Unreal Editor 5.8 inicializó el proyecto; Enhanced Input quedó montado y las
+  clases predeterminadas `EnhancedPlayerInput` y `EnhancedInputComponent` fueron
+  confirmadas.
+- Map Check de la sesión: 0 errores y 0 advertencias.
+- El servidor Unreal MCP oficial inició, Codex negoció la conexión y se verificó
+  la configuración de las seis Input Actions. Los siete assets se guardaron y
+  Content Validation no registró errores de esos assets.
+- No se ejecutó PIE, postflight, pruebas de mando, respawn, geometría ni
+  rendimiento. Los 84 IDs de `QA_PLAYER_V0.1.md` continúan `NOT RUN`.
+- El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
+  failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
+  no debe describirse el Output Log completo como “sin ningún error”.
 - Casos negativos del verificador: worktree sucio, commit mínimo inválido, assets
   ausentes, filas NOT RUN y diagnósticos prohibidos producen FAIL y exit 1 sin
   abortar la salida estructurada.
@@ -409,39 +742,46 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-La base anterior compila, pero el delta `20e8fd2` y el contenido jugable siguen
-pendientes. En una PC adecuada se debe:
+El C++ vigente compila y los siete assets existen, pero todavía no hay contenido
+jugable integrado. En una PC adecuada se debe:
 
-1. Ejecutar preflight y compilar completamente `ProyectoMemoriaEditor`.
-2. Crear BP_PlayerCharacter hijo de APMPlayerCharacter.
-3. Asignar malla provisional y revisar cápsula/cámaras/valores.
-4. Crear BP_PlayerController hijo de APMPlayerController para asignar IMC_Player
-   y las seis IA.
-5. Crear IA_Move, IA_Look, IA_Sprint, IA_Crouch, IA_Jump, IA_ToggleCamera e
-   IMC_Player.
-6. Mantener IA_Crouch como Digital con comportamiento predeterminado o trigger
+1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
+   HEAD. No borrar los assets por aparecer sin seguimiento.
+2. Completar `IMC_Player` según la sección 5 de `EDITOR_SETUP_V0.1.md`:
+   - Move: W con Swizzle YXZ; S con Negate y luego Swizzle YXZ; A con Negate; D sin
+     modificador; Gamepad Left Thumbstick 2D-Axis.
+   - Look: Mouse XY 2D-Axis y Gamepad Right Thumbstick 2D-Axis.
+   - Sprint: Left Shift y Gamepad Left Thumbstick Button.
+   - Crouch: C, Left Control y Gamepad Face Button Right.
+   - Jump: Space Bar y Gamepad Face Button Bottom.
+   - ToggleCamera: V y Gamepad Face Button Top.
+   No añadir Dead Zone; la decisión aprobada es zona muerta 0 para QA.
+3. Mantener IA_Crouch como Digital con comportamiento predeterminado o trigger
    Down. No usar Hold, Tap, Pressed, Released ni Pulse porque C++ mide la duración.
    Asignar CrouchHoldThreshold (0,25 s por defecto).
-7. Mapear teclado, ratón y mando según `PLAYER_SETTINGS_V0.1.md`: Espacio/A-X para
-   salto y V/Y-triángulo para perspectiva.
-8. Configurar un GameMode/World Settings de prueba con Pawn y Controller correctos.
-9. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
-10. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
+4. Crear `BP_PlayerController` hijo de APMPlayerController y asignar `IMC_Player`
+   y las seis IA.
+5. Crear `BP_PlayerCharacter` hijo de APMPlayerCharacter, asignar malla provisional
+   y revisar cápsula, cámaras y valores.
+6. Configurar GameMode/World Settings de prueba con Pawn y Controller correctos.
+7. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
+8. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos
     0,5 s. Los límites 0,24/0,25/0,26 s requieren instrumentación o automatización;
     no deben validarse por estimación humana. Repetir a 30, 60 y 120 FPS cuando el
     hardware lo permita.
-11. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
-12. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
+9. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
+10. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
     paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
 ## Decisiones y deudas abiertas de v0.1.0
 
 - Enhanced Input aparece aún como decisión pendiente en el control maestro, aunque
   la decisión local aprobada y la implementación ya lo adoptan.
-- El delta `20e8fd2` no está compilado ni probado.
-- IA_Jump, IMC_Player y los demás Input Assets todavía no existen.
+- El delta `20e8fd2` está compilado, pero no tiene pruebas funcionales PIE.
+- Las seis Input Actions e `IMC_Player` están guardados, rastreados mediante Git
+  LFS y publicados en la rama de transferencia; `IMC_Player` no tiene mappings.
 - La persistencia de perspectiva está implementada en C++, pero no verificada en
   respawn ni entre ejecuciones.
 - El menú de controles, bindings principal/secundario, conflictos, restauración y
@@ -478,9 +818,11 @@ El propietario autorizó la actualización el 2026-07-13. Se registró en
 Proyecto-Memoria-docs mediante el commit local 6a270af. Los avances siguientes
 quedaron como [~] y no como [X], porque todavía falta validación manual:
 
-Esta lista refleja únicamente lo registrado por ese commit. El trabajo local del
-2026-07-15 y 2026-07-16 no se aplicó a Proyecto-Memoria-docs porque no hubo una
-nueva autorización para editarlo.
+Esta lista refleja únicamente lo registrado por ese commit. El trabajo posterior
+del Player del 2026-07-15 y 2026-07-16 no se aplicó a
+Proyecto-Memoria-docs porque no hubo una nueva autorización para editar sus
+secciones del Player. Claude sí actualizó por separado las secciones de modelos en
+005f910 y 7c44472.
 
 - Crear APMPlayerCharacter en C++.
 - Crear APMPlayerController en C++.
@@ -498,14 +840,15 @@ nueva autorización para editarlo.
 Debe continuar pendiente hasta completar Editor y pruebas:
 
 - BP_PlayerCharacter y BP_PlayerController.
-- Malla, Input Actions, Mapping Context y GameMode.
+- Malla, mappings de `IMC_Player`, Blueprints y GameMode. Las Input Actions y el
+  contenedor `IMC_Player` ya existen y forman parte del commit de transferencia.
 - Teclado, ratón y mando realmente configurados.
 - Movimiento y cámaras verificados en PIE.
 - Pruebas dimensionales, colisión, escaleras, atasco y 60 FPS.
-- Compilación Development Editor completa del delta local `20e8fd2`.
-- IA_Jump y pruebas de salto normal, desde crouch y bajo techo.
-- Persistencia de perspectiva: C++ local preparado, pendiente de compilación,
-  respawn y prueba entre ejecuciones.
+- IA_Jump ya existe; siguen pendientes las pruebas de salto normal, desde crouch
+  y bajo techo.
+- Persistencia de perspectiva: C++ compilado, pendiente de respawn y prueba entre
+  ejecuciones.
 - Sincronizar, cuando el propietario lo autorice, las decisiones ya cerradas de
   salto y respuesta inmediata de cámara con el checklist oficial.
 - Tag v0.1.0_player, merge y cualquier declaración de versión estable.
@@ -525,5 +868,6 @@ Cada archivo .h documenta responsabilidades, tipos y retornos; los .cpp explican
 las decisiones que no son evidentes solo por leer la instrucción de código.
 No es necesario repetir esta revisión de la base al reanudar, salvo que el
 propietario lo solicite o aparezca una duda concreta. El delta `20e8fd2` recibió
-revisión técnica estática, pero PMGameUserSettings y el nuevo flujo de salto aún
-no han recibido una revisión pedagógica completa con el propietario.
+revisión técnica estática y compilación completa, pero PMGameUserSettings y el
+nuevo flujo de salto aún no han recibido una revisión pedagógica completa con el
+propietario.

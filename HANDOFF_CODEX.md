@@ -23,9 +23,9 @@
   las pruebas PIE. En la sesión del Character la base estaba encendida, Blender
   cerrado y se reportaron 41,6 °C actuales / 86 °C máximos antes de continuar.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `4efac4c` y la
-  entrega local del Character todavía no están publicados; no se hizo un nuevo
-  push, merge, rebase ni tag.
+  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `46b4f25` y esta
+  entrega documental final todavía no están publicados; no se hizo un nuevo push,
+  merge, rebase ni tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -58,6 +58,7 @@ obligaciones de atribución.
   - d569e31 — 16 mappings de `IMC_Player` configurados y verificados.
   - 81fa688 — `BP_PlayerController` configurado, auditado y guardado.
   - 4efac4c — postflight y documentación final de `BP_PlayerController`.
+  - 46b4f25 — `BP_PlayerCharacter` creado, auditado y documentado.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -465,10 +466,12 @@ Resultado de la sesión posterior del 2026-07-22 para `BP_PlayerCharacter`:
   guardó solo su ruta, `is_dirty` devolvió false y AssetCheck no registró errores;
 - el archivo resultante mide 27020 bytes y tiene SHA-256
   `59555B01BB8D82222207D58D57A444227348D31D98EB2FAED6A8868D2BBA6838`;
+- el asset y sus cuatro documentos locales se guardaron en el commit local
+  `46b4f25`;
 - Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se ejecutó
   PIE, Hot Reload ni compilación C++;
-- postflight obtuvo 22/24 PASS. Los dos FAIL esperados fueron el GameMode ausente
-  y 72 resultados QA todavía `NOT RUN`.
+- postflight sobre `46b4f25`, con worktree limpio, obtuvo 22/24 PASS. Los dos FAIL
+  esperados fueron el GameMode ausente y 72 resultados QA todavía `NOT RUN`.
 
 Preparación offline conservada para las sesiones de Blueprints restantes:
 
@@ -545,6 +548,7 @@ Registro térmico observado:
 | Sesión de Controller tras reiniciar máximo | 37 °C actual y 38 °C máxima |
 | Controller con Editor abierto | 49 °C actual y 69 °C máxima |
 | Controller antes de cerrar | 30 °C actual y 69 °C máxima |
+| Character antes de abrir, máximo acumulado sin reiniciar | 41,6 °C actual y 86 °C máxima |
 
 En la primera apertura, los siete assets se guardaron mediante MCP antes de
 cerrar. El cierre requirió solicitudes repetidas, pero el log final registra
@@ -574,9 +578,16 @@ propietario. Se observaron aproximadamente 5,7 GB de RAM libre antes de abrir,
 2,05 GB con Unreal abierto y 5,79 GB después del cierre. El preflight obtuvo 19/19
 PASS. Unreal consumía aproximadamente 1,69 GB al terminar la configuración y
 respondía normalmente. El cierre fue ordenado. Después del commit local `81fa688`,
-el postflight obtuvo 22/24 PASS con worktree limpio: faltan únicamente los dos
-assets `BP_PlayerCharacter`/`BP_GameMode_DeveloperTesting` y 76 filas QA siguen
-sin ejecutarse. El Output Log no contiene diagnósticos propios prohibidos.
+el postflight obtuvo 22/24 PASS con worktree limpio: en ese momento faltaban los
+dos assets `BP_PlayerCharacter`/`BP_GameMode_DeveloperTesting` y 76 filas QA
+seguían sin ejecutarse. El Output Log no contiene diagnósticos propios prohibidos.
+
+La sesión posterior de `BP_PlayerCharacter` también mantuvo Edge y Claude abiertos,
+pero dejó Blender cerrado. Se observaron aproximadamente 1,14 GB de RAM física
+libre con Unreal abierto y unos 2,14 GB usados por el Editor. La base permaneció
+encendida y todas las llamadas MCP se ejecutaron en serie. Después del commit local
+`46b4f25`, el postflight obtuvo 22/24 PASS con worktree limpio: falta únicamente
+`BP_GameMode_DeveloperTesting` como asset y 72 filas QA siguen sin ejecutarse.
 
 ## Transferencia segura a otra PC
 

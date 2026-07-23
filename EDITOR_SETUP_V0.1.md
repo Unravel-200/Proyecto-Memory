@@ -45,9 +45,10 @@ térmicos.
    propiedades y Event Graph vacío.
 4. El Blueprint compiló con warnings-as-errors, se guardó por ruta explícita,
    pasó AssetCheck y Unreal cerró de forma ordenada.
-5. Postflight obtuvo 22/24 PASS. Los dos FAIL son pendientes esperados: faltan
-   `BP_PlayerCharacter`, `BP_GameMode_DeveloperTesting` y las pruebas QA no
-   ejecutadas; el Output Log no contiene diagnósticos propios prohibidos.
+5. Después del commit local `81fa688`, postflight obtuvo 22/24 PASS con worktree
+   limpio. Los dos FAIL son pendientes esperados: faltan `BP_PlayerCharacter`,
+   `BP_GameMode_DeveloperTesting` y las pruebas QA no ejecutadas; el Output Log no
+   contiene diagnósticos propios prohibidos.
 
 No se recompiló C++ ni se ejecutó PIE. Después de reiniciar el máximo de HWiNFO,
 la sesión empezó en 37 °C actual / 38 °C máxima, alcanzó 69 °C máxima con el

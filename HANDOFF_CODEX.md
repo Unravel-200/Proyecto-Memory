@@ -23,9 +23,8 @@
   y todas las pruebas PIE. Con la base de enfriamiento, la sesión del Controller
   reportó un máximo de 69 °C después de reiniciar la medición de HWiNFO.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. Los commits locales `8e0aaba` y `d569e31`, más esta entrega
-  de `BP_PlayerController`, todavía no están publicados; no se hizo un nuevo push,
-  merge, rebase ni tag.
+  contiene `336aa91`. Los commits locales `8e0aaba`, `d569e31` y `81fa688`
+  todavía no están publicados; no se hizo un nuevo push, merge, rebase ni tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -56,6 +55,7 @@ obligaciones de atribución.
   - a97762a — handoff de salto, persistencia y estado pendiente anterior a Editor.
   - 8e0aaba — documentación de la sesión inicial de Input.
   - d569e31 — 16 mappings de `IMC_Player` configurados y verificados.
+  - 81fa688 — `BP_PlayerController` configurado, auditado y guardado.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -542,11 +542,10 @@ La sesión posterior de `BP_PlayerController` mantuvo Edge abierto por decisión
 propietario. Se observaron aproximadamente 5,7 GB de RAM libre antes de abrir,
 2,05 GB con Unreal abierto y 5,79 GB después del cierre. El preflight obtuvo 19/19
 PASS. Unreal consumía aproximadamente 1,69 GB al terminar la configuración y
-respondía normalmente. El cierre fue ordenado y el postflight posterior obtuvo
-22/24 PASS: faltan únicamente los dos assets
-`BP_PlayerCharacter`/`BP_GameMode_DeveloperTesting` y 76 filas QA siguen sin
-ejecutarse. La allowlist aceptó solo `BP_PlayerController.uasset` y el Output Log
-no contiene diagnósticos propios prohibidos.
+respondía normalmente. El cierre fue ordenado. Después del commit local `81fa688`,
+el postflight obtuvo 22/24 PASS con worktree limpio: faltan únicamente los dos
+assets `BP_PlayerCharacter`/`BP_GameMode_DeveloperTesting` y 76 filas QA siguen
+sin ejecutarse. El Output Log no contiene diagnósticos propios prohibidos.
 
 ## Transferencia segura a otra PC
 
@@ -565,7 +564,7 @@ Opciones seguras, con Unreal cerrado:
 En el equipo destino se debe instalar Git LFS antes de hidratar los binarios y
 usar el HEAD más reciente de `origin/feature/v0.1-player-cameras`. En el estado
 actual, origin termina en `336aa91` y todavía no contiene `8e0aaba`, `d569e31` ni
-`BP_PlayerController`; un `pull` por sí solo no transfiere aún esas partes.
+`81fa688`; un `pull` por sí solo no transfiere aún esas partes.
 `Blueprints/Player` existe localmente gracias al Controller.
 `Blueprints/Levels` debe recrearse si continúa vacío en una clonación.
 
@@ -830,9 +829,9 @@ Avisos externos observados:
 - En una segunda sesión corta, MCP creó y auditó `BP_PlayerController`: parent
   exacto, 12 propiedades, Event Graph vacío, dos compilaciones con
   warnings-as-errors, guardado explícito, AssetCheck y estado no sucio.
-- Postflight después del Controller: 22/24 PASS, sin procesos Unreal, ruta nueva
-  dentro de la allowlist y Output Log válido sin diagnósticos propios prohibidos.
-  Los dos FAIL son los dos Blueprints restantes y los resultados QA pendientes.
+- Postflight después del commit local `81fa688`: 22/24 PASS, worktree limpio, sin
+  procesos Unreal y Output Log válido sin diagnósticos propios prohibidos. Los dos
+  FAIL son los dos Blueprints restantes y los resultados QA pendientes.
 - No se ejecutó PIE, pruebas de mando, respawn, geometría ni rendimiento. La
   matriz tiene 8 PASS de configuración y 76 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition

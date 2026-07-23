@@ -6,11 +6,10 @@
 - Decisiones confirmadas por el propietario: 2026-07-15.
 - Fuente de verdad para estas decisiones: este documento.
 - Estado técnico: especificación aprobada; el C++ vigente compiló correctamente y
-  existen las seis Input Actions y `IMC_Player`. Todavía faltan los mappings,
-  Blueprints y todas las pruebas funcionales.
-- Restricción del 2026-07-22: no abrir Unreal, compilar, ejecutar PIE ni generar
-  shaders hoy. La base de enfriamiento ya está disponible, pero no podrá usarse
-  hasta el 2026-07-23.
+  existen las seis Input Actions y `IMC_Player` con sus 16 mappings verificados.
+  Todavía faltan los Blueprints y todas las pruebas funcionales en PIE.
+- La sesión controlada del 2026-07-22 usó la base de enfriamiento y HWiNFO; no
+  compiló, no ejecutó PIE y cerró Unreal correctamente.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
 jugador. No afirma que las funciones pendientes ya existan.
@@ -98,14 +97,15 @@ implementadas y compiladas, pero todavía sin pruebas funcionales en PIE:
 - zona muerta 0 para las cuatro direcciones de los sticks;
 - guía, matriz QA y layout del mando actualizados a A/X y Y/triángulo.
 
-Las seis Input Actions y el contenedor `IMC_Player` ya existen. `IMC_Player`
-todavía no tiene mappings; tampoco existen los Blueprints de Player, el menú ni
-sus widgets. El C++ actual conserva una sensibilidad compartida para mouse y
-mando; separarlas dinámicamente pertenece a la etapa de ajustes.
+Las seis Input Actions y el contenedor `IMC_Player` ya existen. Sus 16 mappings de
+teclado, mouse y mando fueron guardados y verificados el 2026-07-22. Todavía no
+existen los Blueprints de Player, el menú ni sus widgets. El C++ actual conserva
+una sensibilidad compartida para mouse y mando; separarlas dinámicamente pertenece
+a la etapa de ajustes.
 
 Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
-abrió únicamente para verificar la configuración y crear los Input Assets; no se
-ha ejecutado PIE ni se ha probado el Player.
+abrió para crear y configurar los Input Assets; no se ha ejecutado PIE ni se ha
+probado el Player.
 
 ## Separación de alcance
 

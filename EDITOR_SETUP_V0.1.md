@@ -17,25 +17,24 @@ Estado de partida verificado:
 - Salto, `UPMGameUserSettings` y restauración de cámara: compilados; pruebas
   funcionales pendientes.
 - Assets existentes: BP_TestActor y L_Developer_Testing.
-- Assets de Input: existen las seis Input Actions y `IMC_Player`; este último
-  todavía no tiene mappings.
+- Assets de Input: existen las seis Input Actions y `IMC_Player` con los 16
+  mappings de la sección 5 guardados y verificados.
 - Assets de Player: todavía no existen.
 
-### Sesión corta preparada para el 2026-07-23
+### Sesión corta completada el 2026-07-22
 
-La base de enfriamiento ya está disponible, pero no puede usarse el 2026-07-22;
-por eso hoy no se abre Unreal. La primera apertura de mañana se limita a:
+La sesión se ejecutó con la base de enfriamiento encendida y HWiNFO en modo
+Sensors-only:
 
-1. Encender la base, conectar el cargador si está disponible y abrir HWiNFO en
-   modo Sensors-only.
-2. Reiniciar los valores mínimo/máximo y anotar la temperatura inicial.
-3. Abrir Unreal sin recompilar y completar solamente la sección 5,
-   `IMC_Player`.
-4. Guardar y validar los assets, anotar la temperatura máxima y cerrar Unreal.
+1. Preflight 19/19 PASS y worktree limpio sobre `8e0aaba`.
+2. Unreal abrió sin recompilar y el mapa informó 0 errores y 0 advertencias.
+3. Se completó únicamente la sección 5; MCP leyó las 16 filas antes de guardar.
+4. `IMC_Player` se guardó y validó; Unreal cerró de forma ordenada.
 
-No ejecutar PIE ni continuar a Blueprints en esa misma apertura. Pausar y cerrar
-si la temperatura actual llega a 90 °C; detener de inmediato si alcanza 95 °C,
-hay olor extraño, congelamiento, stutter severo o apagado.
+No se ejecutó PIE ni se continuó a Blueprints. El máximo térmico reportado durante
+la sesión fue 70 °C y la última lectura antes del cierre fue 50 °C actual / 66 °C
+máxima. La siguiente sesión empieza en la sección 6 con `BP_PlayerController` y
+mantiene los mismos límites térmicos.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -297,12 +296,14 @@ Guardar IMC_Player.
 
 ### Procedimiento MCP seguro para IMC_Player
 
-El MCP oficial de Unreal 5.8 puede automatizar esta sección, pero su conversión
-completa de `UInputMappingContext` no se ha probado todavía de extremo a extremo.
-Usar llamadas en serie y aplicar este control antes de guardar:
+El MCP oficial de Unreal 5.8 automatizó la lectura, pero no pudo ampliar de forma
+segura el array después del primer elemento; por eso el resto se completó
+manualmente. Si alguna vez se reconstruye el asset desde cero, usar llamadas en
+serie y aplicar este control antes de guardar:
 
-1. Leer `defaultKeyMappings` y confirmar que `mappings` está vacío. No escribir en
-   la propiedad superior `mappings`, porque está obsoleta desde Unreal 5.7.
+1. Leer `defaultKeyMappings` y confirmar el estado de `mappings`. En una
+   reconstrucción nueva debe estar vacío. No escribir en la propiedad superior
+   `mappings`, porque está obsoleta desde Unreal 5.7.
 2. Escribir únicamente D → IA_Move, sin modificadores, y leer el resultado.
 3. Si acción, tecla y arrays vacíos coinciden, probar W → IA_Move con
    `InputModifierSwizzleAxis` y comprobar que su orden sea `YXZ`.

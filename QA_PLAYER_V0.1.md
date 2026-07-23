@@ -7,9 +7,9 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado al crear este documento: **plantilla preparada; ninguna prueba de Editor o
-PIE ejecutada**. Preparar esta matriz no demuestra que existan los assets, que la
-integración sea jugable ni que v0.1.0 esté terminada.
+Estado actual: **auditoría de mappings ejecutada; ninguna prueba PIE ejecutada**.
+Los PASS de `MAP-01..07` demuestran la configuración guardada de `IMC_Player`, no
+que la integración sea jugable ni que v0.1.0 esté terminada.
 
 Referencias y línea base:
 
@@ -19,7 +19,7 @@ Referencias y línea base:
 - Commit mínimo verificado: `336aa91`; se admite un descendiente con worktree
   limpio.
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
-  los mappings, Blueprints y todas las pruebas funcionales siguen pendientes.
+  los 16 mappings están verificados. Blueprints y pruebas funcionales pendientes.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -137,13 +137,18 @@ assets parecen dañados, o hace falta una decisión de diseño no aprobada.
 
 | ID | Acción | Mapping y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|---|
-| MAP-01 | `IA_Move` | W: Swizzle YXZ → `(0,1)`; S: Negate y luego Swizzle YXZ → `(0,-1)`; A: Negate → `(-1,0)`; D: sin modificador → `(1,0)`. | NOT RUN | |
-| MAP-02 | `IA_Move` | Gamepad Left Thumbstick 2D-Axis, sin modificador Dead Zone; `DefaultInput.ini` usa zona muerta 0 por decisión aprobada. | NOT RUN | |
-| MAP-03 | `IA_Look` | Mouse XY 2D-Axis y Gamepad Right Thumbstick 2D-Axis, sin Negate inicial. | NOT RUN | |
-| MAP-04 | `IA_Sprint` | Left Shift y Gamepad Left Thumbstick Button; sin triggers adicionales. | NOT RUN | |
-| MAP-05 | `IA_Crouch` | C, Left Control y Gamepad Face Button Right; sin triggers ni modificadores. | NOT RUN | |
-| MAP-06 | `IA_ToggleCamera` | V y Gamepad Face Button Top —Y/triángulo—; sin triggers adicionales. | NOT RUN | |
-| MAP-07 | `IA_Jump` | Space Bar y Gamepad Face Button Bottom —A/X—; sin triggers ni modificadores. | NOT RUN | |
+| MAP-01 | `IA_Move` | W: Swizzle YXZ → `(0,1)`; S: Negate y luego Swizzle YXZ → `(0,-1)`; A: Negate → `(-1,0)`; D: sin modificador → `(1,0)`. | PASS | EV-IMC-01 |
+| MAP-02 | `IA_Move` | Gamepad Left Thumbstick 2D-Axis, sin modificador Dead Zone; `DefaultInput.ini` usa zona muerta 0 por decisión aprobada. | PASS | EV-IMC-01 |
+| MAP-03 | `IA_Look` | Mouse XY 2D-Axis y Gamepad Right Thumbstick 2D-Axis, sin Negate inicial. | PASS | EV-IMC-01 |
+| MAP-04 | `IA_Sprint` | Left Shift y Gamepad Left Thumbstick Button; sin triggers adicionales. | PASS | EV-IMC-01 |
+| MAP-05 | `IA_Crouch` | C, Left Control y Gamepad Face Button Right; sin triggers ni modificadores. | PASS | EV-IMC-01 |
+| MAP-06 | `IA_ToggleCamera` | V y Gamepad Face Button Top —Y/triángulo—; sin triggers adicionales. | PASS | EV-IMC-01 |
+| MAP-07 | `IA_Jump` | Space Bar y Gamepad Face Button Bottom —A/X—; sin triggers ni modificadores. | PASS | EV-IMC-01 |
+
+`EV-IMC-01` — sesión local del 2026-07-22 sobre `8e0aaba`: capturas del Editor,
+lectura MCP de `defaultKeyMappings.mappings` con 16 filas antes de guardar, Output
+Log `UnrealProject/Saved/Logs/ProyectoMemoria.log`, AssetCheck del recurso y
+SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 
 ### Blueprints y mapa
 
@@ -352,7 +357,7 @@ registro QA y autorización expresa antes de actualizar el checklist oficial,
 fusionar la rama o crear `v0.1.0_player`.
 
 En particular, `PLR-REG-005` representa un requisito oficial cuyo C++ está
-preparado, pero no compilado ni verificado. Mientras no esté en `PASS`, la
+compilado, pero todavía no verificado en PIE. Mientras no esté en `PASS`, la
 configuración del Editor puede documentarse, pero v0.1.0 no puede aceptarse como
 versión completa.
 
@@ -378,4 +383,5 @@ de esta matriz.
 
 | ID | Fecha | Commit | PC / dispositivo | PASS / FAIL / BLOCKED | Evidencias | Aprobación |
 |---|---|---|---|---|---|---|
+| SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
 | | | | | | | |

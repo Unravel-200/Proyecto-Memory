@@ -3,8 +3,8 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-20 (America/Costa_Rica).
-- Última actualización: 2026-07-20 — entrega consolidada para continuar en otra PC.
+- Fecha local: 2026-07-22 (America/Costa_Rica).
+- Última actualización: 2026-07-22 — primera configuración completa de mappings.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -17,12 +17,13 @@
 - Estado: el C++ vigente, incluido salto y persistencia, ya recibió compilación
   Development Editor completa y exitosa. Unreal Editor 5.8, Enhanced Input y el
   servidor oficial Unreal MCP fueron verificados. Existen las seis Input Actions y
-  `IMC_Player`; todavía faltan los mappings de teclado/mouse/mando, los Blueprints,
-  la geometría funcional y todas las pruebas PIE. La última sesión de Editor se
-  detuvo por un pico térmico de CPU de 99,2 °C en la laptop actual.
-- Publicación remota de la rama del Player: ninguna. En esta línea de trabajo no
-  se hizo push, merge, rebase ni tag. Los repositorios hermanos conservan sus
-  propios estados remotos, detallados en el punto de control.
+  `IMC_Player` con 16 mappings guardados y verificados. Todavía faltan los
+  Blueprints, la geometría funcional y todas las pruebas PIE. Con la base de
+  enfriamiento, la sesión del 2026-07-22 reportó un máximo de 70 °C.
+- Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
+  contiene `336aa91`. El commit documental `8e0aaba` y la configuración posterior
+  de `IMC_Player` permanecen locales; no se hizo un nuevo push, merge, rebase ni
+  tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -66,18 +67,17 @@ obligaciones de atribución.
 
 ### Próxima acción recomendada
 
-En la laptop Lenovo actual no volver a abrir Unreal sin la base de enfriamiento.
-El propietario confirmó el 2026-07-22 que ya tiene una base, pero no podrá usarla
-hasta el 2026-07-23. Por eso el 2026-07-22 se limita a preparación documental y no
-se abre Unreal. La compilación y una apertura controlada ya se hicieron; un
-trabajo posterior con MCP llevó la CPU a un máximo de 99,2 °C. Unreal fue cerrado,
-los assets fueron guardados y la temperatura bajó a 44 °C.
+La base de enfriamiento ya fue usada con éxito en la sesión controlada del
+2026-07-22. `IMC_Player` quedó completo, guardado y validado. El próximo trabajo
+empieza en la sección 6 de `EDITOR_SETUP_V0.1.md`: crear y configurar únicamente
+`BP_PlayerController` en una nueva sesión corta. No repetir la sección 5 ni abrir
+PIE antes de completar los tres Blueprints y el GameMode.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 5: completar los mappings de `IMC_Player`. Después seguir con
-`BP_PlayerController`, `BP_PlayerCharacter`, GameMode, mapa, geometría y PIE.
+desde la sección 6: `BP_PlayerController`. Después seguir con
+`BP_PlayerCharacter`, GameMode, mapa, geometría y PIE.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -87,13 +87,10 @@ ejecutarse únicamente después de comprobar que el clone/pull está limpio. Si 
 muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 `-AllowDirty` para evitar esta protección.
 
-Nota de precedencia: algunos párrafos históricos de estado en
-`PLAYER_SETTINGS_V0.1.md` y al inicio de `EDITOR_SETUP_V0.1.md` todavía dicen que
-el delta no está compilado, que Unreal no se abrió o que los Input Assets no
-existen. Esas frases quedaron obsoletas el 2026-07-16. Para estado ejecutado manda
-este handoff; las decisiones de diseño y las instrucciones de mappings de esos
-documentos continúan vigentes. `QA_PLAYER_V0.1.md` sí conserva correctamente todas
-las pruebas funcionales como `NOT RUN`.
+Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
+`EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` fueron corregidos el 2026-07-22. Los
+siete controles de configuración `MAP-01..07` están en PASS; las pruebas
+funcionales PIE continúan en `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -303,7 +300,7 @@ commit de transferencia mediante Git LFS:
 | UnrealProject/Content/Input/Actions/IA_Crouch.uasset | Boolean; sin triggers ni modifiers | 1164 B |
 | UnrealProject/Content/Input/Actions/IA_Jump.uasset | Boolean; sin triggers ni modifiers | 1154 B |
 | UnrealProject/Content/Input/Actions/IA_ToggleCamera.uasset | Boolean; sin triggers ni modifiers | 1194 B |
-| UnrealProject/Content/Input/Mappings/IMC_Player.uasset | Existe, pero `mappings` sigue vacío | 1197 B |
+| UnrealProject/Content/Input/Mappings/IMC_Player.uasset | 16 mappings; conteo 5/2/2/3/2/2; sin triggers ni Dead Zone | 8569 B |
 
 También se crearon las carpetas `/Game/Blueprints/Player` y
 `/Game/Blueprints/Levels`. Están vacías: Git no conserva directorios vacíos, por
@@ -396,20 +393,23 @@ Resultados verificados:
 - el warning de `LogModelContextProtocol` sobre Licensed Technology y el EULA de
   Unreal es una advertencia del plugin oficial, no un error del proyecto.
 
-Preparación offline del 2026-07-22 para `IMC_Player`:
+Resultado de la sesión del 2026-07-22 para `IMC_Player`:
 
 - en Unreal 5.8 la propiedad vigente es `defaultKeyMappings.mappings`; no usar el
   `mappings` superior, obsoleto desde 5.7;
 - `ObjectTools.set_properties` recibe `values` como un texto que contiene JSON;
-- antes de escribir las 16 filas se hará una prueba sin guardar con D → IA_Move,
-  lectura de vuelta y luego W con `InputModifierSwizzleAxis` en `YXZ`;
-- solo si ambas lecturas coinciden se aplicará el asset completo, se verificará el
-  conteo 5/2/2/3/2/2 y se guardará;
-- ante cualquier diferencia, no guardar y completar manualmente la sección 5 de
-  `EDITOR_SETUP_V0.1.md`.
+- la prueba D → IA_Move fue aceptada y leída correctamente sin guardar;
+- el intento de ampliar por MCP a W+D fue rechazado por ambigüedad al cambiar
+  tamaño y elementos del array; la lectura inmediata confirmó que no hubo cambio
+  parcial;
+- se aplicó el fallback previsto: los 15 mappings restantes se configuraron
+  manualmente en el Editor con capturas de verificación;
+- MCP leyó antes de guardar exactamente 16 filas con conteo 5/2/2/3/2/2, triggers
+  vacíos y modificadores solo en W, S y A; S conserva Negate seguido de Swizzle;
+- `IMC_Player` se guardó, pasó AssetCheck y quedó en 8569 bytes, SHA-256
+  `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 
-Preparación offline para una segunda sesión posterior, no para la primera apertura
-del 2026-07-23:
+Preparación offline para la siguiente sesión, dedicada a Blueprints:
 
 - `BlueprintTools` expone `create`, `compile_blueprint` y `get_parent`;
   `ObjectTools` expone `search_subclasses`, `list_properties`, `get_properties` y
@@ -479,6 +479,9 @@ Registro térmico observado:
 | Primera apertura controlada del Editor | máximo 52,1 °C |
 | Trabajo posterior con Unreal MCP/Input | 66 °C actual y máximo 99,2 °C |
 | Después de cerrar Unreal y enfriar | 44 °C |
+| Sesión con base, inicio | 40 °C actual y 52 °C máxima |
+| Sesión con base, máximo reportado | 70 °C |
+| Sesión con base, antes de cerrar | 50 °C actual y 66 °C máxima |
 
 Los siete assets se guardaron mediante MCP antes de cerrar. El cierre requirió
 solicitudes repetidas, pero el log final registra `QUIT_EDITOR`, `CloseEditor` y
@@ -490,14 +493,18 @@ Regla vigente para esta laptop: no reabrir Unreal sin la base encendida y
 condiciones seguras confirmadas. Pausar y cerrar si la temperatura actual llega a
 90 °C; detener de inmediato si alcanza 95 °C, hay olor extraño, congelamiento,
 stutter severo o apagado. El propietario confirmó que ya tiene una base de
-enfriamiento; su modelo no fue reconfirmado en esta sesión y podrá usarla a partir
-del 2026-07-23.
+enfriamiento; su modelo no fue reconfirmado y se usó con éxito el 2026-07-22.
 
-Primera sesión preparada para el 2026-07-23: base encendida, HWiNFO en modo
-Sensors-only con mínimo/máximo reiniciados, Unreal sin recompilar y una sola meta:
-completar los mappings de `IMC_Player`, guardar, validar y cerrar. No ejecutar PIE
-ni comenzar Blueprints durante esa primera apertura. Registrar temperatura
-inicial, máxima y final antes de decidir si se programa una segunda sesión.
+La sesión de mappings se completó el 2026-07-22 con base encendida, HWiNFO en modo
+Sensors-only y sin recompilar ni ejecutar PIE. RAM libre observada: 4,38 GB antes
+de abrir, 1,82 GB después de la apertura, mínimo puntual de 1,59 GB y 3,54 GB al
+terminar. Unreal cerró ordenadamente y el log registra `QUIT_EDITOR`,
+`CloseEditor` y `LogExit: Exiting`.
+
+Postflight: el log fue reconocido y no contiene diagnósticos propios prohibidos;
+el control terminó FAIL únicamente porque faltan los tres Blueprints requeridos y
+la matriz completa conserva pruebas `NOT RUN`. No es un fallo de guardado de
+`IMC_Player`.
 
 ## Transferencia segura a otra PC
 
@@ -526,7 +533,7 @@ IA_Look.uasset         E93A45E67A2228BC71F59E752799CFBE92E3AE3689FD0DABCD5FA53BE
 IA_Move.uasset         04096D4C59781FAF5132CFE25B1B1871C871B92CFF095674D6E306D713C9E9AE
 IA_Sprint.uasset       917FC61CCBA1A1437DB4FFA511F22B3731A440A38FC1EC264A73EB7C9806B9B1
 IA_ToggleCamera.uasset C564D0CE3A39881067D049E34A9E18E3DC690C11FAA64A52951E933C3ACE490E
-IMC_Player.uasset      8B09373EBC60FDE0E7A36418BAFFB7CC0E304751E83C62A996DC3D26A57DADC4
+IMC_Player.uasset      6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A
 ~~~
 
 Después de copiar, abrir Codex en la raíz `Proyecto`, pegar el prompt de
@@ -794,12 +801,12 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-El C++ vigente compila y los siete assets existen, pero todavía no hay contenido
-jugable integrado. En una PC adecuada se debe:
+El C++ vigente compila y los siete assets de Input existen; `IMC_Player` ya está
+completo, pero todavía no hay contenido jugable integrado. Se debe:
 
 1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
    HEAD. No borrar los assets por aparecer sin seguimiento.
-2. Completar `IMC_Player` según la sección 5 de `EDITOR_SETUP_V0.1.md`:
+2. Conservar `IMC_Player` según la sección 5 de `EDITOR_SETUP_V0.1.md`:
    - Move: W con Swizzle YXZ; S con Negate y luego Swizzle YXZ; A con Negate; D sin
      modificador; Gamepad Left Thumbstick 2D-Axis.
    - Look: Mouse XY 2D-Axis y Gamepad Right Thumbstick 2D-Axis.
@@ -807,7 +814,8 @@ jugable integrado. En una PC adecuada se debe:
    - Crouch: C, Left Control y Gamepad Face Button Right.
    - Jump: Space Bar y Gamepad Face Button Bottom.
    - ToggleCamera: V y Gamepad Face Button Top.
-   No añadir Dead Zone; la decisión aprobada es zona muerta 0 para QA.
+   Estos 16 mappings están guardados y verificados. No añadir Dead Zone; la
+   decisión aprobada es zona muerta 0 para QA.
 3. Mantener IA_Crouch como Digital con comportamiento predeterminado o trigger
    Down. No usar Hold, Tap, Pressed, Released ni Pulse porque C++ mide la duración.
    Asignar CrouchHoldThreshold (0,25 s por defecto).
@@ -832,8 +840,8 @@ jugable integrado. En una PC adecuada se debe:
 - Enhanced Input aparece aún como decisión pendiente en el control maestro, aunque
   la decisión local aprobada y la implementación ya lo adoptan.
 - El delta `20e8fd2` está compilado, pero no tiene pruebas funcionales PIE.
-- Las seis Input Actions e `IMC_Player` están guardados, rastreados mediante Git
-  LFS y publicados en la rama de transferencia; `IMC_Player` no tiene mappings.
+- Las seis Input Actions están publicadas. `IMC_Player` tiene sus 16 mappings y
+  permanece como cambio local pendiente de commit/push mediante Git LFS.
 - La persistencia de perspectiva está implementada en C++, pero no verificada en
   respawn ni entre ejecuciones.
 - El menú de controles, bindings principal/secundario, conflictos, restauración y
@@ -892,9 +900,10 @@ secciones del Player. Claude sí actualizó por separado las secciones de modelo
 Debe continuar pendiente hasta completar Editor y pruebas:
 
 - BP_PlayerCharacter y BP_PlayerController.
-- Malla, mappings de `IMC_Player`, Blueprints y GameMode. Las Input Actions y el
-  contenedor `IMC_Player` ya existen y forman parte del commit de transferencia.
-- Teclado, ratón y mando realmente configurados.
+- Malla, Blueprints y GameMode. Las Input Actions y los mappings de `IMC_Player`
+  ya existen; falta conectarlos al PlayerController.
+- Teclado, ratón y mando configurados en assets, pero todavía no probados en PIE
+  ni con un mando físico.
 - Movimiento y cámaras verificados en PIE.
 - Pruebas dimensionales, colisión, escaleras, atasco y 60 FPS.
 - IA_Jump ya existe; siguen pendientes las pruebas de salto normal, desde crouch

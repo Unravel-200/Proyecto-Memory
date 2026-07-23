@@ -4,7 +4,7 @@
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
 - Fecha local: 2026-07-22 (America/Costa_Rica).
-- Última actualización: 2026-07-22 — primera configuración completa de mappings.
+- Última actualización: 2026-07-22 — `BP_PlayerController` configurado y guardado.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -17,13 +17,15 @@
 - Estado: el C++ vigente, incluido salto y persistencia, ya recibió compilación
   Development Editor completa y exitosa. Unreal Editor 5.8, Enhanced Input y el
   servidor oficial Unreal MCP fueron verificados. Existen las seis Input Actions y
-  `IMC_Player` con 16 mappings guardados y verificados. Todavía faltan los
-  Blueprints, la geometría funcional y todas las pruebas PIE. Con la base de
-  enfriamiento, la sesión del 2026-07-22 reportó un máximo de 70 °C.
+  `IMC_Player` con 16 mappings guardados y verificados. `BP_PlayerController`
+  existe, tiene sus 12 propiedades requeridas, Event Graph vacío y compilación
+  exitosa. Todavía faltan `BP_PlayerCharacter`, el GameMode, la geometría funcional
+  y todas las pruebas PIE. Con la base de enfriamiento, la sesión del Controller
+  reportó un máximo de 69 °C después de reiniciar la medición de HWiNFO.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. El commit documental `8e0aaba` y la configuración posterior
-  de `IMC_Player` permanecen locales; no se hizo un nuevo push, merge, rebase ni
-  tag.
+  contiene `336aa91`. Los commits locales `8e0aaba` y `d569e31`, más esta entrega
+  de `BP_PlayerController`, todavía no están publicados; no se hizo un nuevo push,
+  merge, rebase ni tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -37,8 +39,7 @@ obligaciones de atribución.
 
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
-- HEAD padre antes del commit de transferencia: a97762a. La entrega del
-  2026-07-20 añade un commit posterior con este handoff y los siete Input Assets.
+- HEAD al comenzar la sesión de `BP_PlayerController`: `d569e31`.
 - Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
@@ -53,6 +54,8 @@ obligaciones de atribución.
   - 59ed2cf — decisiones aprobadas, guía de 27 pasos y matriz de 84 pruebas.
   - e2fbad7 — verificador sincronizado con IA_Jump y las configuraciones aprobadas.
   - a97762a — handoff de salto, persistencia y estado pendiente anterior a Editor.
+  - 8e0aaba — documentación de la sesión inicial de Input.
+  - d569e31 — 16 mappings de `IMC_Player` configurados y verificados.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -68,16 +71,17 @@ obligaciones de atribución.
 ### Próxima acción recomendada
 
 La base de enfriamiento ya fue usada con éxito en la sesión controlada del
-2026-07-22. `IMC_Player` quedó completo, guardado y validado. El próximo trabajo
-empieza en la sección 6 de `EDITOR_SETUP_V0.1.md`: crear y configurar únicamente
-`BP_PlayerController` en una nueva sesión corta. No repetir la sección 5 ni abrir
-PIE antes de completar los tres Blueprints y el GameMode.
+2026-07-22. `IMC_Player` y `BP_PlayerController` quedaron completos, guardados y
+validados. El próximo trabajo empieza en la sección 7 de
+`EDITOR_SETUP_V0.1.md`: crear y verificar únicamente `BP_PlayerCharacter` en una
+nueva sesión corta. No repetir las secciones 5 ni 6, ni abrir PIE antes de
+completar `BP_PlayerCharacter` y el GameMode.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 6: `BP_PlayerController`. Después seguir con
-`BP_PlayerCharacter`, GameMode, mapa, geometría y PIE.
+desde la sección 7: `BP_PlayerCharacter`. Después seguir con GameMode, mapa,
+geometría y PIE.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -90,7 +94,9 @@ muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
 `EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` fueron corregidos el 2026-07-22. Los
 siete controles de configuración `MAP-01..07` están en PASS; las pruebas
-funcionales PIE continúan en `NOT RUN`.
+funcionales PIE continúan en `NOT RUN`. `BP-01` también está en PASS por la
+auditoría guardada de `BP_PlayerController`; `EVC-04` sigue `NOT RUN` porque exige
+los tres Blueprints.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -117,10 +123,11 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > UnrealProject/Content/Input. No hagas push, merge, rebase ni tag sin mi permiso.
 > No edites Proyecto-Memoria-docs y no toques Modelos-3D; preserva especialmente
 > Plaza/SM_Tree_PlazaCentral_A.blend y .py. El C++ vigente ya compiló correctamente.
-> Las seis Input Actions ya existen con sus tipos correctos e IMC_Player existe
-> vacío. Continúa desde EDITOR_SETUP_V0.1.md sección 5 configurando los mappings de
-> teclado, mouse y mando; luego crea los Blueprints. No ejecutes herramientas de
-> Unreal en paralelo y no declares pruebas PIE como aprobadas hasta ejecutarlas.
+> Las seis Input Actions, los 16 mappings de IMC_Player y BP_PlayerController ya
+> están guardados y verificados. Continúa desde EDITOR_SETUP_V0.1.md sección 7
+> creando únicamente BP_PlayerCharacter; no repitas las secciones 5 ni 6. No
+> ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
+> aprobadas hasta ejecutarlas.
 
 ## Alcance autorizado y respetado
 
@@ -289,8 +296,7 @@ La entrega del 2026-07-20 agrega un commit adicional para el handoff y los asset
 - QA_PLAYER_V0.1.md
 - Tools/QA/Invoke-PlayerQACheck.ps1
 
-Assets binarios creados con el Unreal MCP oficial el 2026-07-16 e incluidos en el
-commit de transferencia mediante Git LFS:
+Assets binarios creados con el Unreal MCP oficial y gestionados mediante Git LFS:
 
 | Ruta | Configuración verificada | Tamaño observado |
 |---|---|---:|
@@ -301,11 +307,12 @@ commit de transferencia mediante Git LFS:
 | UnrealProject/Content/Input/Actions/IA_Jump.uasset | Boolean; sin triggers ni modifiers | 1154 B |
 | UnrealProject/Content/Input/Actions/IA_ToggleCamera.uasset | Boolean; sin triggers ni modifiers | 1194 B |
 | UnrealProject/Content/Input/Mappings/IMC_Player.uasset | 16 mappings; conteo 5/2/2/3/2/2; sin triggers ni Dead Zone | 8569 B |
+| UnrealProject/Content/Blueprints/Player/BP_PlayerController.uasset | Parent, 12 propiedades, Event Graph vacío, compilación y guardado verificados | 22564 B |
 
-También se crearon las carpetas `/Game/Blueprints/Player` y
-`/Game/Blueprints/Levels`. Están vacías: Git no conserva directorios vacíos, por
-lo que deben recrearse en una clonación si no aparecen. `BP_TestActor` y
-`L_Developer_Testing` no se movieron ni modificaron.
+`/Game/Blueprints/Player` ya contiene `BP_PlayerController`.
+`/Game/Blueprints/Levels` continúa sin assets nuevos; Git no conserva un
+directorio vacío. `BP_TestActor` y `L_Developer_Testing` no se movieron ni
+modificaron.
 
 ## Archivo existente modificado por Codex
 
@@ -316,25 +323,27 @@ lo que deben recrearse en una clonación si no aparecen. `BP_TestActor` y
 - UnrealProject/Config/DefaultInput.ini
   - Se desactivó mouse smoothing y se fijó zona muerta 0 para los sticks.
 
-Hasta antes de la sesión controlada del Editor no se habían creado assets
-binarios. El 2026-07-16 se crearon únicamente los siete assets de Input listados
-arriba. No se crearon Blueprints, no se editaron mapas o Level Blueprints y no se
-tocaron los repositorios excluidos. La única edición autorizada de Codex fuera de
+El 2026-07-16 se crearon únicamente los siete assets de Input. El 2026-07-22 se
+completaron los mappings de `IMC_Player` y después se creó únicamente
+`BP_PlayerController`. No se editaron mapas o Level Blueprints y no se tocaron los
+repositorios excluidos. La única edición autorizada de Codex fuera de
 Proyecto-Memory continúa siendo `6a270af` del 2026-07-13.
 
 ### Guía operativa del Editor
 
 EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible. Las secciones 3 y 4
-ya se ejecutaron y la creación inicial de `IMC_Player` de la sección 5 está hecha;
-faltan sus mappings. Las secciones de Blueprints, GameMode, geometría y PIE no se
-han ejecutado. La existencia de los assets no confirma una integración jugable.
+ya se ejecutaron; la sección 5 está completa con los 16 mappings y la sección 6
+está completa con `BP_PlayerController`. La siguiente tarea es la sección 7,
+`BP_PlayerCharacter`; GameMode, geometría y PIE no se han ejecutado. La existencia
+de los assets no confirma una integración jugable.
 
 ### Matriz y verificador QA
 
 `QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
 de assets, geometría, las 27 pruebas de la guía desglosadas, regresión, evidencias,
-incidencias y trazabilidad de aceptación. Sus 84 IDs comienzan en NOT RUN; ninguna
-prueba de Editor o PIE fue aprobada al preparar la plantilla.
+incidencias y trazabilidad de aceptación. Actualmente tiene 8 PASS de configuración
+—`MAP-01..07` y `BP-01`— y 76 resultados `NOT RUN`; ninguna prueba PIE fue
+aprobada.
 
 `Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
 
@@ -409,7 +418,28 @@ Resultado de la sesión del 2026-07-22 para `IMC_Player`:
 - `IMC_Player` se guardó, pasó AssetCheck y quedó en 8569 bytes, SHA-256
   `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 
-Preparación offline para la siguiente sesión, dedicada a Blueprints:
+Resultado de la sesión posterior del 2026-07-22 para `BP_PlayerController`:
+
+- antes de crear se confirmó que el asset no existía y que la clase nativa exacta
+  era `/Script/ProyectoMemoria.PMPlayerController`;
+- se creó únicamente
+  `/Game/Blueprints/Player/BP_PlayerController.BP_PlayerController`;
+- MCP confirmó el parent exacto y leyó de vuelta las 12 propiedades requeridas:
+  `playerMappingContext`, las seis referencias `*Action`, `lookSensitivityX`,
+  `lookSensitivityY`, `bInvertLookY`, `mappingPriority` y
+  `crouchHoldThreshold`;
+- las referencias apuntan a `IMC_Player` y a `IA_Move`, `IA_Look`, `IA_Sprint`,
+  `IA_Crouch`, `IA_Jump` e `IA_ToggleCamera`; los escalares quedaron 1.0, 1.0,
+  false, 0 y 0.25 respectivamente;
+- el Event Graph fue leído vacío; no se añadió lógica Blueprint;
+- compiló dos veces con warnings-as-errors, se guardó solo su ruta explícita,
+  `is_dirty` devolvió false y AssetCheck lo validó;
+- el archivo resultante mide 22564 bytes y tiene SHA-256
+  `A9C8D639135632B2FECE4E64922596B1F4146E17E627D2303DD832EC1A5597B1`;
+- Unreal cerró mediante `QUIT_EDITOR`/`CloseEditor` y el log terminó en
+  `LogExit: Exiting`; no se ejecutó PIE ni se recompiló C++.
+
+Preparación offline conservada para las sesiones de Blueprints restantes:
 
 - `BlueprintTools` expone `create`, `compile_blueprint` y `get_parent`;
   `ObjectTools` expone `search_subclasses`, `list_properties`, `get_properties` y
@@ -422,14 +452,13 @@ Preparación offline para la siguiente sesión, dedicada a Blueprints:
 - crear, compilar con warnings-as-errors, comprobar el padre y modificar valores
   en grupos pequeños con lectura de vuelta. `set_properties` puede aplicar una
   parte antes de devolver error;
-- en `BP_PlayerController`, probar primero solo los escalares 1.0, 1.0, false, 0
-  y 0.25; luego probar una sola referencia a `IMC_Player` y leerla antes de
-  asignar las seis Input Actions;
-- el formato canónico esperado es
+- en `BP_PlayerController` ya se demostró que el orden seguro es probar primero
+  los escalares, después una referencia y finalmente las seis Input Actions; no
+  repetir esa configuración si el hash y la lectura del asset coinciden;
+- el formato canónico aceptado fue
   `InputMappingContext'/Game/Input/Mappings/IMC_Player.IMC_Player'` para el
   contexto y `InputAction'/Game/Input/Actions/IA_Move.IA_Move'` para cada acción,
-  cambiando el nombre; su aceptación efectiva se confirmará en vivo campo por
-  campo antes de guardar;
+  cambiando el nombre;
 - `BP_PlayerCharacter` debe heredar los componentes y valores que ya fija el
   constructor C++; no reescribir subobjetos por MCP ni fijar todavía el valor
   provisional de Crouched Half Height;
@@ -482,12 +511,15 @@ Registro térmico observado:
 | Sesión con base, inicio | 40 °C actual y 52 °C máxima |
 | Sesión con base, máximo reportado | 70 °C |
 | Sesión con base, antes de cerrar | 50 °C actual y 66 °C máxima |
+| Sesión de Controller tras reiniciar máximo | 37 °C actual y 38 °C máxima |
+| Controller con Editor abierto | 49 °C actual y 69 °C máxima |
+| Controller antes de cerrar | 30 °C actual y 69 °C máxima |
 
-Los siete assets se guardaron mediante MCP antes de cerrar. El cierre requirió
-solicitudes repetidas, pero el log final registra `QUIT_EDITOR`, `CloseEditor` y
-una secuencia ordenada de apagado del Editor; después se confirmó que Unreal ya no
-estaba ejecutándose. No se ejecutó postflight, por lo que no debe declararse un
-postflight exitoso.
+En la primera apertura, los siete assets se guardaron mediante MCP antes de
+cerrar. El cierre requirió solicitudes repetidas, pero el log final registra
+`QUIT_EDITOR`, `CloseEditor` y una secuencia ordenada de apagado del Editor;
+después se confirmó que Unreal ya no estaba ejecutándose. Esa primera apertura no
+tuvo postflight.
 
 Regla vigente para esta laptop: no reabrir Unreal sin la base encendida y
 condiciones seguras confirmadas. Pausar y cerrar si la temperatura actual llega a
@@ -501,10 +533,20 @@ de abrir, 1,82 GB después de la apertura, mínimo puntual de 1,59 GB y 3,54 GB 
 terminar. Unreal cerró ordenadamente y el log registra `QUIT_EDITOR`,
 `CloseEditor` y `LogExit: Exiting`.
 
-Postflight: el log fue reconocido y no contiene diagnósticos propios prohibidos;
-el control terminó FAIL únicamente porque faltan los tres Blueprints requeridos y
-la matriz completa conserva pruebas `NOT RUN`. No es un fallo de guardado de
-`IMC_Player`.
+Postflight de la sesión de mappings: el log fue reconocido y no contiene
+diagnósticos propios prohibidos; el control terminó FAIL únicamente porque en ese
+momento faltaban los tres Blueprints requeridos y la matriz completa conservaba
+pruebas `NOT RUN`. No fue un fallo de guardado de `IMC_Player`.
+
+La sesión posterior de `BP_PlayerController` mantuvo Edge abierto por decisión del
+propietario. Se observaron aproximadamente 5,7 GB de RAM libre antes de abrir,
+2,05 GB con Unreal abierto y 5,79 GB después del cierre. El preflight obtuvo 19/19
+PASS. Unreal consumía aproximadamente 1,69 GB al terminar la configuración y
+respondía normalmente. El cierre fue ordenado y el postflight posterior obtuvo
+22/24 PASS: faltan únicamente los dos assets
+`BP_PlayerCharacter`/`BP_GameMode_DeveloperTesting` y 76 filas QA siguen sin
+ejecutarse. La allowlist aceptó solo `BP_PlayerController.uasset` y el Output Log
+no contiene diagnósticos propios prohibidos.
 
 ## Transferencia segura a otra PC
 
@@ -516,13 +558,16 @@ Opciones seguras, con Unreal cerrado:
 1. Copiar la carpeta completa `C:\Users\jeffa\Desktop\Proyecto` mediante una
    unidad externa o red local, conservando las carpetas `.git`; o
 2. usar el commit y la rama remota publicados el 2026-07-20. Esta fue la opción
-   autorizada y ejecutada para la transferencia.
+   autorizada y ejecutada para la transferencia inicial. Los commits locales
+   posteriores todavía requieren un push expresamente autorizado antes de poder
+   recuperarse con `pull` en otra PC.
 
 En el equipo destino se debe instalar Git LFS antes de hidratar los binarios y
-usar el HEAD más reciente de `origin/feature/v0.1-player-cameras`; detenerse en el
-padre `a97762a` sí perdería los siete Input Assets. Las carpetas vacías
-`Blueprints/Player` y `Blueprints/Levels` deben recrearse si no se copian
-físicamente.
+usar el HEAD más reciente de `origin/feature/v0.1-player-cameras`. En el estado
+actual, origin termina en `336aa91` y todavía no contiene `8e0aaba`, `d569e31` ni
+`BP_PlayerController`; un `pull` por sí solo no transfiere aún esas partes.
+`Blueprints/Player` existe localmente gracias al Controller.
+`Blueprints/Levels` debe recrearse si continúa vacío en una clonación.
 
 SHA-256 de los assets para comprobar una copia directa:
 
@@ -534,6 +579,7 @@ IA_Move.uasset         04096D4C59781FAF5132CFE25B1B1871C871B92CFF095674D6E306D71
 IA_Sprint.uasset       917FC61CCBA1A1437DB4FFA511F22B3731A440A38FC1EC264A73EB7C9806B9B1
 IA_ToggleCamera.uasset C564D0CE3A39881067D049E34A9E18E3DC690C11FAA64A52951E933C3ACE490E
 IMC_Player.uasset      6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A
+BP_PlayerController.uasset A9C8D639135632B2FECE4E64922596B1F4146E17E627D2303DD832EC1A5597B1
 ~~~
 
 Después de copiar, abrir Codex en la raíz `Proyecto`, pegar el prompt de
@@ -781,8 +827,14 @@ Avisos externos observados:
 - El servidor Unreal MCP oficial inició, Codex negoció la conexión y se verificó
   la configuración de las seis Input Actions. Los siete assets se guardaron y
   Content Validation no registró errores de esos assets.
-- No se ejecutó PIE, postflight, pruebas de mando, respawn, geometría ni
-  rendimiento. Los 84 IDs de `QA_PLAYER_V0.1.md` continúan `NOT RUN`.
+- En una segunda sesión corta, MCP creó y auditó `BP_PlayerController`: parent
+  exacto, 12 propiedades, Event Graph vacío, dos compilaciones con
+  warnings-as-errors, guardado explícito, AssetCheck y estado no sucio.
+- Postflight después del Controller: 22/24 PASS, sin procesos Unreal, ruta nueva
+  dentro de la allowlist y Output Log válido sin diagnósticos propios prohibidos.
+  Los dos FAIL son los dos Blueprints restantes y los resultados QA pendientes.
+- No se ejecutó PIE, pruebas de mando, respawn, geometría ni rendimiento. La
+  matriz tiene 8 PASS de configuración y 76 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -801,12 +853,14 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-El C++ vigente compila y los siete assets de Input existen; `IMC_Player` ya está
-completo, pero todavía no hay contenido jugable integrado. Se debe:
+El C++ vigente compila, los siete assets de Input existen y
+`BP_PlayerController` está completo, pero todavía no hay contenido jugable
+integrado. Estado y orden restante:
 
 1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
    HEAD. No borrar los assets por aparecer sin seguimiento.
-2. Conservar `IMC_Player` según la sección 5 de `EDITOR_SETUP_V0.1.md`:
+2. **Completado; no repetir.** Conservar `IMC_Player` según la sección 5 de
+   `EDITOR_SETUP_V0.1.md`:
    - Move: W con Swizzle YXZ; S con Negate y luego Swizzle YXZ; A con Negate; D sin
      modificador; Gamepad Left Thumbstick 2D-Axis.
    - Look: Mouse XY 2D-Axis y Gamepad Right Thumbstick 2D-Axis.
@@ -816,13 +870,15 @@ completo, pero todavía no hay contenido jugable integrado. Se debe:
    - ToggleCamera: V y Gamepad Face Button Top.
    Estos 16 mappings están guardados y verificados. No añadir Dead Zone; la
    decisión aprobada es zona muerta 0 para QA.
-3. Mantener IA_Crouch como Digital con comportamiento predeterminado o trigger
-   Down. No usar Hold, Tap, Pressed, Released ni Pulse porque C++ mide la duración.
-   Asignar CrouchHoldThreshold (0,25 s por defecto).
-4. Crear `BP_PlayerController` hijo de APMPlayerController y asignar `IMC_Player`
-   y las seis IA.
-5. Crear `BP_PlayerCharacter` hijo de APMPlayerCharacter, asignar malla provisional
-   y revisar cápsula, cámaras y valores.
+3. **Completado; no repetir.** IA_Crouch es Digital, sin Hold, Tap, Pressed,
+   Released ni Pulse, porque C++ mide la duración; el umbral del Controller quedó
+   en 0,25 s.
+4. **Completado; no repetir.** `BP_PlayerController` es hijo de
+   APMPlayerController, referencia `IMC_Player` y las seis IA, compila, está
+   guardado y no contiene lógica en Event Graph.
+5. **Siguiente tarea.** Crear `BP_PlayerCharacter` hijo de APMPlayerCharacter,
+   revisar los componentes heredados, cápsula, cámaras y valores. No asignar una
+   malla provisional sin origen y licencia verificados.
 6. Configurar GameMode/World Settings de prueba con Pawn y Controller correctos.
 7. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
 8. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
@@ -840,8 +896,10 @@ completo, pero todavía no hay contenido jugable integrado. Se debe:
 - Enhanced Input aparece aún como decisión pendiente en el control maestro, aunque
   la decisión local aprobada y la implementación ya lo adoptan.
 - El delta `20e8fd2` está compilado, pero no tiene pruebas funcionales PIE.
-- Las seis Input Actions están publicadas. `IMC_Player` tiene sus 16 mappings y
-  permanece como cambio local pendiente de commit/push mediante Git LFS.
+- Las seis Input Actions están publicadas. `IMC_Player` tiene sus 16 mappings en
+  el commit local `d569e31`; `BP_PlayerController` forma parte de esta entrega.
+  Ambos avances posteriores a `336aa91` siguen pendientes de push mediante Git
+  LFS.
 - La persistencia de perspectiva está implementada en C++, pero no verificada en
   respawn ni entre ejecuciones.
 - El menú de controles, bindings principal/secundario, conflictos, restauración y
@@ -899,9 +957,9 @@ secciones del Player. Claude sí actualizó por separado las secciones de modelo
 
 Debe continuar pendiente hasta completar Editor y pruebas:
 
-- BP_PlayerCharacter y BP_PlayerController.
-- Malla, Blueprints y GameMode. Las Input Actions y los mappings de `IMC_Player`
-  ya existen; falta conectarlos al PlayerController.
+- `BP_PlayerCharacter` y `BP_GameMode_DeveloperTesting`.
+- Malla, Character, GameMode y mapa de prueba. Las Input Actions y los mappings de
+  `IMC_Player` ya están conectados en `BP_PlayerController`.
 - Teclado, ratón y mando configurados en assets, pero todavía no probados en PIE
   ni con un mando físico.
 - Movimiento y cámaras verificados en PIE.

@@ -19,9 +19,10 @@ Estado de partida verificado:
 - Assets existentes: BP_TestActor y L_Developer_Testing.
 - Assets de Input: existen las seis Input Actions y `IMC_Player` con los 16
   mappings de la sección 5 guardados y verificados.
-- Assets de Player: todavía no existen.
+- Assets de Player: `BP_PlayerController` existe, está configurado y compila;
+  todavía faltan `BP_PlayerCharacter` y `BP_GameMode_DeveloperTesting`.
 
-### Sesión corta completada el 2026-07-22
+### Sesión de Input completada el 2026-07-22
 
 La sesión se ejecutó con la base de enfriamiento encendida y HWiNFO en modo
 Sensors-only:
@@ -33,8 +34,25 @@ Sensors-only:
 
 No se ejecutó PIE ni se continuó a Blueprints. El máximo térmico reportado durante
 la sesión fue 70 °C y la última lectura antes del cierre fue 50 °C actual / 66 °C
-máxima. La siguiente sesión empieza en la sección 6 con `BP_PlayerController` y
-mantiene los mismos límites térmicos.
+máxima. Esa sesión dejó preparada la sección 6 y mantuvo los mismos límites
+térmicos.
+
+### Sesión de BP_PlayerController completada el 2026-07-22
+
+1. Preflight 19/19 PASS y worktree limpio sobre `d569e31`.
+2. Unreal abrió sin recompilar; Map Check informó 0 errores y 0 advertencias.
+3. Se completó únicamente la sección 6, con lectura de vuelta de parent, 12
+   propiedades y Event Graph vacío.
+4. El Blueprint compiló con warnings-as-errors, se guardó por ruta explícita,
+   pasó AssetCheck y Unreal cerró de forma ordenada.
+5. Postflight obtuvo 22/24 PASS. Los dos FAIL son pendientes esperados: faltan
+   `BP_PlayerCharacter`, `BP_GameMode_DeveloperTesting` y las pruebas QA no
+   ejecutadas; el Output Log no contiene diagnósticos propios prohibidos.
+
+No se recompiló C++ ni se ejecutó PIE. Después de reiniciar el máximo de HWiNFO,
+la sesión empezó en 37 °C actual / 38 °C máxima, alcanzó 69 °C máxima con el
+Editor y terminó con 30 °C actual / 69 °C máxima reportadas. La siguiente sesión
+empieza en la sección 7 con `BP_PlayerCharacter`.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -353,6 +371,12 @@ solo W, S y A tienen modificadores, S conserva el orden Negate seguido de Swizzl
 y no existe ningún modificador Dead Zone.
 
 ## 6. Crear BP_PlayerController
+
+Estado: **completada el 2026-07-22**. Se verificaron el parent exacto
+`/Script/ProyectoMemoria.PMPlayerController`, todos los valores de la tabla, el
+Event Graph vacío, dos compilaciones con warnings-as-errors y el guardado
+explícito. El archivo resultante mide 22564 bytes y su SHA-256 es
+`A9C8D639135632B2FECE4E64922596B1F4146E17E627D2303DD832EC1A5597B1`.
 
 En /Game/Blueprints/Player:
 

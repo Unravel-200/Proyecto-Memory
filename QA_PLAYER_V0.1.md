@@ -7,9 +7,9 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **auditoría de mappings ejecutada; ninguna prueba PIE ejecutada**.
-Los PASS de `MAP-01..07` demuestran la configuración guardada de `IMC_Player`, no
-que la integración sea jugable ni que v0.1.0 esté terminada.
+Estado actual: **mappings y `BP_PlayerController` auditados; ninguna prueba PIE
+ejecutada**. Los PASS de `MAP-01..07` y `BP-01` demuestran configuración guardada,
+no que la integración sea jugable ni que v0.1.0 esté terminada.
 
 Referencias y línea base:
 
@@ -19,7 +19,8 @@ Referencias y línea base:
 - Commit mínimo verificado: `336aa91`; se admite un descendiente con worktree
   limpio.
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
-  los 16 mappings están verificados. Blueprints y pruebas funcionales pendientes.
+  los 16 mappings están verificados y `BP_PlayerController` está listo. Faltan
+  `BP_PlayerCharacter`, el GameMode y las pruebas funcionales.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -154,13 +155,21 @@ SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 
 | ID | Comprobación y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|
-| BP-01 | `BP_PlayerController` hereda de `APMPlayerController`; referencia `IMC_Player` y las seis IA; sensibilidad predeterminada de mouse/mando 1.0, inversión Y false, prioridad 0 y umbral 0.25 s; Event Graph vacío; compila y guarda. | NOT RUN | |
+| BP-01 | `BP_PlayerController` hereda de `APMPlayerController`; referencia `IMC_Player` y las seis IA; sensibilidad predeterminada de mouse/mando 1.0, inversión Y false, prioridad 0 y umbral 0.25 s; Event Graph vacío; compila y guarda. | PASS | EV-BPC-01 |
 | BP-02 | `BP_PlayerCharacter` hereda de `APMPlayerCharacter`; conserva sin duplicados Capsule, Arrow, Mesh, CharacterMovement, cámaras, boom y CameraModeComponent; Event Graph vacío; compila y guarda. | NOT RUN | |
 | BP-03 | Character: Walk 300, Sprint 550 y Crouch 180 cm/s; cápsula radio 42 y semialtura 96 cm; Can Crouch true. Crouched Half Height 60 cm se registra como provisional. | NOT RUN | |
 | BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | NOT RUN | |
 | BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | NOT RUN | |
 | BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | NOT RUN | |
 | LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | |
+
+`EV-BPC-01` — sesión local del 2026-07-22 sobre `d569e31`: MCP confirmó el
+parent exacto `/Script/ProyectoMemoria.PMPlayerController`, leyó de vuelta las 12
+propiedades requeridas —`IMC_Player`, seis IA, sensibilidad X/Y 1.0, inversión Y
+false, prioridad 0 y umbral 0.25 s— y confirmó el Event Graph vacío. El Blueprint
+compiló dos veces con warnings-as-errors, se guardó por ruta explícita, quedó no
+sucio y pasó AssetCheck. Archivo de 22564 bytes; SHA-256
+`A9C8D639135632B2FECE4E64922596B1F4146E17E627D2303DD832EC1A5597B1`.
 
 ### Geometría de prueba
 

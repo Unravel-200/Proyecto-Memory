@@ -5,11 +5,12 @@
 - Versión objetivo inmediata: v0.1.0 — personaje, movimiento y cámaras.
 - Decisiones confirmadas por el propietario: 2026-07-15.
 - Fuente de verdad para estas decisiones: este documento.
-- Estado técnico: especificación aprobada; el C++ vigente compiló correctamente y
-  existen las seis Input Actions y `IMC_Player` con sus 16 mappings verificados.
-  Todavía faltan los Blueprints y todas las pruebas funcionales en PIE.
-- La sesión controlada del 2026-07-22 usó la base de enfriamiento y HWiNFO; no
-  compiló, no ejecutó PIE y cerró Unreal correctamente.
+- Estado técnico: especificación aprobada; el C++ vigente compiló correctamente,
+  existen las seis Input Actions y `IMC_Player` con sus 16 mappings verificados, y
+  `BP_PlayerController` está configurado, compilado y guardado. Todavía faltan
+  `BP_PlayerCharacter`, el GameMode y todas las pruebas funcionales en PIE.
+- Las sesiones controladas del 2026-07-22 usaron la base de enfriamiento y HWiNFO;
+  no recompilaron C++, no ejecutaron PIE y cerraron Unreal correctamente.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
 jugador. No afirma que las funciones pendientes ya existan.
@@ -98,14 +99,18 @@ implementadas y compiladas, pero todavía sin pruebas funcionales en PIE:
 - guía, matriz QA y layout del mando actualizados a A/X y Y/triángulo.
 
 Las seis Input Actions y el contenedor `IMC_Player` ya existen. Sus 16 mappings de
-teclado, mouse y mando fueron guardados y verificados el 2026-07-22. Todavía no
-existen los Blueprints de Player, el menú ni sus widgets. El C++ actual conserva
-una sensibilidad compartida para mouse y mando; separarlas dinámicamente pertenece
-a la etapa de ajustes.
+teclado, mouse y mando fueron guardados y verificados el 2026-07-22.
+`BP_PlayerController` también existe como hijo de `APMPlayerController`: referencia
+el contexto y las seis acciones, conserva sensibilidad X/Y en 1.0, inversión Y
+desactivada, prioridad 0 y umbral de crouch en 0.25 s. Su Event Graph está vacío y
+el asset fue compilado y guardado. Todavía faltan `BP_PlayerCharacter`, el GameMode,
+el menú, sus widgets y toda validación PIE. El C++ actual conserva una sensibilidad
+compartida para mouse y mando; separarlas dinámicamente pertenece a la etapa de
+ajustes.
 
 Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
-abrió para crear y configurar los Input Assets; no se ha ejecutado PIE ni se ha
-probado el Player.
+abrió para configurar los Input Assets y `BP_PlayerController`; no se ha ejecutado
+PIE ni se ha probado el Player.
 
 ## Separación de alcance
 

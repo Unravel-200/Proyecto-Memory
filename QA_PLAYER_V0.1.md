@@ -7,9 +7,10 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **mappings y `BP_PlayerController` auditados; ninguna prueba PIE
-ejecutada**. Los PASS de `MAP-01..07` y `BP-01` demuestran configuración guardada,
-no que la integración sea jugable ni que v0.1.0 esté terminada.
+Estado actual: **mappings, `BP_PlayerController` y `BP_PlayerCharacter` auditados;
+ninguna prueba PIE ejecutada**. Los 12 PASS de `MAP-01..07` y `BP-01..05`
+demuestran configuración guardada, no que la integración sea jugable ni que
+v0.1.0 esté terminada.
 
 Referencias y línea base:
 
@@ -19,8 +20,9 @@ Referencias y línea base:
 - Commit mínimo verificado: `336aa91`; se admite un descendiente con worktree
   limpio.
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
-  los 16 mappings están verificados y `BP_PlayerController` está listo. Faltan
-  `BP_PlayerCharacter`, el GameMode y las pruebas funcionales.
+  los 16 mappings están verificados y `BP_PlayerController` y
+  `BP_PlayerCharacter` están listos. Faltan el GameMode, el mapa funcional y las
+  pruebas PIE.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -156,10 +158,10 @@ SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 | ID | Comprobación y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|
 | BP-01 | `BP_PlayerController` hereda de `APMPlayerController`; referencia `IMC_Player` y las seis IA; sensibilidad predeterminada de mouse/mando 1.0, inversión Y false, prioridad 0 y umbral 0.25 s; Event Graph vacío; compila y guarda. | PASS | EV-BPC-01 |
-| BP-02 | `BP_PlayerCharacter` hereda de `APMPlayerCharacter`; conserva sin duplicados Capsule, Arrow, Mesh, CharacterMovement, cámaras, boom y CameraModeComponent; Event Graph vacío; compila y guarda. | NOT RUN | |
-| BP-03 | Character: Walk 300, Sprint 550 y Crouch 180 cm/s; cápsula radio 42 y semialtura 96 cm; Can Crouch true. Crouched Half Height 60 cm se registra como provisional. | NOT RUN | |
-| BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | NOT RUN | |
-| BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | NOT RUN | |
+| BP-02 | `BP_PlayerCharacter` hereda de `APMPlayerCharacter`; conserva sin duplicados Capsule, Arrow, Mesh, CharacterMovement, cámaras, boom y CameraModeComponent; Event Graph vacío; compila y guarda. | PASS | EV-BPCHAR-01 |
+| BP-03 | Character: Walk 300, Sprint 550 y Crouch 180 cm/s; cápsula radio 42 y semialtura 96 cm; Can Crouch true. Crouched Half Height 60 cm se registra como provisional. | PASS | EV-BPCHAR-01 |
+| BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | PASS | EV-BPCHAR-01 |
+| BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | PASS | EV-BPCHAR-01 |
 | BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | NOT RUN | |
 | LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | |
 
@@ -170,6 +172,18 @@ false, prioridad 0 y umbral 0.25 s— y confirmó el Event Graph vacío. El Blue
 compiló dos veces con warnings-as-errors, se guardó por ruta explícita, quedó no
 sucio y pasó AssetCheck. Archivo de 22564 bytes; SHA-256
 `A9C8D639135632B2FECE4E64922596B1F4146E17E627D2303DD832EC1A5597B1`.
+
+`EV-BPCHAR-01` — sesión local del 2026-07-22 sobre `4efac4c`: MCP confirmó el
+parent exacto `/Script/ProyectoMemoria.PMPlayerCharacter`, ocho componentes
+heredados sin duplicados y `ThirdPersonCamera` unido a
+`ThirdPersonCameraBoom`. Leyó Walk/Sprint/Crouch 300/550/180, cápsula 42/96,
+Can Crouch true, rotación 540, las dos cámaras, boom y CameraMode con los valores
+de aceptación. El valor 60 cm continúa provisional y no se aplicó ningún
+override. El Event Graph se leyó vacío; compiló dos veces con
+warnings-as-errors, se guardó solo su ruta, quedó no sucio y pasó AssetCheck.
+Archivo de 27020 bytes; SHA-256
+`59555B01BB8D82222207D58D57A444227348D31D98EB2FAED6A8868D2BBA6838`.
+No se ejecutó PIE ni se recompiló C++.
 
 ### Geometría de prueba
 

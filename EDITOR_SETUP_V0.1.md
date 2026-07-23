@@ -19,8 +19,8 @@ Estado de partida verificado:
 - Assets existentes: BP_TestActor y L_Developer_Testing.
 - Assets de Input: existen las seis Input Actions y `IMC_Player` con los 16
   mappings de la sección 5 guardados y verificados.
-- Assets de Player: `BP_PlayerController` existe, está configurado y compila;
-  todavía faltan `BP_PlayerCharacter` y `BP_GameMode_DeveloperTesting`.
+- Assets de Player: `BP_PlayerController` y `BP_PlayerCharacter` existen, están
+  configurados y compilan; todavía falta `BP_GameMode_DeveloperTesting`.
 
 ### Sesión de Input completada el 2026-07-22
 
@@ -52,8 +52,27 @@ térmicos.
 
 No se recompiló C++ ni se ejecutó PIE. Después de reiniciar el máximo de HWiNFO,
 la sesión empezó en 37 °C actual / 38 °C máxima, alcanzó 69 °C máxima con el
-Editor y terminó con 30 °C actual / 69 °C máxima reportadas. La siguiente sesión
-empieza en la sección 7 con `BP_PlayerCharacter`.
+Editor y terminó con 30 °C actual / 69 °C máxima reportadas. Ese cierre dejó
+preparada la sección 7, completada en la sesión siguiente.
+
+### Sesión de BP_PlayerCharacter completada el 2026-07-22
+
+1. Preflight 19/19 PASS y worktree limpio sobre `4efac4c`.
+2. La base estaba encendida, HWiNFO activo y Blender cerrado. Antes de continuar
+   se reportaron 41,6 °C actuales y 86 °C máximos; el pico estaba por debajo del
+   límite de pausa de 90 °C.
+3. Unreal abrió sin recompilar; Map Check informó 0 errores y 0 advertencias.
+4. Se completó únicamente la sección 7. MCP confirmó parent, ocho componentes,
+   jerarquía, movimiento, cápsula, crouch, cámaras y CameraMode; no escribió
+   propiedades ni aplicó el valor provisional de 60 cm.
+5. El Event Graph quedó vacío. El Blueprint compiló dos veces con
+   warnings-as-errors, se guardó por ruta explícita, quedó no sucio y pasó
+   AssetCheck.
+6. Unreal cerró de forma ordenada. Postflight obtuvo 22/24 PASS; los dos FAIL son
+   pendientes esperados: falta el GameMode y quedan 72 resultados QA `NOT RUN`.
+
+No se recompiló C++ ni se ejecutó PIE. La siguiente sesión empieza en la sección
+8 con `BP_GameMode_DeveloperTesting`.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -417,6 +436,9 @@ Event Graph debe permanecer vacío.
 Compilar y guardar el Blueprint.
 
 ## 7. Crear BP_PlayerCharacter
+
+**Estado: completada y auditada el 2026-07-22. No repetir si el asset y su hash
+coinciden con `EV-BPCHAR-01` de `QA_PLAYER_V0.1.md`.**
 
 En /Game/Blueprints/Player:
 

@@ -20,7 +20,8 @@ Estado de partida verificado:
 - Assets de Input: existen las seis Input Actions y `IMC_Player` con los 16
   mappings de la sección 5 guardados y verificados.
 - Assets de Player: `BP_PlayerController` y `BP_PlayerCharacter` existen, están
-  configurados y compilan; todavía falta `BP_GameMode_DeveloperTesting`.
+  configurados y compilan. `BP_GameMode_DeveloperTesting` también existe, usa esas
+  dos clases y compila.
 
 ### Sesión de Input completada el 2026-07-22
 
@@ -69,10 +70,31 @@ preparada la sección 7, completada en la sesión siguiente.
    warnings-as-errors, se guardó por ruta explícita, quedó no sucio y pasó
    AssetCheck.
 6. Unreal cerró de forma ordenada. Postflight obtuvo 22/24 PASS; los dos FAIL son
-   pendientes esperados: falta el GameMode y quedan 72 resultados QA `NOT RUN`.
+   pendientes esperados: en ese momento faltaba el GameMode y quedaban 72
+   resultados QA `NOT RUN`.
 
-No se recompiló C++ ni se ejecutó PIE. La siguiente sesión empieza en la sección
-8 con `BP_GameMode_DeveloperTesting`.
+No se recompiló C++ ni se ejecutó PIE. Ese cierre dejó preparada la sección 8,
+completada el 2026-07-26.
+
+### Sesión de BP_GameMode_DeveloperTesting completada el 2026-07-26
+
+1. El cargador y la base estaban conectados, HWiNFO activo y Blender cerrado. Se
+   reportaron 41 °C actuales y 46 °C máximos antes de abrir.
+2. Preflight 19/19 PASS y worktree limpio sobre `d96e173`.
+3. Unreal abrió sin recompilar; Map Check informó 0 errores y 0 advertencias.
+4. Se completó únicamente la sección 8. MCP confirmó las dependencias y la
+   ausencia del destino antes de crear.
+5. El GameMode quedó como hijo exacto de `GameModeBase`, con
+   `BP_PlayerCharacter_C` y `BP_PlayerController_C` asignados y releyéndose una
+   referencia por vez.
+6. El Event Graph quedó vacío. El Blueprint compiló dos veces con
+   warnings-as-errors, se guardó por ruta explícita, quedó no sucio y pasó
+   AssetCheck.
+7. Unreal cerró de forma ordenada. Postflight obtuvo 23/24 PASS; el único FAIL
+   esperado son las 70 pruebas QA todavía `NOT RUN`.
+
+No se tocó `L_Developer_Testing`, no se recompiló C++ y no se ejecutó PIE. La
+siguiente sesión empieza en la sección 9.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -525,6 +547,9 @@ No añadir lógica al Event Graph.
 Compilar y guardar el Blueprint.
 
 ## 8. Crear BP_GameMode_DeveloperTesting
+
+**Estado: completada y auditada el 2026-07-26. No repetir si el asset y su hash
+coinciden con `EV-BPGM-01` de `QA_PLAYER_V0.1.md`.**
 
 La documentación oficial no define todavía una convención de GameMode. Para esta
 guía se propone un Blueprint de configuración de pruebas:

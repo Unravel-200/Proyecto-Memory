@@ -7,10 +7,10 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **mappings, `BP_PlayerController` y `BP_PlayerCharacter` auditados;
-ninguna prueba PIE ejecutada**. Los 12 PASS de `MAP-01..07` y `BP-01..05`
-demuestran configuración guardada, no que la integración sea jugable ni que
-v0.1.0 esté terminada.
+Estado actual: **mappings y los tres Blueprints de configuración auditados;
+ninguna prueba PIE ejecutada**. Los 14 PASS de `MAP-01..07`, `BP-01..06` y
+`EVC-04` demuestran configuración guardada, no que la integración sea jugable ni
+que v0.1.0 esté terminada.
 
 Referencias y línea base:
 
@@ -21,8 +21,8 @@ Referencias y línea base:
   limpio.
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
   los 16 mappings están verificados y `BP_PlayerController` y
-  `BP_PlayerCharacter` están listos. Faltan el GameMode, el mapa funcional y las
-  pruebas PIE.
+  `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
+  configurado y validado. Faltan el mapa funcional y las pruebas PIE.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -162,7 +162,7 @@ SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 | BP-03 | Character: Walk 300, Sprint 550 y Crouch 180 cm/s; cápsula radio 42 y semialtura 96 cm; Can Crouch true. Crouched Half Height 60 cm se registra como provisional. | PASS | EV-BPCHAR-01 |
 | BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | PASS | EV-BPCHAR-01 |
 | BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | PASS | EV-BPCHAR-01 |
-| BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | NOT RUN | |
+| BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | PASS | EV-BPGM-01 |
 | LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | |
 
 `EV-BPC-01` — sesión local del 2026-07-22 sobre `d569e31`: MCP confirmó el
@@ -184,6 +184,19 @@ warnings-as-errors, se guardó solo su ruta, quedó no sucio y pasó AssetCheck.
 Archivo de 27020 bytes; SHA-256
 `59555B01BB8D82222207D58D57A444227348D31D98EB2FAED6A8868D2BBA6838`.
 No se ejecutó PIE ni se recompiló C++.
+
+`EV-BPGM-01` — sesión local del 2026-07-26 sobre `d96e173`: MCP confirmó que las
+dos dependencias existían y que el destino no existía antes de crear. El Blueprint
+quedó en `/Game/Blueprints/Levels/BP_GameMode_DeveloperTesting`, con parent exacto
+`/Script/Engine.GameModeBase`, `defaultPawnClass` apuntando a
+`BP_PlayerCharacter_C` y `playerControllerClass` apuntando a
+`BP_PlayerController_C`. Las referencias se asignaron y releyeron una por una; el
+Event Graph se leyó vacío y una segunda lectura posterior a la compilación confirmó
+parent y clases. Compiló dos veces con warnings-as-errors, se guardó solo su ruta,
+quedó no sucio y pasó AssetCheck. Archivo de 22306 bytes; SHA-256
+`A50BD28E0873FF1A7D4CCA60F597ECFEAC667215014100B0E74C8FEC3E1BB7DC`.
+Unreal cerró normalmente; no se tocó el mapa, no se ejecutó PIE ni se recompiló
+C++.
 
 ### Geometría de prueba
 
@@ -302,7 +315,7 @@ Could not persist the preferred camera mode
 | EVC-01 | Salida inicial de `git status --short --branch` y `git log -1 --oneline`. | NOT RUN | |
 | EVC-02 | UE 5.8, plugin Enhanced Input y clases Input configuradas. | NOT RUN | |
 | EVC-03 | Content Drawer, tipos de las seis IA y mappings completos de `IMC_Player`. | NOT RUN | |
-| EVC-04 | Parent classes, jerarquía, defaults, Event Graphs vacíos y compilación de los tres Blueprints. | NOT RUN | |
+| EVC-04 | Parent classes, jerarquía, defaults, Event Graphs vacíos y compilación de los tres Blueprints. | PASS | EV-BPC-01; EV-BPCHAR-01; EV-BPGM-01 |
 | EVC-05 | World Settings, Player Start, dimensiones y colisiones de geometría. | NOT RUN | |
 | EVC-06 | Output Log al iniciar y durante PIE; búsqueda de los seis mensajes prohibidos. | NOT RUN | |
 | EVC-07 | Videos/mediciones de movimiento, salto, crouch, cámaras, espacios y ciclo de vida. | NOT RUN | |

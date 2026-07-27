@@ -8,10 +8,12 @@
 - Estado técnico: especificación aprobada; el C++ vigente compiló correctamente,
   existen las seis Input Actions y `IMC_Player` con sus 16 mappings verificados, y
   `BP_PlayerController` y `BP_PlayerCharacter` están configurados, compilados y
-  guardados. Todavía faltan el GameMode, el mapa funcional y todas las pruebas
-  funcionales en PIE.
-- Las sesiones controladas del 2026-07-22 usaron la base de enfriamiento y HWiNFO;
-  no recompilaron C++, no ejecutaron PIE y cerraron Unreal correctamente.
+  guardados. `BP_GameMode_DeveloperTesting` también está configurado, compilado y
+  guardado. Todavía faltan el mapa funcional y todas las pruebas funcionales en
+  PIE.
+- Las sesiones controladas del 2026-07-22 y 2026-07-26 usaron la base de
+  enfriamiento y HWiNFO; no recompilaron C++, no ejecutaron PIE y cerraron Unreal
+  correctamente.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
 jugador. No afirma que las funciones pendientes ya existan.
@@ -106,14 +108,16 @@ el contexto y las seis acciones, conserva sensibilidad X/Y en 1.0, inversión Y
 desactivada, prioridad 0 y umbral de crouch en 0.25 s. `BP_PlayerCharacter` existe
 como hijo puramente heredado de `APMPlayerCharacter`; conserva las velocidades,
 cápsula, crouch, cámaras y CameraMode aprobados. Ambos Event Graphs están vacíos y
-los dos assets fueron compilados, validados y guardados. Todavía faltan el GameMode,
-el menú, sus widgets y toda validación PIE. El C++ actual conserva una sensibilidad
-compartida para mouse y mando; separarlas dinámicamente pertenece a la etapa de
-ajustes.
+los dos assets fueron compilados, validados y guardados.
+`BP_GameMode_DeveloperTesting` ya usa esas dos clases, conserva su Event Graph
+vacío y también fue compilado, validado y guardado. Todavía faltan el mapa
+funcional, el menú, sus widgets y toda validación PIE. El C++ actual conserva una
+sensibilidad compartida para mouse y mando; separarlas dinámicamente pertenece a
+la etapa de ajustes.
 
 Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
-abrió para configurar los Input Assets, `BP_PlayerController` y
-`BP_PlayerCharacter`; no se ha ejecutado PIE ni se ha probado el Player.
+abrió para configurar los Input Assets y los tres Blueprints; no se ha ejecutado
+PIE ni se ha probado el Player.
 
 ## Separación de alcance
 

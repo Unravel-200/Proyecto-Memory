@@ -3,8 +3,9 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-22 (America/Costa_Rica).
-- Última actualización: 2026-07-22 — `BP_PlayerCharacter` configurado y guardado.
+- Fecha local: 2026-07-26 (America/Costa_Rica).
+- Última actualización: 2026-07-26 — `BP_GameMode_DeveloperTesting` configurado y
+  guardado.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -17,11 +18,13 @@
 - Estado: el C++ vigente, incluido salto y persistencia, ya recibió compilación
   Development Editor completa y exitosa. Unreal Editor 5.8, Enhanced Input y el
   servidor oficial Unreal MCP fueron verificados. Existen las seis Input Actions y
-  `IMC_Player` con 16 mappings guardados y verificados. `BP_PlayerController` y
-  `BP_PlayerCharacter` existen, tienen los valores requeridos, Event Graphs vacíos
-  y compilación exitosa. Todavía faltan el GameMode, la geometría funcional y todas
-  las pruebas PIE. En la sesión del Character la base estaba encendida, Blender
-  cerrado y se reportaron 41,6 °C actuales / 86 °C máximos antes de continuar.
+  `IMC_Player` con 16 mappings guardados y verificados. `BP_PlayerController`,
+  `BP_PlayerCharacter` y `BP_GameMode_DeveloperTesting` existen, tienen las
+  referencias requeridas, Event Graphs vacíos y compilación exitosa. Todavía
+  faltan configurar el mapa, crear la geometría funcional y ejecutar todas las
+  pruebas PIE. En la sesión del GameMode la base y el cargador estaban conectados,
+  HWiNFO activo, Blender cerrado y se reportaron 41 °C actuales / 46 °C máximos
+  antes de abrir.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
   contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `46b4f25` y esta
   entrega documental final todavía no están publicados; no se hizo un nuevo push,
@@ -39,7 +42,7 @@ obligaciones de atribución.
 
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
-- HEAD al comenzar la sesión de `BP_PlayerCharacter`: `4efac4c`.
+- HEAD al comenzar la sesión de `BP_GameMode_DeveloperTesting`: `d96e173`.
 - Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
@@ -73,18 +76,17 @@ obligaciones de atribución.
 
 ### Próxima acción recomendada
 
-La base de enfriamiento ya fue usada con éxito en las sesiones controladas del
-2026-07-22. `IMC_Player`, `BP_PlayerController` y `BP_PlayerCharacter` quedaron
-completos, guardados y validados. El próximo trabajo empieza en la sección 8 de
-`EDITOR_SETUP_V0.1.md`: crear y verificar únicamente
-`BP_GameMode_DeveloperTesting` en una nueva sesión corta. No repetir las secciones
-5, 6 ni 7, ni abrir PIE antes de completar el GameMode y revisar el mapa.
+La base de enfriamiento ya fue usada con éxito en las sesiones controladas.
+`IMC_Player` y los tres Blueprints quedaron completos, guardados y validados. El
+próximo trabajo empieza en la sección 9 de `EDITOR_SETUP_V0.1.md`: inspeccionar y
+configurar `L_Developer_Testing`, su GameMode Override y un único Player Start.
+No repetir las secciones 5, 6, 7 ni 8, ni abrir PIE antes de completar también la
+geometría de prueba.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 8: `BP_GameMode_DeveloperTesting`. Después seguir con mapa,
-geometría y PIE.
+desde la sección 9: mapa y Player Start. Después seguir con geometría y PIE.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -97,9 +99,8 @@ muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
 `EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` fueron corregidos el 2026-07-22. Los
 siete controles de configuración `MAP-01..07` están en PASS; las pruebas
-funcionales PIE continúan en `NOT RUN`. `BP-01..05` están en PASS por las
-auditorías guardadas de Controller y Character; `EVC-04` sigue `NOT RUN` porque
-exige los tres Blueprints.
+funcionales PIE continúan en `NOT RUN`. `BP-01..06` y `EVC-04` están en PASS por
+las auditorías guardadas de Controller, Character y GameMode.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -126,10 +127,10 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > UnrealProject/Content/Input. No hagas push, merge, rebase ni tag sin mi permiso.
 > No edites Proyecto-Memoria-docs y no toques Modelos-3D; preserva especialmente
 > Plaza/SM_Tree_PlazaCentral_A.blend y .py. El C++ vigente ya compiló correctamente.
-> Las seis Input Actions, los 16 mappings de IMC_Player, BP_PlayerController y
-> BP_PlayerCharacter ya están guardados y verificados. Continúa desde
-> EDITOR_SETUP_V0.1.md sección 8 creando únicamente
-> BP_GameMode_DeveloperTesting; no repitas las secciones 5, 6 ni 7. No
+> Las seis Input Actions, los 16 mappings de IMC_Player y los tres Blueprints ya
+> están guardados y verificados. Continúa desde EDITOR_SETUP_V0.1.md sección 9
+> configurando L_Developer_Testing y un único Player Start; no repitas las
+> secciones 5, 6, 7 ni 8. No
 > ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
 > aprobadas hasta ejecutarlas.
 
@@ -329,25 +330,27 @@ modificaron.
 
 El 2026-07-16 se crearon únicamente los siete assets de Input. El 2026-07-22 se
 completaron los mappings de `IMC_Player` y después, en sesiones separadas, se
-crearon `BP_PlayerController` y `BP_PlayerCharacter`. No se editaron mapas o Level
-Blueprints y no se tocaron los repositorios excluidos. La única edición autorizada
-de Codex fuera de Proyecto-Memory continúa siendo `6a270af` del 2026-07-13.
+crearon `BP_PlayerController`, `BP_PlayerCharacter` y
+`BP_GameMode_DeveloperTesting`. No se editaron mapas o Level Blueprints y no se
+tocaron los repositorios excluidos. La única edición autorizada de Codex fuera de
+Proyecto-Memory continúa siendo `6a270af` del 2026-07-13.
 
 ### Guía operativa del Editor
 
 EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible. Las secciones 3 y 4
 ya se ejecutaron; la sección 5 está completa con los 16 mappings, la sección 6
-con `BP_PlayerController` y la sección 7 con `BP_PlayerCharacter`. La siguiente
-tarea es la sección 8, `BP_GameMode_DeveloperTesting`; geometría y PIE no se han
-ejecutado. La existencia de los assets no confirma una integración jugable.
+con `BP_PlayerController`, la sección 7 con `BP_PlayerCharacter` y la sección 8
+con `BP_GameMode_DeveloperTesting`. La siguiente tarea es la sección 9, mapa y
+Player Start; geometría y PIE no se han ejecutado. La existencia de los assets no
+confirma una integración jugable.
 
 ### Matriz y verificador QA
 
 `QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
 de assets, geometría, las 27 pruebas de la guía desglosadas, regresión, evidencias,
-incidencias y trazabilidad de aceptación. Actualmente tiene 12 PASS de
-configuración —`MAP-01..07` y `BP-01..05`— y 72 resultados `NOT RUN`; ninguna
-prueba PIE fue aprobada.
+incidencias y trazabilidad de aceptación. Actualmente tiene 14 PASS de
+configuración —`MAP-01..07`, `BP-01..06` y `EVC-04`— y 70 resultados `NOT RUN`;
+ninguna prueba PIE fue aprobada.
 
 `Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
 
@@ -473,6 +476,31 @@ Resultado de la sesión posterior del 2026-07-22 para `BP_PlayerCharacter`:
 - postflight sobre `46b4f25`, con worktree limpio, obtuvo 22/24 PASS. Los dos FAIL
   esperados fueron el GameMode ausente y 72 resultados QA todavía `NOT RUN`.
 
+Resultado de la sesión del 2026-07-26 para `BP_GameMode_DeveloperTesting`:
+
+- preflight obtuvo 19/19 PASS sobre `d96e173`; HWiNFO estaba activo, Blender
+  cerrado, el cargador y la base conectados, con 41 °C actuales / 46 °C máximos;
+- había aproximadamente 5,56 GB de RAM libre antes de abrir, 1,52 GB después del
+  arranque y 5,9 GB tras cerrar; Unreal usó aproximadamente 1,9 GB al inicio y
+  3,58 GB al terminar;
+- Unreal abrió sin recompilar, Map Check informó 0 errores y 0 advertencias y el
+  servidor MCP registró 19 toolsets;
+- MCP confirmó que Character y Controller existían y que el GameMode no existía;
+- se creó únicamente
+  `/Game/Blueprints/Levels/BP_GameMode_DeveloperTesting.BP_GameMode_DeveloperTesting`
+  con parent exacto `/Script/Engine.GameModeBase`;
+- `defaultPawnClass` quedó en `BP_PlayerCharacter_C` y
+  `playerControllerClass` en `BP_PlayerController_C`; se asignaron y releyeron una
+  por una y volvieron a comprobarse después de compilar;
+- el Event Graph fue leído vacío, compiló dos veces con warnings-as-errors, se
+  guardó solo su ruta, `is_dirty` devolvió false y AssetCheck no registró errores;
+- el archivo resultante mide 22306 bytes y tiene SHA-256
+  `A50BD28E0873FF1A7D4CCA60F597ECFEAC667215014100B0E74C8FEC3E1BB7DC`;
+- Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se tocó el
+  mapa, no se ejecutó PIE, Hot Reload ni compilación C++;
+- postflight obtuvo 23/24 PASS. El único FAIL esperado son 70 resultados QA
+  todavía `NOT RUN`.
+
 Preparación offline conservada para las sesiones de Blueprints restantes:
 
 - `BlueprintTools` expone `create`, `compile_blueprint` y `get_parent`;
@@ -549,6 +577,7 @@ Registro térmico observado:
 | Controller con Editor abierto | 49 °C actual y 69 °C máxima |
 | Controller antes de cerrar | 30 °C actual y 69 °C máxima |
 | Character antes de abrir, máximo acumulado sin reiniciar | 41,6 °C actual y 86 °C máxima |
+| GameMode antes de abrir, con cargador y base | 41 °C actual y 46 °C máxima |
 
 En la primera apertura, los siete assets se guardaron mediante MCP antes de
 cerrar. El cierre requirió solicitudes repetidas, pero el log final registra
@@ -586,8 +615,15 @@ La sesión posterior de `BP_PlayerCharacter` también mantuvo Edge y Claude abie
 pero dejó Blender cerrado. Se observaron aproximadamente 1,14 GB de RAM física
 libre con Unreal abierto y unos 2,14 GB usados por el Editor. La base permaneció
 encendida y todas las llamadas MCP se ejecutaron en serie. Después del commit local
-`46b4f25`, el postflight obtuvo 22/24 PASS con worktree limpio: falta únicamente
-`BP_GameMode_DeveloperTesting` como asset y 72 filas QA siguen sin ejecutarse.
+`46b4f25`, el postflight obtuvo 22/24 PASS con worktree limpio: en ese momento
+faltaba `BP_GameMode_DeveloperTesting` como asset y 72 filas QA seguían sin
+ejecutarse.
+
+La sesión de `BP_GameMode_DeveloperTesting` del 2026-07-26 empezó con 5,56 GB de
+RAM libre, bajó a 1,52 GB después del arranque y terminó con 5,9 GB después del
+cierre. Unreal alcanzó aproximadamente 3,58 GB. El cargador y la base estaban
+conectados, HWiNFO activo y Blender cerrado. El postflight obtuvo 23/24 PASS; el
+único FAIL son 70 filas QA pendientes.
 
 ## Transferencia segura a otra PC
 
@@ -875,11 +911,15 @@ Avisos externos observados:
   exacto, ocho componentes, valores heredados, Event Graph vacío, dos
   compilaciones con warnings-as-errors, guardado explícito, AssetCheck y estado no
   sucio.
-- Postflight de la sesión del Character: 22/24 PASS, sin procesos Unreal y Output
-  Log válido sin diagnósticos propios prohibidos. Los dos FAIL son el GameMode
-  restante y 72 resultados QA pendientes.
+- En una cuarta sesión corta, MCP creó y auditó
+  `BP_GameMode_DeveloperTesting`: parent exacto, Pawn/Controller correctos, Event
+  Graph vacío, dos compilaciones con warnings-as-errors, guardado explícito,
+  AssetCheck y estado no sucio.
+- Postflight de la sesión del GameMode: 23/24 PASS, sin procesos Unreal y Output
+  Log válido sin diagnósticos propios prohibidos. El único FAIL son 70 resultados
+  QA pendientes.
 - No se ejecutó PIE, pruebas de mando, respawn, geometría ni rendimiento. La
-  matriz tiene 12 PASS de configuración y 72 IDs que continúan `NOT RUN`.
+  matriz tiene 14 PASS de configuración y 70 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -898,9 +938,9 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-El C++ vigente compila, los siete assets de Input existen y
-`BP_PlayerController` y `BP_PlayerCharacter` están completos, pero todavía no hay
-contenido jugable integrado. Estado y orden restante:
+El C++ vigente compila, los siete assets de Input y los tres Blueprints están
+completos, pero todavía no hay contenido jugable integrado. Estado y orden
+restante:
 
 1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
    HEAD. No borrar los assets por aparecer sin seguimiento.
@@ -925,10 +965,11 @@ contenido jugable integrado. Estado y orden restante:
    APMPlayerCharacter, conserva componentes, cápsula, movimiento y cámaras
    heredados, compila, está guardado y no contiene lógica en Event Graph. Mesh
    continúa vacío y el valor de 60 cm no fue aplicado.
-6. **Siguiente tarea.** Crear `BP_GameMode_DeveloperTesting` y asignar Pawn y
-   Controller correctos. World Settings y mapa se revisan después de guardar el
-   GameMode.
-7. Probar en L_Developer_Testing sin agregar lógica central al Level Blueprint.
+6. **Completado; no repetir.** `BP_GameMode_DeveloperTesting` hereda de
+   GameModeBase, usa `BP_PlayerCharacter_C` y `BP_PlayerController_C`, compila,
+   está guardado y no contiene lógica en Event Graph.
+7. **Siguiente tarea.** Configurar `L_Developer_Testing`, GameMode Override y un
+   único Player Start sin agregar lógica central al Level Blueprint.
 8. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos
@@ -1005,10 +1046,9 @@ secciones del Player. Claude sí actualizó por separado las secciones de modelo
 
 Debe continuar pendiente hasta completar Editor y pruebas:
 
-- `BP_GameMode_DeveloperTesting`.
-- Malla visual, GameMode y mapa de prueba. Las Input Actions y los mappings de
-  `IMC_Player` ya están conectados en `BP_PlayerController`; el Character ya está
-  creado y auditado.
+- Malla visual y mapa de prueba. Las Input Actions y los mappings de `IMC_Player`
+  ya están conectados en `BP_PlayerController`; Character y GameMode ya están
+  creados y auditados.
 - Teclado, ratón y mando configurados en assets, pero todavía no probados en PIE
   ni con un mando físico.
 - Movimiento y cámaras verificados en PIE.

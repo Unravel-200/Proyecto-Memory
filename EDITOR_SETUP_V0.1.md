@@ -22,6 +22,9 @@ Estado de partida verificado:
 - Assets de Player: `BP_PlayerController` y `BP_PlayerCharacter` existen, están
   configurados y compilan. `BP_GameMode_DeveloperTesting` también existe, usa esas
   dos clases y compila.
+- Mapa base: `L_Developer_Testing` usa `BP_GameMode_DeveloperTesting`, contiene
+  exactamente un Player Start y no contiene Pawn manual ni lógica de Level
+  Blueprint. La geometría de la sección 10 todavía no existe.
 
 ### Sesión de Input completada el 2026-07-22
 
@@ -94,7 +97,30 @@ completada el 2026-07-26.
    esperado son las 70 pruebas QA todavía `NOT RUN`.
 
 No se tocó `L_Developer_Testing`, no se recompiló C++ y no se ejecutó PIE. La
-siguiente sesión empieza en la sección 9.
+configuración base de la sección 9 se completó en la sesión siguiente.
+
+### Sesión de L_Developer_Testing completada el 2026-07-26
+
+1. La base de enfriamiento e HWiNFO estaban activos. Durante la sesión se
+   reportaron 37 °C actuales y 78 °C máximos, por debajo del límite de pausa.
+2. Preflight obtuvo 19/19 PASS y el worktree estaba limpio sobre `1629eac`.
+3. Se abrió únicamente `/Game/Maps/L_Developer_Testing`; el mapa estaba vacío de
+   contenido jugable y no tenía Player Start.
+4. World Settings quedó con
+   `BP_GameMode_DeveloperTesting_C` como GameMode Override.
+5. Se creó exactamente un Player Start en `(0,0,100)`, rotación cero y escala
+   uno. MCP confirmó su cápsula de referencia 40/92, cero Pawn manual y cero
+   `LevelScriptActor`.
+6. Se guardó solo el mapa, se recargó desde disco, Map Check informó 0 errores y
+   0 advertencias, AssetCheck inició sin diagnóstico asociado y el asset quedó no
+   sucio.
+7. El archivo quedó en 11648 bytes con SHA-256
+   `08FECC04BD9B391F8C9CEB44CDBB784A95B3994703143C0B4225CF2BB2F822FD`.
+   Unreal cerró de forma ordenada con `LogExit: Exiting`.
+
+No se creó geometría, no se ejecutó PIE ni se recompiló C++. El Player Start debe
+revisarse otra vez después de crear el suelo. La siguiente sesión empieza en la
+sección 10 y debe decidir primero el layout global de la geometría.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -571,6 +597,11 @@ guía se propone un Blueprint de configuración de pruebas:
 Conservar vacío el Event Graph. Compilar y guardar.
 
 ## 9. Configurar L_Developer_Testing
+
+**Estado: configuración base completada el 2026-07-26. `LVL-01` sigue pendiente
+hasta crear el suelo y revalidar el Player Start con la cápsula real. No repetir
+la asignación del GameMode ni crear otro Player Start si el mapa y su hash
+coinciden con `EV-LVL-SETUP-01` de `QA_PLAYER_V0.1.md`.**
 
 Abrir /Game/Maps/L_Developer_Testing.
 

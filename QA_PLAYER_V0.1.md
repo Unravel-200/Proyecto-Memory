@@ -7,10 +7,11 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **mappings y los tres Blueprints de configuración auditados;
-ninguna prueba PIE ejecutada**. Los 14 PASS de `MAP-01..07`, `BP-01..06` y
-`EVC-04` demuestran configuración guardada, no que la integración sea jugable ni
-que v0.1.0 esté terminada.
+Estado actual: **mappings y los tres Blueprints auditados; configuración base del
+mapa guardada, pero pendiente de validarla contra el suelo; ninguna prueba PIE
+ejecutada**. Los 14 PASS de `MAP-01..07`, `BP-01..06` y `EVC-04` demuestran
+configuración guardada, no que la integración sea jugable ni que v0.1.0 esté
+terminada.
 
 Referencias y línea base:
 
@@ -22,7 +23,8 @@ Referencias y línea base:
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
   los 16 mappings están verificados y `BP_PlayerController` y
   `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
-  configurado y validado. Faltan el mapa funcional y las pruebas PIE.
+  configurado y validado. `L_Developer_Testing` usa ese GameMode y conserva un
+  único Player Start. Faltan la geometría funcional y las pruebas PIE.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -47,7 +49,9 @@ No autoriza:
 ## Protocolo de resultados
 
 Todas las filas comienzan en `NOT RUN`, que significa que todavía no se han
-intentado. Al ejecutar una prueba, sustituirlo por un único resultado:
+intentado por completo. Una fila compuesta puede conservar `NOT RUN` si solo
+existe evidencia parcial claramente identificada y aún falta ejecutar un criterio
+indispensable. Al ejecutar toda la prueba, sustituirlo por un único resultado:
 
 - `PASS`: se ejecutaron todos los pasos, se cumplió el criterio y hay evidencia.
 - `FAIL`: se ejecutó y el resultado difiere de lo esperado; registrar reproducción,
@@ -163,7 +167,7 @@ SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 | BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | PASS | EV-BPCHAR-01 |
 | BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | PASS | EV-BPCHAR-01 |
 | BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | PASS | EV-BPGM-01 |
-| LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | |
+| LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | EV-LVL-SETUP-01 parcial; repetir después de GEO-01 |
 
 `EV-BPC-01` — sesión local del 2026-07-22 sobre `d569e31`: MCP confirmó el
 parent exacto `/Script/ProyectoMemoria.PMPlayerController`, leyó de vuelta las 12
@@ -197,6 +201,22 @@ quedó no sucio y pasó AssetCheck. Archivo de 22306 bytes; SHA-256
 `A50BD28E0873FF1A7D4CCA60F597ECFEAC667215014100B0E74C8FEC3E1BB7DC`.
 Unreal cerró normalmente; no se tocó el mapa, no se ejecutó PIE ni se recompiló
 C++.
+
+`EV-LVL-SETUP-01` — evidencia parcial de la sesión local del 2026-07-26 sobre
+`1629eac`: se abrió y guardó
+explícitamente `/Game/Maps/L_Developer_Testing`. MCP leyó
+`defaultGameMode = BP_GameMode_DeveloperTesting_C`, confirmó exactamente un
+`PlayerStart` en `(0,0,100)`, rotación `(0,0,0)` y escala `(1,1,1)`, con cápsula
+de referencia de radio 40 y semialtura 92; no encontró ningún Pawn ni
+`LevelScriptActor`. El mapa se recargó desde disco, conservó esos valores, quedó
+no sucio y Map Check informó 0 errores y 0 advertencias. AssetCheck inició la
+validación y no apareció un diagnóstico asociado antes del cierre. Archivo de
+11648 bytes; SHA-256
+`08FECC04BD9B391F8C9CEB44CDBB784A95B3994703143C0B4225CF2BB2F822FD`.
+Unreal cerró con `LogExit: Exiting`; no se creó geometría, no se ejecutó PIE ni
+se recompiló C++. Esto no aprueba `LVL-01`: como el suelo todavía no existe, hay
+que comprobar después de `GEO-01` el despeje de la cápsula real 42/96 y la
+ausencia de `BADsize`.
 
 ### Geometría de prueba
 
@@ -420,4 +440,5 @@ de esta matriz.
 | ID | Fecha | Commit | PC / dispositivo | PASS / FAIL / BLOCKED | Evidencias | Aprobación |
 |---|---|---|---|---|---|---|
 | SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
+| SETUP-LVL-20260726 | 2026-07-26 | `1629eac` + cambio local del mapa | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial | Pendiente |
 | | | | | | | |

@@ -9,8 +9,9 @@
   existen las seis Input Actions y `IMC_Player` con sus 16 mappings verificados, y
   `BP_PlayerController` y `BP_PlayerCharacter` están configurados, compilados y
   guardados. `BP_GameMode_DeveloperTesting` también está configurado, compilado y
-  guardado. Todavía faltan el mapa funcional y todas las pruebas funcionales en
-  PIE.
+  guardado. `L_Developer_Testing` ya usa ese GameMode, conserva un único Player
+  Start y no contiene Pawn manual ni lógica de Level Blueprint. Todavía faltan
+  la geometría funcional y todas las pruebas funcionales en PIE.
 - Las sesiones controladas del 2026-07-22 y 2026-07-26 usaron la base de
   enfriamiento y HWiNFO; no recompilaron C++, no ejecutaron PIE y cerraron Unreal
   correctamente.
@@ -110,10 +111,11 @@ como hijo puramente heredado de `APMPlayerCharacter`; conserva las velocidades,
 cápsula, crouch, cámaras y CameraMode aprobados. Ambos Event Graphs están vacíos y
 los dos assets fueron compilados, validados y guardados.
 `BP_GameMode_DeveloperTesting` ya usa esas dos clases, conserva su Event Graph
-vacío y también fue compilado, validado y guardado. Todavía faltan el mapa
-funcional, el menú, sus widgets y toda validación PIE. El C++ actual conserva una
-sensibilidad compartida para mouse y mando; separarlas dinámicamente pertenece a
-la etapa de ajustes.
+vacío y también fue compilado, validado y guardado. El mapa de pruebas ya lo usa,
+tiene un único Player Start y no tiene Pawn manual ni lógica de Level Blueprint.
+Todavía faltan la geometría funcional, el menú, sus widgets y toda validación
+PIE. El C++ actual conserva una sensibilidad compartida para mouse y mando;
+separarlas dinámicamente pertenece a la etapa de ajustes.
 
 Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
 abrió para configurar los Input Assets y los tres Blueprints; no se ha ejecutado

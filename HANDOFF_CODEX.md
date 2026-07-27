@@ -26,7 +26,7 @@
   HWiNFO activo, Blender cerrado y se reportaron 41 °C actuales / 46 °C máximos
   antes de abrir.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `46b4f25` y esta
+  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `6707913` y esta
   entrega documental final todavía no están publicados; no se hizo un nuevo push,
   merge, rebase ni tag.
 
@@ -62,6 +62,8 @@ obligaciones de atribución.
   - 81fa688 — `BP_PlayerController` configurado, auditado y guardado.
   - 4efac4c — postflight y documentación final de `BP_PlayerController`.
   - 46b4f25 — `BP_PlayerCharacter` creado, auditado y documentado.
+  - d96e173 — postflight y documentación final de `BP_PlayerCharacter`.
+  - 6707913 — `BP_GameMode_DeveloperTesting` creado, auditado y documentado.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -496,10 +498,12 @@ Resultado de la sesión del 2026-07-26 para `BP_GameMode_DeveloperTesting`:
   guardó solo su ruta, `is_dirty` devolvió false y AssetCheck no registró errores;
 - el archivo resultante mide 22306 bytes y tiene SHA-256
   `A50BD28E0873FF1A7D4CCA60F597ECFEAC667215014100B0E74C8FEC3E1BB7DC`;
+- el asset y sus cuatro documentos locales se guardaron en el commit local
+  `6707913`;
 - Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se tocó el
   mapa, no se ejecutó PIE, Hot Reload ni compilación C++;
-- postflight obtuvo 23/24 PASS. El único FAIL esperado son 70 resultados QA
-  todavía `NOT RUN`.
+- postflight sobre `6707913`, con worktree limpio, obtuvo 23/24 PASS. El único
+  FAIL esperado son 70 resultados QA todavía `NOT RUN`.
 
 Preparación offline conservada para las sesiones de Blueprints restantes:
 

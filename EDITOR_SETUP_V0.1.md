@@ -117,6 +117,9 @@ configuración base de la sección 9 se completó en la sesión siguiente.
 7. El archivo quedó en 11648 bytes con SHA-256
    `08FECC04BD9B391F8C9CEB44CDBB784A95B3994703143C0B4225CF2BB2F822FD`.
    Unreal cerró de forma ordenada con `LogExit: Exiting`.
+8. El mapa y los cuatro documentos locales quedaron en el commit `d4d6732`.
+   Postflight obtuvo 23/24 PASS con worktree limpio; el único FAIL esperado son
+   las 70 filas QA todavía `NOT RUN`.
 
 No se creó geometría, no se ejecutó PIE ni se recompiló C++. El Player Start debe
 revisarse otra vez después de crear el suelo. La siguiente sesión empieza en la

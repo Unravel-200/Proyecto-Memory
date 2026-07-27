@@ -26,9 +26,8 @@
   geometría funcional y ejecutar todas las pruebas PIE. En la sesión del mapa la
   base e HWiNFO estaban activos y se reportaron 37 °C actuales / 78 °C máximos.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `1629eac` y los
-  cambios de esta sesión todavía no están publicados; no se hizo un nuevo push,
-  merge, rebase ni tag.
+  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `d4d6732`
+  todavía no están publicados; no se hizo un nuevo push, merge, rebase ni tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -66,6 +65,8 @@ obligaciones de atribución.
   - 6707913 — `BP_GameMode_DeveloperTesting` creado, auditado y documentado.
   - 1629eac — postflight y documentación final de
     `BP_GameMode_DeveloperTesting`.
+  - d4d6732 — configuración base de `L_Developer_Testing`, evidencia parcial y
+    documentación.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -541,12 +542,16 @@ Resultado de la sesión del 2026-07-26 para `L_Developer_Testing`:
   cierre;
 - el archivo resultante mide 11648 bytes y tiene SHA-256
   `08FECC04BD9B391F8C9CEB44CDBB784A95B3994703143C0B4225CF2BB2F822FD`;
+- el mapa y sus cuatro documentos locales se guardaron en el commit
+  `d4d6732`;
 - Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se creó
   geometría, no se ejecutó PIE, Hot Reload ni compilación C++;
 - `LVL-01` continúa `NOT RUN`: después de crear el suelo debe repetirse la
   comprobación de `BADsize` y despeje usando la cápsula real 42/96. Si el suelo
   queda centrado en `Z=-10`, su superficie superior será `Z=0` y el Player Start
-  provisional en `Z=100` dejará 4 cm bajo la cápsula real.
+  provisional en `Z=100` dejará 4 cm bajo la cápsula real;
+- postflight sobre `d4d6732`, con worktree limpio, obtuvo 23/24 PASS. El único
+  FAIL esperado son las 70 filas QA todavía `NOT RUN`.
 
 Preparación offline conservada para las sesiones de Blueprints restantes:
 
@@ -967,6 +972,9 @@ Avisos externos observados:
   Override, un único Player Start, cero Pawn manual y cero `LevelScriptActor`;
   guardó y recargó el mapa, que pasó Map Check 0/0 y quedó no sucio. Esta evidencia
   es parcial hasta comprobar el suelo y la cápsula real.
+- Postflight de la sesión del mapa sobre `d4d6732`: 23/24 PASS, con worktree
+  limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
+  FAIL son las mismas 70 filas QA pendientes.
 - Postflight de la sesión del GameMode: 23/24 PASS, sin procesos Unreal y Output
   Log válido sin diagnósticos propios prohibidos. El único FAIL son 70 resultados
   QA pendientes.

@@ -26,8 +26,8 @@
   geometría funcional y ejecutar todas las pruebas PIE. En la sesión del mapa la
   base e HWiNFO estaban activos y se reportaron 37 °C actuales / 78 °C máximos.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
-  contiene `336aa91`. Los commits locales desde `8e0aaba` hasta `d4d6732`
-  todavía no están publicados; no se hizo un nuevo push, merge, rebase ni tag.
+  contiene `336aa91`. Los commits locales posteriores todavía no están
+  publicados; no se hizo un nuevo push, merge, rebase ni tag.
 
 Este documento consolida lo realizado con Claude y Codex para facilitar una
 transferencia entre computadoras, revisión, continuidad, auditoría y una futura
@@ -67,6 +67,8 @@ obligaciones de atribución.
     `BP_GameMode_DeveloperTesting`.
   - d4d6732 — configuración base de `L_Developer_Testing`, evidencia parcial y
     documentación.
+  - 1c42a63 — postflight y documentación final de la configuración base del
+    mapa.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -84,8 +86,9 @@ obligaciones de atribución.
 La base de enfriamiento ya fue usada con éxito en las sesiones controladas.
 `IMC_Player`, los tres Blueprints y la configuración base del mapa quedaron
 guardados y validados. `LVL-01` continúa pendiente hasta comprobar el Player
-Start contra el suelo real. El próximo trabajo empieza en la sección 10 de
-`EDITOR_SETUP_V0.1.md`: definir el layout global y crear la geometría de prueba.
+Start contra el suelo real. El layout compacto exacto de 23 cubos ya está
+registrado en la sección 10 de `EDITOR_SETUP_V0.1.md`; el próximo trabajo es
+crearlo y verificarlo.
 No repetir las secciones 5 a 9 ni abrir PIE antes de completar y verificar esa
 geometría.
 
@@ -138,7 +141,8 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > Las seis Input Actions, los 16 mappings de IMC_Player y los tres Blueprints ya
 > están guardados y verificados. L_Developer_Testing ya usa el GameMode y tiene
 > un único Player Start provisional. Continúa desde EDITOR_SETUP_V0.1.md sección
-> 10 creando la geometría de prueba; no repitas las secciones 5 a 9. Revalida el
+> 10 creando el layout compacto documentado; no repitas las secciones 5 a 9.
+> Revalida el
 > Player Start después del suelo. No
 > ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
 > aprobadas hasta ejecutarlas.
@@ -1032,9 +1036,9 @@ restante:
    `BP_GameMode_DeveloperTesting_C`, contiene un único Player Start provisional y
    no contiene Pawn manual ni lógica de Level Blueprint. `LVL-01` sigue pendiente
    hasta revalidarlo después del suelo.
-8. **Siguiente tarea.** Definir el layout y crear la geometría de la sección 10;
-   colocar el suelo de 20 cm con su superficie superior en `Z=0` y repetir el
-   despeje del Player Start antes de continuar.
+8. **Siguiente tarea.** Crear el layout compacto de 23 cubos ya documentado en la
+   sección 10; colocar primero el suelo de 20 cm con su superficie superior en
+   `Z=0` y repetir el despeje del Player Start antes de continuar.
 9. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos

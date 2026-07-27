@@ -632,6 +632,78 @@ lado; su escala es dimensión deseada / 100.
 
 En World Outliner crear la carpeta PlayerTests.
 
+### Layout compacto reproducible
+
+El 2026-07-26 se eligió este layout técnico para la pista de pruebas. Completa
+coordenadas que la especificación dimensional no definía; no representa el diseño
+visual final del juego.
+
+Convenciones:
+
+- todas las medidas y ubicaciones están en centímetros;
+- todos los cubos usan `/Engine/BasicShapes/Cube`, rotación `(0,0,0)`,
+  `Collision Preset = BlockAll` y `Mobility = Static`;
+- la superficie superior del suelo queda en `Z=0`;
+- los actores se organizan bajo las subcarpetas indicadas de `PlayerTests`;
+- el Player Start existente se mueve y se reutiliza; no crear un segundo;
+- pasillo y habitación quedan sin techo;
+- la pared con puerta también es la pared oeste de la habitación;
+- las paredes y el techo del túnel adoptan 20 cm de grosor operativo;
+- no se añade el descanso opcional de la escalera.
+
+Mover el único Player Start a:
+
+| Actor | Carpeta | Ubicación | Rotación |
+|---|---|---:|---:|
+| `PlayerStart_PlayerV01` | `PlayerTests/Spawn` | `(-600,-500,100)` | `(0,0,0)` |
+
+Con la cápsula real 42/96, la base queda en `Z=4`. Después de crear el suelo hay
+que recargar el mapa y confirmar Map Check 0/0, ausencia de `BADsize` y espacio
+libre antes de cambiar `LVL-01` a PASS.
+
+Crear estas 23 piezas:
+
+| Actor | Carpeta | Ubicación | Dimensiones |
+|---|---|---:|---:|
+| `GEO01_Floor` | `PlayerTests/GEO01_Floor` | `(0,0,-10)` | `2000×2000×20` |
+| `GEO02_Corridor_Wall_South` | `PlayerTests/GEO02_Corridor` | `(-300,-635,150)` | `1000×20×300` |
+| `GEO02_Corridor_Wall_North` | `PlayerTests/GEO02_Corridor` | `(-300,-365,150)` | `1000×20×300` |
+| `GEO03_DoorWall_SouthPier` | `PlayerTests/GEO03_DoorWall` | `(210,-615,150)` | `20×110×300` |
+| `GEO03_DoorWall_NorthPier` | `PlayerTests/GEO03_DoorWall` | `(210,-385,150)` | `20×110×300` |
+| `GEO03_DoorWall_Lintel` | `PlayerTests/GEO03_DoorWall` | `(210,-500,270)` | `20×120×60` |
+| `GEO04_Room_Wall_South` | `PlayerTests/GEO04_Room` | `(370,-660,150)` | `300×20×300` |
+| `GEO04_Room_Wall_North` | `PlayerTests/GEO04_Room` | `(370,-340,150)` | `300×20×300` |
+| `GEO04_Room_Wall_East` | `PlayerTests/GEO04_Room` | `(530,-500,150)` | `20×340×300` |
+| `GEO05_Tunnel_Wall_South` | `PlayerTests/GEO05_Tunnel` | `(-550,30,80)` | `300×20×160` |
+| `GEO05_Tunnel_Wall_North` | `PlayerTests/GEO05_Tunnel` | `(-550,170,80)` | `300×20×160` |
+| `GEO05_Tunnel_Roof` | `PlayerTests/GEO05_Tunnel` | `(-550,100,150)` | `300×160×20` |
+| `GEO06_Stair_01` | `PlayerTests/GEO06_Stairs` | `(-285,100,8.5)` | `30×220×17` |
+| `GEO06_Stair_02` | `PlayerTests/GEO06_Stairs` | `(-255,100,17)` | `30×220×34` |
+| `GEO06_Stair_03` | `PlayerTests/GEO06_Stairs` | `(-225,100,25.5)` | `30×220×51` |
+| `GEO06_Stair_04` | `PlayerTests/GEO06_Stairs` | `(-195,100,34)` | `30×220×68` |
+| `GEO06_Stair_05` | `PlayerTests/GEO06_Stairs` | `(-165,100,42.5)` | `30×220×85` |
+| `GEO06_Stair_06` | `PlayerTests/GEO06_Stairs` | `(-135,100,51)` | `30×220×102` |
+| `GEO06_Stair_07` | `PlayerTests/GEO06_Stairs` | `(-105,100,59.5)` | `30×220×119` |
+| `GEO06_Stair_08` | `PlayerTests/GEO06_Stairs` | `(-75,100,68)` | `30×220×136` |
+| `GEO06_Stair_09` | `PlayerTests/GEO06_Stairs` | `(-45,100,76.5)` | `30×220×153` |
+| `GEO06_Stair_10` | `PlayerTests/GEO06_Stairs` | `(-15,100,85)` | `30×220×170` |
+| `GEO07_CameraWall` | `PlayerTests/GEO07_CameraWall` | `(250,600,150)` | `500×20×300` |
+
+Dimensiones interiores resultantes:
+
+- pasillo: `X=-800..200`, `Y=-625..-375`, 1000 × 250 × 300;
+- puerta: `Y=-560..-440`, `Z=0..240`, hueco libre 120 × 240;
+- habitación: `X=220..520`, `Y=-650..-350`, 300 × 300 × 300;
+- túnel: `X=-700..-400`, `Y=40..160`, `Z=0..140`,
+  300 × 120 × 140;
+- escalera: `X=-300..0`, `Y=-10..210`, diez niveles de 17 cm hasta
+  `Z=170`;
+- pared de cámara: `X=0..500`, `Y=590..610`, `Z=0..300`.
+
+El circuito comienza dentro del pasillo mirando hacia `+X`. Tras probar la
+habitación, se regresa por el pasillo, se rodea su extremo oeste, se atraviesa el
+túnel, se sube y baja la escalera y finalmente se prueba la pared de cámara.
+
 ### Suelo
 
 ~~~text

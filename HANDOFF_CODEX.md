@@ -80,6 +80,7 @@ obligaciones de atribución.
   - 5e1993f — postflight y documentación final de la geometría.
   - 8def4bb — evidencia y documentación de la primera prueba PIE.
   - c2a61c3 — postflight y documentación final de la primera prueba PIE.
+  - 9e46365 — evidencia y documentación del movimiento cardinal W/A/S/D.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -669,6 +670,9 @@ Resultado de la sesión de movimiento cardinal del 2026-07-27:
   `4D5DB3E6A42AE27237F05E9723EBBE5201B2FBE38536292AA4B2818F489106D4`;
 - `PLR-MOV-001` quedó en PASS mediante `EV-MOV-WASD-01`. La matriz pasó a 26 PASS
   y 58 `NOT RUN`; la siguiente prueba es `PLR-MOV-002`.
+- después del commit local `9e46365`, postflight obtuvo 24/25 PASS con worktree
+  limpio, Unreal cerrado, estructura de 84 IDs válida y Output Log reconocido.
+  El único FAIL esperado son los 58 IDs QA todavía `NOT RUN`.
 
 Referencia operativa conservada de las sesiones de Blueprints:
 
@@ -1101,6 +1105,9 @@ Avisos externos observados:
 - En una octava sesión se probó W/A/S/D por separado con
   `showdebug enhancedinput`. Los cuatro vectores, las direcciones del Character y
   la detención al soltar coincidieron con la configuración; `PLR-MOV-001` pasó.
+- Postflight de la sesión de movimiento sobre `9e46365`: 24/25 PASS, con
+  worktree limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado
+  son los 58 IDs QA todavía `NOT RUN`.
 - Postflight de la primera sesión PIE sobre `8def4bb`: 24/25 PASS, con worktree
   limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado son los
   59 IDs QA todavía `NOT RUN`.

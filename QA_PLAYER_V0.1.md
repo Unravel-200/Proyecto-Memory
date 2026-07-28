@@ -372,7 +372,10 @@ bytes, SHA-256
 `4D5DB3E6A42AE27237F05E9723EBBE5201B2FBE38536292AA4B2818F489106D4`.
 Solo `PLR-MOV-001` pasa con esta evidencia; diagonales, look, velocidades, sprint,
 crouch, salto, cámaras, espacios, mando, respawn, persistencia entre ejecuciones
-y rendimiento continúan `NOT RUN`.
+y rendimiento continúan `NOT RUN`. Después del commit local `9e46365`,
+postflight obtuvo 24/25 PASS con worktree limpio, Unreal cerrado, estructura de
+84 IDs válida y Output Log reconocido. El único FAIL esperado son los 58 IDs que
+permanecen `NOT RUN`.
 
 ### Crouch híbrido
 
@@ -568,5 +571,5 @@ de esta matriz.
 | SETUP-LVL-20260726 | 2026-07-26 | `d4d6732` | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial; postflight 23/24 | Pendiente |
 | SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
 | PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01; postflight 24/25 sobre `8def4bb` | Pendiente |
-| PIE-MOV-20260727 | 2026-07-27 | `c2a61c3` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 58 IDs NOT RUN | EV-MOV-WASD-01 | Pendiente |
+| PIE-MOV-20260727 | 2026-07-27 | `c2a61c3` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 58 IDs NOT RUN | EV-MOV-WASD-01; postflight 24/25 sobre `9e46365` | Pendiente |
 | | | | | | | |

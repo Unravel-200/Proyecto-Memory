@@ -426,7 +426,9 @@ describirse como libre de warnings generales. Unreal cerró con
 SHA-256
 `16D19EB3BCB8393D8E4893EA9A9AA90398F87CB0577AE17D68988483B5338324`.
 Solo `PLR-MOV-002` pasa con esta evidencia; la siguiente prueba es
-`PLR-MOV-003`.
+`PLR-MOV-003`. Después del commit local `39352d1`, postflight obtuvo 24/25 PASS
+con worktree limpio, Unreal cerrado, estructura de 84 IDs válida y el Output Log
+reconocido. El único FAIL esperado son los 57 IDs todavía `NOT RUN`.
 
 ### Crouch híbrido
 
@@ -623,5 +625,5 @@ de esta matriz.
 | SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
 | PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01; postflight 24/25 sobre `8def4bb` | Pendiente |
 | PIE-MOV-20260727 | 2026-07-27 | `c2a61c3` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 58 IDs NOT RUN | EV-MOV-WASD-01; postflight 24/25 sobre `9e46365` | Pendiente |
-| PIE-DIAG-20260727 | 2026-07-27 | `352f629` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 57 IDs NOT RUN | EV-MOV-DIAG-01 | Pendiente |
+| PIE-DIAG-20260727 | 2026-07-27 | `352f629` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 57 IDs NOT RUN | EV-MOV-DIAG-01; postflight 24/25 sobre `39352d1` | Pendiente |
 | | | | | | | |

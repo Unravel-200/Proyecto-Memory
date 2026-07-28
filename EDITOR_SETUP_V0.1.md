@@ -230,6 +230,9 @@ Esa sesión dejó preparada la sección 11, completada el mismo 2026-07-27.
    por Git está bajo `UnrealProject/Saved/QA/PlayerV0.1/DIAG-20260727/`; el log
    mide 358642 bytes y su SHA-256 es
    `16D19EB3BCB8393D8E4893EA9A9AA90398F87CB0577AE17D68988483B5338324`.
+8. Después del commit local `39352d1`, postflight obtuvo 24/25 PASS con worktree
+   limpio, Unreal cerrado y el Output Log reconocido. El único FAIL esperado son
+   los 57 IDs QA todavía `NOT RUN`.
 
 La siguiente prueba es `PLR-MOV-003`, sección 12 punto 4: look horizontal y
 vertical con el ratón, incluido detenerlo y confirmar que no queda movimiento.

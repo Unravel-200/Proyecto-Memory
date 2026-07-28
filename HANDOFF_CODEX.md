@@ -84,6 +84,7 @@ obligaciones de atribución.
   - c2a61c3 — postflight y documentación final de la primera prueba PIE.
   - 9e46365 — evidencia y documentación del movimiento cardinal W/A/S/D.
   - 352f629 — postflight y documentación final del movimiento cardinal.
+  - 39352d1 — evidencia y documentación del movimiento diagonal.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -706,6 +707,9 @@ Resultado de la sesión de movimiento diagonal del 2026-07-27:
   `16D19EB3BCB8393D8E4893EA9A9AA90398F87CB0577AE17D68988483B5338324`;
 - `PLR-MOV-002` quedó en PASS mediante `EV-MOV-DIAG-01`. La matriz pasó a 27 PASS
   y 57 `NOT RUN`; la siguiente prueba es `PLR-MOV-003`.
+- después del commit local `39352d1`, postflight obtuvo 24/25 PASS con worktree
+  limpio, Unreal cerrado, estructura de 84 IDs válida y Output Log reconocido.
+  El único FAIL esperado son los 57 IDs QA todavía `NOT RUN`.
 
 Referencia operativa conservada de las sesiones de Blueprints:
 
@@ -1143,6 +1147,9 @@ Avisos externos observados:
   produjeron el vector esperado, quedaron alrededor de 300 cm/s sin la ventaja
   diagonal de aproximadamente 424 cm/s y se detuvieron al soltar;
   `PLR-MOV-002` pasó.
+- Postflight de la sesión diagonal sobre `39352d1`: 24/25 PASS, con worktree
+  limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado son los
+  57 IDs QA todavía `NOT RUN`.
 - Postflight de la sesión de movimiento sobre `9e46365`: 24/25 PASS, con
   worktree limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado
   son los 58 IDs QA todavía `NOT RUN`.

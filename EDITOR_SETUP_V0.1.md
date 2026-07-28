@@ -24,7 +24,9 @@ Estado de partida verificado:
   dos clases y compila.
 - Mapa base: `L_Developer_Testing` usa `BP_GameMode_DeveloperTesting`, contiene
   exactamente un Player Start y no contiene Pawn manual ni lógica de Level
-  Blueprint. La geometría de la sección 10 todavía no existe.
+  Blueprint. La geometría compacta de 23 cubos de la sección 10 existe, está
+  guardada y fue auditada fuera de PIE mediante MCP; PIE todavía no se ha
+  ejecutado.
 
 ### Sesión de Input completada el 2026-07-22
 
@@ -124,6 +126,34 @@ configuración base de la sección 9 se completó en la sesión siguiente.
 No se creó geometría, no se ejecutó PIE ni se recompiló C++. El Player Start debe
 revisarse otra vez después de crear el suelo. La siguiente sesión empieza en la
 sección 10 y debe decidir primero el layout global de la geometría.
+
+### Sesión de geometría completada el 2026-07-27
+
+1. HWiNFO estaba activo y se informó una lectura inicial de 60 °C actual / 67 °C
+   máxima. Preflight obtuvo 19/19 PASS sobre `90ef65f`.
+2. Se abrió únicamente `/Game/Maps/L_Developer_Testing`. No existía geometría ni
+   trabajo ajeno colocado; había un solo Player Start.
+3. Se creó primero `GEO01_Floor` en `(0,0,-10)`. MCP confirmó bounds
+   `(-1000,-1000,-20)..(1000,1000,0)`, cubo oficial, `BlockAll`,
+   `QueryAndPhysics`, `ECC_WorldStatic`, `Static` y física desactivada.
+4. El Player Start existente se reutilizó como `PlayerStart_PlayerV01` en
+   `(-600,-500,100)`. Después de guardar y recargar, Map Check informó 0 errores
+   y 0 advertencias y no apareció `BADsize`. La cápsula real 42/96 deja su base
+   en `Z=4` y 83 cm libres a cada lado.
+5. Se crearon las otras 22 piezas del layout compacto. MCP auditó las 23 antes
+   de guardar y nuevamente después de recargar: nombres, carpetas, transforms,
+   bounds, malla, movilidad y colisión coincidieron con esta sección.
+6. Los diez escalones apoyan en `Z=0`; la pared de cámara conserva `BlockAll`,
+   que bloquea Pawn y Camera. El mapa mantiene el GameMode correcto, un único
+   Player Start, cero Pawn manual y cero `LevelScriptActor`.
+7. Se guardó solo el mapa, quedó no sucio y la recarga final produjo Map Check
+   0/0. El archivo mide 60641 bytes y su SHA-256 es
+   `05791E0B54CA19C9BB862E264BD1E4B79BB614133D8C67D4B0C0F03F6DAD81B6`.
+   Unreal cerró con `LogExit: Exiting`.
+
+No se ejecutó PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los
+guardados iniciaron validación automática sin producir un resultado aprobatorio.
+La siguiente sesión empieza en la sección 11.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -601,10 +631,9 @@ Conservar vacío el Event Graph. Compilar y guardar.
 
 ## 9. Configurar L_Developer_Testing
 
-**Estado: configuración base completada el 2026-07-26. `LVL-01` sigue pendiente
-hasta crear el suelo y revalidar el Player Start con la cápsula real. No repetir
-la asignación del GameMode ni crear otro Player Start si el mapa y su hash
-coinciden con `EV-LVL-SETUP-01` de `QA_PLAYER_V0.1.md`.**
+**Estado: completado y revalidado el 2026-07-27. `LVL-01` está en PASS mediante
+`EV-LVL-SETUP-01` y `EV-GEO-LVL-01`. No repetir la asignación del GameMode ni
+crear otro Player Start.**
 
 Abrir /Game/Maps/L_Developer_Testing.
 
@@ -626,6 +655,10 @@ No colocar manualmente BP_PlayerCharacter si el GameMode ya lo genera.
 No añadir lógica al Level Blueprint.
 
 ## 10. Crear geometría de prueba
+
+**Estado: completado y revalidado desde disco el 2026-07-27 mediante
+`EV-GEO-LVL-01`. No recrear ni duplicar estas piezas. La siguiente tarea es la
+primera ejecución PIE de la sección 11.**
 
 Usar Shapes > Cube para evitar importar assets. El cubo básico mide 100 cm por
 lado; su escala es dimensión deseada / 100.

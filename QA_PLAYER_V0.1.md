@@ -7,11 +7,11 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **mappings y los tres Blueprints auditados; configuración base del
-mapa guardada, pero pendiente de validarla contra el suelo; ninguna prueba PIE
-ejecutada**. Los 14 PASS de `MAP-01..07`, `BP-01..06` y `EVC-04` demuestran
-configuración guardada, no que la integración sea jugable ni que v0.1.0 esté
-terminada.
+Estado actual: **mappings, los tres Blueprints, el mapa y la geometría auditados
+fuera de PIE; ninguna prueba PIE ejecutada**. Los 23 PASS de `MAP-01..07`,
+`BP-01..06`, `LVL-01`, `GEO-01..07` y `EVC-04..05` demuestran configuración y
+geometría guardadas, no que la integración sea jugable ni que v0.1.0 esté
+terminada. Los otros 61 IDs continúan `NOT RUN`.
 
 Referencias y línea base:
 
@@ -23,8 +23,9 @@ Referencias y línea base:
 - Estado al actualizar esta plantilla: seis Input Actions e `IMC_Player` existen;
   los 16 mappings están verificados y `BP_PlayerController` y
   `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
-  configurado y validado. `L_Developer_Testing` usa ese GameMode y conserva un
-  único Player Start. Faltan la geometría funcional y las pruebas PIE.
+  configurado y validado. `L_Developer_Testing` usa ese GameMode, conserva un
+  único Player Start y contiene la pista compacta de 23 cubos validada. Faltan
+  todas las pruebas PIE.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -167,7 +168,7 @@ SHA-256 `6F602EEA54C72BE64FE327DAC86CA7623509F281268BF33574509BAFA13B6C1A`.
 | BP-04 | 1P: ubicación `(-10,0,64)`, Use Pawn Control Rotation true. 3P: arm 300 cm, boom usa control rotation, Probe Size 12 cm, canal Camera y cámara no usa control rotation. | PASS | EV-BPCHAR-01 |
 | BP-05 | CameraMode: Initial Mode First Person, FOV 1P/3P 90° y Third Person Arm Length 300 cm. | PASS | EV-BPCHAR-01 |
 | BP-06 | `BP_GameMode_DeveloperTesting` hereda de GameModeBase, usa `BP_PlayerCharacter` y `BP_PlayerController`, tiene Event Graph vacío, compila y guarda. | PASS | EV-BPGM-01 |
-| LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | NOT RUN | EV-LVL-SETUP-01 parcial; repetir después de GEO-01 |
+| LVL-01 | `L_Developer_Testing` usa ese GameMode; hay un solo Player Start, fuera del suelo, sin `BADsize`, con espacio para cápsula de 84 × 192 cm; no hay Pawn manual ni lógica en Level Blueprint. | PASS | EV-LVL-SETUP-01; EV-GEO-LVL-01 |
 
 `EV-BPC-01` — sesión local del 2026-07-22 sobre `d569e31`: MCP confirmó el
 parent exacto `/Script/ProyectoMemoria.PMPlayerController`, leyó de vuelta las 12
@@ -222,13 +223,51 @@ ausencia de `BADsize`.
 
 | ID | Elemento y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|
-| GEO-01 | Suelo 2000 × 2000 × 20 cm, BlockAll y Static. | NOT RUN | |
-| GEO-02 | Pasillo interior 1000 × 250 × 300 cm, paredes de 20 cm. | NOT RUN | |
-| GEO-03 | Puerta con hueco libre 120 × 240 cm y pared de 20 cm. | NOT RUN | |
-| GEO-04 | Habitación interior 300 × 300 × 300 cm y puerta 120 × 240 cm. | NOT RUN | |
-| GEO-05 | Túnel crouch 300 × 120 × 140 cm. | NOT RUN | |
-| GEO-06 | Escalera de 10 peldaños, cada uno 17 cm alto × 30 cm profundo × 220 cm ancho; altura total 170 cm; piezas apoyadas y colisión verificable. | NOT RUN | |
-| GEO-07 | Pared de cámara 500 × 20 × 300 cm; bloquea Camera y Pawn. | NOT RUN | |
+| GEO-01 | Suelo 2000 × 2000 × 20 cm, BlockAll y Static. | PASS | EV-GEO-LVL-01 |
+| GEO-02 | Pasillo interior 1000 × 250 × 300 cm, paredes de 20 cm. | PASS | EV-GEO-LVL-01 |
+| GEO-03 | Puerta con hueco libre 120 × 240 cm y pared de 20 cm. | PASS | EV-GEO-LVL-01 |
+| GEO-04 | Habitación interior 300 × 300 × 300 cm y puerta 120 × 240 cm. | PASS | EV-GEO-LVL-01 |
+| GEO-05 | Túnel crouch 300 × 120 × 140 cm. | PASS | EV-GEO-LVL-01 |
+| GEO-06 | Escalera de 10 peldaños, cada uno 17 cm alto × 30 cm profundo × 220 cm ancho; altura total 170 cm; piezas apoyadas y colisión verificable. | PASS | EV-GEO-LVL-01 |
+| GEO-07 | Pared de cámara 500 × 20 × 300 cm; bloquea Camera y Pawn. | PASS | EV-GEO-LVL-01 |
+
+`EV-GEO-LVL-01` — ejecución `SETUP-GEO-20260727`, fecha local 2026-07-27
+America/Costa_Rica, operador propietario con automatización MCP de Codex, Lenovo
+83DS con Ryzen 7 8845HS, Radeon 780M, 16 GB y Windows 11; UE 5.8 Win64
+Development Editor, rama `feature/v0.1-player-cameras`, commit inicial
+`90ef65f`. Preflight 19/19 PASS, HWiNFO activo y lectura inicial informada de
+60 °C actual / 67 °C máxima. Se abrió únicamente
+`/Game/Maps/L_Developer_Testing`. Primero se creó
+`GEO01_Floor`; su transform y sus bounds confirmaron 2000 × 2000 × 20 cm, con
+superficie superior en `Z=0`, `/Engine/BasicShapes/Cube`, `BlockAll`,
+`QueryAndPhysics`, `ECC_WorldStatic`, `Static` y física desactivada. El único
+Player Start se reutilizó como `PlayerStart_PlayerV01` en
+`(-600,-500,100)`, rotación cero y escala uno. Tras guardar y recargar, Map Check
+informó 0 errores y 0 advertencias y el registro no mostró `BADsize`; la cápsula
+real ya validada de 42/96 deja su base en `Z=4` y 83 cm libres a cada lado del
+pasillo.
+
+Después se añadieron las otras 22 piezas. MCP confirmó, antes de guardar y otra
+vez después de recargar desde disco, 23 nombres únicos, rotación cero y los
+transforms y bounds exactos del layout de `EDITOR_SETUP_V0.1.md`. Todos usan el
+cubo oficial, `BlockAll`, `QueryAndPhysics`, `ECC_WorldStatic`, `Static`, sin
+simular física ni overrides de respuesta. Las carpetas contienen
+1/2/3/3/3/10/1 piezas para suelo, pasillo, puerta, habitación, túnel, escalera y
+pared de cámara; `PlayerTests/Spawn` contiene solo el Player Start. Los bounds
+derivan los interiores 1000 × 250 × 300, 120 × 240, 300 × 300 × 300 y
+300 × 120 × 140. Los diez escalones apoyan su cara inferior en `Z=0` y llegan a
+170 cm; la pared de cámara mide 500 × 20 × 300 y `BlockAll` bloquea Pawn y
+Camera.
+
+La lectura final confirmó el GameMode exacto, un Player Start, cero Pawn manual,
+cero `LevelScriptActor`, mapa no sucio y Map Check 0/0. Se guardó solo el mapa.
+El archivo quedó en 60641 bytes; SHA-256
+`05791E0B54CA19C9BB862E264BD1E4B79BB614133D8C67D4B0C0F03F6DAD81B6`.
+La salida reproducible está en
+`UnrealProject/Saved/Logs/ProyectoMemoria.log`; Unreal cerró normalmente con
+`LogExit: Exiting`. No se ejecutó PIE, AssetCheck explícito, Hot Reload ni
+compilación C++. Los guardados iniciaron validación automática sin producir un
+resultado aprobatorio.
 
 ## C. Matriz funcional de PIE
 
@@ -336,7 +375,7 @@ Could not persist the preferred camera mode
 | EVC-02 | UE 5.8, plugin Enhanced Input y clases Input configuradas. | NOT RUN | |
 | EVC-03 | Content Drawer, tipos de las seis IA y mappings completos de `IMC_Player`. | NOT RUN | |
 | EVC-04 | Parent classes, jerarquía, defaults, Event Graphs vacíos y compilación de los tres Blueprints. | PASS | EV-BPC-01; EV-BPCHAR-01; EV-BPGM-01 |
-| EVC-05 | World Settings, Player Start, dimensiones y colisiones de geometría. | NOT RUN | |
+| EVC-05 | World Settings, Player Start, dimensiones y colisiones de geometría. | PASS | EV-GEO-LVL-01 |
 | EVC-06 | Output Log al iniciar y durante PIE; búsqueda de los seis mensajes prohibidos. | NOT RUN | |
 | EVC-07 | Videos/mediciones de movimiento, salto, crouch, cámaras, espacios y ciclo de vida. | NOT RUN | |
 | EVC-08 | Mando identificado, valores analógicos, drift observado y zona muerta 0 confirmada. | NOT RUN | |
@@ -363,9 +402,9 @@ este documento.
 | Movimiento estable al objetivo de 60 FPS | `PLR-MOV-001..006`, `PLR-PERF-001` | NOT RUN |
 | Salto normal y desde crouch | `MAP-07`, `BP-01`, `PLR-JMP-001..003` | NOT RUN |
 | Inputs configurables en assets/defaults | `SET-02..03`, `MAP-01..07`, `BP-01`, `PLR-CAM-005..006`, `PLR-PAD-001..002` | NOT RUN |
-| Lógica central permanece en C++ | Auditoría heredada, `BP-01..02`, `LVL-01` | NOT RUN |
+| Lógica central permanece en C++ | Auditoría heredada, `BP-01..02`, `LVL-01` | PASS — EV-GEO-LVL-01 |
 | Valores de diseño ajustables en Blueprint | `BP-01`, `BP-03..05`, `PLR-CAM-005..006` | NOT RUN |
-| Sin lógica principal en Level Blueprint | `LVL-01` | NOT RUN |
+| Sin lógica principal en Level Blueprint | `LVL-01` | PASS — EV-GEO-LVL-01 |
 | Guardar la perspectiva elegida | `PLR-CAM-007`, `PLR-REG-005` | NOT RUN — implementación sin verificar |
 
 “Inputs configurables” cubre assets y defaults del Editor. La reasignación de
@@ -441,4 +480,5 @@ de esta matriz.
 |---|---|---|---|---|---|---|
 | SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
 | SETUP-LVL-20260726 | 2026-07-26 | `d4d6732` | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial; postflight 23/24 | Pendiente |
+| SETUP-GEO-20260727 | 2026-07-27 | `90ef65f` + cambio local del mapa | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01 | Pendiente |
 | | | | | | | |

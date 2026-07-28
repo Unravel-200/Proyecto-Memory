@@ -3,9 +3,9 @@
 ## Identificación de esta entrega
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
-- Fecha local: 2026-07-26 (America/Costa_Rica).
-- Última actualización: 2026-07-26 — `L_Developer_Testing` configurado, guardado
-  y recargado desde disco.
+- Fecha local: 2026-07-27 (America/Costa_Rica).
+- Última actualización: 2026-07-27 — pista compacta de 23 cubos creada,
+  auditada, guardada y recargada desde disco.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -22,9 +22,10 @@
   `BP_PlayerCharacter` y `BP_GameMode_DeveloperTesting` existen, tienen las
   referencias requeridas, Event Graphs vacíos y compilación exitosa.
   `L_Developer_Testing` usa ese GameMode, contiene exactamente un Player Start y
-  no contiene Pawn manual ni lógica de Level Blueprint. Todavía faltan crear la
-  geometría funcional y ejecutar todas las pruebas PIE. En la sesión del mapa la
-  base e HWiNFO estaban activos y se reportaron 37 °C actuales / 78 °C máximos.
+  no contiene Pawn manual ni lógica de Level Blueprint. La geometría funcional
+  compacta de 23 cubos está completa y validada. Todavía faltan ejecutar todas
+  las pruebas PIE. En la sesión de geometría HWiNFO estaba activo y se reportaron
+  inicialmente 60 °C actuales / 67 °C máximos.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
   contiene `336aa91`. Los commits locales posteriores todavía no están
   publicados; no se hizo un nuevo push, merge, rebase ni tag.
@@ -41,7 +42,7 @@ obligaciones de atribución.
 
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
-- HEAD al comenzar la sesión de `L_Developer_Testing`: `1629eac`.
+- HEAD al comenzar la sesión de geometría: `90ef65f`.
 - Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
@@ -69,6 +70,7 @@ obligaciones de atribución.
     documentación.
   - 1c42a63 — postflight y documentación final de la configuración base del
     mapa.
+  - 90ef65f — layout compacto exacto documentado y auditado.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -84,18 +86,16 @@ obligaciones de atribución.
 ### Próxima acción recomendada
 
 La base de enfriamiento ya fue usada con éxito en las sesiones controladas.
-`IMC_Player`, los tres Blueprints y la configuración base del mapa quedaron
-guardados y validados. `LVL-01` continúa pendiente hasta comprobar el Player
-Start contra el suelo real. El layout compacto exacto de 23 cubos ya está
-registrado en la sección 10 de `EDITOR_SETUP_V0.1.md`; el próximo trabajo es
-crearlo y verificarlo.
-No repetir las secciones 5 a 9 ni abrir PIE antes de completar y verificar esa
-geometría.
+`IMC_Player`, los tres Blueprints, el mapa y el layout compacto de 23 cubos
+quedaron guardados y validados. `LVL-01`, `GEO-01..07` y `EVC-05` están en PASS.
+El próximo trabajo empieza en la sección 11 de `EDITOR_SETUP_V0.1.md`: primera
+ejecución PIE y validación funcional del jugador. No repetir las secciones 5 a
+10.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 10: geometría. Después seguir con PIE.
+desde la sección 11: primera ejecución PIE.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -108,10 +108,9 @@ muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
 `EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` fueron corregidos el 2026-07-22. Los
 siete controles de configuración `MAP-01..07` están en PASS; las pruebas
-funcionales PIE continúan en `NOT RUN`. `BP-01..06` y `EVC-04` están en PASS por
-las auditorías guardadas de Controller, Character y GameMode. La configuración
-base del mapa tiene evidencia parcial, pero `LVL-01` sigue en `NOT RUN` hasta
-colocar el suelo y repetir el despeje del Player Start.
+funcionales PIE continúan en `NOT RUN`. `BP-01..06`, `LVL-01`, `GEO-01..07` y
+`EVC-04..05` están en PASS por las auditorías guardadas. La matriz contiene 23
+PASS y 61 IDs `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -140,10 +139,9 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > Plaza/SM_Tree_PlazaCentral_A.blend y .py. El C++ vigente ya compiló correctamente.
 > Las seis Input Actions, los 16 mappings de IMC_Player y los tres Blueprints ya
 > están guardados y verificados. L_Developer_Testing ya usa el GameMode y tiene
-> un único Player Start provisional. Continúa desde EDITOR_SETUP_V0.1.md sección
-> 10 creando el layout compacto documentado; no repitas las secciones 5 a 9.
-> Revalida el
-> Player Start después del suelo. No
+> un único Player Start definitivo y la pista compacta de 23 cubos validada.
+> Continúa desde EDITOR_SETUP_V0.1.md sección 11 con la primera ejecución PIE; no
+> repitas las secciones 5 a 10. No
 > ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
 > aprobadas hasta ejecutarlas.
 
@@ -329,13 +327,14 @@ mediante Git LFS:
 | UnrealProject/Content/Blueprints/Player/BP_PlayerController.uasset | Parent, 12 propiedades, Event Graph vacío, compilación y guardado verificados | 22564 B |
 | UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset | Parent, componentes, movimiento y cámaras verificados; Event Graph vacío | 27020 B |
 | UnrealProject/Content/Blueprints/Levels/BP_GameMode_DeveloperTesting.uasset | GameModeBase con Pawn/Controller verificados; Event Graph vacío | 22306 B |
-| UnrealProject/Content/Maps/L_Developer_Testing.umap | GameMode Override y un Player Start; validación final pendiente del suelo | 11648 B |
+| UnrealProject/Content/Maps/L_Developer_Testing.umap | GameMode, Player Start y layout compacto de 23 cubos auditados fuera de PIE | 60641 B |
 
 `/Game/Blueprints/Player` contiene `BP_PlayerController` y
 `BP_PlayerCharacter`; `/Game/Blueprints/Levels` contiene
 `BP_GameMode_DeveloperTesting`. `BP_TestActor` no se movió ni modificó.
 `L_Developer_Testing` conserva su ruta y fue modificado únicamente para la
-configuración base registrada en `EV-LVL-SETUP-01`.
+configuración base y la geometría registradas en `EV-LVL-SETUP-01` y
+`EV-GEO-LVL-01`.
 
 ## Archivo existente modificado por Codex
 
@@ -347,14 +346,17 @@ configuración base registrada en `EV-LVL-SETUP-01`.
   - Se desactivó mouse smoothing y se fijó zona muerta 0 para los sticks.
 - UnrealProject/Content/Maps/L_Developer_Testing.umap
   - Se asignó `BP_GameMode_DeveloperTesting_C` y se añadió un único Player Start
-    provisional, sin Pawn manual ni lógica de Level Blueprint.
+    definitivo, sin Pawn manual ni lógica de Level Blueprint.
+  - Se creó el layout compacto de 23 cubos bajo `PlayerTests`, con geometría
+    `BlockAll` y `Static`.
 
 El 2026-07-16 se crearon únicamente los siete assets de Input. El 2026-07-22 se
 completaron los mappings de `IMC_Player` y después, en sesiones separadas, se
 crearon `BP_PlayerController`, `BP_PlayerCharacter` y
 `BP_GameMode_DeveloperTesting`. El 2026-07-26 se configuró únicamente
 `L_Developer_Testing`: GameMode Override y un Player Start, sin añadir lógica de
-Level Blueprint. No se tocaron los repositorios excluidos. La única edición
+Level Blueprint. El 2026-07-27 se creó y validó únicamente su geometría compacta.
+No se tocaron los repositorios excluidos. La única edición
 autorizada de Codex fuera de Proyecto-Memory continúa siendo `6a270af` del
 2026-07-13.
 
@@ -363,18 +365,18 @@ autorizada de Codex fuera de Proyecto-Memory continúa siendo `6a270af` del
 EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible. Las secciones 3 y 4
 ya se ejecutaron; la sección 5 está completa con los 16 mappings, la sección 6
 con `BP_PlayerController`, la sección 7 con `BP_PlayerCharacter` y la sección 8
-con `BP_GameMode_DeveloperTesting`. La configuración base de la sección 9 está
-guardada; `LVL-01` debe revalidarse después del suelo. La siguiente tarea es la
-sección 10, geometría; PIE no se ha ejecutado. La existencia de los assets no
-confirma una integración jugable.
+con `BP_GameMode_DeveloperTesting`. Las secciones 9 y 10 están completas y
+revalidadas desde disco. La siguiente tarea es la sección 11, primera ejecución
+PIE; la existencia de los assets y la geometría todavía no confirma una
+integración jugable.
 
 ### Matriz y verificador QA
 
 `QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
 de assets, geometría, las 27 pruebas de la guía desglosadas, regresión, evidencias,
-incidencias y trazabilidad de aceptación. Actualmente tiene 14 PASS de
-configuración —`MAP-01..07`, `BP-01..06` y `EVC-04`— y 70 resultados `NOT RUN`;
-ninguna prueba PIE fue aprobada.
+incidencias y trazabilidad de aceptación. Actualmente tiene 23 PASS de
+configuración y geometría y 61 resultados `NOT RUN`; ninguna prueba PIE fue
+aprobada.
 
 `Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
 
@@ -556,6 +558,33 @@ Resultado de la sesión del 2026-07-26 para `L_Developer_Testing`:
   provisional en `Z=100` dejará 4 cm bajo la cápsula real;
 - postflight sobre `d4d6732`, con worktree limpio, obtuvo 23/24 PASS. El único
   FAIL esperado son las 70 filas QA todavía `NOT RUN`.
+
+Resultado de la sesión del 2026-07-27 para la geometría:
+
+- preflight obtuvo 19/19 PASS sobre `90ef65f`; HWiNFO estaba activo y se
+  reportaron inicialmente 60 °C actuales / 67 °C máximos;
+- se abrió únicamente `/Game/Maps/L_Developer_Testing`; no había geometría ni
+  actores de trabajo ajeno y se conservó un solo Player Start;
+- se creó primero `GEO01_Floor` con superficie superior en `Z=0`; se auditó como
+  cubo oficial, `BlockAll`, `QueryAndPhysics`, `ECC_WorldStatic`, `Static` y sin
+  física;
+- el Player Start existente se reutilizó como `PlayerStart_PlayerV01` en
+  `(-600,-500,100)`. La cápsula real 42/96 deja su base en `Z=4` y 83 cm libres
+  a cada lado; tras guardar y recargar, Map Check dio 0/0 y no apareció
+  `BADsize`;
+- se crearon las otras 22 piezas. MCP verificó las 23 antes de guardar y otra
+  vez después de recargar: nombres únicos, carpetas, transforms, bounds, cubo
+  oficial, `Static` y `BlockAll` sin overrides;
+- los conteos por carpeta son 1/2/3/3/3/10/1 más un Player Start. Las dimensiones
+  interiores, los diez escalones apoyados en `Z=0` y el bloqueo Pawn/Camera de la
+  pared coinciden con `EDITOR_SETUP_V0.1.md`;
+- la lectura final confirmó GameMode correcto, un Player Start, cero Pawn manual,
+  cero `LevelScriptActor`, mapa no sucio y Map Check 0/0;
+- se guardó únicamente el mapa. Quedó en 60641 bytes con SHA-256
+  `05791E0B54CA19C9BB862E264BD1E4B79BB614133D8C67D4B0C0F03F6DAD81B6`;
+- Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se ejecutó
+  PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los guardados
+  iniciaron validación automática sin producir un resultado aprobatorio.
 
 Preparación offline conservada para las sesiones de Blueprints restantes:
 
@@ -975,15 +1004,17 @@ Avisos externos observados:
 - En una quinta sesión corta, MCP configuró `L_Developer_Testing`: GameMode
   Override, un único Player Start, cero Pawn manual y cero `LevelScriptActor`;
   guardó y recargó el mapa, que pasó Map Check 0/0 y quedó no sucio. Esta evidencia
-  es parcial hasta comprobar el suelo y la cápsula real.
+  fue parcial hasta la sesión de geometría.
+- En una sexta sesión, MCP creó y auditó la pista compacta de 23 cubos, revalidó
+  el Player Start y volvió a comprobar todo después de guardar y recargar.
 - Postflight de la sesión del mapa sobre `d4d6732`: 23/24 PASS, con worktree
   limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
   FAIL son las mismas 70 filas QA pendientes.
 - Postflight de la sesión del GameMode: 23/24 PASS, sin procesos Unreal y Output
   Log válido sin diagnósticos propios prohibidos. El único FAIL son 70 resultados
   QA pendientes.
-- No se ejecutó PIE, pruebas de mando, respawn, geometría ni rendimiento. La
-  matriz tiene 14 PASS de configuración y 70 IDs que continúan `NOT RUN`.
+- No se ejecutó PIE, pruebas de mando, respawn ni rendimiento. La matriz tiene
+  23 PASS de configuración/geometría y 61 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -1002,9 +1033,9 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-El C++ vigente compila, los siete assets de Input y los tres Blueprints están
-completos, pero todavía no hay contenido jugable integrado. Estado y orden
-restante:
+El C++ vigente compila y el setup offline —Input, Blueprints, mapa y geometría—
+está completo, pero el comportamiento jugable todavía no se ha validado en PIE.
+Estado y orden restante:
 
 1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
    HEAD. No borrar los assets por aparecer sin seguimiento.
@@ -1032,21 +1063,21 @@ restante:
 6. **Completado; no repetir.** `BP_GameMode_DeveloperTesting` hereda de
    GameModeBase, usa `BP_PlayerCharacter_C` y `BP_PlayerController_C`, compila,
    está guardado y no contiene lógica en Event Graph.
-7. **Configuración base completada; no repetir.** `L_Developer_Testing` usa
-   `BP_GameMode_DeveloperTesting_C`, contiene un único Player Start provisional y
-   no contiene Pawn manual ni lógica de Level Blueprint. `LVL-01` sigue pendiente
-   hasta revalidarlo después del suelo.
-8. **Siguiente tarea.** Crear el layout compacto de 23 cubos ya documentado en la
-   sección 10; colocar primero el suelo de 20 cm con su superficie superior en
-   `Z=0` y repetir el despeje del Player Start antes de continuar.
-9. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
+7. **Completado; no repetir.** `L_Developer_Testing` usa
+   `BP_GameMode_DeveloperTesting_C`, contiene un único Player Start definitivo y
+   no contiene Pawn manual ni lógica de Level Blueprint. `LVL-01` está en PASS.
+8. **Completado; no repetir.** El layout compacto de 23 cubos de la sección 10
+   está guardado y validado; `GEO-01..07` y `EVC-05` están en PASS.
+9. **Siguiente tarea.** Ejecutar la sección 11 y `PLR-PIE-001`: confirmar spawn,
+   posesión, `IMC_Player`, perspectiva inicial y ausencia de mensajes prohibidos.
+10. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos
     0,5 s. Los límites 0,24/0,25/0,26 s requieren instrumentación o automatización;
     no deben validarse por estimación humana. Repetir a 30, 60 y 120 FPS cuando el
     hardware lo permita.
-10. Validar pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
-11. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
+11. Validar en PIE pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
+12. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
     paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
 ## Decisiones y deudas abiertas de v0.1.0

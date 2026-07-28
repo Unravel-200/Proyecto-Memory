@@ -184,8 +184,31 @@ Esa sesión dejó preparada la sección 11, completada el mismo 2026-07-27.
 8. Después del commit local `8def4bb`, postflight obtuvo 24/25 PASS con worktree
    limpio. El único FAIL esperado son los 59 IDs QA todavía `NOT RUN`.
 
-La siguiente prueba es `PLR-MOV-001`, sección 12 punto 2: W/A/S/D por separado
-con `showdebug enhancedinput`.
+### Movimiento cardinal completado el 2026-07-27
+
+1. Preflight obtuvo 19/19 PASS con worktree limpio sobre `c2a61c3`. La base de
+   enfriamiento y HWiNFO estaban activos; al finalizar se informaron 36 °C
+   actuales y 68 °C máximos.
+2. En PIE normal sobre `/Game/Maps/L_Developer_Testing` se activó
+   `showdebug enhancedinput` y se probaron W, A, S y D por separado.
+3. `IA_Move` mostró W `(0,+1)`, S `(0,-1)`, D `(+1,0)` y A `(-1,0)`. El
+   Character avanzó, retrocedió y se desplazó a ambos lados en las direcciones
+   esperadas, sin ejes intercambiados.
+4. Después de soltar cada tecla, lecturas repetidas de la posición quedaron
+   idénticas. La captura liberada de A también mostró `IA_Move=None` y `(0,0)`.
+   Intentos duplicados sin foco en el viewport se descartaron y no se usaron como
+   evidencia.
+5. PIE terminó con `bSessionEnded=true` y Unreal con `LogExit: Exiting`. No se
+   modificó ningún asset ni apareció uno de los seis diagnósticos prohibidos.
+   Avisos de audio, render y una referencia MCP vencida se registraron como ajenos
+   al Player.
+6. `PLR-MOV-001` quedó en PASS mediante `EV-MOV-WASD-01`. La evidencia ignorada
+   por Git está bajo `UnrealProject/Saved/QA/PlayerV0.1/MOV-20260727/`; el log
+   mide 349092 bytes y su SHA-256 es
+   `4D5DB3E6A42AE27237F05E9723EBBE5201B2FBE38536292AA4B2818F489106D4`.
+
+La siguiente prueba es `PLR-MOV-002`, sección 12 punto 3: las cuatro diagonales
+con dos teclas simultáneas.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -690,7 +713,8 @@ No añadir lógica al Level Blueprint.
 
 **Estado: completado y revalidado desde disco el 2026-07-27 mediante
 `EV-GEO-LVL-01`. No recrear ni duplicar estas piezas. La primera ejecución PIE de
-la sección 11 también está completada; la siguiente tarea es `PLR-MOV-001`.**
+la sección 11 y el movimiento cardinal también están completados; la siguiente
+tarea es `PLR-MOV-002`.**
 
 Usar Shapes > Cube para evitar importar assets. El cubo básico mide 100 cm por
 lado; su escala es dimensión deseada / 100.
@@ -860,7 +884,8 @@ Guardar L_Developer_Testing.
 
 **Estado: completado el 2026-07-27 mediante `EV-PIE-START-01`; no repetir por
 costumbre la auditoría de arranque. Sí iniciar PIE de nuevo para cada prueba
-funcional. Continuar en la sección 12, punto 2, con `PLR-MOV-001`.**
+funcional. `PLR-MOV-001` también está completada; continuar en la sección 12,
+punto 3, con `PLR-MOV-002`.**
 
 Antes de Play:
 
@@ -900,9 +925,9 @@ Could not persist the preferred camera mode
 
 Registrar cada prueba como PASS, FAIL o BLOCKED.
 
-1. Spawn y posesión.
-2. Movimiento W/A/S/D.
-3. Movimiento diagonal.
+1. Spawn y posesión. **Completado: `PLR-PIE-001`.**
+2. Movimiento W/A/S/D. **Completado: `PLR-MOV-001`.**
+3. Movimiento diagonal. **Siguiente: `PLR-MOV-002`.**
 4. Look con ratón.
 5. Caminar a aproximadamente 300 cm/s.
 6. Sprint a aproximadamente 550 cm/s y retorno a 300.

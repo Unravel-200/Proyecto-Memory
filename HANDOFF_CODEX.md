@@ -78,6 +78,7 @@ obligaciones de atribución.
   - 90ef65f — layout compacto exacto documentado y auditado.
   - 83644f5 — geometría compacta creada, auditada y documentada.
   - 5e1993f — postflight y documentación final de la geometría.
+  - 8def4bb — evidencia y documentación de la primera prueba PIE.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -636,6 +637,9 @@ Resultado de la primera sesión PIE del 2026-07-27:
   PASS mediante `EV-PIE-START-01`; la matriz pasó a 25 PASS y 59 `NOT RUN`.
   Movimiento completo, look, sprint, crouch, salto, cámaras, espacios, mando,
   respawn, persistencia entre ejecuciones y rendimiento siguen sin probar.
+- después del commit local `8def4bb`, postflight obtuvo 24/25 PASS con worktree
+  limpio, assets LFS hidratados, Unreal cerrado y la copia preservada del log
+  reconocida. El único FAIL esperado son los 59 IDs QA todavía `NOT RUN`.
 
 Referencia operativa conservada de las sesiones de Blueprints:
 
@@ -1065,6 +1069,9 @@ Avisos externos observados:
   215.939824 cm y demostró posesión más `IMC_Player` activo. La preferencia y el
   modo runtime coincidieron en First Person y no apareció ninguno de los seis
   diagnósticos prohibidos.
+- Postflight de la primera sesión PIE sobre `8def4bb`: 24/25 PASS, con worktree
+  limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado son los
+  59 IDs QA todavía `NOT RUN`.
 - Postflight de la sesión de geometría sobre `83644f5`: 24/25 PASS, con worktree
   limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
   FAIL eran los 61 IDs QA pendientes en ese momento.

@@ -181,6 +181,8 @@ Esa sesión dejó preparada la sección 11, completada el mismo 2026-07-27.
    `r.MotionVectorSimulation` no se describen como un log completamente limpio.
 7. `PLR-PIE-001` y `EVC-06` quedaron en PASS mediante `EV-PIE-START-01`. No se
    guardó ni modificó ningún asset.
+8. Después del commit local `8def4bb`, postflight obtuvo 24/25 PASS con worktree
+   limpio. El único FAIL esperado son los 59 IDs QA todavía `NOT RUN`.
 
 La siguiente prueba es `PLR-MOV-001`, sección 12 punto 2: W/A/S/D por separado
 con `showdebug enhancedinput`.

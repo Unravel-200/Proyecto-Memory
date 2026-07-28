@@ -332,6 +332,8 @@ como externos al Player. La copia inmutable de esta ejecución quedó bajo
 `UnrealProject/Saved/QA/PlayerV0.1/PIE-START-20260727/`. Log final: 332942 bytes,
 SHA-256
 `DE80BE804F6F173ED1B6F4C288A64402706ABD0D4182823EA85303CA8ABC777C`.
+Después del commit local `8def4bb`, postflight obtuvo 24/25 PASS con worktree
+limpio. El único FAIL esperado son los 59 IDs que permanecen `NOT RUN`.
 
 No se probaron el caso completo W/A/S/D con `showdebug enhancedinput`, look,
 velocidades, sprint, crouch, salto, toggle 1P/3P, espacios, mando, respawn,
@@ -530,5 +532,5 @@ de esta matriz.
 | SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
 | SETUP-LVL-20260726 | 2026-07-26 | `d4d6732` | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial; postflight 23/24 | Pendiente |
 | SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
-| PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01 | Pendiente |
+| PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01; postflight 24/25 sobre `8def4bb` | Pendiente |
 | | | | | | | |

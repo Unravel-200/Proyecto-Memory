@@ -8,11 +8,12 @@ desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
 Estado actual: **mappings, los tres Blueprints, el mapa y la geometría auditados;
-el arranque PIE y el movimiento cardinal W/A/S/D están aprobados**. Los 26 PASS
-de `MAP-01..07`, `BP-01..06`, `LVL-01`, `GEO-01..07`, `PLR-PIE-001`,
-`PLR-MOV-001` y `EVC-04..06` demuestran la configuración guardada, el arranque
-funcional inicial y las cuatro direcciones cardinales, no que el resto del Player
-sea jugable ni que v0.1.0 esté terminada. Los otros 58 IDs continúan `NOT RUN`.
+el arranque PIE y el movimiento cardinal y diagonal están aprobados**. Los 27
+PASS de `MAP-01..07`, `BP-01..06`, `LVL-01`, `GEO-01..07`,
+`PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-04..06` demuestran la configuración
+guardada, el arranque funcional inicial y las ocho direcciones, no que el resto
+del Player sea jugable ni que v0.1.0 esté terminada. Los otros 57 IDs continúan
+`NOT RUN`.
 
 Referencias y línea base:
 
@@ -26,8 +27,8 @@ Referencias y línea base:
   `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
   configurado y validado. `L_Developer_Testing` usa ese GameMode, conserva un
   único Player Start y contiene la pista compacta de 23 cubos validada.
-  `PLR-PIE-001`, `PLR-MOV-001` y `EVC-06` están aprobadas; la siguiente prueba
-  funcional es `PLR-MOV-002`.
+  `PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-06` están aprobadas; la siguiente
+  prueba funcional es `PLR-MOV-003`.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -77,7 +78,7 @@ ubicación reproducible, sin secretos ni datos personales.
 
 | Campo | Valor |
 |---|---|
-| ID de ejecución | `PIE-MOV-20260727` |
+| ID de ejecución | `PIE-DIAG-20260727` |
 | Fecha y zona horaria | 2026-07-27, America/Costa_Rica |
 | Probador | Codex mediante Unreal MCP y sonda de teclado; temperaturas informadas por el propietario |
 | PC / CPU / GPU / RAM | Lenovo 83DS / Ryzen 7 8845HS / Radeon 780M / 16 GB |
@@ -85,19 +86,19 @@ ubicación reproducible, sin secretos ni datos personales.
 | Unreal Engine | 5.8 |
 | Configuración | Win64 Development Editor |
 | Rama | `feature/v0.1-player-cameras` |
-| Commit probado | `c2a61c3` |
-| Estado Git inicial | Worktree limpio; rama 15 commits delante de `origin/feature/v0.1-player-cameras` |
+| Commit probado | `352f629` |
+| Estado Git inicial | Worktree limpio; rama 17 commits delante de `origin/feature/v0.1-player-cameras` |
 | Mapa | `/Game/Maps/L_Developer_Testing` |
-| Teclado / ratón | W, A, S y D por separado mediante eventos automatizados; ratón no probado funcionalmente |
+| Teclado / ratón | W+A, W+D, S+A y S+D mediante eventos automatizados; ratón no probado funcionalmente |
 | Mando, conexión y firmware | No probado en esta sesión |
 | Malla licenciada disponible | No |
 | Resolución y ajustes gráficos | No medidos en esta sesión |
 | Límites probados | No probados en esta sesión |
-| Tolerancia aprobada para 300/550 cm/s | No definida; velocidades no evaluadas |
+| Tolerancia aprobada para 300/550 cm/s | No definida; solo se estimó la diagonal para descartar una ventaja observable. Velocidad recta y sprint no evaluados |
 | Ventana y umbral aprobados de rendimiento | No definidos; rendimiento no evaluado |
 | Umbral aprobado para salto de yaw | No definido; cambio de cámara no evaluado |
 | Criterio visual aprobado de clipping 3P | No definido; apariencia 3P no evaluada |
-| Ubicación de evidencias | `EV-MOV-WASD-01`; `UnrealProject/Saved/QA/PlayerV0.1/MOV-20260727/` |
+| Ubicación de evidencias | `EV-MOV-DIAG-01`; `UnrealProject/Saved/QA/PlayerV0.1/DIAG-20260727/` |
 
 ## Condiciones de detención
 
@@ -292,7 +293,7 @@ caso: `showdebug character`, `showdebug enhancedinput`, `show collision`,
 |---|---:|---|---|---|---|
 | PLR-PIE-001 | 12.1 | Iniciar PIE en el Player Start. | GameMode crea Controller y Character; Controller posee el Character; BeginPlay añade `IMC_Player`; aplica la perspectiva guardada o solo 1P en un perfil limpio. No aparecen los warnings prohibidos de la sección D. | PASS | EV-PIE-START-01 |
 | PLR-MOV-001 | 12.2 | Pulsar W, A, S y D por separado con `showdebug enhancedinput`. | Cada tecla produce el vector y dirección configurados, sin ejes intercambiados ni movimiento residual al soltar. | PASS | EV-MOV-WASD-01 |
-| PLR-MOV-002 | 12.3 | Probar las cuatro diagonales con dos teclas simultáneas. | Combina ambos ejes en la diagonal esperada, no supera la velocidad configurada y se detiene al soltar. | NOT RUN | |
+| PLR-MOV-002 | 12.3 | Probar las cuatro diagonales con dos teclas simultáneas. | Combina ambos ejes en la diagonal esperada, permanece alrededor de la velocidad configurada sin ventaja diagonal observable y se detiene al soltar. | PASS | EV-MOV-DIAG-01 |
 | PLR-MOV-003 | 12.4 | Mover y detener el ratón horizontal y verticalmente. | Yaw y pitch responden inmediatamente, en el sentido base esperado, sin suavizado ni movimiento después de detener el ratón. | NOT RUN | |
 | PLR-MOV-004 | 12.5 | En suelo plano, mantener avance hasta velocidad estable y medir. | Objetivo 300 cm/s. Registrar valor, resolución de medición y tolerancia previamente aprobada; si falta esa tolerancia, no decidir subjetivamente y usar `BLOCKED`. | NOT RUN | |
 | PLR-MOV-005 | 12.6 | Mantener sprint, medir; soltar y volver a medir. | Objetivos 550 cm/s durante sprint y 300 cm/s al soltar; no queda sprint latente. Registrar la tolerancia aprobada o usar `BLOCKED`. | NOT RUN | |
@@ -376,6 +377,56 @@ y rendimiento continúan `NOT RUN`. Después del commit local `9e46365`,
 postflight obtuvo 24/25 PASS con worktree limpio, Unreal cerrado, estructura de
 84 IDs válida y Output Log reconocido. El único FAIL esperado son los 58 IDs que
 permanecen `NOT RUN`.
+
+`EV-MOV-DIAG-01` — sesión local del 2026-07-27 sobre `352f629`, Lenovo 83DS
+con UE 5.8 Win64 Development Editor, teclado, base de enfriamiento y HWiNFO
+activos. Preflight obtuvo 19/19 PASS con worktree limpio y la rama 17 commits
+delante de origin. El propietario había informado 36 °C actuales y 68 °C máximos;
+durante la sesión HWiNFO mostró CPU (Tctl/Tdie) a 49.2 °C y un máximo acumulado
+de 80.6 °C, sin alcanzar el límite de detención.
+
+Para evitar las paredes del pasillo, cada diagonal válida inició un PIE limpio
+mediante la opción temporal `startTransform=(500,0,100)`, yaw 0°, sobre el mismo
+`L_Developer_Testing`. Esto no guardó ni modificó el mapa. Runtime confirmó
+`MaxWalkSpeed=300`. Con `showdebug enhancedinput`, dos capturas por combinación
+registraron el vector, el tiempo activo y la posición:
+
+| Teclas | Vector `IA_Move` | Captura 1: s; (X,Y) | Captura 2: s; (X,Y) | Velocidad derivada |
+|---|---:|---:|---:|---:|
+| W+A | `(-1,+1)` | 0.683; (631.16,-131.16) | 1.267; (754.90,-254.90) | 299.65 cm/s |
+| W+D | `(+1,+1)` | 0.683; (631.16,131.16) | 1.250; (751.37,251.37) | 299.83 cm/s |
+| S+A | `(-1,-1)` | 0.700; (365.31,-134.69) | 1.283; (241.56,-258.44) | 300.19 cm/s |
+| S+D | `(+1,-1)` | 0.683; (368.84,131.16) | 1.250; (248.63,251.37) | 299.83 cm/s |
+
+Los tiempos se muestran a 0.001 s y las posiciones a 0.01 cm. Por ello el
+300.19 derivado de valores redondeados es coherente con el valor runtime
+configurado de 300 cm/s; no se observó la ventaja de aproximadamente 424 cm/s
+que produciría una diagonal sin limitar. Esta evidencia no pretende medir una
+velocidad instantánea con precisión mayor que la mostrada. Las cuatro capturas
+liberadas mostraron `IA_Move=None` y `(0,0)`. En cada caso dos lecturas MCP
+posteriores, separadas
+por al menos 0.8 s, conservaron exactamente la posición final:
+W+A `(769.384,-269.384)`, W+D `(765.849,265.849)`,
+S+A `(230.612,-269.388)` y S+D `(234.150,265.850)`.
+
+Las capturas usadas para decidir son `WA-open-t1.png`, `WA-open-t2.png`,
+`WA-open-released.png` y los tríos equivalentes `WD`, `SA` y `SD`. Los intentos
+anteriores en que HWiNFO interceptó el foco o el pasillo bloqueó un eje se
+descartaron expresamente. HWiNFO siguió monitoreando; solo se ocultó su ventana
+durante la inyección válida y se restauró después.
+
+El Output Log contiene los comandos de diagnóstico y siete cierres PIE con
+`bSessionEnded=true`; no contiene ninguno de los seis diagnósticos prohibidos ni
+errores Blueprint/runtime del Player. Conserva mensajes internos
+`LogAutomationTest: Error: Condition failed` del arranque del motor, avisos de
+audio, layout, render, MCP/HTTP y una sonda de propiedades no legibles; no debe
+describirse como libre de warnings generales. Unreal cerró con
+`LogExit: Exiting` y ningún asset cambió. La copia preservada quedó bajo
+`UnrealProject/Saved/QA/PlayerV0.1/DIAG-20260727/`. Log final: 358642 bytes,
+SHA-256
+`16D19EB3BCB8393D8E4893EA9A9AA90398F87CB0577AE17D68988483B5338324`.
+Solo `PLR-MOV-002` pasa con esta evidencia; la siguiente prueba es
+`PLR-MOV-003`.
 
 ### Crouch híbrido
 
@@ -572,4 +623,5 @@ de esta matriz.
 | SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
 | PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01; postflight 24/25 sobre `8def4bb` | Pendiente |
 | PIE-MOV-20260727 | 2026-07-27 | `c2a61c3` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 58 IDs NOT RUN | EV-MOV-WASD-01; postflight 24/25 sobre `9e46365` | Pendiente |
+| PIE-DIAG-20260727 | 2026-07-27 | `352f629` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 57 IDs NOT RUN | EV-MOV-DIAG-01 | Pendiente |
 | | | | | | | |

@@ -4,8 +4,9 @@
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
 - Fecha local: 2026-07-27 (America/Costa_Rica).
-- Última actualización: 2026-07-27 — movimiento cardinal aprobado: W/A/S/D
-  produjeron los cuatro vectores configurados y se detuvieron al soltar.
+- Última actualización: 2026-07-27 — movimiento diagonal aprobado: las cuatro
+  combinaciones produjeron sus vectores, quedaron alrededor de 300 cm/s sin
+  ventaja diagonal observable y se detuvieron.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -23,13 +24,14 @@
   referencias requeridas, Event Graphs vacíos y compilación exitosa.
   `L_Developer_Testing` usa ese GameMode, contiene exactamente un Player Start y
   no contiene Pawn manual ni lógica de Level Blueprint. La geometría funcional
-  compacta de 23 cubos está completa y validada. `PLR-PIE-001`, `PLR-MOV-001` y
-  `EVC-06` están en PASS: PIE creó el Controller y Character correctos, aplicó
-  `IMC_Player` y First Person, y W/A/S/D produjeron `(0,+1)`, `(-1,0)`,
-  `(0,-1)` y `(+1,0)` sin movimiento residual al soltar. No apareció ninguno de
-  los seis diagnósticos prohibidos. Las pruebas desde diagonales en adelante
-  continúan pendientes. En esta sesión HWiNFO estaba activo y se reportaron
-  36 °C actuales / 68 °C máximos al finalizar.
+  compacta de 23 cubos está completa y validada. `PLR-PIE-001`,
+  `PLR-MOV-001..002` y `EVC-06` están en PASS: PIE creó el Controller y Character
+  correctos, aplicó `IMC_Player` y First Person, y las ocho direcciones de teclado
+  produjeron sus vectores sin movimiento residual. Las cuatro diagonales midieron
+  aproximadamente 300 cm/s, no 424 cm/s. No apareció ninguno de los seis
+  diagnósticos prohibidos. Las pruebas desde look en adelante continúan pendientes.
+  HWiNFO permaneció activo; durante la sesión se observó CPU (Tctl/Tdie) a
+  49.2 °C y un máximo acumulado de 80.6 °C.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
   contiene `336aa91`. Los commits locales posteriores todavía no están
   publicados; no se hizo un nuevo push, merge, rebase ni tag.
@@ -81,6 +83,7 @@ obligaciones de atribución.
   - 8def4bb — evidencia y documentación de la primera prueba PIE.
   - c2a61c3 — postflight y documentación final de la primera prueba PIE.
   - 9e46365 — evidencia y documentación del movimiento cardinal W/A/S/D.
+  - 352f629 — postflight y documentación final del movimiento cardinal.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -98,17 +101,17 @@ obligaciones de atribución.
 La base de enfriamiento ya fue usada con éxito en las sesiones controladas.
 `IMC_Player`, los tres Blueprints, el mapa y el layout compacto de 23 cubos
 quedaron guardados y validados. `LVL-01`, `GEO-01..07` y `EVC-05` están en PASS.
-La primera ejecución PIE y el movimiento cardinal también están completos:
-`PLR-PIE-001`, `PLR-MOV-001` y `EVC-06` están en PASS. El próximo trabajo es
-`PLR-MOV-002`, sección 12 punto 3 de `EDITOR_SETUP_V0.1.md`: probar las cuatro
-diagonales con dos teclas simultáneas. No reconfigurar las secciones 5 a 10 ni
-repetir `PLR-PIE-001` o `PLR-MOV-001` por costumbre; sí iniciar PIE para cada
-prueba funcional.
+La primera ejecución PIE y el movimiento cardinal y diagonal también están
+completos: `PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-06` están en PASS. El próximo
+trabajo es `PLR-MOV-003`, sección 12 punto 4 de `EDITOR_SETUP_V0.1.md`: probar
+look horizontal y vertical con el ratón, incluido detenerlo. No reconfigurar las
+secciones 5 a 10 ni repetir los casos aprobados por costumbre; sí iniciar PIE
+para cada prueba funcional.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 12 punto 3: `PLR-MOV-002`.
+desde la sección 12 punto 4: `PLR-MOV-003`.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -121,9 +124,9 @@ muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
 `EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` están sincronizados al 2026-07-27.
 Los siete controles de configuración `MAP-01..07` están en PASS; las pruebas
-funcionales desde diagonales continúan en `NOT RUN`. `BP-01..06`, `LVL-01`,
-`GEO-01..07`, `PLR-PIE-001`, `PLR-MOV-001` y `EVC-04..06` están en PASS. La
-matriz contiene 26 PASS y 58 IDs `NOT RUN`.
+funcionales desde look continúan en `NOT RUN`. `BP-01..06`, `LVL-01`,
+`GEO-01..07`, `PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-04..06` están en PASS.
+La matriz contiene 27 PASS y 57 IDs `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -154,11 +157,13 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > están guardados y verificados. L_Developer_Testing ya usa el GameMode y tiene
 > un único Player Start definitivo y la pista compacta de 23 cubos validada.
 > La primera ejecución PIE ya aprobó spawn, posesión, IMC_Player, primera persona
-> y ausencia de los seis diagnósticos prohibidos. PLR-MOV-001 también aprobó
-> W/A/S/D por separado y la detención al soltar. Continúa desde
-> EDITOR_SETUP_V0.1.md sección 12 punto 3 con PLR-MOV-002; no reconfigures las
-> secciones 5 a 10 ni vuelvas a auditar PLR-PIE-001 o PLR-MOV-001 por costumbre.
-> Sí inicia PIE para ejecutar las pruebas funcionales. No
+> y ausencia de los seis diagnósticos prohibidos. PLR-MOV-001 y PLR-MOV-002
+> también aprobaron las cuatro direcciones cardinales, las cuatro diagonales,
+> estimaciones alrededor de 300 cm/s sin ventaja diagonal observable y detención
+> al soltar. Continúa desde
+> EDITOR_SETUP_V0.1.md sección 12 punto 4 con PLR-MOV-003; no reconfigures las
+> secciones 5 a 10 ni vuelvas a auditar casos aprobados por costumbre. Sí inicia
+> PIE para ejecutar las pruebas funcionales. No
 > ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
 > aprobadas hasta ejecutarlas.
 
@@ -385,15 +390,16 @@ con `BP_PlayerController`, la sección 7 con `BP_PlayerCharacter` y la sección 
 con `BP_GameMode_DeveloperTesting`. Las secciones 9 y 10 están completas y
 revalidadas desde disco. La sección 11 también está completa mediante
 `EV-PIE-START-01`. La sección 12 punto 2 también está completa mediante
-`EV-MOV-WASD-01`. La siguiente tarea es el punto 3, `PLR-MOV-002`; el movimiento
-cardinal aprobado todavía no confirma el resto de la integración jugable.
+`EV-MOV-WASD-01` y el punto 3 mediante `EV-MOV-DIAG-01`. La siguiente tarea es
+el punto 4, `PLR-MOV-003`; el movimiento aprobado todavía no confirma el resto
+de la integración jugable.
 
 ### Matriz y verificador QA
 
 `QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
 de assets, geometría, las 27 pruebas de la guía desglosadas, regresión, evidencias,
-incidencias y trazabilidad de aceptación. Actualmente tiene 26 PASS: 23 de
-configuración/geometría, dos de arranque PIE y uno de movimiento; los otros 58
+incidencias y trazabilidad de aceptación. Actualmente tiene 27 PASS: 23 de
+configuración/geometría, dos de arranque PIE y dos de movimiento; los otros 57
 resultados continúan `NOT RUN`.
 
 `Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
@@ -673,6 +679,33 @@ Resultado de la sesión de movimiento cardinal del 2026-07-27:
 - después del commit local `9e46365`, postflight obtuvo 24/25 PASS con worktree
   limpio, Unreal cerrado, estructura de 84 IDs válida y Output Log reconocido.
   El único FAIL esperado son los 58 IDs QA todavía `NOT RUN`.
+
+Resultado de la sesión de movimiento diagonal del 2026-07-27:
+
+- preflight obtuvo 19/19 PASS sobre `352f629`, con worktree limpio, base de
+  enfriamiento y HWiNFO activos;
+- cada combinación válida inició en un `startTransform` PIE temporal
+  `(500,0,100)`, yaw 0°, dentro de una zona abierta del mismo mapa. No se guardó
+  ni modificó el mapa;
+- `showdebug enhancedinput` mostró W+A `(-1,+1)`, W+D `(+1,+1)`,
+  S+A `(-1,-1)` y S+D `(+1,-1)`. Dos capturas temporizadas por combinación
+  derivaron 299.65, 299.83, 300.19 y 299.83 cm/s a partir de valores visibles
+  redondeados; runtime confirmó `MaxWalkSpeed=300`;
+- las cuatro capturas liberadas mostraron `IA_Move=None` y `(0,0)`. Para cada
+  diagonal, dos lecturas MCP posteriores conservaron exactamente la posición;
+- los intentos donde HWiNFO interceptó el foco o la pared del pasillo bloqueó un
+  eje se descartaron. HWiNFO siguió monitoreando y su ventana se restauró al
+  cerrar Unreal;
+- no apareció ninguno de los seis diagnósticos prohibidos ni errores
+  Blueprint/runtime del Player. El log conserva avisos internos del motor,
+  audio, layout, render, MCP/HTTP y una sonda de propiedades no legibles;
+- PIE terminó con `bSessionEnded=true`, Unreal cerró con `LogExit: Exiting` y no
+  cambió ningún asset. La copia preservada está en
+  `UnrealProject/Saved/QA/PlayerV0.1/DIAG-20260727/ProyectoMemoria.log`, mide
+  358642 bytes y tiene SHA-256
+  `16D19EB3BCB8393D8E4893EA9A9AA90398F87CB0577AE17D68988483B5338324`;
+- `PLR-MOV-002` quedó en PASS mediante `EV-MOV-DIAG-01`. La matriz pasó a 27 PASS
+  y 57 `NOT RUN`; la siguiente prueba es `PLR-MOV-003`.
 
 Referencia operativa conservada de las sesiones de Blueprints:
 
@@ -1105,6 +1138,11 @@ Avisos externos observados:
 - En una octava sesión se probó W/A/S/D por separado con
   `showdebug enhancedinput`. Los cuatro vectores, las direcciones del Character y
   la detención al soltar coincidieron con la configuración; `PLR-MOV-001` pasó.
+- En una novena sesión se probaron W+A, W+D, S+A y S+D con
+  `showdebug enhancedinput` desde una zona abierta. Las cuatro combinaciones
+  produjeron el vector esperado, quedaron alrededor de 300 cm/s sin la ventaja
+  diagonal de aproximadamente 424 cm/s y se detuvieron al soltar;
+  `PLR-MOV-002` pasó.
 - Postflight de la sesión de movimiento sobre `9e46365`: 24/25 PASS, con
   worktree limpio, Output Log preservado y Unreal cerrado. El único FAIL esperado
   son los 58 IDs QA todavía `NOT RUN`.
@@ -1120,9 +1158,9 @@ Avisos externos observados:
 - Postflight de la sesión del GameMode: 23/24 PASS, sin procesos Unreal y Output
   Log válido sin diagnósticos propios prohibidos. El único FAIL son 70 resultados
   QA pendientes.
-- No se ejecutaron todavía diagonales, look, velocidades, sprint, crouch, salto,
-  cambio de cámara, espacios, mando, respawn, persistencia entre ejecuciones ni
-  rendimiento. La matriz tiene 26 PASS y 58 IDs que continúan `NOT RUN`.
+- No se ejecutaron todavía look, velocidad recta, sprint, crouch, salto, cambio
+  de cámara, espacios, mando, respawn, persistencia entre ejecuciones ni
+  rendimiento. La matriz tiene 27 PASS y 57 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -1181,16 +1219,20 @@ comportamiento jugable continúa pendiente. Estado y orden restante:
    prohibidos.
 10. **Completado; no repetir.** `PLR-MOV-001`, sección 12 punto 2: W, A, S y D
     por separado produjeron los vectores configurados y se detuvieron al soltar.
-11. **Siguiente tarea.** Ejecutar `PLR-MOV-002`, sección 12 punto 3: probar las
-    cuatro diagonales con dos teclas simultáneas, incluida la detención al soltar.
-12. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
+11. **Completado; no repetir.** `PLR-MOV-002`, sección 12 punto 3: las cuatro
+    diagonales produjeron los vectores esperados, no mostraron ventaja diagonal
+    de velocidad y se detuvieron al soltar.
+12. **Siguiente tarea.** Ejecutar `PLR-MOV-003`, sección 12 punto 4: probar look
+    horizontal y vertical con el ratón, incluido detenerlo y confirmar que no
+    queda movimiento.
+13. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos
     0,5 s. Los límites 0,24/0,25/0,26 s requieren instrumentación o automatización;
     no deben validarse por estimación humana. Repetir a 30, 60 y 120 FPS cuando el
     hardware lo permita.
-13. Validar en PIE pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
-14. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
+14. Validar en PIE pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
+15. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
     paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
 ## Decisiones y deudas abiertas de v0.1.0

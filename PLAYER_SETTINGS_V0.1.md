@@ -12,11 +12,11 @@
   guardado. `L_Developer_Testing` ya usa ese GameMode, conserva un único Player
   Start, no contiene Pawn manual ni lógica de Level Blueprint y tiene la
   geometría funcional compacta. El arranque, la posesión, `IMC_Player`, la
-  perspectiva inicial y el movimiento cardinal W/A/S/D ya pasaron PIE; las demás
-  pruebas funcionales continúan pendientes.
+  perspectiva inicial y el movimiento cardinal y diagonal ya pasaron PIE; las
+  demás pruebas funcionales continúan pendientes.
 - Las sesiones controladas del 2026-07-22, 2026-07-26 y 2026-07-27 usaron la
   base de enfriamiento y HWiNFO. Las sesiones de configuración no recompilaron
-  C++; las sesiones PIE de arranque y movimiento cardinal se cerraron
+  C++; las sesiones PIE de arranque, movimiento cardinal y diagonal se cerraron
   correctamente el 2026-07-27.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
@@ -96,8 +96,9 @@ como terminada la etapa futura de ajustes.
 
 Después de aprobar esta especificación, las siguientes funciones quedaron
 implementadas y compiladas. `EV-PIE-START-01` verificó únicamente el arranque
-inicial y `EV-MOV-WASD-01` verificó W/A/S/D por separado; las pruebas específicas
-de las demás funciones siguen pendientes:
+inicial, `EV-MOV-WASD-01` verificó W/A/S/D por separado y `EV-MOV-DIAG-01`
+verificó las cuatro diagonales; las pruebas específicas de las demás funciones
+siguen pendientes:
 
 - binding C++ de salto y levantado inmediato con comprobación de techo;
 - memoria de perspectiva para respawn y futuras ejecuciones mediante
@@ -119,15 +120,16 @@ los dos assets fueron compilados, validados y guardados.
 vacío y también fue compilado, validado y guardado. El mapa de pruebas ya lo usa,
 tiene un único Player Start y no tiene Pawn manual ni lógica de Level Blueprint.
 La geometría funcional compacta también está guardada y validada. Todavía faltan
-el menú, sus widgets y las pruebas PIE posteriores a `PLR-MOV-001`. El C++ actual
+el menú, sus widgets y las pruebas PIE posteriores a `PLR-MOV-002`. El C++ actual
 conserva una sensibilidad compartida para mouse y mando; separarlas dinámicamente
 pertenece a la etapa de ajustes.
 
 Estas diferencias son trabajo pendiente, no fallos observados en PIE. La primera
 sesión PIE confirmó GameMode, spawn, posesión, `IMC_Player` y primera persona. Una
 sesión posterior confirmó W/A/S/D por separado, sus cuatro vectores cardinales y
-la detención al soltar; no sustituye las pruebas de diagonales, look, velocidad,
-cámaras, mando, respawn o rendimiento.
+la detención al soltar; otra confirmó las cuatro diagonales alrededor de
+300 cm/s, sin ventaja diagonal observable, y la detención. Esto no sustituye las
+pruebas de look, velocidad recta, cámaras, mando, respawn o rendimiento.
 
 ## Separación de alcance
 

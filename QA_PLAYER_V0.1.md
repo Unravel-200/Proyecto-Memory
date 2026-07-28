@@ -7,11 +7,12 @@ salto, agachado y cámaras descritos en `EDITOR_SETUP_V0.1.md`. Debe ejecutarse
 desde la sección 1 de esa guía, con refrigeración y monitoreo adecuados para
 Unreal Engine 5.8.
 
-Estado actual: **mappings, los tres Blueprints, el mapa y la geometría auditados
-fuera de PIE; ninguna prueba PIE ejecutada**. Los 23 PASS de `MAP-01..07`,
-`BP-01..06`, `LVL-01`, `GEO-01..07` y `EVC-04..05` demuestran configuración y
-geometría guardadas, no que la integración sea jugable ni que v0.1.0 esté
-terminada. Los otros 61 IDs continúan `NOT RUN`.
+Estado actual: **mappings, los tres Blueprints, el mapa y la geometría auditados;
+la primera prueba PIE de arranque está aprobada**. Los 25 PASS de `MAP-01..07`,
+`BP-01..06`, `LVL-01`, `GEO-01..07`, `PLR-PIE-001` y `EVC-04..06` demuestran la
+configuración guardada y el arranque funcional inicial, no que el resto del
+Player sea jugable ni que v0.1.0 esté terminada. Los otros 59 IDs continúan
+`NOT RUN`.
 
 Referencias y línea base:
 
@@ -24,8 +25,9 @@ Referencias y línea base:
   los 16 mappings están verificados y `BP_PlayerController` y
   `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
   configurado y validado. `L_Developer_Testing` usa ese GameMode, conserva un
-  único Player Start y contiene la pista compacta de 23 cubos validada. Faltan
-  todas las pruebas PIE.
+  único Player Start y contiene la pista compacta de 23 cubos validada.
+  `PLR-PIE-001` y `EVC-06` están aprobadas; la siguiente prueba funcional es
+  `PLR-MOV-001`.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
 ## Alcance y exclusiones
@@ -40,7 +42,10 @@ No autoriza:
 - recompilar sin necesidad o ejecutar PIE antes de completar la integración;
 - añadir lógica central al Level Blueprint o a los Event Graphs;
 - duplicar componentes nativos o reimplementar movimiento/cámaras en Blueprint;
-- usar Hot Reload, habilitar plugins extra o convertir el proyecto;
+- usar Hot Reload, habilitar plugins adicionales de forma permanente o convertir
+  el proyecto. Solo se permite activar temporalmente por línea de comandos los
+  plugins oficiales `ModelContextProtocol` y `EditorToolset`, sin modificar el
+  `.uproject`;
 - crear `IA_Interact`, Gameplay Tags o trabajo de v0.2.0;
 - importar mallas sin origen, licencia y escala verificados;
 - modificar `Proyecto-Memoria-docs` o `Modelos-3D`;
@@ -72,27 +77,27 @@ ubicación reproducible, sin secretos ni datos personales.
 
 | Campo | Valor |
 |---|---|
-| ID de ejecución | |
-| Fecha y zona horaria | |
-| Probador | |
-| PC / CPU / GPU / RAM | |
-| Sistema operativo | |
+| ID de ejecución | `PIE-START-20260727` |
+| Fecha y zona horaria | 2026-07-27, America/Costa_Rica |
+| Probador | Codex mediante Unreal MCP y sonda de teclado; temperaturas informadas por el propietario |
+| PC / CPU / GPU / RAM | Lenovo 83DS / Ryzen 7 8845HS / Radeon 780M / 16 GB |
+| Sistema operativo | Windows 11 Home x64, build 26200 |
 | Unreal Engine | 5.8 |
 | Configuración | Win64 Development Editor |
 | Rama | `feature/v0.1-player-cameras` |
-| Commit probado | |
-| Estado Git inicial | |
+| Commit probado | `5e1993f` |
+| Estado Git inicial | Worktree limpio; rama 13 commits delante de `origin/feature/v0.1-player-cameras` |
 | Mapa | `/Game/Maps/L_Developer_Testing` |
-| Teclado / ratón | |
-| Mando, conexión y firmware | |
-| Malla licenciada disponible | Sí / No |
-| Resolución y ajustes gráficos | |
-| Límites probados | 30 / 60 / 120 FPS / otros |
-| Tolerancia aprobada para 300/550 cm/s | |
-| Ventana y umbral aprobados de rendimiento | |
-| Umbral aprobado para salto de yaw | |
-| Criterio visual aprobado de clipping 3P | |
-| Ubicación de evidencias | |
+| Teclado / ratón | Sonda automatizada de `W`; ratón no probado funcionalmente |
+| Mando, conexión y firmware | No probado en esta sesión |
+| Malla licenciada disponible | No |
+| Resolución y ajustes gráficos | No medidos en esta sesión |
+| Límites probados | No probados en esta sesión |
+| Tolerancia aprobada para 300/550 cm/s | No definida; velocidades no evaluadas |
+| Ventana y umbral aprobados de rendimiento | No definidos; rendimiento no evaluado |
+| Umbral aprobado para salto de yaw | No definido; cambio de cámara no evaluado |
+| Criterio visual aprobado de clipping 3P | No definido; apariencia 3P no evaluada |
+| Ubicación de evidencias | `EV-PIE-START-01`; `UnrealProject/Saved/QA/PlayerV0.1/PIE-START-20260727/ProyectoMemoria.log` |
 
 ## Condiciones de detención
 
@@ -108,7 +113,7 @@ assets parecen dañados, o hace falta una decisión de diseño no aprobada.
 | PRE-01 | PC apta, con temperatura, ventiladores y consumo normales. Unreal está cerrado antes de revisar Git. | NOT RUN | |
 | PRE-02 | `git status --short --branch` muestra la rama requerida y worktree limpio; `git log -1 --oneline` identifica un descendiente de `5eccd8e`. | NOT RUN | |
 | PRE-03 | El proyecto abre con UE 5.8 sin conversión. Si solicita recompilar módulos, se cancela y se hace una compilación completa antes de reabrir. | NOT RUN | |
-| PRE-04 | Enhanced Input está habilitado y no se habilitaron plugins adicionales. | NOT RUN | |
+| PRE-04 | Enhanced Input está habilitado y no se habilitaron plugins adicionales de forma permanente. Si se usa MCP, `ModelContextProtocol` y `EditorToolset` se activan solo por CLI y no se agregan al `.uproject`. | NOT RUN | |
 | PRE-05 | `Default Player Input Class = EnhancedPlayerInput` y `Default Input Component Class = EnhancedInputComponent`. | NOT RUN | |
 | PRE-06 | Output Log está visible; todos los Blueprints compilan y `GameMode Override` está confirmado antes de PIE. | NOT RUN | |
 | PRE-07 | Hay teclado y ratón funcionales. Se identifica un mando físico; un mapping sin dispositivo no prueba compatibilidad. | NOT RUN | |
@@ -269,26 +274,68 @@ La salida reproducible está en
 compilación C++. Los guardados iniciaron validación automática sin producir un
 resultado aprobatorio. El mapa y estos documentos quedaron en `83644f5`;
 postflight sobre ese commit obtuvo 24/25 PASS con worktree limpio. El único FAIL
-son los 61 IDs que continúan `NOT RUN`.
+eran los 61 IDs que en ese momento continuaban `NOT RUN`.
 
 ## C. Matriz funcional de PIE
 
-Precondiciones comunes: secciones A y B completadas sin fallos bloqueantes,
-Selected Viewport, Output Log abierto, viewport con input capturado y comandos de
-diagnóstico disponibles: `showdebug character`, `showdebug enhancedinput`,
-`show collision`, `stat fps`, `stat unit` y `stat game`.
+Precondiciones comunes: antes de cada caso deben estar satisfechas las filas
+aplicables de las secciones A y B, sin fallos bloqueantes. Una fila compuesta o no
+relacionada puede seguir `NOT RUN` sin impedir evidencia independiente, pero esa
+evidencia tampoco la aprueba por inferencia. Usar Selected Viewport, Output Log
+abierto, viewport con input capturado y los comandos de diagnóstico que exija el
+caso: `showdebug character`, `showdebug enhancedinput`, `show collision`,
+`stat fps`, `stat unit` y `stat game`.
 
 ### Inicio, movimiento y look
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-PIE-001 | 12.1 | Iniciar PIE en el Player Start. | GameMode crea Controller y Character; Controller posee el Character; BeginPlay añade `IMC_Player`; aplica la perspectiva guardada o solo 1P en un perfil limpio. No aparecen los warnings prohibidos de la sección D. | NOT RUN | |
+| PLR-PIE-001 | 12.1 | Iniciar PIE en el Player Start. | GameMode crea Controller y Character; Controller posee el Character; BeginPlay añade `IMC_Player`; aplica la perspectiva guardada o solo 1P en un perfil limpio. No aparecen los warnings prohibidos de la sección D. | PASS | EV-PIE-START-01 |
 | PLR-MOV-001 | 12.2 | Pulsar W, A, S y D por separado con `showdebug enhancedinput`. | Cada tecla produce el vector y dirección configurados, sin ejes intercambiados ni movimiento residual al soltar. | NOT RUN | |
 | PLR-MOV-002 | 12.3 | Probar las cuatro diagonales con dos teclas simultáneas. | Combina ambos ejes en la diagonal esperada, no supera la velocidad configurada y se detiene al soltar. | NOT RUN | |
 | PLR-MOV-003 | 12.4 | Mover y detener el ratón horizontal y verticalmente. | Yaw y pitch responden inmediatamente, en el sentido base esperado, sin suavizado ni movimiento después de detener el ratón. | NOT RUN | |
 | PLR-MOV-004 | 12.5 | En suelo plano, mantener avance hasta velocidad estable y medir. | Objetivo 300 cm/s. Registrar valor, resolución de medición y tolerancia previamente aprobada; si falta esa tolerancia, no decidir subjetivamente y usar `BLOCKED`. | NOT RUN | |
 | PLR-MOV-005 | 12.6 | Mantener sprint, medir; soltar y volver a medir. | Objetivos 550 cm/s durante sprint y 300 cm/s al soltar; no queda sprint latente. Registrar la tolerancia aprobada o usar `BLOCKED`. | NOT RUN | |
 | PLR-MOV-006 | Handoff | Rotar la vista 90° y 180°; en cada orientación pulsar avance y laterales. | El movimiento se calcula respecto del yaw de la vista, no respecto de ejes fijos del mundo, y conserva las direcciones relativas correctas. | NOT RUN | |
+
+`EV-PIE-START-01` — sesión local del 2026-07-27 sobre `5e1993f`, Lenovo 83DS
+con UE 5.8 Win64 Development Editor, base de enfriamiento y HWiNFO activos.
+Preflight obtuvo 19/19 PASS con worktree limpio; el propietario informó 36 °C
+actuales y 68 °C máximos antes de continuar. Se realizaron dos arranques PIE
+normales en `PlayMode_InViewPort`, no simulación, sobre
+`/Game/Maps/L_Developer_Testing`.
+
+En el mundo `/Game/Maps/UEDPIE_0_L_Developer_Testing`, MCP confirmó exactamente
+un `BP_GameMode_DeveloperTesting_C`, un `BP_PlayerController_C` y un
+`BP_PlayerCharacter_C`. El Character apareció en `(-600,-500,98.15)` y el
+Controller en `(-600,-500,100)`; ambos referenciaron el mismo `PlayerState`.
+El Controller contenía `EnhancedInputComponent`, `IMC_Player`, las seis Input
+Actions y prioridad 0. Una sonda controlada envió `W` al viewport durante
+0.75 s: el único Character pasó de X `-600` a `-384.060176`, manteniendo Y
+`-500` y Z `98.15`. La sonda activó la ventana de Unreal, hizo clic en el
+viewport y envió el código de tecla `W` con eventos down/up separados por 750 ms.
+Esa respuesta del Pawn generado prueba conjuntamente la posesión y el contexto
+activo; fue una sonda de arranque y no ejecutó el caso completo
+`PLR-MOV-001`.
+
+`GameUserSettings.ini` guardaba `PreferredCameraMode=FirstPerson`; durante ambos
+arranques `CameraModeComponent` informó `InitialMode=FirstPerson`,
+`CurrentMode=FirstPerson` y FOV 90°. El Output Log registró la creación del mundo
+PIE, `BP_GameMode_DeveloperTesting_C`, inicio en 0.152/0.143 s, dos cierres con
+`bSessionEnded=true` y el cierre final del Editor con `LogExit: Exiting`. La
+búsqueda encontró cero apariciones de los seis diagnósticos prohibidos. El log sí
+contiene un warning genérico de `r.MotionVectorSimulation`, avisos de introspección
+MCP y un error de sesión MCP vencida que se recuperó al reinicializar; ninguno
+pertenece al Player. El arranque completo del Editor también conserva mensajes
+internos `LogAutomationTest: Error: Condition failed` del motor, ya registrados
+como externos al Player. La copia inmutable de esta ejecución quedó bajo
+`UnrealProject/Saved/QA/PlayerV0.1/PIE-START-20260727/`. Log final: 332942 bytes,
+SHA-256
+`DE80BE804F6F173ED1B6F4C288A64402706ABD0D4182823EA85303CA8ABC777C`.
+
+No se probaron el caso completo W/A/S/D con `showdebug enhancedinput`, look,
+velocidades, sprint, crouch, salto, toggle 1P/3P, espacios, mando, respawn,
+persistencia entre ejecuciones ni rendimiento.
 
 ### Crouch híbrido
 
@@ -378,7 +425,7 @@ Could not persist the preferred camera mode
 | EVC-03 | Content Drawer, tipos de las seis IA y mappings completos de `IMC_Player`. | NOT RUN | |
 | EVC-04 | Parent classes, jerarquía, defaults, Event Graphs vacíos y compilación de los tres Blueprints. | PASS | EV-BPC-01; EV-BPCHAR-01; EV-BPGM-01 |
 | EVC-05 | World Settings, Player Start, dimensiones y colisiones de geometría. | PASS | EV-GEO-LVL-01 |
-| EVC-06 | Output Log al iniciar y durante PIE; búsqueda de los seis mensajes prohibidos. | NOT RUN | |
+| EVC-06 | Output Log al iniciar y durante PIE; búsqueda de los seis mensajes prohibidos. | PASS | EV-PIE-START-01 |
 | EVC-07 | Videos/mediciones de movimiento, salto, crouch, cámaras, espacios y ciclo de vida. | NOT RUN | |
 | EVC-08 | Mando identificado, valores analógicos, drift observado y zona muerta 0 confirmada. | NOT RUN | |
 | EVC-09 | Tiempos instrumentados 0.24/0.25/0.26 s y FPS de cada repetición. | NOT RUN | |
@@ -483,4 +530,5 @@ de esta matriz.
 | SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
 | SETUP-LVL-20260726 | 2026-07-26 | `d4d6732` | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial; postflight 23/24 | Pendiente |
 | SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
+| PIE-START-20260727 | 2026-07-27 | `5e1993f` | Lenovo 83DS, sonda `W`; ratón/mando no probados | 2 PASS / 0 FAIL / 0 BLOCKED; 59 IDs NOT RUN | EV-PIE-START-01 | Pendiente |
 | | | | | | | |

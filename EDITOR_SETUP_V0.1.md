@@ -5,7 +5,8 @@
 Esta guía describe cómo integrar en Unreal Editor 5.8 el código C++ de personaje,
 movimiento y cámaras de Proyecto-Memory. El código vigente, incluido el salto y la
 persistencia de perspectiva, fue compilado correctamente y revisado
-estáticamente. Su comportamiento todavía no ha sido probado en PIE.
+estáticamente. El arranque, la posesión, `IMC_Player` y la perspectiva inicial ya
+fueron probados en PIE; las demás pruebas funcionales continúan pendientes.
 
 Estado de partida verificado:
 
@@ -25,8 +26,8 @@ Estado de partida verificado:
 - Mapa base: `L_Developer_Testing` usa `BP_GameMode_DeveloperTesting`, contiene
   exactamente un Player Start y no contiene Pawn manual ni lógica de Level
   Blueprint. La geometría compacta de 23 cubos de la sección 10 existe, está
-  guardada y fue auditada fuera de PIE mediante MCP; PIE todavía no se ha
-  ejecutado.
+  guardada y fue auditada fuera de PIE mediante MCP. La primera ejecución PIE de
+  la sección 11 también está aprobada mediante `EV-PIE-START-01`.
 
 ### Sesión de Input completada el 2026-07-22
 
@@ -151,12 +152,38 @@ sección 10 y debe decidir primero el layout global de la geometría.
    `05791E0B54CA19C9BB862E264BD1E4B79BB614133D8C67D4B0C0F03F6DAD81B6`.
    Unreal cerró con `LogExit: Exiting`.
 8. El mapa y estos documentos quedaron en `83644f5`. Postflight obtuvo 24/25
-   PASS con worktree limpio; el único FAIL esperado son los 61 IDs QA que
-   continúan `NOT RUN`.
+   PASS con worktree limpio; el único FAIL esperado eran los 61 IDs QA que en ese
+   momento continuaban `NOT RUN`.
 
 No se ejecutó PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los
 guardados iniciaron validación automática sin producir un resultado aprobatorio.
-La siguiente sesión empieza en la sección 11.
+Esa sesión dejó preparada la sección 11, completada el mismo 2026-07-27.
+
+### Sesión inicial PIE completada el 2026-07-27
+
+1. Preflight obtuvo 19/19 PASS con worktree limpio sobre `5e1993f`. La base de
+   enfriamiento y HWiNFO estaban activos; antes de continuar se informaron 36 °C
+   actuales y 68 °C máximos.
+2. Se abrió `/Game/Maps/L_Developer_Testing` en UE 5.8 y se realizaron dos
+   arranques PIE normales en `PlayMode_InViewPort`, no simulación.
+3. MCP confirmó un único `BP_GameMode_DeveloperTesting_C`, un único
+   `BP_PlayerController_C` y un único `BP_PlayerCharacter_C`; Controller y
+   Character compartían el mismo `PlayerState`.
+4. El Controller contenía `EnhancedInputComponent`, `IMC_Player`, las seis Input
+   Actions y prioridad 0. Una sonda controlada de `W` durante 0.75 s movió el
+   Character de X `-600` a `-384.060176`, demostrando posesión y contexto activo.
+   Esta sonda no sustituye la prueba completa `PLR-MOV-001`.
+5. La preferencia guardada era First Person y `CameraModeComponent` informó
+   `InitialMode=FirstPerson`, `CurrentMode=FirstPerson` y FOV 90°.
+6. Los dos PIE cerraron con `bSessionEnded=true`; Unreal cerró después con
+   `LogExit: Exiting`. No apareció ninguno de los seis diagnósticos prohibidos
+   del Player. Los avisos de introspección MCP y el warning genérico de
+   `r.MotionVectorSimulation` no se describen como un log completamente limpio.
+7. `PLR-PIE-001` y `EVC-06` quedaron en PASS mediante `EV-PIE-START-01`. No se
+   guardó ni modificó ningún asset.
+
+La siguiente prueba es `PLR-MOV-001`, sección 12 punto 2: W/A/S/D por separado
+con `showdebug enhancedinput`.
 
 Esta guía es operativa y local. No reemplaza el checklist oficial de
 Proyecto-Memoria-docs y completar sus casillas no autoriza actualizarlo.
@@ -660,8 +687,8 @@ No añadir lógica al Level Blueprint.
 ## 10. Crear geometría de prueba
 
 **Estado: completado y revalidado desde disco el 2026-07-27 mediante
-`EV-GEO-LVL-01`. No recrear ni duplicar estas piezas. La siguiente tarea es la
-primera ejecución PIE de la sección 11.**
+`EV-GEO-LVL-01`. No recrear ni duplicar estas piezas. La primera ejecución PIE de
+la sección 11 también está completada; la siguiente tarea es `PLR-MOV-001`.**
 
 Usar Shapes > Cube para evitar importar assets. El cubo básico mide 100 cm por
 lado; su escala es dimensión deseada / 100.
@@ -828,6 +855,10 @@ Collision: debe bloquear Camera y Pawn
 Guardar L_Developer_Testing.
 
 ## 11. Primera ejecución PIE
+
+**Estado: completado el 2026-07-27 mediante `EV-PIE-START-01`; no repetir por
+costumbre la auditoría de arranque. Sí iniciar PIE de nuevo para cada prueba
+funcional. Continuar en la sección 12, punto 2, con `PLR-MOV-001`.**
 
 Antes de Play:
 

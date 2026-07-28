@@ -4,8 +4,9 @@
 
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
 - Fecha local: 2026-07-27 (America/Costa_Rica).
-- Última actualización: 2026-07-27 — pista compacta de 23 cubos creada,
-  auditada, guardada y recargada desde disco.
+- Última actualización: 2026-07-27 — primera ejecución PIE aprobada: spawn,
+  posesión, `IMC_Player`, perspectiva inicial y 0/6 diagnósticos prohibidos en
+  Output Log.
 - Rama: feature/v0.1-player-cameras.
 - Motor verificado: Unreal Engine 5.8.
 - Plataforma de la base compilada: Windows 64-bit, Development Editor.
@@ -23,9 +24,12 @@
   referencias requeridas, Event Graphs vacíos y compilación exitosa.
   `L_Developer_Testing` usa ese GameMode, contiene exactamente un Player Start y
   no contiene Pawn manual ni lógica de Level Blueprint. La geometría funcional
-  compacta de 23 cubos está completa y validada. Todavía faltan ejecutar todas
-  las pruebas PIE. En la sesión de geometría HWiNFO estaba activo y se reportaron
-  inicialmente 60 °C actuales / 67 °C máximos.
+  compacta de 23 cubos está completa y validada. `PLR-PIE-001` y `EVC-06` están
+  en PASS: PIE creó el Controller y Character correctos, una sonda `W` demostró
+  posesión y contexto activo, se aplicó la preferencia First Person y no apareció
+  ninguno de los seis diagnósticos prohibidos. Las demás pruebas funcionales
+  continúan pendientes. En esta sesión HWiNFO estaba activo y se reportaron
+  36 °C actuales / 68 °C máximos antes de continuar.
 - Publicación remota de la rama del Player: `origin/feature/v0.1-player-cameras`
   contiene `336aa91`. Los commits locales posteriores todavía no están
   publicados; no se hizo un nuevo push, merge, rebase ni tag.
@@ -43,6 +47,7 @@ obligaciones de atribución.
 - Repositorio de código: Proyecto-Memory.
 - Rama obligatoria: feature/v0.1-player-cameras.
 - HEAD al comenzar la sesión de geometría: `90ef65f`.
+- HEAD probado durante la primera sesión PIE: `5e1993f`.
 - Commits relevantes de v0.1.0:
   - f8dfb21 — personaje, movimiento y cámaras.
   - e8095b4 — agachado híbrido.
@@ -72,6 +77,7 @@ obligaciones de atribución.
     mapa.
   - 90ef65f — layout compacto exacto documentado y auditado.
   - 83644f5 — geometría compacta creada, auditada y documentada.
+  - 5e1993f — postflight y documentación final de la geometría.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -89,14 +95,16 @@ obligaciones de atribución.
 La base de enfriamiento ya fue usada con éxito en las sesiones controladas.
 `IMC_Player`, los tres Blueprints, el mapa y el layout compacto de 23 cubos
 quedaron guardados y validados. `LVL-01`, `GEO-01..07` y `EVC-05` están en PASS.
-El próximo trabajo empieza en la sección 11 de `EDITOR_SETUP_V0.1.md`: primera
-ejecución PIE y validación funcional del jugador. No repetir las secciones 5 a
-10.
+La primera ejecución PIE también está completa: `PLR-PIE-001` y `EVC-06` están
+en PASS. El próximo trabajo es `PLR-MOV-001`, sección 12 punto 2 de
+`EDITOR_SETUP_V0.1.md`: probar W/A/S/D por separado con
+`showdebug enhancedinput`. No reconfigurar las secciones 5 a 10 ni volver a
+auditar `PLR-PIE-001` por costumbre; sí iniciar PIE para cada prueba funcional.
 
 En una PC adecuada, no repetir las secciones ya completadas por costumbre.
 Verificar primero rama, HEAD y archivos transferidos. Abrir Unreal con el MCP
 oficial si se desea automatizar el Editor y continuar en `EDITOR_SETUP_V0.1.md`
-desde la sección 11: primera ejecución PIE.
+desde la sección 12 punto 2: `PLR-MOV-001`.
 `PLAYER_SETTINGS_V0.1.md`, `QA_PLAYER_V0.1.md` y
 `Tools/QA/Invoke-PlayerQACheck.ps1` ya existen; no recrearlos.
 
@@ -107,11 +115,11 @@ muestra cambios o archivos faltantes, detener el flujo e investigar. No usar
 `-AllowDirty` para evitar esta protección.
 
 Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
-`EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` fueron corregidos el 2026-07-22. Los
+`EDITOR_SETUP_V0.1.md` y `QA_PLAYER_V0.1.md` están sincronizados al 2026-07-27. Los
 siete controles de configuración `MAP-01..07` están en PASS; las pruebas
-funcionales PIE continúan en `NOT RUN`. `BP-01..06`, `LVL-01`, `GEO-01..07` y
-`EVC-04..05` están en PASS por las auditorías guardadas. La matriz contiene 23
-PASS y 61 IDs `NOT RUN`.
+funcionales posteriores al arranque continúan en `NOT RUN`. `BP-01..06`,
+`LVL-01`, `GEO-01..07`, `PLR-PIE-001` y `EVC-04..06` están en PASS. La matriz
+contiene 25 PASS y 59 IDs `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -141,8 +149,11 @@ Blueprints, Input Assets, PIE, geometría, mando, rendimiento y regresión.
 > Las seis Input Actions, los 16 mappings de IMC_Player y los tres Blueprints ya
 > están guardados y verificados. L_Developer_Testing ya usa el GameMode y tiene
 > un único Player Start definitivo y la pista compacta de 23 cubos validada.
-> Continúa desde EDITOR_SETUP_V0.1.md sección 11 con la primera ejecución PIE; no
-> repitas las secciones 5 a 10. No
+> La primera ejecución PIE ya aprobó spawn, posesión, IMC_Player, primera persona
+> y ausencia de los seis diagnósticos prohibidos. Continúa desde
+> EDITOR_SETUP_V0.1.md sección 12 punto 2 con PLR-MOV-001; no reconfigures las
+> secciones 5 a 10 ni vuelvas a auditar PLR-PIE-001 por costumbre. Sí inicia PIE
+> para ejecutar las pruebas funcionales. No
 > ejecutes herramientas de Unreal en paralelo y no declares pruebas PIE como
 > aprobadas hasta ejecutarlas.
 
@@ -326,7 +337,7 @@ mediante Git LFS:
 | UnrealProject/Content/Input/Actions/IA_ToggleCamera.uasset | Boolean; sin triggers ni modifiers | 1194 B |
 | UnrealProject/Content/Input/Mappings/IMC_Player.uasset | 16 mappings; conteo 5/2/2/3/2/2; sin triggers ni Dead Zone | 8569 B |
 | UnrealProject/Content/Blueprints/Player/BP_PlayerController.uasset | Parent, 12 propiedades, Event Graph vacío, compilación y guardado verificados | 22564 B |
-| UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset | Parent, componentes, movimiento y cámaras verificados; Event Graph vacío | 27020 B |
+| UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset | Parent, componentes y defaults de movimiento/cámaras auditados estáticamente; Event Graph vacío | 27020 B |
 | UnrealProject/Content/Blueprints/Levels/BP_GameMode_DeveloperTesting.uasset | GameModeBase con Pawn/Controller verificados; Event Graph vacío | 22306 B |
 | UnrealProject/Content/Maps/L_Developer_Testing.umap | GameMode, Player Start y layout compacto de 23 cubos auditados fuera de PIE | 60641 B |
 
@@ -367,17 +378,18 @@ EDITOR_SETUP_V0.1.md conserva el procedimiento reproducible. Las secciones 3 y 4
 ya se ejecutaron; la sección 5 está completa con los 16 mappings, la sección 6
 con `BP_PlayerController`, la sección 7 con `BP_PlayerCharacter` y la sección 8
 con `BP_GameMode_DeveloperTesting`. Las secciones 9 y 10 están completas y
-revalidadas desde disco. La siguiente tarea es la sección 11, primera ejecución
-PIE; la existencia de los assets y la geometría todavía no confirma una
-integración jugable.
+revalidadas desde disco. La sección 11 también está completa mediante
+`EV-PIE-START-01`. La siguiente tarea es la sección 12 punto 2,
+`PLR-MOV-001`; el arranque aprobado todavía no confirma el resto de la integración
+jugable.
 
 ### Matriz y verificador QA
 
 `QA_PLAYER_V0.1.md` conserva el entorno de ejecución, precondiciones, configuración
 de assets, geometría, las 27 pruebas de la guía desglosadas, regresión, evidencias,
-incidencias y trazabilidad de aceptación. Actualmente tiene 23 PASS de
-configuración y geometría y 61 resultados `NOT RUN`; ninguna prueba PIE fue
-aprobada.
+incidencias y trazabilidad de aceptación. Actualmente tiene 25 PASS: 23 de
+configuración/geometría y dos de arranque PIE; los otros 59 resultados continúan
+`NOT RUN`.
 
 `Tools/QA/Invoke-PlayerQACheck.ps1` es un script PowerShell 5.1 de solo lectura:
 
@@ -587,10 +599,45 @@ Resultado de la sesión del 2026-07-27 para la geometría:
   PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los guardados
   iniciaron validación automática sin producir un resultado aprobatorio.
 - el mapa y sus tres documentos locales quedaron en `83644f5`; postflight sobre
-  ese commit obtuvo 24/25 PASS con worktree limpio. El único FAIL son los 61 IDs
-  QA que continúan `NOT RUN`.
+  ese commit obtuvo 24/25 PASS con worktree limpio. El único FAIL eran los 61 IDs
+  QA que en ese momento continuaban `NOT RUN`.
 
-Preparación offline conservada para las sesiones de Blueprints restantes:
+Resultado de la primera sesión PIE del 2026-07-27:
+
+- preflight obtuvo 19/19 PASS sobre `5e1993f`; la rama estaba 13 commits delante
+  de origin y el worktree estaba limpio. La base de enfriamiento y HWiNFO estaban
+  activos; se informaron 36 °C actuales y 68 °C máximos antes de continuar;
+- se cargó `/Game/Maps/L_Developer_Testing` y se realizaron dos arranques PIE
+  normales en `PlayMode_InViewPort`, no simulación. El mundo de juego fue
+  `/Game/Maps/UEDPIE_0_L_Developer_Testing`;
+- MCP confirmó exactamente un `BP_GameMode_DeveloperTesting_C`, un
+  `BP_PlayerController_C` y un `BP_PlayerCharacter_C`. Character y Controller
+  compartían el mismo `PlayerState`;
+- el Controller contenía `EnhancedInputComponent`, `IMC_Player`, las seis Input
+  Actions y prioridad 0. Una sonda controlada envió `W` durante 0.75 s al
+  viewport: el Character pasó de X `-600` a `-384.060176`, con Y `-500` y Z
+  `98.15` sin cambios. Esto demostró posesión y contexto activo, pero no ejecutó
+  el caso completo `PLR-MOV-001`;
+- `UnrealProject/Saved/Config/WindowsEditor/GameUserSettings.ini` contenía
+  `PreferredCameraMode=FirstPerson`; en runtime `InitialMode` y `CurrentMode`
+  fueron First Person, con FOV 90°;
+- el Output Log registró ambos inicios y cierres PIE con `bSessionEnded=true`.
+  No apareció ninguno de los seis diagnósticos prohibidos del Player. Sí quedaron
+  avisos de introspección MCP, un warning genérico de
+  `r.MotionVectorSimulation` y un error de sesión MCP vencida recuperado al
+  reinicializar; no debe describirse el log completo como libre de warnings o
+  errores;
+- Unreal cerró normalmente con `LogExit: Exiting`. El log final mide 332942 bytes
+  y tiene SHA-256
+  `DE80BE804F6F173ED1B6F4C288A64402706ABD0D4182823EA85303CA8ABC777C`;
+- antes de otra apertura se copió el log sin modificar a
+  `UnrealProject/Saved/QA/PlayerV0.1/PIE-START-20260727/ProyectoMemoria.log`;
+- no se modificó ni guardó ningún asset. `PLR-PIE-001` y `EVC-06` quedaron en
+  PASS mediante `EV-PIE-START-01`; la matriz pasó a 25 PASS y 59 `NOT RUN`.
+  Movimiento completo, look, sprint, crouch, salto, cámaras, espacios, mando,
+  respawn, persistencia entre ejecuciones y rendimiento siguen sin probar.
+
+Referencia operativa conservada de las sesiones de Blueprints:
 
 - `BlueprintTools` expone `create`, `compile_blueprint` y `get_parent`;
   `ObjectTools` expone `search_subclasses`, `list_properties`, `get_properties` y
@@ -668,6 +715,8 @@ Registro térmico observado:
 | Character antes de abrir, máximo acumulado sin reiniciar | 41,6 °C actual y 86 °C máxima |
 | GameMode antes de abrir, con cargador y base | 41 °C actual y 46 °C máxima |
 | Mapa con base e HWiNFO activos | 37 °C actual y 78 °C máxima |
+| Geometría con base e HWiNFO activos | 60 °C actual y 67 °C máxima |
+| Primera sesión PIE, antes de continuar | 36 °C actual y 68 °C máxima |
 
 En la primera apertura, los siete assets se guardaron mediante MCP antes de
 cerrar. El cierre requirió solicitudes repetidas, pero el log final registra
@@ -1011,17 +1060,24 @@ Avisos externos observados:
   fue parcial hasta la sesión de geometría.
 - En una sexta sesión, MCP creó y auditó la pista compacta de 23 cubos, revalidó
   el Player Start y volvió a comprobar todo después de guardar y recargar.
+- En una séptima sesión se realizaron dos arranques PIE normales. MCP confirmó un
+  GameMode, Controller y Character correctos; una sonda `W` movió el Character
+  215.939824 cm y demostró posesión más `IMC_Player` activo. La preferencia y el
+  modo runtime coincidieron en First Person y no apareció ninguno de los seis
+  diagnósticos prohibidos.
 - Postflight de la sesión de geometría sobre `83644f5`: 24/25 PASS, con worktree
   limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
-  FAIL son los 61 IDs QA pendientes.
+  FAIL eran los 61 IDs QA pendientes en ese momento.
 - Postflight de la sesión del mapa sobre `d4d6732`: 23/24 PASS, con worktree
   limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
   FAIL son las mismas 70 filas QA pendientes.
 - Postflight de la sesión del GameMode: 23/24 PASS, sin procesos Unreal y Output
   Log válido sin diagnósticos propios prohibidos. El único FAIL son 70 resultados
   QA pendientes.
-- No se ejecutó PIE, pruebas de mando, respawn ni rendimiento. La matriz tiene
-  23 PASS de configuración/geometría y 61 IDs que continúan `NOT RUN`.
+- No se ejecutaron todavía las pruebas completas de movimiento, look, sprint,
+  crouch, salto, cambio de cámara, espacios, mando, respawn, persistencia entre
+  ejecuciones ni rendimiento. La matriz tiene 25 PASS y 59 IDs que continúan
+  `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -1040,9 +1096,9 @@ Binaries, Intermediate y Saved.
 
 ## Integración pendiente en Unreal Editor
 
-El C++ vigente compila y el setup offline —Input, Blueprints, mapa y geometría—
-está completo, pero el comportamiento jugable todavía no se ha validado en PIE.
-Estado y orden restante:
+El C++ vigente compila y el setup —Input, Blueprints, mapa y geometría— está
+completo. El arranque funcional inicial ya fue validado en PIE, pero el resto del
+comportamiento jugable continúa pendiente. Estado y orden restante:
 
 1. Verificar que la transferencia conserva los siete `.uasset`, Git LFS, rama y
    HEAD. No borrar los assets por aparecer sin seguimiento.
@@ -1075,16 +1131,20 @@ Estado y orden restante:
    no contiene Pawn manual ni lógica de Level Blueprint. `LVL-01` está en PASS.
 8. **Completado; no repetir.** El layout compacto de 23 cubos de la sección 10
    está guardado y validado; `GEO-01..07` y `EVC-05` están en PASS.
-9. **Siguiente tarea.** Ejecutar la sección 11 y `PLR-PIE-001`: confirmar spawn,
-   posesión, `IMC_Player`, perspectiva inicial y ausencia de mensajes prohibidos.
-10. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
+9. **Completado; no repetir.** La sección 11 y `PLR-PIE-001` confirmaron spawn,
+   posesión, `IMC_Player`, perspectiva inicial y ausencia de los seis mensajes
+   prohibidos.
+10. **Siguiente tarea.** Ejecutar `PLR-MOV-001`, sección 12 punto 2: probar W, A,
+    S y D por separado con `showdebug enhancedinput`, incluida la detención al
+    soltar.
+11. Verificar por separado toque corto, segundo toque, mantener/soltar y cancelación
     de IA_Crouch.
     En manual, comparar un toque claramente corto con una pulsación de al menos
     0,5 s. Los límites 0,24/0,25/0,26 s requieren instrumentación o automatización;
     no deben validarse por estimación humana. Repetir a 30, 60 y 120 FPS cuando el
     hardware lo permita.
-11. Validar en PIE pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
-12. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
+12. Validar en PIE pasillo 2,50 m, puerta 1,20 m, escaleras y habitación pequeña.
+13. Probar salto normal/bajo techo, 1P/3P, respawn, persistencia entre ejecuciones,
     paredes, sensibilidad, inversión y objetivo de 60 FPS.
 
 ## Decisiones y deudas abiertas de v0.1.0
@@ -1153,12 +1213,13 @@ secciones del Player. Claude sí actualizó por separado las secciones de modelo
 
 Debe continuar pendiente hasta completar Editor y pruebas:
 
-- Malla visual y mapa de prueba. Las Input Actions y los mappings de `IMC_Player`
-  ya están conectados en `BP_PlayerController`; Character y GameMode ya están
-  creados y auditados.
-- Teclado, ratón y mando configurados en assets, pero todavía no probados en PIE
-  ni con un mando físico.
-- Movimiento y cámaras verificados en PIE.
+- Malla visual. El mapa de prueba, las Input Actions y los mappings de
+  `IMC_Player` ya están preparados; Character y GameMode ya están creados y
+  auditados.
+- Teclado, ratón y mando configurados en assets. Una sonda `W` ya confirmó el
+  contexto en PIE, pero faltan las pruebas completas de teclado/ratón y no se ha
+  probado un mando físico.
+- Verificación completa de movimiento y cámaras en PIE.
 - Pruebas dimensionales, colisión, escaleras, atasco y 60 FPS.
 - IA_Jump ya existe; siguen pendientes las pruebas de salto normal, desde crouch
   y bajo techo.

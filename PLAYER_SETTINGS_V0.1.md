@@ -10,11 +10,13 @@
   `BP_PlayerController` y `BP_PlayerCharacter` están configurados, compilados y
   guardados. `BP_GameMode_DeveloperTesting` también está configurado, compilado y
   guardado. `L_Developer_Testing` ya usa ese GameMode, conserva un único Player
-  Start y no contiene Pawn manual ni lógica de Level Blueprint. Todavía faltan
-  la geometría funcional y todas las pruebas funcionales en PIE.
-- Las sesiones controladas del 2026-07-22 y 2026-07-26 usaron la base de
-  enfriamiento y HWiNFO; no recompilaron C++, no ejecutaron PIE y cerraron Unreal
-  correctamente.
+  Start, no contiene Pawn manual ni lógica de Level Blueprint y tiene la
+  geometría funcional compacta. El arranque, la posesión, `IMC_Player` y la
+  perspectiva inicial ya pasaron PIE; las demás pruebas funcionales continúan
+  pendientes.
+- Las sesiones controladas del 2026-07-22, 2026-07-26 y 2026-07-27 usaron la
+  base de enfriamiento y HWiNFO. Las sesiones de configuración no recompilaron
+  C++; la primera sesión PIE se cerró correctamente el 2026-07-27.
 
 Este documento usa nombres sencillos para describir lo que debe experimentar el
 jugador. No afirma que las funciones pendientes ya existan.
@@ -92,7 +94,8 @@ como terminada la etapa futura de ajustes.
 ## Diferencias con el estado actual
 
 Después de aprobar esta especificación, las siguientes funciones quedaron
-implementadas y compiladas, pero todavía sin pruebas funcionales en PIE:
+implementadas y compiladas. La sesión `EV-PIE-START-01` verificó únicamente el
+arranque inicial; las pruebas específicas de cada función siguen pendientes:
 
 - binding C++ de salto y levantado inmediato con comprobación de techo;
 - memoria de perspectiva para respawn y futuras ejecuciones mediante
@@ -113,13 +116,15 @@ los dos assets fueron compilados, validados y guardados.
 `BP_GameMode_DeveloperTesting` ya usa esas dos clases, conserva su Event Graph
 vacío y también fue compilado, validado y guardado. El mapa de pruebas ya lo usa,
 tiene un único Player Start y no tiene Pawn manual ni lógica de Level Blueprint.
-Todavía faltan la geometría funcional, el menú, sus widgets y toda validación
-PIE. El C++ actual conserva una sensibilidad compartida para mouse y mando;
-separarlas dinámicamente pertenece a la etapa de ajustes.
+La geometría funcional compacta también está guardada y validada. Todavía faltan
+el menú, sus widgets y la validación PIE posterior a `PLR-PIE-001`. El C++ actual
+conserva una sensibilidad compartida para mouse y mando; separarlas dinámicamente
+pertenece a la etapa de ajustes.
 
-Estas diferencias son trabajo pendiente, no fallos observados en PIE. Unreal se
-abrió para configurar los Input Assets y los tres Blueprints; no se ha ejecutado
-PIE ni se ha probado el Player.
+Estas diferencias son trabajo pendiente, no fallos observados en PIE. La primera
+sesión PIE confirmó GameMode, spawn, posesión, `IMC_Player` y primera persona; una
+sonda breve de `W` solo demostró el contexto activo y no sustituye las pruebas
+completas de movimiento, cámaras, mando, respawn o rendimiento.
 
 ## Separación de alcance
 

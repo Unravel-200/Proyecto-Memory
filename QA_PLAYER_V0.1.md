@@ -267,7 +267,9 @@ La salida reproducible está en
 `UnrealProject/Saved/Logs/ProyectoMemoria.log`; Unreal cerró normalmente con
 `LogExit: Exiting`. No se ejecutó PIE, AssetCheck explícito, Hot Reload ni
 compilación C++. Los guardados iniciaron validación automática sin producir un
-resultado aprobatorio.
+resultado aprobatorio. El mapa y estos documentos quedaron en `83644f5`;
+postflight sobre ese commit obtuvo 24/25 PASS con worktree limpio. El único FAIL
+son los 61 IDs que continúan `NOT RUN`.
 
 ## C. Matriz funcional de PIE
 
@@ -480,5 +482,5 @@ de esta matriz.
 |---|---|---|---|---|---|---|
 | SETUP-IMC-20260722 | 2026-07-22 | `8e0aaba` + cambio local IMC | Lenovo 83DS, teclado/ratón; mando no probado | 7 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-IMC-01 | Pendiente |
 | SETUP-LVL-20260726 | 2026-07-26 | `d4d6732` | Lenovo 83DS, teclado/ratón; mando no probado | 0 PASS / 0 FAIL / 0 BLOCKED; LVL-01, geometría y PIE NOT RUN | EV-LVL-SETUP-01 parcial; postflight 23/24 | Pendiente |
-| SETUP-GEO-20260727 | 2026-07-27 | `90ef65f` + cambio local del mapa | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01 | Pendiente |
+| SETUP-GEO-20260727 | 2026-07-27 | `83644f5` | Lenovo 83DS, teclado/ratón; mando no probado | 9 PASS / 0 FAIL / 0 BLOCKED; PIE NOT RUN | EV-GEO-LVL-01; postflight 24/25 | Pendiente |
 | | | | | | | |

@@ -71,6 +71,7 @@ obligaciones de atribución.
   - 1c42a63 — postflight y documentación final de la configuración base del
     mapa.
   - 90ef65f — layout compacto exacto documentado y auditado.
+  - 83644f5 — geometría compacta creada, auditada y documentada.
 - Checklist oficial actualizado en Proyecto-Memoria-docs, commit 6a270af.
 - El propietario autorizó el 2026-07-20 crear el commit de transferencia y hacer
   push de los tres repositorios. La rama `feature/v0.1-player-cameras` se publica
@@ -585,6 +586,9 @@ Resultado de la sesión del 2026-07-27 para la geometría:
 - Unreal cerró normalmente y el log terminó en `LogExit: Exiting`; no se ejecutó
   PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los guardados
   iniciaron validación automática sin producir un resultado aprobatorio.
+- el mapa y sus tres documentos locales quedaron en `83644f5`; postflight sobre
+  ese commit obtuvo 24/25 PASS con worktree limpio. El único FAIL son los 61 IDs
+  QA que continúan `NOT RUN`.
 
 Preparación offline conservada para las sesiones de Blueprints restantes:
 
@@ -1007,6 +1011,9 @@ Avisos externos observados:
   fue parcial hasta la sesión de geometría.
 - En una sexta sesión, MCP creó y auditó la pista compacta de 23 cubos, revalidó
   el Player Start y volvió a comprobar todo después de guardar y recargar.
+- Postflight de la sesión de geometría sobre `83644f5`: 24/25 PASS, con worktree
+  limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
+  FAIL son los 61 IDs QA pendientes.
 - Postflight de la sesión del mapa sobre `d4d6732`: 23/24 PASS, con worktree
   limpio, objetos LFS hidratados, Output Log válido y Unreal cerrado. El único
   FAIL son las mismas 70 filas QA pendientes.

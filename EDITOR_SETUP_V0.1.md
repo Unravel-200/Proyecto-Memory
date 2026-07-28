@@ -150,6 +150,9 @@ sección 10 y debe decidir primero el layout global de la geometría.
    0/0. El archivo mide 60641 bytes y su SHA-256 es
    `05791E0B54CA19C9BB862E264BD1E4B79BB614133D8C67D4B0C0F03F6DAD81B6`.
    Unreal cerró con `LogExit: Exiting`.
+8. El mapa y estos documentos quedaron en `83644f5`. Postflight obtuvo 24/25
+   PASS con worktree limpio; el único FAIL esperado son los 61 IDs QA que
+   continúan `NOT RUN`.
 
 No se ejecutó PIE, AssetCheck explícito, Hot Reload ni compilación C++. Los
 guardados iniciaron validación automática sin producir un resultado aprobatorio.

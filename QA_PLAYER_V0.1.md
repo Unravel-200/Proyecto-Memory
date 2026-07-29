@@ -487,7 +487,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
 | PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | NOT RUN | |
 | PLR-REG-003 | 12.22 | Detener PIE, compilar Blueprints, Save All, cerrar y reabrir UE 5.8. | Persisten IA/IMC, clases, defaults, GameMode y mapa; los Blueprints compilan y se aplica la vista guardada o 1P en un perfil limpio. | PASS | EV-REG-RESTART-01 |
-| PLR-REG-005 | 12.27 / checklist oficial | Cambiar a 3P, cerrar completamente el juego y volver a iniciarlo con el mismo perfil; repetir sin preferencia guardada. | Restaura 3P con el perfil existente; una primera ejecución sin preferencia guardada inicia en 1P. | NOT RUN | |
+| PLR-REG-005 | 12.27 / checklist oficial | Cambiar a 3P, cerrar completamente el juego y volver a iniciarlo con el mismo perfil; repetir sin preferencia guardada. | Restaura 3P con el perfil existente; una primera ejecuciÃ³n sin preferencia guardada inicia en 1P. | PASS | EV-REG-CAMERA-PERSIST-01 |
 
 ### Ciclo de vida y regresión controlada
 
@@ -665,3 +665,8 @@ En una ruta continua el propietario recorriÃ³ el pasillo rozando ambas paredes
 ### Evidencia EV-REG-RESTART-01 (2026-07-29)
 
 Unreal se cerrÃ³ y se abriÃ³ de nuevo en L_Developer_Testing. El propietario confirmÃ³ que el mapa cargÃ³ y que W, Space, C y V siguieron funcionando sin estados heredados, duplicaciÃ³n visible ni regresiÃ³n. Log: UnrealProject/Saved/QA/PlayerV0.1/REG-RESTART-20260729/ProyectoMemoria.log (280155 bytes, SHA-256 7136537A1404490AF7B63FC760792428DA69DE67458FEB947076DDECA1DCE9F7). Matriz: **50 PASS / 2 BLOCKED / 32 NOT RUN**. Siguiente: PLR-REG-005, persistencia de la perspectiva elegida al reiniciar.
+
+
+### Evidencia EV-REG-CAMERA-PERSIST-01 (2026-07-29)
+
+El propietario confirmÃ³ que, tras cambiar a tercera persona, detener PIE, cerrar Unreal y abrir de nuevo L_Developer_Testing, la nueva sesiÃ³n iniciÃ³ directamente en tercera persona. Log: UnrealProject/Saved/QA/PlayerV0.1/REG-PERSIST-CAMERA-20260729/ProyectoMemoria.log (280218 bytes, SHA-256 B7F6F7C9A6744BD13C6F52A850D037C47CE0A24F50A516A49777C8AF653EF4A2). Matriz: **51 PASS / 2 BLOCKED / 31 NOT RUN**.

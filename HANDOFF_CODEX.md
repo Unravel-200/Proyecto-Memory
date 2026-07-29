@@ -1382,3 +1382,6 @@ SesiÃ³n agrupada PLR-ENV-001..004 (2026-07-29): en una ruta continua el propie
 
 SesiÃ³n agrupada PLR-REG-003 + PLR-REG-004 (2026-07-29): Unreal se cerrÃ³ y reabriÃ³ en L_Developer_Testing; el propietario confirmÃ³ que el mapa cargÃ³ y W, Space, C y V siguieron funcionando sin regresiÃ³n ni estado heredado. Evidencia EV-REG-RESTART-01; log REG-RESTART-20260729 (280155 bytes, SHA-256 7136537A1404490AF7B63FC760792428DA69DE67458FEB947076DDECA1DCE9F7). Matriz: 50 PASS / 2 BLOCKED / 32 NOT RUN. Siguiente: PLR-REG-005, persistencia de perspectiva.
 
+
+SesiÃ³n PLR-REG-005 (2026-07-29): tras cambiar a 3P, detener PIE, cerrar Unreal y reabrir L_Developer_Testing, el propietario confirmÃ³ que iniciÃ³ directamente en tercera persona. Evidencia EV-REG-CAMERA-PERSIST-01; log REG-PERSIST-CAMERA-20260729 (280218 bytes, SHA-256 B7F6F7C9A6744BD13C6F52A850D037C47CE0A24F50A516A49777C8AF653EF4A2). Matriz: 51 PASS / 2 BLOCKED / 31 NOT RUN.
+

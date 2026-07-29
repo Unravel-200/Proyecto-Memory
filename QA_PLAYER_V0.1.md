@@ -464,7 +464,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CAM-001 | 12.14 | Desde 1P, activar Toggle Camera y luego avanzar/girar. | Queda activa solo 3P, FOV 90°, arm 300 cm, colisión del boom activa y Character orientado hacia movimiento. | PASS | EV-CAM-TOGGLE-01 |
 | PLR-CAM-002 | 12.15 | Con una orientación reconocible, volver de 3P a 1P. | Queda activa solo 1P y conserva el yaw del Controller, sin salto brusco visible. | PASS | EV-CAM-CONTINUITY-01 |
 | PLR-CAM-003 | 12.16 | Alternar varias veces quieto, caminando, corriendo y agachado. | Cada pulsación produce un cambio; los estados siguen coherentes; nunca hay dos cámaras activas ni ninguna activa. | PASS | EV-CAM-TOGGLE-02 |
-| PLR-CAM-004 | 12.17 | En 3P, acercarse y girar junto a la pared de cámara. | El boom retrae la cámara sin atravesar la pared y recupera su longitud al alejarse. | NOT RUN | |
+| PLR-CAM-004 | 12.17 | En 3P, acercarse y girar junto a la pared de cámara. | El boom retrae la cámara sin atravesar la pared y recupera su longitud al alejarse. | PASS | EV-CAM-COLLISION-01 |
 | PLR-CAM-007 | 12.26 | Cambiar de perspectiva y reemplazar el Pawn con un arnés controlado de respawn, documentado y sin lógica central en Level Blueprint; no volver a pulsar Toggle Camera. | El nuevo Character usa la misma perspectiva del anterior, equivalente a conservar la vista al morir y reaparecer. | NOT RUN | |
 | PLR-VIS-001 | Alcance 3P | Evaluar encuadre y apariencia del Character en 3P. | La malla tiene licencia/escala registradas y cumple el criterio visual de clipping anotado para la ejecución. Sin malla o criterio aprobado, solo esta fila queda `BLOCKED`. | NOT RUN | |
 
@@ -650,3 +650,8 @@ El propietario confirmó que, después de cambiar a tercera persona, avanzar y g
 ### Evidencia EV-CAM-TOGGLE-02 (2026-07-29)
 
 El propietario confirmó en PIE que la alternancia repetida de cámara mantuvo funcionales el movimiento, la carrera y el agachado. No se observó pérdida de control al cambiar de perspectiva. Log: UnrealProject/Saved/QA/PlayerV0.1/CAMERA-TOGGLE-20260729/ProyectoMemoria.log (280212 bytes, SHA-256 C1B24A6F05E345DFA59B250B023DE9D3FAE3CC0FC550BF653488EFEB514DCE9E). Matriz actual: **43 PASS / 2 BLOCKED / 39 NOT RUN**. Siguiente: PLR-CAM-004, colisiÃ³n del boom junto a paredes.
+
+
+### Evidencia EV-CAM-COLLISION-01 (2026-07-29)
+
+En tercera persona, el propietario acercÃ³ el Character a la pared y confirmÃ³ que la cÃ¡mara funcionÃ³ correctamente: el boom conservÃ³ la colisiÃ³n, no atravesÃ³ la geometrÃ­a y recuperÃ³ su distancia al alejarse. Log: UnrealProject/Saved/QA/PlayerV0.1/CAMERA-COLLISION-20260729/ProyectoMemoria.log (280492 bytes, SHA-256 CD1DD52B1ABD690FB6F3AB52BBAAA49B4537D03E881BA69FF40FDE19731DF03E). Matriz: **44 PASS / 2 BLOCKED / 38 NOT RUN**. Siguiente: PLR-ENV-001, recorrido del pasillo y paredes.

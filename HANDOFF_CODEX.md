@@ -1373,3 +1373,6 @@ SesiÃ³n PLR-CAM-002 (2026-07-29): el propietario confirmÃ³ que al volver de 
 
 SesiÃ³n PLR-CAM-003 (2026-07-29): el propietario alternÃ³ la cÃ¡mara en PIE y confirmÃ³ que movimiento, carrera y agachado siguieron funcionando en ambas perspectivas. Evidencia EV-CAM-TOGGLE-02; log CAMERA-TOGGLE-20260729 (280212 bytes, SHA-256 C1B24A6F05E345DFA59B250B023DE9D3FAE3CC0FC550BF653488EFEB514DCE9E). Matriz: 43 PASS / 2 BLOCKED / 39 NOT RUN. Siguiente: PLR-CAM-004, colisiÃ³n del boom junto a paredes.
 
+
+SesiÃ³n PLR-CAM-004 (2026-07-29): en tercera persona, el propietario se acercÃ³ a la pared y confirmÃ³ que el boom no atravesÃ³ la geometrÃ­a, se retrajo y recuperÃ³ la longitud al alejarse. Evidencia EV-CAM-COLLISION-01; log CAMERA-COLLISION-20260729 (280492 bytes, SHA-256 CD1DD52B1ABD690FB6F3AB52BBAAA49B4537D03E881BA69FF40FDE19731DF03E). Matriz: 44 PASS / 2 BLOCKED / 38 NOT RUN. Siguiente: PLR-ENV-001, recorrido del pasillo y paredes.
+

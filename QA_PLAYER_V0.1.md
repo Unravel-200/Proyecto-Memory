@@ -442,7 +442,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CRO-002 | 12.8 | Estando agachado por el caso anterior, dar otro toque corto. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | PASS | EV-CROUCH-01 |
 | PLR-CRO-003 | 12.9 | Desde pie, mantener crouch ≥0.5 s y soltar. | Se agacha inmediatamente, permanece así mientras se mantiene y queda de pie al soltar. | PASS | EV-CROUCH-01 |
 | PLR-CRO-004 | 12.10 | Desde agachado, mantener crouch ≥0.5 s y soltar. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | PASS | EV-CROUCH-HOLD-01 |
-| PLR-CRO-005 | 12.11 | Desde pie, provocar `Canceled` mediante un caso reproducible sin cambiar los triggers para forzarlo. | Restaura la postura inicial de pie. Si no puede emitirse determinísticamente, `BLOCKED` y prueba automatizada. | NOT RUN | |
+| PLR-CRO-005 | 12.11 | Desde pie, provocar `Canceled` mediante un caso reproducible sin cambiar los triggers para forzarlo. | Restaura la postura inicial de pie. Si no puede emitirse determinísticamente, `BLOCKED` y prueba automatizada. | BLOCKED | EV-CROUCH-CANCELED-01 |
 | PLR-CRO-006 | 12.11 | Desde agachado, repetir el caso reproducible de `Canceled`. | Restaura la postura inicial agachada. No inferir el resultado al detener PIE. | NOT RUN | |
 | PLR-CRO-007 | 12.12 | Iniciar sprint y activar crouch sin soltar primero el movimiento. | Crouch cancela sprint, usa 180 cm/s agachado y no deja sprint latente. | NOT RUN | |
 | PLR-CRO-008 | 12.13 | Entrar agachado al túnel, intentar levantarse bajo el techo y salir. | Entra agachado; UnCrouch conserva la postura bajo techo; puede levantarse al recuperar espacio. | NOT RUN | |

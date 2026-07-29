@@ -1225,3 +1225,6 @@ siguen siendo necesarios.
 ### Sesión de crouch desde agachado completada el 2026-07-28
 
 `PLR-CRO-004` confirmó que mantener C desde agachado y soltar devuelve la postura de pie sin sprint residual. La siguiente tarea es `PLR-CRO-005`, cancelación Canceled.
+### Cancelación de crouch pendiente el 2026-07-28
+
+El intento de provocar `Canceled` retirando el foco no generó un evento observable en el log. `PLR-CRO-005` queda `BLOCKED`; la siguiente acción es instrumentar el evento antes de aprobarlo.

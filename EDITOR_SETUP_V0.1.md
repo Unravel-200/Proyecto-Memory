@@ -1228,3 +1228,6 @@ siguen siendo necesarios.
 ### Cancelación de crouch pendiente el 2026-07-28
 
 El intento de provocar `Canceled` retirando el foco no generó un evento observable en el log. `PLR-CRO-005` queda `BLOCKED`; la siguiente acción es instrumentar el evento antes de aprobarlo.
+### Sesión crouch cancela sprint completada el 2026-07-28
+
+`PLR-CRO-007` confirmó cancelación de sprint al activar crouch y velocidad configurada de 180 cm/s. La siguiente tarea es `PLR-CRO-008`, validar el túnel.

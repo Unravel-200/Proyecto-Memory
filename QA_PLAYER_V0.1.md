@@ -444,7 +444,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CRO-004 | 12.10 | Desde agachado, mantener crouch ≥0.5 s y soltar. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | PASS | EV-CROUCH-HOLD-01 |
 | PLR-CRO-005 | 12.11 | Desde pie, provocar `Canceled` mediante un caso reproducible sin cambiar los triggers para forzarlo. | Restaura la postura inicial de pie. Si no puede emitirse determinísticamente, `BLOCKED` y prueba automatizada. | BLOCKED | EV-CROUCH-CANCELED-01 |
 | PLR-CRO-006 | 12.11 | Desde agachado, repetir el caso reproducible de `Canceled`. | Restaura la postura inicial agachada. No inferir el resultado al detener PIE. | NOT RUN | |
-| PLR-CRO-007 | 12.12 | Iniciar sprint y activar crouch sin soltar primero el movimiento. | Crouch cancela sprint, usa 180 cm/s agachado y no deja sprint latente. | NOT RUN | |
+| PLR-CRO-007 | 12.12 | Iniciar sprint y activar crouch sin soltar primero el movimiento. | Crouch cancela sprint, usa 180 cm/s agachado y no deja sprint latente. | PASS | EV-CROUCH-SPRINT-01 |
 | PLR-CRO-008 | 12.13 | Entrar agachado al túnel, intentar levantarse bajo el techo y salir. | Entra agachado; UnCrouch conserva la postura bajo techo; puede levantarse al recuperar espacio. | NOT RUN | |
 | PLR-CRO-AUT-001 | Sec. 12 | Inyectar o medir 0.24, 0.25 y 0.26 s; repetir a 30, 60 y 120 FPS cuando el equipo lo permita. | 0.24 s sigue el contrato de toque; 0.25 y 0.26 s siguen el contrato de hold. Cada valor tiene tiempo medido y resultado por FPS. | NOT RUN | |
 | PLR-CRO-009 | Handoff | Estando ya agachado, intentar iniciar sprint y avanzar sin cambiar de postura. | Sprint no se activa; el Character sigue agachado y conserva la velocidad de crouch. | NOT RUN | |

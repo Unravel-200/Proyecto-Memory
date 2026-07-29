@@ -1213,3 +1213,6 @@ siguen siendo necesarios.
 ### Sesión de velocidad completada el 2026-07-28
 
 `PLR-MOV-004` confirmó `walkSpeed/maxWalkSpeed=300 cm/s` en PIE. El avance recto sin sprint no produjo deriva lateral y la velocidad quedó en cero al soltar. La siguiente tarea es `PLR-MOV-005`, sprint.
+### Sesión de sprint completada el 2026-07-28
+
+`PLR-MOV-005` confirmó el sprint configurado en 550 cm/s y el retorno a 300 cm/s al soltar; `bIsSprinting` y velocity quedaron en falso/cero. La siguiente tarea es `PLR-MOV-006`, movimiento relativo al yaw.

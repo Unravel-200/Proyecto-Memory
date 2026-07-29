@@ -1370,3 +1370,6 @@ Aclaración de PLR-CAM-001: el propietario confirmó además que pudo avanzar y 
 
 SesiÃ³n PLR-CAM-002 (2026-07-29): el propietario confirmÃ³ que al volver de tercera a primera persona se conserva la orientaciÃ³n de la cÃ¡mara despuÃ©s de avanzar y girar, sin salto brusco visible. Evidencia EV-CAM-CONTINUITY-01. Matriz: 42 PASS / 2 BLOCKED / 40 NOT RUN. Siguiente: PLR-CAM-003, alternancia repetida en reposo, caminando, corriendo y agachado.
 
+
+SesiÃ³n PLR-CAM-003 (2026-07-29): el propietario alternÃ³ la cÃ¡mara en PIE y confirmÃ³ que movimiento, carrera y agachado siguieron funcionando en ambas perspectivas. Evidencia EV-CAM-TOGGLE-02; log CAMERA-TOGGLE-20260729 (280212 bytes, SHA-256 C1B24A6F05E345DFA59B250B023DE9D3FAE3CC0FC550BF653488EFEB514DCE9E). Matriz: 43 PASS / 2 BLOCKED / 39 NOT RUN. Siguiente: PLR-CAM-004, colisiÃ³n del boom junto a paredes.
+

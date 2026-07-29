@@ -1385,3 +1385,6 @@ SesiÃ³n agrupada PLR-REG-003 + PLR-REG-004 (2026-07-29): Unreal se cerrÃ³ y 
 
 SesiÃ³n PLR-REG-005 (2026-07-29): tras cambiar a 3P, detener PIE, cerrar Unreal y reabrir L_Developer_Testing, el propietario confirmÃ³ que iniciÃ³ directamente en tercera persona. Evidencia EV-REG-CAMERA-PERSIST-01; log REG-PERSIST-CAMERA-20260729 (280218 bytes, SHA-256 B7F6F7C9A6744BD13C6F52A850D037C47CE0A24F50A516A49777C8AF653EF4A2). Matriz: 51 PASS / 2 BLOCKED / 31 NOT RUN.
 
+
+SesiÃ³n PLR-PERF-001 (2026-07-29): en la ruta completa con movimiento, crouch y cÃ¡maras, el propietario observÃ³ 60 FPS, Game 9.0-9.8 ms, Draw ~9.1 ms y GPU 12-13 ms. El objetivo de 60 FPS se cumpliÃ³ en esta PC. Evidencia EV-PERF-ROUTE-01; log PERF-ROUTE-20260729 (281808 bytes, SHA-256 9F596AB52857C6809F4BC615F147C0D5A6006383B335D66F8F5EB7992A81BF19). Matriz: 52 PASS / 2 BLOCKED / 30 NOT RUN.
+

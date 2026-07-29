@@ -1364,3 +1364,6 @@ Sesión `PLR-JMP-003` del 2026-07-29: desde Player Start normal, el propietario 
 
 En PIE sobre /Game/Maps/L_Developer_Testing, V alternó currentMode=FirstPerson -> ThirdPerson y, con el viewport enfocado, volvió a FirstPerson. En 3P se verificaron FOV 90°, brazo 300 cm y colisión del boom activa. CharacterMesh0 no tiene SkeletalMesh, así que la apariencia 3P sigue pendiente en PLR-VIS-001; no se tocó Modelos-3D. Evidencia EV-CAM-TOGGLE-01; log CAMERA-20260729 (298582 bytes, SHA-256 54CC00CBB15F524494512D3FBFE7C5A54EBE54F76CC0B53742E674245683CFF8). Matriz: 41 PASS / 2 BLOCKED / 41 NOT RUN. Siguiente: PLR-CAM-002, continuidad de yaw al volver a 1P.
 
+
+Aclaración de PLR-CAM-001: el propietario confirmó además que pudo avanzar y girar tanto en primera como en tercera persona durante el cambio de cámara; no se observó pérdida de control. La apariencia 3P sigue separada en PLR-VIS-001 por falta de malla asignada.
+

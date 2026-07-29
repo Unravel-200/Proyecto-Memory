@@ -482,7 +482,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
 | PLR-PAD-001 | 12.19 | Con mando fÃ­sico identificado, probar movimiento/look, L3 sprint, B/cÃ­rculo crouch, A/X salto y Y/triÃ¡ngulo cÃ¡mara. | Todas las acciones responden; los sticks alcanzan rango Ãºtil y vuelven al centro. Registrar modelo, conexiÃ³n y FPS. | PASS | EV-PAD-XINPUT-01 |
-| PLR-PAD-002 | 12.19 | Dejar sticks en reposo, observar input/Pawn/cámara y recorrer el rango completo. | Se confirma zona muerta configurada en 0 y se registra todo drift real, dispositivo y efecto observado; no se oculta con otra capa sin nueva autorización. | NOT RUN | |
+| PLR-PAD-002 | 12.19 | Dejar sticks en reposo, observar input/Pawn/cÃ¡mara y recorrer el rango completo. | Se confirma zona muerta configurada en 0 y se registra todo drift real, dispositivo y efecto observado; no se oculta con otra capa sin nueva autorizaciÃ³n. | PASS | EV-PAD-DRIFT-01 |
 | PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separación por dispositivo pertenece al menú posterior. | NOT RUN | |
 | PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
 | PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | PASS | EV-PERF-ROUTE-01 |
@@ -688,3 +688,8 @@ Con el Wireless Controller USB convertido por DS4Windows a XInput, el propietari
 
 
 AclaraciÃ³n de PLR-JMP-001: la prueba del mando confirmÃ³ el salto con A/X y elimina el bloqueo por falta de mando. Matriz: **54 PASS / 1 BLOCKED / 29 NOT RUN**.
+
+
+### Evidencia EV-PAD-DRIFT-01 (2026-07-29)
+
+Con DS4Windows/XInput, el propietario dejÃ³ ambos sticks en reposo sin observar movimiento ni giro involuntario, recorriÃ³ las cuatro direcciones de cada stick y confirmÃ³ que ambos regresan al centro. Log: UnrealProject/Saved/QA/PlayerV0.1/PAD-DRIFT-20260729/ProyectoMemoria.log (290229 bytes, SHA-256 93858077E74BAB59CC11873170B3253D00E2049CD12CEEA88116C4720E550C5B). Matriz: **55 PASS / 1 BLOCKED / 28 NOT RUN**.

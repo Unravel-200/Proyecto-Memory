@@ -1397,3 +1397,6 @@ SesiÃ³n PLR-PAD-001 (2026-07-29): con Wireless Controller USB convertido por D
 
 ActualizaciÃ³n PLR-JMP-001 (2026-07-29): A/X fue probado con el mando XInput y el salto funcionÃ³, por lo que se levanta el bloqueo anterior. Matriz: 54 PASS / 1 BLOCKED / 29 NOT RUN.
 
+
+SesiÃ³n PLR-PAD-002 (2026-07-29): con DS4Windows/XInput no se observÃ³ drift en reposo; ambos sticks recorrieron cuatro direcciones y regresaron al centro. Evidencia EV-PAD-DRIFT-01; log PAD-DRIFT-20260729 (290229 bytes, SHA-256 93858077E74BAB59CC11873170B3253D00E2049CD12CEEA88116C4720E550C5B). Matriz: 55 PASS / 1 BLOCKED / 28 NOT RUN.
+

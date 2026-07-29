@@ -455,7 +455,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 |---|---:|---|---|---|---|
 | PLR-JMP-001 | 12.23 | Desde pie y con espacio, saltar con Espacio y después con A/X; soltar el control durante el salto. | Ambos controles inician el salto y al soltarlos termina la orden mediante `StopJumping`; no queda salto latente. | BLOCKED | EV-JUMP-KEYBOARD-01 |
 | PLR-JMP-002 | 12.24 | Desde crouch y con espacio libre encima, presionar salto. | Se levanta y salta como una sola intención; no permanece agachado ni requiere una segunda pulsación. | PASS | EV-JUMP-CROUCH-01 |
-| PLR-JMP-003 | 12.25 | Desde crouch bajo el túnel, presionar salto; después salir sin volver a pulsarlo. | No atraviesa el techo, no salta bajo el obstáculo y tampoco ejecuta un salto pendiente al recuperar espacio. | NOT RUN | |
+| PLR-JMP-003 | 12.25 | Desde crouch bajo el túnel, presionar salto; después salir sin volver a pulsarlo. | No atraviesa el techo, no salta bajo el obstáculo y tampoco ejecuta un salto pendiente al recuperar espacio. | PASS | EV-JUMP-TUNNEL-01 |
 
 ### Cámaras
 

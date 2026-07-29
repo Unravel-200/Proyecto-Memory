@@ -1243,3 +1243,6 @@ Espacio inició y terminó el salto correctamente; A/X queda pendiente por falta
 ### Sesión de salto desde crouch completada el 2026-07-29
 
 `PLR-JMP-002` confirmó que Espacio levanta y salta desde crouch después de completar el gesto. La siguiente tarea es `PLR-JMP-003`, salto bajo túnel.
+### Sesión de salto bajo túnel completada el 2026-07-29
+
+`PLR-JMP-003` confirmó que no hay salto pendiente bajo el techo y que el personaje se levanta al salir. La siguiente tarea es `PLR-CAM-001`, cambio a tercera persona.

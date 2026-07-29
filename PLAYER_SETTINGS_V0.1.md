@@ -160,7 +160,7 @@ en una PC adecuada y se adjunta evidencia en la matriz QA.
 
 ## Validación funcional reciente
 
-El 2026-07-28 `PLR-MOV-003` confirmó entrada física de mouse: movimiento vertical pequeño desde pitch/yaw `0/0` produjo pitch `-43.2250006°`, yaw `0°`, y permaneció estable tras 1.2 s. Sensibilidades X/Y siguen en `1.0` e inversión Y desactivada. Próxima validación: `PLR-JMP-003` (salto bajo túnel).
+El 2026-07-28 `PLR-MOV-003` confirmó entrada física de mouse: movimiento vertical pequeño desde pitch/yaw `0/0` produjo pitch `-43.2250006°`, yaw `0°`, y permaneció estable tras 1.2 s. Sensibilidades X/Y siguen en `1.0` e inversión Y desactivada. Próxima validación: `PLR-CAM-001` (cambio a tercera persona).
 ### Corrección aplicada el 2026-07-29
 
 La dirección vertical predeterminada del mouse quedó corregida: moverlo hacia arriba hace que la cámara mire hacia arriba. `bInvertLookY` continúa disponible para invertirla voluntariamente.

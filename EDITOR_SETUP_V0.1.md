@@ -1231,3 +1231,6 @@ El intento de provocar `Canceled` retirando el foco no generó un evento observa
 ### Sesión crouch cancela sprint completada el 2026-07-28
 
 `PLR-CRO-007` confirmó cancelación de sprint al activar crouch y velocidad configurada de 180 cm/s. La siguiente tarea es `PLR-CRO-008`, validar el túnel.
+### Sesión del túnel completada el 2026-07-29
+
+`PLR-CRO-008` confirmó que el techo conserva la postura agachada y que el personaje puede levantarse tras salir. La siguiente tarea es `PLR-CRO-009`, sprint desde agachado.

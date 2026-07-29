@@ -485,7 +485,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-PAD-002 | 12.19 | Dejar sticks en reposo, observar input/Pawn/cámara y recorrer el rango completo. | Se confirma zona muerta configurada en 0 y se registra todo drift real, dispositivo y efecto observado; no se oculta con otra capa sin nueva autorización. | NOT RUN | |
 | PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separación por dispositivo pertenece al menú posterior. | NOT RUN | |
 | PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
-| PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | NOT RUN | |
+| PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | PASS | EV-PERF-ROUTE-01 |
 | PLR-REG-003 | 12.22 | Detener PIE, compilar Blueprints, Save All, cerrar y reabrir UE 5.8. | Persisten IA/IMC, clases, defaults, GameMode y mapa; los Blueprints compilan y se aplica la vista guardada o 1P en un perfil limpio. | PASS | EV-REG-RESTART-01 |
 | PLR-REG-005 | 12.27 / checklist oficial | Cambiar a 3P, cerrar completamente el juego y volver a iniciarlo con el mismo perfil; repetir sin preferencia guardada. | Restaura 3P con el perfil existente; una primera ejecuciÃ³n sin preferencia guardada inicia en 1P. | PASS | EV-REG-CAMERA-PERSIST-01 |
 
@@ -670,3 +670,8 @@ Unreal se cerrÃ³ y se abriÃ³ de nuevo en L_Developer_Testing. El propietario
 ### Evidencia EV-REG-CAMERA-PERSIST-01 (2026-07-29)
 
 El propietario confirmÃ³ que, tras cambiar a tercera persona, detener PIE, cerrar Unreal y abrir de nuevo L_Developer_Testing, la nueva sesiÃ³n iniciÃ³ directamente en tercera persona. Log: UnrealProject/Saved/QA/PlayerV0.1/REG-PERSIST-CAMERA-20260729/ProyectoMemoria.log (280218 bytes, SHA-256 B7F6F7C9A6744BD13C6F52A850D037C47CE0A24F50A516A49777C8AF653EF4A2). Matriz: **51 PASS / 2 BLOCKED / 31 NOT RUN**.
+
+
+### Evidencia EV-PERF-ROUTE-01 (2026-07-29)
+
+Durante el recorrido de pasillo, puerta, habitaciÃ³n, escaleras y tÃºnel, con movimiento, crouch y cÃ¡maras, el propietario observÃ³ 60 FPS; Game variÃ³ aproximadamente entre 9.0 y 9.8 ms, Draw ~9.1 ms y GPU entre 12 y 13 ms. El objetivo de 60 FPS se cumpliÃ³ en esta PC y ruta. Log: UnrealProject/Saved/QA/PlayerV0.1/PERF-ROUTE-20260729/ProyectoMemoria.log (281808 bytes, SHA-256 9F596AB52857C6809F4BC615F147C0D5A6006383B335D66F8F5EB7992A81BF19). Matriz: **52 PASS / 2 BLOCKED / 30 NOT RUN**.

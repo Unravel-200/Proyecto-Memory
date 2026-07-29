@@ -1216,3 +1216,6 @@ siguen siendo necesarios.
 ### Sesión de sprint completada el 2026-07-28
 
 `PLR-MOV-005` confirmó el sprint configurado en 550 cm/s y el retorno a 300 cm/s al soltar; `bIsSprinting` y velocity quedaron en falso/cero. La siguiente tarea es `PLR-MOV-006`, movimiento relativo al yaw.
+### Sesión de movimiento relativo completada el 2026-07-28
+
+`PLR-MOV-006` confirmó que W sigue el yaw de la cámara (yaw ~92.6°, desplazamiento principalmente en Y). La siguiente tarea es `PLR-CRO-001`, crouch híbrido.

@@ -297,7 +297,7 @@ caso: `showdebug character`, `showdebug enhancedinput`, `show collision`,
 | PLR-MOV-003 | 12.4 | Mover y detener el ratón horizontal y verticalmente. | Yaw y pitch responden inmediatamente, en el sentido base esperado, sin suavizado ni movimiento después de detener el ratón. | PASS | EV-MOV-LOOK-01 |
 | PLR-MOV-004 | 12.5 | En suelo plano, mantener avance hasta velocidad estable y medir. | Objetivo 300 cm/s. Registrar valor, resolución de medición y tolerancia previamente aprobada; si falta esa tolerancia, no decidir subjetivamente y usar `BLOCKED`. | PASS | EV-MOV-SPEED-01 |
 | PLR-MOV-005 | 12.6 | Mantener sprint, medir; soltar y volver a medir. | Objetivos 550 cm/s durante sprint y 300 cm/s al soltar; no queda sprint latente. Registrar la tolerancia aprobada o usar `BLOCKED`. | PASS | EV-MOV-SPRINT-01 |
-| PLR-MOV-006 | Handoff | Rotar la vista 90° y 180°; en cada orientación pulsar avance y laterales. | El movimiento se calcula respecto del yaw de la vista, no respecto de ejes fijos del mundo, y conserva las direcciones relativas correctas. | NOT RUN | |
+| PLR-MOV-006 | Handoff | Rotar la vista 90° y 180°; en cada orientación pulsar avance y laterales. | El movimiento se calcula respecto del yaw de la vista, no respecto de ejes fijos del mundo, y conserva las direcciones relativas correctas. | PASS | EV-MOV-RELATIVE-01 |
 
 `EV-PIE-START-01` — sesión local del 2026-07-27 sobre `5e1993f`, Lenovo 83DS
 con UE 5.8 Win64 Development Editor, base de enfriamiento y HWiNFO activos.

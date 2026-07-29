@@ -1240,3 +1240,6 @@ El intento de provocar `Canceled` retirando el foco no generó un evento observa
 ### Sesión de salto con teclado completada el 2026-07-29
 
 Espacio inició y terminó el salto correctamente; A/X queda pendiente por falta de mando físico, por lo que `PLR-JMP-001` permanece `BLOCKED`. La siguiente tarea es `PLR-JMP-002`, salto desde crouch.
+### Sesión de salto desde crouch completada el 2026-07-29
+
+`PLR-JMP-002` confirmó que Espacio levanta y salta desde crouch después de completar el gesto. La siguiente tarea es `PLR-JMP-003`, salto bajo túnel.

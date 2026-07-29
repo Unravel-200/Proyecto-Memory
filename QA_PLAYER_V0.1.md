@@ -461,7 +461,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-CAM-001 | 12.14 | Desde 1P, activar Toggle Camera y luego avanzar/girar. | Queda activa solo 3P, FOV 90°, arm 300 cm, colisión del boom activa y Character orientado hacia movimiento. | NOT RUN | |
+| PLR-CAM-001 | 12.14 | Desde 1P, activar Toggle Camera y luego avanzar/girar. | Queda activa solo 3P, FOV 90°, arm 300 cm, colisión del boom activa y Character orientado hacia movimiento. | PASS | EV-CAM-TOGGLE-01 |
 | PLR-CAM-002 | 12.15 | Con una orientación reconocible, volver de 3P a 1P. | Queda activa solo 1P y usa yaw del Controller, sin salto brusco visible. Guardar video; si es ambiguo por falta de umbral, `BLOCKED` hasta definirlo. | NOT RUN | |
 | PLR-CAM-003 | 12.16 | Alternar varias veces quieto, caminando, corriendo y agachado. | Cada pulsación produce un cambio; los estados siguen coherentes; nunca hay dos cámaras activas ni ninguna activa. | NOT RUN | |
 | PLR-CAM-004 | 12.17 | En 3P, acercarse y girar junto a la pared de cámara. | El boom retrae la cámara sin atravesar la pared y recupera su longitud al alejarse. | NOT RUN | |
@@ -627,3 +627,12 @@ de esta matriz.
 | PIE-MOV-20260727 | 2026-07-27 | `c2a61c3` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 58 IDs NOT RUN | EV-MOV-WASD-01; postflight 24/25 sobre `9e46365` | Pendiente |
 | PIE-DIAG-20260727 | 2026-07-27 | `352f629` | Lenovo 83DS, teclado; ratón/mando no probados | 1 PASS / 0 FAIL / 0 BLOCKED; 57 IDs NOT RUN | EV-MOV-DIAG-01; postflight 24/25 sobre `39352d1` | Pendiente |
 | | | | | | | |
+
+
+### Evidencia EV-CAM-TOGGLE-01 (2026-07-29)
+
+En PIE sobre /Game/Maps/L_Developer_Testing, V cambió currentMode=FirstPerson a ThirdPerson y una segunda pulsación (con el viewport enfocado) devolvió FirstPerson. El modo 3P reportó FOV 90°, ThirdPersonCameraBoom.targetArmLength=300 y DoCollisionTest=true. CharacterMesh0 tiene skeletalMesh=None, por lo que la malla visible queda pendiente en PLR-VIS-001; esta evidencia aprueba el cambio de modo y la configuración de cámara, no la apariencia 3P.
+
+Log: UnrealProject/Saved/QA/PlayerV0.1/CAMERA-20260729/ProyectoMemoria.log (298582 bytes, SHA-256 54CC00CBB15F524494512D3FBFE7C5A54EBE54F76CC0B53742E674245683CFF8).
+
+Matriz actual: **41 PASS / 2 BLOCKED / 41 NOT RUN**. Siguiente prueba: PLR-CAM-002, continuidad de yaw al volver a 1P.

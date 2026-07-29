@@ -1246,3 +1246,7 @@ Espacio inició y terminó el salto correctamente; A/X queda pendiente por falta
 ### Sesión de salto bajo túnel completada el 2026-07-29
 
 `PLR-JMP-003` confirmó que no hay salto pendiente bajo el techo y que el personaje se levanta al salir. La siguiente tarea es `PLR-CAM-001`, cambio a tercera persona.
+### Sesión PLR-CAM-001 (2026-07-29)
+
+La tecla V cambió de FirstPerson a ThirdPerson y volvió a FirstPerson en PIE. Se verificaron FOV 90°, brazo 300 cm y colisión del boom. No se asignó ninguna malla de Modelos-3D; PLR-VIS-001 sigue pendiente. La siguiente acción es PLR-CAM-002, probar continuidad de yaw al regresar a primera persona.
+

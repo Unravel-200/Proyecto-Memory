@@ -164,3 +164,7 @@ El 2026-07-28 `PLR-MOV-003` confirmó entrada física de mouse: movimiento verti
 ### Corrección aplicada el 2026-07-29
 
 La dirección vertical predeterminada del mouse quedó corregida: moverlo hacia arriba hace que la cámara mire hacia arriba. `bInvertLookY` continúa disponible para invertirla voluntariamente.
+### Validación de cámara (2026-07-29)
+
+V alternó correctamente FirstPerson/ThirdPerson y regresó a FirstPerson. La configuración 3P observada fue FOV 90°, brazo 300 cm y colisión activa. La malla del Character sigue sin asignarse; validar apariencia por separado cuando exista un asset autorizado. Siguiente: PLR-CAM-002 (continuidad de yaw).
+

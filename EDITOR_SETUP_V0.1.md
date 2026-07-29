@@ -1237,3 +1237,6 @@ El intento de provocar `Canceled` retirando el foco no generó un evento observa
 ### Sesión sprint desde crouch completada el 2026-07-29
 
 `PLR-CRO-009` confirmó que sprint no se activa mientras el Character está agachado. La siguiente tarea es `PLR-JMP-001`, salto.
+### Sesión de salto con teclado completada el 2026-07-29
+
+Espacio inició y terminó el salto correctamente; A/X queda pendiente por falta de mando físico, por lo que `PLR-JMP-001` permanece `BLOCKED`. La siguiente tarea es `PLR-JMP-002`, salto desde crouch.

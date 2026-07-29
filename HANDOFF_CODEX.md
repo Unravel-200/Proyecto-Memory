@@ -1394,3 +1394,6 @@ SesiÃ³n PLR-PAD-001 (2026-07-29): Windows probÃ³ correctamente el USB Wirele
 
 SesiÃ³n PLR-PAD-001 (2026-07-29): con Wireless Controller USB convertido por DS4Windows a XInput, el propietario confirmÃ³ movimiento, look, sprint, crouch, salto y cÃ¡mara. Se corrigiÃ³ el signo del eje vertical del gamepad para que stick arriba mire arriba, sin alterar el mouse. Log PAD-XINPUT-20260729 (280892 bytes, SHA-256 4751D599B193616C76E640EB7C35C41C5C388F0EE04A9CADFCD87039B6B25BF1). Matriz: 53 PASS / 2 BLOCKED / 29 NOT RUN.
 
+
+ActualizaciÃ³n PLR-JMP-001 (2026-07-29): A/X fue probado con el mando XInput y el salto funcionÃ³, por lo que se levanta el bloqueo anterior. Matriz: 54 PASS / 1 BLOCKED / 29 NOT RUN.
+

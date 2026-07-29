@@ -453,7 +453,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-JMP-001 | 12.23 | Desde pie y con espacio, saltar con Espacio y después con A/X; soltar el control durante el salto. | Ambos controles inician el salto y al soltarlos termina la orden mediante `StopJumping`; no queda salto latente. | BLOCKED | EV-JUMP-KEYBOARD-01 |
+| PLR-JMP-001 | 12.23 | Desde pie y con espacio, saltar con Espacio y despuÃ©s con A/X; soltar el control durante el salto. | Ambos controles inician el salto y al soltarlos termina la orden mediante `StopJumping`; no queda salto latente. | PASS | EV-PAD-XINPUT-01 / EV-JUMP-KEYBOARD-01 |
 | PLR-JMP-002 | 12.24 | Desde crouch y con espacio libre encima, presionar salto. | Se levanta y salta como una sola intención; no permanece agachado ni requiere una segunda pulsación. | PASS | EV-JUMP-CROUCH-01 |
 | PLR-JMP-003 | 12.25 | Desde crouch bajo el túnel, presionar salto; después salir sin volver a pulsarlo. | No atraviesa el techo, no salta bajo el obstáculo y tampoco ejecuta un salto pendiente al recuperar espacio. | PASS | EV-JUMP-TUNNEL-01 |
 
@@ -685,3 +685,6 @@ Windows detecta y prueba correctamente el dispositivo USB Wireless Controller en
 ### Evidencia EV-PAD-XINPUT-01 (2026-07-29)
 
 Con el Wireless Controller USB convertido por DS4Windows a XInput, el propietario confirmÃ³ movimiento, look, sprint, crouch, salto y cambio de cÃ¡mara. TambiÃ©n confirmÃ³ que el stick derecho hacia arriba ahora mira hacia arriba, igual que el mouse. Log: UnrealProject/Saved/QA/PlayerV0.1/PAD-XINPUT-20260729/ProyectoMemoria.log (280892 bytes, SHA-256 4751D599B193616C76E640EB7C35C41C5C388F0EE04A9CADFCD87039B6B25BF1). Matriz: **53 PASS / 2 BLOCKED / 29 NOT RUN**.
+
+
+AclaraciÃ³n de PLR-JMP-001: la prueba del mando confirmÃ³ el salto con A/X y elimina el bloqueo por falta de mando. Matriz: **54 PASS / 1 BLOCKED / 29 NOT RUN**.

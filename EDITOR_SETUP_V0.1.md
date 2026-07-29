@@ -1222,3 +1222,6 @@ siguen siendo necesarios.
 ### Sesión de crouch inicial completada el 2026-07-28
 
 `PLR-CRO-001..003` confirmaron toque corto persistente, segundo toque para levantarse y hold básico sin estado residual. La siguiente tarea es `PLR-CRO-004`, hold partiendo de agachado.
+### Sesión de crouch desde agachado completada el 2026-07-28
+
+`PLR-CRO-004` confirmó que mantener C desde agachado y soltar devuelve la postura de pie sin sprint residual. La siguiente tarea es `PLR-CRO-005`, cancelación Canceled.

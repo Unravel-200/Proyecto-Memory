@@ -636,3 +636,7 @@ En PIE sobre /Game/Maps/L_Developer_Testing, V cambió currentMode=FirstPerson a
 Log: UnrealProject/Saved/QA/PlayerV0.1/CAMERA-20260729/ProyectoMemoria.log (298582 bytes, SHA-256 54CC00CBB15F524494512D3FBFE7C5A54EBE54F76CC0B53742E674245683CFF8).
 
 Matriz actual: **41 PASS / 2 BLOCKED / 41 NOT RUN**. Siguiente prueba: PLR-CAM-002, continuidad de yaw al volver a 1P.
+
+
+Aclaración de EV-CAM-TOGGLE-01: durante la misma ejecución el propietario avanzó y giró en primera y tercera persona; el cambio de cámara no bloqueó el movimiento ni la rotación.
+

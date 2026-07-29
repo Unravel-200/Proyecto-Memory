@@ -1388,3 +1388,6 @@ SesiÃ³n PLR-REG-005 (2026-07-29): tras cambiar a 3P, detener PIE, cerrar Unrea
 
 SesiÃ³n PLR-PERF-001 (2026-07-29): en la ruta completa con movimiento, crouch y cÃ¡maras, el propietario observÃ³ 60 FPS, Game 9.0-9.8 ms, Draw ~9.1 ms y GPU 12-13 ms. El objetivo de 60 FPS se cumpliÃ³ en esta PC. Evidencia EV-PERF-ROUTE-01; log PERF-ROUTE-20260729 (281808 bytes, SHA-256 9F596AB52857C6809F4BC615F147C0D5A6006383B335D66F8F5EB7992A81BF19). Matriz: 52 PASS / 2 BLOCKED / 30 NOT RUN.
 
+
+SesiÃ³n PLR-PAD-001 (2026-07-29): Windows probÃ³ correctamente el USB Wireless Controller en joy.cpl, pero Unreal no recibiÃ³ el stick durante PIE. El dispositivo no aparece como XInput/Xbox y no hay Steam Input ni DS4Windows activo; queda BLOCKED hasta usar un traductor XInput o mando compatible. Evidencia EV-PAD-DIRECTINPUT-01. Matriz: 51 PASS / 3 BLOCKED / 30 NOT RUN.
+

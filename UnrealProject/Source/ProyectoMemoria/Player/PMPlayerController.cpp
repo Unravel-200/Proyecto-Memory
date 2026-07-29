@@ -238,7 +238,10 @@ void APMPlayerController::HandleMove(const FInputActionValue& Value)
 void APMPlayerController::HandleLook(const FInputActionValue& Value)
 {
 	const FVector2D LookInput = Value.Get<FVector2D>();
-	const float VerticalDirection = bInvertLookY ? -1.0f : 1.0f;
+	// Enhanced Input mouse Y is negative when the physical mouse moves upward.
+	// Negating the default sign makes moving the mouse up look up in-game;
+	// the user-facing invert option still reverses that behavior when enabled.
+	const float VerticalDirection = bInvertLookY ? 1.0f : -1.0f;
 
 	AddYawInput(LookInput.X * LookSensitivityX);
 	AddPitchInput(LookInput.Y * LookSensitivityY * VerticalDirection);

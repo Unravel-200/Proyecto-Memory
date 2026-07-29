@@ -438,9 +438,9 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-CRO-001 | 12.7 | Desde pie, dar un toque corto a crouch. | Se agacha al iniciar la pulsación y permanece agachado al soltar. | NOT RUN | |
-| PLR-CRO-002 | 12.8 | Estando agachado por el caso anterior, dar otro toque corto. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | NOT RUN | |
-| PLR-CRO-003 | 12.9 | Desde pie, mantener crouch ≥0.5 s y soltar. | Se agacha inmediatamente, permanece así mientras se mantiene y queda de pie al soltar. | NOT RUN | |
+| PLR-CRO-001 | 12.7 | Desde pie, dar un toque corto a crouch. | Se agacha al iniciar la pulsación y permanece agachado al soltar. | PASS | EV-CROUCH-01 |
+| PLR-CRO-002 | 12.8 | Estando agachado por el caso anterior, dar otro toque corto. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | PASS | EV-CROUCH-01 |
+| PLR-CRO-003 | 12.9 | Desde pie, mantener crouch ≥0.5 s y soltar. | Se agacha inmediatamente, permanece así mientras se mantiene y queda de pie al soltar. | PASS | EV-CROUCH-01 |
 | PLR-CRO-004 | 12.10 | Desde agachado, mantener crouch ≥0.5 s y soltar. | Permanece agachado durante la pulsación y queda de pie al soltar, si hay espacio. | NOT RUN | |
 | PLR-CRO-005 | 12.11 | Desde pie, provocar `Canceled` mediante un caso reproducible sin cambiar los triggers para forzarlo. | Restaura la postura inicial de pie. Si no puede emitirse determinísticamente, `BLOCKED` y prueba automatizada. | NOT RUN | |
 | PLR-CRO-006 | 12.11 | Desde agachado, repetir el caso reproducible de `Canceled`. | Restaura la postura inicial agachada. No inferir el resultado al detener PIE. | NOT RUN | |

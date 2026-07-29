@@ -1219,3 +1219,6 @@ siguen siendo necesarios.
 ### Sesión de movimiento relativo completada el 2026-07-28
 
 `PLR-MOV-006` confirmó que W sigue el yaw de la cámara (yaw ~92.6°, desplazamiento principalmente en Y). La siguiente tarea es `PLR-CRO-001`, crouch híbrido.
+### Sesión de crouch inicial completada el 2026-07-28
+
+`PLR-CRO-001..003` confirmaron toque corto persistente, segundo toque para levantarse y hold básico sin estado residual. La siguiente tarea es `PLR-CRO-004`, hold partiendo de agachado.

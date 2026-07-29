@@ -127,7 +127,7 @@ Nota de precedencia: los estados principales de `PLAYER_SETTINGS_V0.1.md`,
 Los siete controles de configuración `MAP-01..07` están en PASS; las pruebas
 funcionales desde look continúan en `NOT RUN`. `BP-01..06`, `LVL-01`,
 `GEO-01..07`, `PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-04..06` están en PASS.
-La matriz contiene 31 PASS y 53 IDs `NOT RUN`.
+La matriz contiene 34 PASS y 50 IDs `NOT RUN`.
 
 ~~~powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
@@ -1167,7 +1167,7 @@ Avisos externos observados:
   QA pendientes.
 - No se ejecutaron todavía look, velocidad recta, sprint, crouch, salto, cambio
   de cámara, espacios, mando, respawn, persistencia entre ejecuciones ni
-  rendimiento. La matriz tiene 31 PASS y 53 IDs que continúan `NOT RUN`.
+  rendimiento. La matriz tiene 34 PASS y 50 IDs que continúan `NOT RUN`.
 - El arranque contiene mensajes internos `LogAutomationTest: Error: Condition
   failed` del motor. Ya se identificaron como pruebas internas de UE, pero por ello
   no debe describirse el Output Log completo como “sin ningún error”.
@@ -1345,8 +1345,9 @@ propietario.
 
 ## Sesión más reciente: PLR-MOV-003 (2026-07-28)
 
-Se ejecutó PIE normal en `/Game/Maps/L_Developer_Testing` con la base de enfriamiento y HWiNFO activos. El propietario realizó un movimiento físico pequeño del mouse hacia arriba. `PlayerCameraManager_0` pasó de pitch/yaw `0/0` a pitch `-43.2250006°` y yaw `0°`; una lectura posterior a 1.2 s fue idéntica. Esto aprueba `PLR-MOV-003` mediante `EV-MOV-LOOK-01` y deja 28 PASS / 56 NOT RUN. El log final se preservó en `UnrealProject/Saved/QA/PlayerV0.1/LOOK-20260728/ProyectoMemoria.log` (304299 bytes, SHA-256 `B02C3D092FB4B995FBECF74FC99E21A85C14D031587D7A7C62D6673F12C7A5D4`). Unreal está cerrado y no se modificaron assets. La siguiente tarea es `PLR-CRO-001`, crouch híbrido.
+Se ejecutó PIE normal en `/Game/Maps/L_Developer_Testing` con la base de enfriamiento y HWiNFO activos. El propietario realizó un movimiento físico pequeño del mouse hacia arriba. `PlayerCameraManager_0` pasó de pitch/yaw `0/0` a pitch `-43.2250006°` y yaw `0°`; una lectura posterior a 1.2 s fue idéntica. Esto aprueba `PLR-MOV-003` mediante `EV-MOV-LOOK-01` y deja 28 PASS / 56 NOT RUN. El log final se preservó en `UnrealProject/Saved/QA/PlayerV0.1/LOOK-20260728/ProyectoMemoria.log` (304299 bytes, SHA-256 `B02C3D092FB4B995FBECF74FC99E21A85C14D031587D7A7C62D6673F12C7A5D4`). Unreal está cerrado y no se modificaron assets. La siguiente tarea es `PLR-CRO-004`, hold desde agachado.
 Postflight posterior a `826208e` obtuvo 24/25 comprobaciones: 24 PASS y un FAIL esperado porque 56 filas QA continúan `NOT RUN`. El worktree quedó limpio, Unreal cerrado, el log de `LOOK-20260728` fue reconocido y no aparecieron diagnósticos prohibidos.
 Sesión `PLR-MOV-004` del 2026-07-28: `walkSpeed` y `maxWalkSpeed` fueron 300 cm/s; un avance recto pasó de X 500.00 a 742.56 cm sin deriva lateral y quedó en velocity 0 tras soltar. Evidencia `EV-MOV-SPEED-01`, log `SPEED-20260728` (318950 bytes, SHA-256 `B635BB87C91BBD90548E11E7664A948F84C554F483E2B48A2DE19757653692F0`). Matriz: 29 PASS / 55 NOT RUN. Siguiente tarea: `PLR-MOV-005`, sprint.
-Sesión `PLR-MOV-005` del 2026-07-28: W + Mayús avanzaron 512.98 cm en un intervalo manual cercano a 0.9 s, coherente con `sprintSpeed=550`; al soltar, `bIsSprinting=false`, `maxWalkSpeed=300` y velocity 0. Evidencia `EV-MOV-SPRINT-01`, log `SPRINT-20260728` (295964 bytes, SHA-256 `6A59B6D4411482E6106F8866F01EDF68E6ED27AC6F222403F8B5A3910AD0AD9C`). Matriz: 30 PASS / 54 NOT RUN. Siguiente: `PLR-CRO-001`, crouch híbrido.
-Sesión `PLR-MOV-006` del 2026-07-28: con la cámara en yaw ~92.6°, W movió el Character principalmente en Y (+247.58 cm) y no en X, confirmando movimiento relativo a la vista; velocity quedó 0 al soltar. Evidencia `EV-MOV-RELATIVE-01`, log `RELATIVE-20260728` (295742 bytes, SHA-256 `59E114F8CF75D6C2C0846CDF63D3A31CA5DBCE6F0E61C089E92649F14A6C5E0D`). Matriz: 31 PASS / 53 NOT RUN. Siguiente: `PLR-CRO-001`, crouch híbrido.
+Sesión `PLR-MOV-005` del 2026-07-28: W + Mayús avanzaron 512.98 cm en un intervalo manual cercano a 0.9 s, coherente con `sprintSpeed=550`; al soltar, `bIsSprinting=false`, `maxWalkSpeed=300` y velocity 0. Evidencia `EV-MOV-SPRINT-01`, log `SPRINT-20260728` (295964 bytes, SHA-256 `6A59B6D4411482E6106F8866F01EDF68E6ED27AC6F222403F8B5A3910AD0AD9C`). Matriz: 30 PASS / 54 NOT RUN. Siguiente: `PLR-CRO-004`, hold desde agachado.
+Sesión `PLR-MOV-006` del 2026-07-28: con la cámara en yaw ~92.6°, W movió el Character principalmente en Y (+247.58 cm) y no en X, confirmando movimiento relativo a la vista; velocity quedó 0 al soltar. Evidencia `EV-MOV-RELATIVE-01`, log `RELATIVE-20260728` (295742 bytes, SHA-256 `59E114F8CF75D6C2C0846CDF63D3A31CA5DBCE6F0E61C089E92649F14A6C5E0D`). Matriz: 31 PASS / 53 NOT RUN. Siguiente: `PLR-CRO-004`, hold desde agachado.
+Sesión de crouch `PLR-CRO-001..003` del 2026-07-28: toque corto, segundo toque y hold de ~0.5 s comprobados. El toque corto dejó `bIsCrouched=true` y cápsula half-height 42 cm frente a 96 cm de pie; segundo toque y liberación del hold devolvieron postura de pie sin sprint residual. Evidencia `EV-CROUCH-01`, log `CROUCH-20260728` (298810 bytes, SHA-256 `AA48623B1195AED97C282AF3CC4D1CD5A76417E32DE4E136C2AE35D1C65D4BBA`). Matriz: 34 PASS / 50 NOT RUN. Siguiente: `PLR-CRO-004`, hold desde agachado.

@@ -472,10 +472,10 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-ENV-001 | 12.18 | Recorrer el pasillo de 250 cm, rozar ambas paredes y girar. | Avanza y gira sin atascarse ni atravesar colisión. | NOT RUN | |
-| PLR-ENV-002 | 12.18 | Atravesar la puerta de 120 × 240 cm en ambos sentidos. | La cápsula atraviesa el hueco sin atascarse ni atravesar paredes. | NOT RUN | |
-| PLR-ENV-003 | 12.18 | Entrar, maniobrar y salir de la habitación 300 × 300 cm. | Movimiento y cámaras siguen utilizables; no hay atascos ni clipping del Pawn. | NOT RUN | |
-| PLR-ENV-004 | 12.18 | Subir y bajar los 10 escalones, recto y cerca de los bordes. | Recorre la escalera sin atravesarla, atascarse o caer entre piezas; registrar cualquier ajuste necesario. | NOT RUN | |
+| PLR-ENV-001 | 12.18 | Recorrer el pasillo de 250 cm, rozar ambas paredes y girar. | Avanza y gira sin atascarse ni atravesar colisión. | PASS | EV-ENV-ROUTE-01 |
+| PLR-ENV-002 | 12.18 | Atravesar la puerta de 120 × 240 cm en ambos sentidos. | La cápsula atraviesa el hueco sin atascarse ni atravesar paredes. | PASS | EV-ENV-ROUTE-01 |
+| PLR-ENV-003 | 12.18 | Entrar, maniobrar y salir de la habitación 300 × 300 cm. | Movimiento y cámaras siguen utilizables; no hay atascos ni clipping del Pawn. | PASS | EV-ENV-ROUTE-01 |
+| PLR-ENV-004 | 12.18 | Subir y bajar los 10 escalones, recto y cerca de los bordes. | Recorre la escalera sin atravesarla, atascarse o caer entre piezas; registrar cualquier ajuste necesario. | PASS | EV-ENV-ROUTE-01 |
 
 ### Mando, preferencias, rendimiento y persistencia
 
@@ -655,3 +655,8 @@ El propietario confirmó en PIE que la alternancia repetida de cámara mantuvo f
 ### Evidencia EV-CAM-COLLISION-01 (2026-07-29)
 
 En tercera persona, el propietario acercÃ³ el Character a la pared y confirmÃ³ que la cÃ¡mara funcionÃ³ correctamente: el boom conservÃ³ la colisiÃ³n, no atravesÃ³ la geometrÃ­a y recuperÃ³ su distancia al alejarse. Log: UnrealProject/Saved/QA/PlayerV0.1/CAMERA-COLLISION-20260729/ProyectoMemoria.log (280492 bytes, SHA-256 CD1DD52B1ABD690FB6F3AB52BBAAA49B4537D03E881BA69FF40FDE19731DF03E). Matriz: **44 PASS / 2 BLOCKED / 38 NOT RUN**. Siguiente: PLR-ENV-001, recorrido del pasillo y paredes.
+
+
+### Evidencia EV-ENV-ROUTE-01 (2026-07-29)
+
+En una ruta continua el propietario recorriÃ³ el pasillo rozando ambas paredes, cruzÃ³ la puerta en ambos sentidos, maniobrÃ³ dentro de la habitaciÃ³n y subiÃ³/bajÃ³ la escalera por el centro y cerca de un borde. Todo funcionÃ³ sin atascos, clipping ni caÃ­das. TambiÃ©n verificÃ³ que al subir y bajar agachado no cae. Log: UnrealProject/Saved/QA/PlayerV0.1/ENV-ROUTE-20260729/ProyectoMemoria.log (280824 bytes, SHA-256 55AEBA723F38F09D0B5FD4C46D4F899B6ABA6B3805409F1091F54EBAAF3D9A1D). Matriz: **48 PASS / 2 BLOCKED / 34 NOT RUN**. Siguiente bloque agrupable: pruebas de registro/reinicio y estados persistentes.

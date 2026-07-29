@@ -1376,3 +1376,6 @@ SesiÃ³n PLR-CAM-003 (2026-07-29): el propietario alternÃ³ la cÃ¡mara en PI
 
 SesiÃ³n PLR-CAM-004 (2026-07-29): en tercera persona, el propietario se acercÃ³ a la pared y confirmÃ³ que el boom no atravesÃ³ la geometrÃ­a, se retrajo y recuperÃ³ la longitud al alejarse. Evidencia EV-CAM-COLLISION-01; log CAMERA-COLLISION-20260729 (280492 bytes, SHA-256 CD1DD52B1ABD690FB6F3AB52BBAAA49B4537D03E881BA69FF40FDE19731DF03E). Matriz: 44 PASS / 2 BLOCKED / 38 NOT RUN. Siguiente: PLR-ENV-001, recorrido del pasillo y paredes.
 
+
+SesiÃ³n agrupada PLR-ENV-001..004 (2026-07-29): en una ruta continua el propietario recorriÃ³ pasillo, puerta, habitaciÃ³n y escalera; todo funcionÃ³ sin atascos ni clipping. TambiÃ©n comprobÃ³ que agachado no cae en la escalera. Evidencia EV-ENV-ROUTE-01; log ENV-ROUTE-20260729 (280824 bytes, SHA-256 55AEBA723F38F09D0B5FD4C46D4F899B6ABA6B3805409F1091F54EBAAF3D9A1D). Matriz: 48 PASS / 2 BLOCKED / 34 NOT RUN. Siguiente bloque agrupable: registro/reinicio y estados persistentes.
+

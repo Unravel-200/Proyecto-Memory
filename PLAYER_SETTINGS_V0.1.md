@@ -168,3 +168,7 @@ La dirección vertical predeterminada del mouse quedó corregida: moverlo hacia 
 
 V alternó correctamente FirstPerson/ThirdPerson y regresó a FirstPerson. La configuración 3P observada fue FOV 90°, brazo 300 cm y colisión activa. La malla del Character sigue sin asignarse; validar apariencia por separado cuando exista un asset autorizado. Siguiente: PLR-CAM-002 (continuidad de yaw).
 
+
+
+La continuidad de orientaciÃ³n al regresar de 3P a 1P quedÃ³ confirmada en PIE (PLR-CAM-002).
+

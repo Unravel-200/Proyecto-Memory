@@ -462,7 +462,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
 | PLR-CAM-001 | 12.14 | Desde 1P, activar Toggle Camera y luego avanzar/girar. | Queda activa solo 3P, FOV 90°, arm 300 cm, colisión del boom activa y Character orientado hacia movimiento. | PASS | EV-CAM-TOGGLE-01 |
-| PLR-CAM-002 | 12.15 | Con una orientación reconocible, volver de 3P a 1P. | Queda activa solo 1P y usa yaw del Controller, sin salto brusco visible. Guardar video; si es ambiguo por falta de umbral, `BLOCKED` hasta definirlo. | NOT RUN | |
+| PLR-CAM-002 | 12.15 | Con una orientación reconocible, volver de 3P a 1P. | Queda activa solo 1P y conserva el yaw del Controller, sin salto brusco visible. | PASS | EV-CAM-CONTINUITY-01 |
 | PLR-CAM-003 | 12.16 | Alternar varias veces quieto, caminando, corriendo y agachado. | Cada pulsación produce un cambio; los estados siguen coherentes; nunca hay dos cámaras activas ni ninguna activa. | NOT RUN | |
 | PLR-CAM-004 | 12.17 | En 3P, acercarse y girar junto a la pared de cámara. | El boom retrae la cámara sin atravesar la pared y recupera su longitud al alejarse. | NOT RUN | |
 | PLR-CAM-007 | 12.26 | Cambiar de perspectiva y reemplazar el Pawn con un arnés controlado de respawn, documentado y sin lógica central en Level Blueprint; no volver a pulsar Toggle Camera. | El nuevo Character usa la misma perspectiva del anterior, equivalente a conservar la vista al morir y reaparecer. | NOT RUN | |
@@ -640,3 +640,8 @@ Matriz actual: **41 PASS / 2 BLOCKED / 41 NOT RUN**. Siguiente prueba: PLR-CAM-0
 
 Aclaración de EV-CAM-TOGGLE-01: durante la misma ejecución el propietario avanzó y giró en primera y tercera persona; el cambio de cámara no bloqueó el movimiento ni la rotación.
 
+
+
+### Evidencia EV-CAM-CONTINUITY-01 (2026-07-29)
+
+El propietario confirmó que, después de cambiar a tercera persona, avanzar y girar, al volver a primera persona se conservó la orientación de la cámara sin salto brusco visible. Matriz actual: **42 PASS / 2 BLOCKED / 40 NOT RUN**. Siguiente prueba: PLR-CAM-003, alternancia repetida quieto, caminando, corriendo y agachado.

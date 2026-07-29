@@ -1367,3 +1367,6 @@ En PIE sobre /Game/Maps/L_Developer_Testing, V alternó currentMode=FirstPerson 
 
 Aclaración de PLR-CAM-001: el propietario confirmó además que pudo avanzar y girar tanto en primera como en tercera persona durante el cambio de cámara; no se observó pérdida de control. La apariencia 3P sigue separada en PLR-VIS-001 por falta de malla asignada.
 
+
+SesiÃ³n PLR-CAM-002 (2026-07-29): el propietario confirmÃ³ que al volver de tercera a primera persona se conserva la orientaciÃ³n de la cÃ¡mara despuÃ©s de avanzar y girar, sin salto brusco visible. Evidencia EV-CAM-CONTINUITY-01. Matriz: 42 PASS / 2 BLOCKED / 40 NOT RUN. Siguiente: PLR-CAM-003, alternancia repetida en reposo, caminando, corriendo y agachado.
+

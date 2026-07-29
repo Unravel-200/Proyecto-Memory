@@ -1234,3 +1234,6 @@ El intento de provocar `Canceled` retirando el foco no generó un evento observa
 ### Sesión del túnel completada el 2026-07-29
 
 `PLR-CRO-008` confirmó que el techo conserva la postura agachada y que el personaje puede levantarse tras salir. La siguiente tarea es `PLR-CRO-009`, sprint desde agachado.
+### Sesión sprint desde crouch completada el 2026-07-29
+
+`PLR-CRO-009` confirmó que sprint no se activa mientras el Character está agachado. La siguiente tarea es `PLR-JMP-001`, salto.

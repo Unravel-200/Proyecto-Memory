@@ -1391,3 +1391,6 @@ SesiÃ³n PLR-PERF-001 (2026-07-29): en la ruta completa con movimiento, crouch 
 
 SesiÃ³n PLR-PAD-001 (2026-07-29): Windows probÃ³ correctamente el USB Wireless Controller en joy.cpl, pero Unreal no recibiÃ³ el stick durante PIE. El dispositivo no aparece como XInput/Xbox y no hay Steam Input ni DS4Windows activo; queda BLOCKED hasta usar un traductor XInput o mando compatible. Evidencia EV-PAD-DIRECTINPUT-01. Matriz: 51 PASS / 3 BLOCKED / 30 NOT RUN.
 
+
+SesiÃ³n PLR-PAD-001 (2026-07-29): con Wireless Controller USB convertido por DS4Windows a XInput, el propietario confirmÃ³ movimiento, look, sprint, crouch, salto y cÃ¡mara. Se corrigiÃ³ el signo del eje vertical del gamepad para que stick arriba mire arriba, sin alterar el mouse. Log PAD-XINPUT-20260729 (280892 bytes, SHA-256 4751D599B193616C76E640EB7C35C41C5C388F0EE04A9CADFCD87039B6B25BF1). Matriz: 53 PASS / 2 BLOCKED / 29 NOT RUN.
+

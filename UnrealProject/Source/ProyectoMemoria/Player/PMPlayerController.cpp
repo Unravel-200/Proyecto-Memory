@@ -3,6 +3,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
+#include "InputCoreTypes.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
 #include "PMCameraModeComponent.h"
@@ -238,10 +239,12 @@ void APMPlayerController::HandleMove(const FInputActionValue& Value)
 void APMPlayerController::HandleLook(const FInputActionValue& Value)
 {
 	const FVector2D LookInput = Value.Get<FVector2D>();
-	// Enhanced Input mouse Y is negative when the physical mouse moves upward.
-	// Negating the default sign makes moving the mouse up look up in-game;
-	// the user-facing invert option still reverses that behavior when enabled.
-	const float VerticalDirection = bInvertLookY ? 1.0f : -1.0f;
+	// Mouse Y is negative when the physical mouse moves upward.  Gamepad
+	// right-stick Y arrives with the opposite sign on the XInput path, so
+	// normalize that device-specific sign before applying the user preference.
+	const bool bGamepadLookActive = FMath::Abs(GetInputAnalogKeyState(EKeys::Gamepad_RightY)) > KINDA_SMALL_NUMBER;
+	const float DeviceDirection = bGamepadLookActive ? 1.0f : -1.0f;
+	const float VerticalDirection = bInvertLookY ? -DeviceDirection : DeviceDirection;
 
 	AddYawInput(LookInput.X * LookSensitivityX);
 	AddPitchInput(LookInput.Y * LookSensitivityY * VerticalDirection);

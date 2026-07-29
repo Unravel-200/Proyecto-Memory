@@ -481,7 +481,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 
 | ID | Guía | Caso y procedimiento | Criterio de aceptación | Estado | Evidencia / observado |
 |---|---:|---|---|---|---|
-| PLR-PAD-001 | 12.19 | Con mando fÃ­sico identificado, probar movimiento/look, L3 sprint, B/cÃ­rculo crouch, A/X salto y Y/triÃ¡ngulo cÃ¡mara. | Todas las acciones responden; los sticks alcanzan rango Ãºtil y vuelven al centro. Registrar modelo, conexiÃ³n y FPS. | BLOCKED | EV-PAD-DIRECTINPUT-01 |
+| PLR-PAD-001 | 12.19 | Con mando fÃ­sico identificado, probar movimiento/look, L3 sprint, B/cÃ­rculo crouch, A/X salto y Y/triÃ¡ngulo cÃ¡mara. | Todas las acciones responden; los sticks alcanzan rango Ãºtil y vuelven al centro. Registrar modelo, conexiÃ³n y FPS. | PASS | EV-PAD-XINPUT-01 |
 | PLR-PAD-002 | 12.19 | Dejar sticks en reposo, observar input/Pawn/cámara y recorrer el rango completo. | Se confirma zona muerta configurada en 0 y se registra todo drift real, dispositivo y efecto observado; no se oculta con otra capa sin nueva autorización. | NOT RUN | |
 | PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separación por dispositivo pertenece al menú posterior. | NOT RUN | |
 | PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
@@ -680,3 +680,8 @@ Durante el recorrido de pasillo, puerta, habitaciÃ³n, escaleras y tÃºnel, co
 ### Evidencia EV-PAD-DIRECTINPUT-01 (2026-07-29)
 
 Windows detecta y prueba correctamente el dispositivo USB Wireless Controller en joy.cpl, pero durante PIE Unreal no recibe movimiento del stick. El dispositivo no aparece como XInput/Xbox; no hay Steam Input ni DS4Windows activo. Se requiere un traductor XInput o un mando compatible para repetir la prueba. Matriz: **51 PASS / 3 BLOCKED / 30 NOT RUN**.
+
+
+### Evidencia EV-PAD-XINPUT-01 (2026-07-29)
+
+Con el Wireless Controller USB convertido por DS4Windows a XInput, el propietario confirmÃ³ movimiento, look, sprint, crouch, salto y cambio de cÃ¡mara. TambiÃ©n confirmÃ³ que el stick derecho hacia arriba ahora mira hacia arriba, igual que el mouse. Log: UnrealProject/Saved/QA/PlayerV0.1/PAD-XINPUT-20260729/ProyectoMemoria.log (280892 bytes, SHA-256 4751D599B193616C76E640EB7C35C41C5C388F0EE04A9CADFCD87039B6B25BF1). Matriz: **53 PASS / 2 BLOCKED / 29 NOT RUN**.

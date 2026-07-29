@@ -486,7 +486,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separación por dispositivo pertenece al menú posterior. | NOT RUN | |
 | PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
 | PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | NOT RUN | |
-| PLR-REG-003 | 12.22 | Detener PIE, compilar Blueprints, Save All, cerrar y reabrir UE 5.8. | Persisten IA/IMC, clases, defaults, GameMode y mapa; los Blueprints compilan y se aplica la vista guardada o 1P en un perfil limpio. | NOT RUN | |
+| PLR-REG-003 | 12.22 | Detener PIE, compilar Blueprints, Save All, cerrar y reabrir UE 5.8. | Persisten IA/IMC, clases, defaults, GameMode y mapa; los Blueprints compilan y se aplica la vista guardada o 1P en un perfil limpio. | PASS | EV-REG-RESTART-01 |
 | PLR-REG-005 | 12.27 / checklist oficial | Cambiar a 3P, cerrar completamente el juego y volver a iniciarlo con el mismo perfil; repetir sin preferencia guardada. | Restaura 3P con el perfil existente; una primera ejecución sin preferencia guardada inicia en 1P. | NOT RUN | |
 
 ### Ciclo de vida y regresión controlada
@@ -495,7 +495,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 |---|---|---|---|---|---|
 | PLR-REG-001 | Handoff / sec. 12 | Detener PIE con sprint, salto o gesto de crouch activo, usando instrumentación que permita verificar `EndPlay`. | Limpia sprint, `bPressedJump` y gesto transitorio; retirar `IMC_Player` no deja órdenes. No aprobar solo porque el actor desapareció. | NOT RUN | |
 | PLR-REG-002 | Handoff / sec. 12 | Provocar `OnUnPossess` durante sprint, salto y, por separado, durante un gesto de crouch activo, sin lógica central en Level Blueprint. | El Pawn anterior no conserva sprint ni salto; el gesto de crouch se cancela y restaura su postura inicial. Si no es observable, `BLOCKED` y automatizar. | NOT RUN | |
-| PLR-REG-004 | Handoff | Repetir spawn, movimiento, salto, crouch y cámaras después de reiniciar PIE. | No hay input/Mapping Context duplicado, estado transitorio heredado ni regresión respecto de los casos aprobados. | NOT RUN | |
+| PLR-REG-004 | Handoff | Repetir spawn, movimiento, salto, crouch y cÃ¡maras despuÃ©s de reiniciar PIE. | No hay input/Mapping Context duplicado, estado transitorio heredado ni regresiÃ³n respecto de los casos aprobados. | PASS | EV-REG-RESTART-01 |
 
 ## D. Logs y evidencia obligatoria
 
@@ -660,3 +660,8 @@ En tercera persona, el propietario acercÃ³ el Character a la pared y confirmÃ
 ### Evidencia EV-ENV-ROUTE-01 (2026-07-29)
 
 En una ruta continua el propietario recorriÃ³ el pasillo rozando ambas paredes, cruzÃ³ la puerta en ambos sentidos, maniobrÃ³ dentro de la habitaciÃ³n y subiÃ³/bajÃ³ la escalera por el centro y cerca de un borde. Todo funcionÃ³ sin atascos, clipping ni caÃ­das. TambiÃ©n verificÃ³ que al subir y bajar agachado no cae. Log: UnrealProject/Saved/QA/PlayerV0.1/ENV-ROUTE-20260729/ProyectoMemoria.log (280824 bytes, SHA-256 55AEBA723F38F09D0B5FD4C46D4F899B6ABA6B3805409F1091F54EBAAF3D9A1D). Matriz: **48 PASS / 2 BLOCKED / 34 NOT RUN**. Siguiente bloque agrupable: pruebas de registro/reinicio y estados persistentes.
+
+
+### Evidencia EV-REG-RESTART-01 (2026-07-29)
+
+Unreal se cerrÃ³ y se abriÃ³ de nuevo en L_Developer_Testing. El propietario confirmÃ³ que el mapa cargÃ³ y que W, Space, C y V siguieron funcionando sin estados heredados, duplicaciÃ³n visible ni regresiÃ³n. Log: UnrealProject/Saved/QA/PlayerV0.1/REG-RESTART-20260729/ProyectoMemoria.log (280155 bytes, SHA-256 7136537A1404490AF7B63FC760792428DA69DE67458FEB947076DDECA1DCE9F7). Matriz: **50 PASS / 2 BLOCKED / 32 NOT RUN**. Siguiente: PLR-REG-005, persistencia de la perspectiva elegida al reiniciar.

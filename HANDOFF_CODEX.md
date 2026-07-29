@@ -1379,3 +1379,6 @@ SesiÃ³n PLR-CAM-004 (2026-07-29): en tercera persona, el propietario se acerc�
 
 SesiÃ³n agrupada PLR-ENV-001..004 (2026-07-29): en una ruta continua el propietario recorriÃ³ pasillo, puerta, habitaciÃ³n y escalera; todo funcionÃ³ sin atascos ni clipping. TambiÃ©n comprobÃ³ que agachado no cae en la escalera. Evidencia EV-ENV-ROUTE-01; log ENV-ROUTE-20260729 (280824 bytes, SHA-256 55AEBA723F38F09D0B5FD4C46D4F899B6ABA6B3805409F1091F54EBAAF3D9A1D). Matriz: 48 PASS / 2 BLOCKED / 34 NOT RUN. Siguiente bloque agrupable: registro/reinicio y estados persistentes.
 
+
+SesiÃ³n agrupada PLR-REG-003 + PLR-REG-004 (2026-07-29): Unreal se cerrÃ³ y reabriÃ³ en L_Developer_Testing; el propietario confirmÃ³ que el mapa cargÃ³ y W, Space, C y V siguieron funcionando sin regresiÃ³n ni estado heredado. Evidencia EV-REG-RESTART-01; log REG-RESTART-20260729 (280155 bytes, SHA-256 7136537A1404490AF7B63FC760792428DA69DE67458FEB947076DDECA1DCE9F7). Matriz: 50 PASS / 2 BLOCKED / 32 NOT RUN. Siguiente: PLR-REG-005, persistencia de perspectiva.
+

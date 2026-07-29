@@ -1206,3 +1206,7 @@ La integración del Editor puede considerarse preparada cuando:
 Esto todavía no autoriza marcar v0.1.0 como completa. La aprobación del
 propietario, el registro QA y el permiso para actualizar el checklist oficial
 siguen siendo necesarios.
+
+### Sesión de look con ratón completada el 2026-07-28
+
+`PLR-MOV-003` quedó aprobado en PIE normal sobre `/Game/Maps/L_Developer_Testing`, con el visor enfocado y entrada física del propietario. Desde pitch/yaw `0/0`, un movimiento pequeño hacia arriba produjo pitch `-43.2250006°` y yaw `0°`; la lectura MCP permaneció idéntica tras 1.2 s, por lo que no se observó movimiento residual. El log final está en `UnrealProject/Saved/QA/PlayerV0.1/LOOK-20260728/ProyectoMemoria.log` (304299 bytes, SHA-256 `B02C3D092FB4B995FBECF74FC99E21A85C14D031587D7A7C62D6673F12C7A5D4`). Unreal se cerró sin guardar assets. La siguiente tarea es `PLR-MOV-004`, velocidad de avance.

@@ -10,7 +10,7 @@ Unreal Engine 5.8.
 Estado actual: **mappings, los tres Blueprints, el mapa y la geometría auditados;
 el arranque PIE y el movimiento cardinal y diagonal están aprobados**. Los 27
 PASS de `MAP-01..07`, `BP-01..06`, `LVL-01`, `GEO-01..07`,
-`PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-04..06` demuestran la configuración
+`PLR-PIE-001`, `PLR-MOV-001..003` y `EVC-04..06` demuestran la configuración
 guardada, el arranque funcional inicial y las ocho direcciones, no que el resto
 del Player sea jugable ni que v0.1.0 esté terminada. Los otros 57 IDs continúan
 `NOT RUN`.
@@ -27,7 +27,7 @@ Referencias y línea base:
   `BP_PlayerCharacter` están listos. `BP_GameMode_DeveloperTesting` también está
   configurado y validado. `L_Developer_Testing` usa ese GameMode, conserva un
   único Player Start y contiene la pista compacta de 23 cubos validada.
-  `PLR-PIE-001`, `PLR-MOV-001..002` y `EVC-06` están aprobadas; la siguiente
+  `PLR-PIE-001`, `PLR-MOV-001..003` y `EVC-06` están aprobadas; la siguiente
   prueba funcional es `PLR-MOV-003`.
 - Motor y configuración: Unreal Engine 5.8, Win64 Development Editor.
 
@@ -294,7 +294,7 @@ caso: `showdebug character`, `showdebug enhancedinput`, `show collision`,
 | PLR-PIE-001 | 12.1 | Iniciar PIE en el Player Start. | GameMode crea Controller y Character; Controller posee el Character; BeginPlay añade `IMC_Player`; aplica la perspectiva guardada o solo 1P en un perfil limpio. No aparecen los warnings prohibidos de la sección D. | PASS | EV-PIE-START-01 |
 | PLR-MOV-001 | 12.2 | Pulsar W, A, S y D por separado con `showdebug enhancedinput`. | Cada tecla produce el vector y dirección configurados, sin ejes intercambiados ni movimiento residual al soltar. | PASS | EV-MOV-WASD-01 |
 | PLR-MOV-002 | 12.3 | Probar las cuatro diagonales con dos teclas simultáneas. | Combina ambos ejes en la diagonal esperada, permanece alrededor de la velocidad configurada sin ventaja diagonal observable y se detiene al soltar. | PASS | EV-MOV-DIAG-01 |
-| PLR-MOV-003 | 12.4 | Mover y detener el ratón horizontal y verticalmente. | Yaw y pitch responden inmediatamente, en el sentido base esperado, sin suavizado ni movimiento después de detener el ratón. | NOT RUN | |
+| PLR-MOV-003 | 12.4 | Mover y detener el ratón horizontal y verticalmente. | Yaw y pitch responden inmediatamente, en el sentido base esperado, sin suavizado ni movimiento después de detener el ratón. | PASS | EV-MOV-LOOK-01 |
 | PLR-MOV-004 | 12.5 | En suelo plano, mantener avance hasta velocidad estable y medir. | Objetivo 300 cm/s. Registrar valor, resolución de medición y tolerancia previamente aprobada; si falta esa tolerancia, no decidir subjetivamente y usar `BLOCKED`. | NOT RUN | |
 | PLR-MOV-005 | 12.6 | Mantener sprint, medir; soltar y volver a medir. | Objetivos 550 cm/s durante sprint y 300 cm/s al soltar; no queda sprint latente. Registrar la tolerancia aprobada o usar `BLOCKED`. | NOT RUN | |
 | PLR-MOV-006 | Handoff | Rotar la vista 90° y 180°; en cada orientación pulsar avance y laterales. | El movimiento se calcula respecto del yaw de la vista, no respecto de ejes fijos del mundo, y conserva las direcciones relativas correctas. | NOT RUN | |

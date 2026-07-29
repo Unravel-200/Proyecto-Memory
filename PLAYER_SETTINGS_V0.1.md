@@ -157,3 +157,7 @@ pruebas de look, velocidad recta, cámaras, mando, respawn o rendimiento.
 Una decisión solo pasa de “especificada” a “implementada” cuando existe código o
 asset trazable. Solo pasa a “verificada” cuando se ejecutan las pruebas pertinentes
 en una PC adecuada y se adjunta evidencia en la matriz QA.
+
+## Validación funcional reciente
+
+El 2026-07-28 `PLR-MOV-003` confirmó entrada física de mouse: movimiento vertical pequeño desde pitch/yaw `0/0` produjo pitch `-43.2250006°`, yaw `0°`, y permaneció estable tras 1.2 s. Sensibilidades X/Y siguen en `1.0` e inversión Y desactivada. Próxima validación: `PLR-MOV-004` (velocidad de avance).

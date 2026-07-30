@@ -1,6 +1,7 @@
 #include "PMCameraModeComponent.h"
 
 #include "Camera/CameraComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -141,6 +142,12 @@ void UPMCameraModeComponent::ApplyOwnerRotationPolicy() const
 
 	const bool bUseFirstPerson = IsFirstPerson();
 	CharacterOwner->bUseControllerRotationYaw = bUseFirstPerson;
+	// El mannequin provisional se oculta por completo en primera persona para
+	// evitar que el torso y las piernas atraviesen la cámara. Se muestra en 3P.
+	if (USkeletalMeshComponent* CharacterMesh = CharacterOwner->GetMesh())
+	{
+		CharacterMesh->SetVisibility(!bUseFirstPerson, true);
+	}
 
 	if (UCharacterMovementComponent* Movement = CharacterOwner->GetCharacterMovement())
 	{

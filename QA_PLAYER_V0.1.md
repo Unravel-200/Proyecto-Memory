@@ -555,6 +555,15 @@ implementada.
 
 ## F. Cierre y aceptación de la integración
 
+### Consolidación de resultados — 2026-07-29
+
+La matriz de casos de la sección 12 es la fuente vigente de estados. La tabla de
+trazabilidad anterior conserva el estado histórico de su redacción inicial; al
+final de esta sesión la matriz queda en **67 PASS / 1 BLOCKED / 16 NOT RUN**.
+Las evidencias nuevas incluyen cámaras, ruta de entorno, reinicio, persistencia
+de perspectiva, rendimiento, mando XInput, ajustes y preflight. No se declara
+v0.1.0 cerrada mientras existan pruebas `NOT RUN` o el bloqueo documentado.
+
 Después de probar:
 
 1. Detener PIE y resolver o registrar cada error.

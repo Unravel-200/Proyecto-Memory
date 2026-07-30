@@ -1403,3 +1403,6 @@ SesiÃ³n PLR-PAD-002 (2026-07-29): con DS4Windows/XInput no se observÃ³ drift
 
 MenÃº inicial y pausa (2026-07-29): se implementÃ³ un menÃº Slate nativo en `APMPlayerController`. Al iniciar PIE aparece el menÃº principal; `Esc` abre pausa durante la partida; continuar reanuda; configuraciÃ³n muestra sensibilidad horizontal/vertical, inversiÃ³n Y y restaurar valores. El panel estÃ¡ preparado para crecer con apartados separados de mando, teclado y reasignaciÃ³n. La prueba manual del propietario confirmÃ³ que el panel y sus textos ya son visibles y legibles. Las pruebas funcionales de persistencia de ajustes (`PLR-CAM-005..006`) siguen pendientes.
 
+
+SesiÃ³n agrupada PLR-CAM-005 + PLR-CAM-006 (2026-07-29): el propietario cambiÃ³ sensibilidad X/Y, verificÃ³ el efecto con mouse y mando, activÃ³ Invert Look Y y confirmÃ³ que solo el eje vertical invierte; Restaurar valores devolviÃ³ defaults. Evidencia EV-MENU-SETTINGS-01; log MENU-SETTINGS-20260729 (282224 bytes, SHA-256 1EBA47287C8A059922992033ACAD72129FA4589F13186C0F052914AE83102659). Matriz: 57 PASS / 1 BLOCKED / 26 NOT RUN.
+

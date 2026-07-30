@@ -483,8 +483,8 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 |---|---:|---|---|---|---|
 | PLR-PAD-001 | 12.19 | Con mando fÃ­sico identificado, probar movimiento/look, L3 sprint, B/cÃ­rculo crouch, A/X salto y Y/triÃ¡ngulo cÃ¡mara. | Todas las acciones responden; los sticks alcanzan rango Ãºtil y vuelven al centro. Registrar modelo, conexiÃ³n y FPS. | PASS | EV-PAD-XINPUT-01 |
 | PLR-PAD-002 | 12.19 | Dejar sticks en reposo, observar input/Pawn/cÃ¡mara y recorrer el rango completo. | Se confirma zona muerta configurada en 0 y se registra todo drift real, dispositivo y efecto observado; no se oculta con otra capa sin nueva autorizaciÃ³n. | PASS | EV-PAD-DRIFT-01 |
-| PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separación por dispositivo pertenece al menú posterior. | NOT RUN | |
-| PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | NOT RUN | |
+| PLR-CAM-005 | 12.20 | Cambiar sensibilidad X/Y desde defaults y comparar con 1.0 usando mouse y mando. | El ajuste compartido actual cambia ambos dispositivos de forma proporcional y no acepta valores negativos. La separaciÃ³n por dispositivo pertenece al menÃº posterior. | PASS | EV-MENU-SETTINGS-01 |
+| PLR-CAM-006 | 12.20 | Alternar Invert Look Y y repetir el movimiento vertical. | Solo Y invierte su sentido; X no cambia. | PASS | EV-MENU-SETTINGS-01 |
 | PLR-PERF-001 | 12.21 | Recorrer toda la geometría usando movimiento, crouch y cámaras con `stat fps`, `stat unit` y `stat game`. | Se documentan hardware, resolución, ajustes, ruta, duración y Game/Draw/GPU. Se evalúa el objetivo de 60 FPS con la ventana/umbral aprobados; sin criterio o hardware representativo, `BLOCKED`. | PASS | EV-PERF-ROUTE-01 |
 | PLR-REG-003 | 12.22 | Detener PIE, compilar Blueprints, Save All, cerrar y reabrir UE 5.8. | Persisten IA/IMC, clases, defaults, GameMode y mapa; los Blueprints compilan y se aplica la vista guardada o 1P en un perfil limpio. | PASS | EV-REG-RESTART-01 |
 | PLR-REG-005 | 12.27 / checklist oficial | Cambiar a 3P, cerrar completamente el juego y volver a iniciarlo con el mismo perfil; repetir sin preferencia guardada. | Restaura 3P con el perfil existente; una primera ejecuciÃ³n sin preferencia guardada inicia en 1P. | PASS | EV-REG-CAMERA-PERSIST-01 |
@@ -693,3 +693,8 @@ AclaraciÃ³n de PLR-JMP-001: la prueba del mando confirmÃ³ el salto con A/X y
 ### Evidencia EV-PAD-DRIFT-01 (2026-07-29)
 
 Con DS4Windows/XInput, el propietario dejÃ³ ambos sticks en reposo sin observar movimiento ni giro involuntario, recorriÃ³ las cuatro direcciones de cada stick y confirmÃ³ que ambos regresan al centro. Log: UnrealProject/Saved/QA/PlayerV0.1/PAD-DRIFT-20260729/ProyectoMemoria.log (290229 bytes, SHA-256 93858077E74BAB59CC11873170B3253D00E2049CD12CEEA88116C4720E550C5B). Matriz: **55 PASS / 1 BLOCKED / 28 NOT RUN**.
+
+
+### Evidencia EV-MENU-SETTINGS-01 (2026-07-29)
+
+El propietario abriÃ³ ConfiguraciÃ³n, cambiÃ³ sensibilidad horizontal y vertical, activÃ³ Invertir cÃ¡mara vertical y verificÃ³ el efecto con mouse y mando. Restaurar valores devolviÃ³ los defaults. Log: UnrealProject/Saved/QA/PlayerV0.1/MENU-SETTINGS-20260729/ProyectoMemoria.log (282224 bytes, SHA-256 1EBA47287C8A059922992033ACAD72129FA4589F13186C0F052914AE83102659). Matriz: **57 PASS / 1 BLOCKED / 26 NOT RUN**.

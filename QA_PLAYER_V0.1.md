@@ -715,6 +715,16 @@ El preflight del 2026-07-29 pasÃ³ las 19 comprobaciones con hardware confirmad
 
 Matriz: **67 PASS / 1 BLOCKED / 16 NOT RUN**.
 
+### Integración del mannequin provisional — 2026-07-30
+
+Se integró el mannequin estándar de Unreal 5.8 bajo
+`UnrealProject/Content/Mannequin` y se verificó su visibilidad en tercera
+persona. La malla se oculta correctamente en primera persona. `PLR-VIS-001`
+no se marca todavía como PASS: el asset estándar no incluye una pose de crouch
+compatible con este Player, por lo que la animación visual de agacharse queda
+pendiente de edición/retargeting. La cápsula, la cámara y la lógica de crouch
+siguen aprobadas por sus evidencias existentes.
+
 ### Smoke test del paquete jugable — 2026-07-30
 
 Se generó un paquete Win64 Development en `Builds/PlayerV0.1/Windows` y se

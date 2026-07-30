@@ -1400,3 +1400,6 @@ ActualizaciÃ³n PLR-JMP-001 (2026-07-29): A/X fue probado con el mando XInput y
 
 SesiÃ³n PLR-PAD-002 (2026-07-29): con DS4Windows/XInput no se observÃ³ drift en reposo; ambos sticks recorrieron cuatro direcciones y regresaron al centro. Evidencia EV-PAD-DRIFT-01; log PAD-DRIFT-20260729 (290229 bytes, SHA-256 93858077E74BAB59CC11873170B3253D00E2049CD12CEEA88116C4720E550C5B). Matriz: 55 PASS / 1 BLOCKED / 28 NOT RUN.
 
+
+MenÃº inicial y pausa (2026-07-29): se implementÃ³ un menÃº Slate nativo en `APMPlayerController`. Al iniciar PIE aparece el menÃº principal; `Esc` abre pausa durante la partida; continuar reanuda; configuraciÃ³n muestra sensibilidad horizontal/vertical, inversiÃ³n Y y restaurar valores. El panel estÃ¡ preparado para crecer con apartados separados de mando, teclado y reasignaciÃ³n. La prueba manual del propietario confirmÃ³ que el panel y sus textos ya son visibles y legibles. Las pruebas funcionales de persistencia de ajustes (`PLR-CAM-005..006`) siguen pendientes.
+

@@ -9,6 +9,17 @@
 #include "PMCameraModeComponent.h"
 #include "PMGameUserSettings.h"
 #include "PMPlayerCharacter.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/Engine.h"
+#include "Widgets/Layout/SBorder.h"
+#include "Widgets/Layout/SBox.h"
+#include "Widgets/SOverlay.h"
+#include "Widgets/SBoxPanel.h"
+#include "Widgets/Input/SButton.h"
+#include "Widgets/Input/SCheckBox.h"
+#include "Widgets/Input/SSlider.h"
+#include "Widgets/Text/STextBlock.h"
+#include "Styling/CoreStyle.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPMPlayerController, Log, All);
 
@@ -24,6 +35,9 @@ APMPlayerController::APMPlayerController()
 	bMappingContextAdded = false;
 	PreferredCameraMode = EPMCameraMode::FirstPerson;
 	bCameraPreferenceLoaded = false;
+	bMenuOpen = false;
+	bMainMenuOpen = false;
+	bSettingsOpen = false;
 }
 
 void APMPlayerController::BeginPlay()
@@ -54,6 +68,8 @@ void APMPlayerController::BeginPlay()
 		InputSubsystem->AddMappingContext(PlayerMappingContext, MappingPriority);
 		bMappingContextAdded = true;
 	}
+
+	OpenMainMenu();
 }
 
 void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -103,6 +119,8 @@ void APMPlayerController::SetupInputComponent()
 			TEXT("APMPlayerController requires EnhancedInputComponent."));
 		return;
 	}
+
+	InputComponent->BindKey(EKeys::Escape, IE_Pressed, this, &APMPlayerController::HandleEscape);
 
 	if (!MoveAction || !LookAction || !SprintAction || !CrouchAction
 		|| !JumpAction || !ToggleCameraAction)
@@ -197,6 +215,126 @@ void APMPlayerController::SetupInputComponent()
 			this,
 			&APMPlayerController::HandleToggleCamera);
 	}
+}
+
+void APMPlayerController::OpenMainMenu()
+{
+	bMenuOpen = true;
+	bMainMenuOpen = true;
+	bSettingsOpen = false;
+	RebuildSlateMenu();
+	SetPause(true);
+	SetInputMode(FInputModeUIOnly());
+	bShowMouseCursor = true;
+}
+
+void APMPlayerController::OpenPauseMenu()
+{
+	bMenuOpen = true;
+	bMainMenuOpen = false;
+	bSettingsOpen = false;
+	RebuildSlateMenu();
+	SetPause(true);
+	SetInputMode(FInputModeUIOnly());
+	bShowMouseCursor = true;
+}
+
+void APMPlayerController::CloseMenuAndResume()
+{
+	bMenuOpen = false;
+	bMainMenuOpen = false;
+	bSettingsOpen = false;
+	if (SlateMenu)
+	{
+		SlateMenu->ClearChildren();
+	}
+	SetPause(false);
+	FInputModeGameOnly InputMode;
+	SetInputMode(InputMode);
+	bShowMouseCursor = false;
+}
+
+void APMPlayerController::HandleEscape()
+{
+	if (bMainMenuOpen)
+	{
+		return;
+	}
+
+	if (bMenuOpen)
+	{
+		if (bSettingsOpen)
+		{
+			OpenPauseMenu();
+		}
+		else
+		{
+			CloseMenuAndResume();
+		}
+		return;
+	}
+
+	OpenPauseMenu();
+}
+
+void APMPlayerController::ResetLookSettings()
+{
+	SetLookSensitivity(1.0f, 1.0f);
+	SetInvertLookY(false);
+}
+
+void APMPlayerController::RebuildSlateMenu()
+{
+	if (!GEngine || !GEngine->GameViewport)
+	{
+		return;
+	}
+
+	if (!SlateMenu)
+	{
+		SAssignNew(SlateMenu, SOverlay);
+		GEngine->GameViewport->AddViewportWidgetContent(SlateMenu.ToSharedRef(), 100);
+	}
+
+	SlateMenu->ClearChildren();
+	TSharedRef<SVerticalBox> Column = SNew(SVerticalBox);
+	const FText Title = bSettingsOpen ? FText::FromString(TEXT("Configuración"))
+		: (bMainMenuOpen ? FText::FromString(TEXT("Proyecto Memoria")) : FText::FromString(TEXT("Pausa")));
+	Column->AddSlot().AutoHeight().Padding(10)[SNew(STextBlock).Text(Title).Font(FCoreStyle::GetDefaultFontStyle("Bold", 32)).Justification(ETextJustify::Center)];
+
+	const auto AddButton = [&Column](const TCHAR* Label, TFunction<FReply()> Callback)
+	{
+		Column->AddSlot().AutoHeight().Padding(8)[
+			SNew(SBox).HeightOverride(58.0f)[
+				SNew(SButton).OnClicked_Lambda(MoveTemp(Callback))[
+					SNew(STextBlock).Text(FText::FromString(Label)).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22)).Justification(ETextJustify::Center)]]];
+	};
+
+	if (bSettingsOpen)
+	{
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad horizontal"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return GetLookSensitivityX() * 0.5f; }).OnValueChanged_Lambda([this](float Value){ SetLookSensitivity(Value * 2.0f, GetLookSensitivityY()); })]];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad vertical"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return GetLookSensitivityY() * 0.5f; }).OnValueChanged_Lambda([this](float Value){ SetLookSensitivity(GetLookSensitivityX(), Value * 2.0f); })]];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(SCheckBox).IsChecked_Lambda([this](){ return GetInvertLookY() ? ECheckBoxState::Checked : ECheckBoxState::Unchecked; }).OnCheckStateChanged_Lambda([this](ECheckBoxState State){ SetInvertLookY(State == ECheckBoxState::Checked); })[SNew(STextBlock).Text(FText::FromString(TEXT("Invertir cámara vertical"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))]];
+		AddButton(TEXT("Restaurar valores"), [this](){ ResetLookSettings(); RebuildSlateMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Volver"), [this](){ OpenPauseMenu(); return FReply::Handled(); });
+	}
+	else if (bMainMenuOpen)
+	{
+		AddButton(TEXT("Jugar"), [this](){ CloseMenuAndResume(); return FReply::Handled(); });
+		AddButton(TEXT("Configuración"), [this](){ bSettingsOpen = true; RebuildSlateMenu(); return FReply::Handled(); });
+	}
+	else
+	{
+		AddButton(TEXT("Continuar"), [this](){ CloseMenuAndResume(); return FReply::Handled(); });
+		AddButton(TEXT("Configuración"), [this](){ bSettingsOpen = true; RebuildSlateMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Volver al menú principal"), [this](){ OpenMainMenu(); return FReply::Handled(); });
+	}
+
+	SlateMenu->AddSlot().HAlign(HAlign_Center).VAlign(VAlign_Center)[
+		SNew(SBorder).Padding(42.0f).BorderBackgroundColor(FLinearColor(0.015f, 0.02f, 0.03f, 0.96f))[
+			SNew(SBox).WidthOverride(720.0f).HeightOverride(560.0f)[Column]]];
 }
 
 APMPlayerCharacter* APMPlayerController::GetPMPlayerCharacter() const

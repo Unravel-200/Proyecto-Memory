@@ -172,3 +172,6 @@ V alternó correctamente FirstPerson/ThirdPerson y regresó a FirstPerson. La co
 
 La continuidad de orientaciÃ³n al regresar de 3P a 1P quedÃ³ confirmada en PIE (PLR-CAM-002).
 
+
+MenÃº de controles inicial (2026-07-29): se aÃ±adiÃ³ un menÃº principal, pausa con Esc y pantalla de configuraciÃ³n Slate con sensibilidad X/Y, inversiÃ³n vertical y restaurar valores. Queda preparado para separar configuraciÃ³n de mando y teclado en la siguiente iteraciÃ³n.
+

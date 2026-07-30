@@ -5,6 +5,8 @@
 #include "PMPlayerController.generated.h"
 
 class APMPlayerCharacter;
+class SOverlay;
+class SWidget;
 class UInputAction;
 class UInputMappingContext;
 enum class EPMCameraMode : uint8;
@@ -25,6 +27,14 @@ class PROYECTOMEMORIA_API APMPlayerController : public APlayerController
 public:
 	APMPlayerController();
 
+	void OpenMainMenu();
+	void OpenPauseMenu();
+	void CloseMenuAndResume();
+	void ResetLookSettings();
+	float GetLookSensitivityX() const { return LookSensitivityX; }
+	float GetLookSensitivityY() const { return LookSensitivityY; }
+	bool GetInvertLookY() const { return bInvertLookY; }
+
 	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Player")
 	APMPlayerCharacter* GetPMPlayerCharacter() const;
 
@@ -40,6 +50,9 @@ protected:
 	virtual void OnUnPossess() override;
 	virtual void SetPawn(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
+
+	UFUNCTION()
+	void HandleEscape();
 
 	/** IMC_Player: contexto que agrupa todos los controles de esta versión. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
@@ -128,4 +141,12 @@ private:
 	EPMCameraMode PreferredCameraMode;
 
 	bool bCameraPreferenceLoaded;
+
+	TSharedPtr<SOverlay> SlateMenu;
+	TSharedPtr<SWidget> SlateMenuPanel;
+	bool bMenuOpen;
+	bool bMainMenuOpen;
+	bool bSettingsOpen;
+
+	void RebuildSlateMenu();
 };

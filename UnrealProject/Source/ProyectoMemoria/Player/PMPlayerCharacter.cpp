@@ -1,7 +1,9 @@
 #include "PMPlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "Animation/AnimInstance.h"
 #include "Components/CapsuleComponent.h"
+#include "UObject/ConstructorHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "PMCameraModeComponent.h"
@@ -27,6 +29,24 @@ APMPlayerCharacter::APMPlayerCharacter()
 	Movement->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
 	Movement->bOrientRotationToMovement = false;
 	Movement->GetNavAgentPropertiesRef().bCanCrouch = true;
+
+	// Mannequin provisional incluido desde los recursos estándar de UE 5.8.
+	// Se mantiene como fallback C++ para que el BP pueda cambiarlo más adelante.
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultMesh(
+		TEXT("/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin"));
+	if (DefaultMesh.Succeeded())
+	{
+		GetMesh()->SetSkeletalMesh(DefaultMesh.Object);
+		GetMesh()->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
+		GetMesh()->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
+	}
+
+	static ConstructorHelpers::FClassFinder<UAnimInstance> DefaultAnimBP(
+		TEXT("/Game/Mannequin/Animations/ThirdPerson_AnimBP"));
+	if (DefaultAnimBP.Succeeded())
+	{
+		GetMesh()->SetAnimInstanceClass(DefaultAnimBP.Class);
+	}
 
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCamera->SetupAttachment(GetCapsuleComponent());

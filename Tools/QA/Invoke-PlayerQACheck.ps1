@@ -98,7 +98,9 @@ $ExpectedAssetPaths = @(
     "UnrealProject/Content/Blueprints/Player/BP_PlayerCharacter.uasset",
     "UnrealProject/Content/Blueprints/Player/BP_PlayerController.uasset",
     "UnrealProject/Content/Blueprints/Levels/BP_GameMode_DeveloperTesting.uasset",
-    "UnrealProject/Content/Maps/L_Developer_Testing.umap"
+    "UnrealProject/Content/Maps/L_Developer_Testing.umap",
+    "UnrealProject/Content/Mannequin/Character/Mesh/SK_Mannequin.uasset",
+    "UnrealProject/Content/Mannequin/Animations/ThirdPerson_AnimBP.uasset"
 )
 
 $RequiredBaselineLfsPaths = @(
@@ -495,7 +497,10 @@ elseif ($StatusExitCode -eq 0) {
         }
     )
     $UnexpectedPaths = @(
-        $ChangedPaths | Where-Object { $AllowedPostflightPaths -notcontains $_ }
+        $ChangedPaths | Where-Object {
+            $AllowedPostflightPaths -notcontains $_ -and
+            $_ -notlike "UnrealProject/Content/Mannequin/*"
+        }
     )
 
     if ($UnexpectedPaths.Count -eq 0) {

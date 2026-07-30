@@ -93,7 +93,9 @@ void APMPlayerCharacter::OnStartCrouch(
 		// El AnimBP provisional no trae una pose de crouch; compactamos la malla
 		// y la bajamos con la cápsula para mantener pies y cámara alineados.
 		CharacterMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.55f));
-		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -54.0f));
+		// El root del mannequin está en los pies; conservar la misma altura evita
+		// que la escala visual atraviese el suelo.
+		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
 	}
 	ApplyMovementSpeed();
 }

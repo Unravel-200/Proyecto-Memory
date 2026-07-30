@@ -13,6 +13,7 @@ Saved/
 # Compilados y paquetes
 *.pak
 *.sig
+/Builds/
 
 # Visual Studio
 .vs/

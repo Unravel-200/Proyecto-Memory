@@ -175,3 +175,6 @@ La continuidad de orientaciÃ³n al regresar de 3P a 1P quedÃ³ confirmada en P
 
 MenÃº de controles inicial (2026-07-29): se aÃ±adiÃ³ un menÃº principal, pausa con Esc y pantalla de configuraciÃ³n Slate con sensibilidad X/Y, inversiÃ³n vertical y restaurar valores. Queda preparado para separar configuraciÃ³n de mando y teclado en la siguiente iteraciÃ³n.
 
+
+La configuraciÃ³n ya separa las secciones Teclado y mouse / Mando. La presentaciÃ³n visual actual es funcional pero provisional; se pulirÃ¡ mÃ¡s adelante.
+

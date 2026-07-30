@@ -1406,3 +1406,6 @@ MenÃº inicial y pausa (2026-07-29): se implementÃ³ un menÃº Slate nativo e
 
 SesiÃ³n agrupada PLR-CAM-005 + PLR-CAM-006 (2026-07-29): el propietario cambiÃ³ sensibilidad X/Y, verificÃ³ el efecto con mouse y mando, activÃ³ Invert Look Y y confirmÃ³ que solo el eje vertical invierte; Restaurar valores devolviÃ³ defaults. Evidencia EV-MENU-SETTINGS-01; log MENU-SETTINGS-20260729 (282224 bytes, SHA-256 1EBA47287C8A059922992033ACAD72129FA4589F13186C0F052914AE83102659). Matriz: 57 PASS / 1 BLOCKED / 26 NOT RUN.
 
+
+AmpliaciÃ³n de configuraciÃ³n (2026-07-29): la pantalla ahora separa Teclado y mouse / Mando y muestra los controles actuales de cada dispositivo. La secciÃ³n cambia funcionalmente; el diseÃ±o visual es provisional y queda pendiente de una pasada posterior de UI.
+

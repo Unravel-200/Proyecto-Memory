@@ -147,6 +147,7 @@ private:
 	bool bMenuOpen;
 	bool bMainMenuOpen;
 	bool bSettingsOpen;
+	bool bControllerTab;
 
 	void RebuildSlateMenu();
 };

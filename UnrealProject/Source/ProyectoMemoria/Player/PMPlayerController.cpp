@@ -38,6 +38,7 @@ APMPlayerController::APMPlayerController()
 	bMenuOpen = false;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
+	bControllerTab = false;
 }
 
 void APMPlayerController::BeginPlay()
@@ -222,6 +223,7 @@ void APMPlayerController::OpenMainMenu()
 	bMenuOpen = true;
 	bMainMenuOpen = true;
 	bSettingsOpen = false;
+	bControllerTab = false;
 	RebuildSlateMenu();
 	SetPause(true);
 	SetInputMode(FInputModeUIOnly());
@@ -233,6 +235,7 @@ void APMPlayerController::OpenPauseMenu()
 	bMenuOpen = true;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
+	bControllerTab = false;
 	RebuildSlateMenu();
 	SetPause(true);
 	SetInputMode(FInputModeUIOnly());
@@ -313,6 +316,12 @@ void APMPlayerController::RebuildSlateMenu()
 	if (bSettingsOpen)
 	{
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad horizontal"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
+		AddButton(TEXT("Teclado y mouse"), [this](){ bControllerTab = false; RebuildSlateMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Mando"), [this](){ bControllerTab = true; RebuildSlateMenu(); return FReply::Handled(); });
+		const TCHAR* MappingText = bControllerTab
+			? TEXT("Mando:\nStick izquierdo: mover\nStick derecho: mirar\nL3: correr\nB/Círculo: agacharse\nA/X: saltar\nY/Triángulo: cambiar cámara")
+			: TEXT("Teclado y mouse:\nWASD: mover\nShift: correr\nC: agacharse\nSpace: saltar\nV: cambiar cámara\nMouse: mirar");
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(MappingText)).Font(FCoreStyle::GetDefaultFontStyle("Regular", 20))];
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return GetLookSensitivityX() * 0.5f; }).OnValueChanged_Lambda([this](float Value){ SetLookSensitivity(Value * 2.0f, GetLookSensitivityY()); })]];
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad vertical"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return GetLookSensitivityY() * 0.5f; }).OnValueChanged_Lambda([this](float Value){ SetLookSensitivity(GetLookSensitivityX(), Value * 2.0f); })]];

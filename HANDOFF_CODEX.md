@@ -1409,3 +1409,6 @@ SesiÃ³n agrupada PLR-CAM-005 + PLR-CAM-006 (2026-07-29): el propietario cambi�
 
 AmpliaciÃ³n de configuraciÃ³n (2026-07-29): la pantalla ahora separa Teclado y mouse / Mando y muestra los controles actuales de cada dispositivo. La secciÃ³n cambia funcionalmente; el diseÃ±o visual es provisional y queda pendiente de una pasada posterior de UI.
 
+
+Persistencia de configuraciÃ³n (2026-07-29): sensibilidad X/Y e inversiÃ³n Y ahora se cargan desde UPMGameUserSettings y se guardan al cambiar desde el menÃº. La siguiente sesiÃ³n conserva esos valores. Se ampliÃ³ la secciÃ³n de configuraciÃ³n con pestaÃ±as informativas de Teclado y mouse / Mando.
+

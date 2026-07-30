@@ -44,6 +44,12 @@ APMPlayerController::APMPlayerController()
 void APMPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	if (UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings())
+	{
+		LookSensitivityX = Settings->GetLookSensitivityX();
+		LookSensitivityY = Settings->GetLookSensitivityY();
+		bInvertLookY = Settings->GetInvertLookY();
+	}
 
 	ApplyPreferredCameraModeToPawn();
 
@@ -357,11 +363,21 @@ void APMPlayerController::SetLookSensitivity(
 {
 	LookSensitivityX = FMath::Max(0.0f, HorizontalSensitivity);
 	LookSensitivityY = FMath::Max(0.0f, VerticalSensitivity);
+	if (UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings())
+	{
+		Settings->SetLookSettings(LookSensitivityX, LookSensitivityY, bInvertLookY);
+		Settings->SaveSettings();
+	}
 }
 
 void APMPlayerController::SetInvertLookY(const bool bShouldInvert)
 {
 	bInvertLookY = bShouldInvert;
+	if (UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings())
+	{
+		Settings->SetLookSettings(LookSensitivityX, LookSensitivityY, bInvertLookY);
+		Settings->SaveSettings();
+	}
 }
 
 void APMPlayerController::HandleMove(const FInputActionValue& Value)

@@ -30,9 +30,25 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Settings|Camera")
 	bool SetPreferredCameraMode(EPMCameraMode NewMode);
 
+	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Settings|Look")
+	float GetLookSensitivityX() const { return LookSensitivityX; }
+	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Settings|Look")
+	float GetLookSensitivityY() const { return LookSensitivityY; }
+	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Settings|Look")
+	bool GetInvertLookY() const { return bInvertLookY; }
+	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Settings|Look")
+	void SetLookSettings(float NewSensitivityX, float NewSensitivityY, bool bNewInvertLookY);
+
 private:
 	static bool IsSupportedCameraMode(EPMCameraMode CameraMode);
 
 	UPROPERTY(Config)
 	EPMCameraMode PreferredCameraMode = EPMCameraMode::FirstPerson;
+
+	UPROPERTY(Config)
+	float LookSensitivityX = 1.0f;
+	UPROPERTY(Config)
+	float LookSensitivityY = 1.0f;
+	UPROPERTY(Config)
+	bool bInvertLookY = false;
 };

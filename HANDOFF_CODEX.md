@@ -1418,3 +1418,6 @@ MenÃºs completados (2026-07-29): el menÃº principal y el de pausa incluyen a
 
 Infraestructura Enhanced Input (2026-07-29): se activÃ³ User Settings persistente, se definiÃ³ el slot ProyectoMemoriaInputSettings y `IMC_Player` se registra al iniciar el PlayerController. La reasignaciÃ³n visible queda lista para conectar cuando cada mapping tenga metadata Player Mappable.
 
+
+Preflight consolidado (2026-07-29): las 19 comprobaciones pasaron con hardware confirmado y worktree limpio. Se cerraron PRE-01..07 y SET-01..03 con EV-PREFLIGHT-20260729; PRE-08 queda pendiente por requerir medicion automatizada de la frontera temporal de crouch. Matriz: 67 PASS / 1 BLOCKED / 16 NOT RUN.
+

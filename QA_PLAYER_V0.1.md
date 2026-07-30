@@ -111,13 +111,13 @@ assets parecen dañados, o hace falta una decisión de diseño no aprobada.
 
 | ID | Comprobación y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|
-| PRE-01 | PC apta, con temperatura, ventiladores y consumo normales. Unreal está cerrado antes de revisar Git. | NOT RUN | |
-| PRE-02 | `git status --short --branch` muestra la rama requerida y worktree limpio; `git log -1 --oneline` identifica un descendiente de `5eccd8e`. | NOT RUN | |
-| PRE-03 | El proyecto abre con UE 5.8 sin conversión. Si solicita recompilar módulos, se cancela y se hace una compilación completa antes de reabrir. | NOT RUN | |
-| PRE-04 | Enhanced Input está habilitado y no se habilitaron plugins adicionales de forma permanente. Si se usa MCP, `ModelContextProtocol` y `EditorToolset` se activan solo por CLI y no se agregan al `.uproject`. | NOT RUN | |
-| PRE-05 | `Default Player Input Class = EnhancedPlayerInput` y `Default Input Component Class = EnhancedInputComponent`. | NOT RUN | |
-| PRE-06 | Output Log está visible; todos los Blueprints compilan y `GameMode Override` está confirmado antes de PIE. | NOT RUN | |
-| PRE-07 | Hay teclado y ratón funcionales. Se identifica un mando físico; un mapping sin dispositivo no prueba compatibilidad. | NOT RUN | |
+| PRE-01 | PC apta, con temperatura, ventiladores y consumo normales. Unreal estÃ¡ cerrado antes de revisar Git. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-02 | `git status --short --branch` muestra la rama requerida y worktree limpio; `git log -1 --oneline` identifica un descendiente de `5eccd8e`. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-03 | El proyecto abre con UE 5.8 sin conversiÃ³n. Si solicita recompilar mÃ³dulos, se cancela y se hace una compilaciÃ³n completa antes de reabrir. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-04 | Enhanced Input estÃ¡ habilitado y no se habilitaron plugins adicionales de forma permanente. Si se usa MCP, `ModelContextProtocol` y `EditorToolset` se activan solo por CLI y no se agregan al `.uproject`. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-05 | `Default Player Input Class = EnhancedPlayerInput` y `Default Input Component Class = EnhancedInputComponent`. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-06 | Output Log estÃ¡ visible; todos los Blueprints compilan y `GameMode Override` estÃ¡ confirmado antes de PIE. | PASS | EV-PREFLIGHT-20260729 |
+| PRE-07 | Hay teclado y ratÃ³n funcionales. Se identifica un mando fÃ­sico; un mapping sin dispositivo no prueba compatibilidad. | PASS | EV-PREFLIGHT-20260729 |
 | PRE-08 | Para la frontera de crouch existe instrumentación que registra `GetElapsedTime()`; 0.24/0.25/0.26 s no se estiman manualmente. | NOT RUN | |
 | PRE-09 | Para evaluar apariencia 3P, la malla tiene origen, licencia y escala verificados. Sin malla, solo esa evaluación queda `BLOCKED`. | NOT RUN | |
 
@@ -143,9 +143,9 @@ assets parecen dañados, o hace falta una decisión de diseño no aprobada.
 
 | ID | Comprobación y criterio de aceptación | Estado | Evidencia / observado |
 |---|---|---|---|
-| SET-01 | Existen `/Game/Input/Actions`, `/Game/Input/Mappings`, `/Game/Blueprints/Player` y `/Game/Blueprints/Levels`; no se movieron `BP_TestActor` ni `L_Developer_Testing`. | NOT RUN | |
-| SET-02 | `IA_Move` e `IA_Look` son Axis2D; `IA_Sprint`, `IA_Crouch`, `IA_Jump` e `IA_ToggleCamera` son Digital/Bool. Move, Look, Sprint, Jump y Toggle no tienen triggers de asset; Crouch usa ninguno por defecto o la excepción Down documentada en `SET-03`. | NOT RUN | |
-| SET-03 | `IA_Crouch` permanece activa toda la pulsación y no usa Hold, Tap, Pressed, Released ni Pulse. Si usa la excepción Down, se registra y se repite Started/Completed/Canceled. | NOT RUN | |
+| SET-01 | Existen `/Game/Input/Actions`, `/Game/Input/Mappings`, `/Game/Blueprints/Player` y `/Game/Blueprints/Levels`; no se movieron `BP_TestActor` ni `L_Developer_Testing`. | PASS | EV-PREFLIGHT-20260729 |
+| SET-02 | `IA_Move` e `IA_Look` son Axis2D; `IA_Sprint`, `IA_Crouch`, `IA_Jump` e `IA_ToggleCamera` son Digital/Bool. Move, Look, Sprint, Jump y Toggle no tienen triggers de asset; Crouch usa ninguno por defecto o la excepciÃ³n Down documentada en `SET-03`. | PASS | EV-PREFLIGHT-20260729 |
+| SET-03 | `IA_Crouch` permanece activa toda la pulsaciÃ³n y no usa Hold, Tap, Pressed, Released ni Pulse. Si usa la excepciÃ³n Down, se registra y se repite Started/Completed/Canceled. | PASS | EV-PREFLIGHT-20260729 |
 
 ### IMC_Player
 
@@ -698,3 +698,10 @@ Con DS4Windows/XInput, el propietario dejÃ³ ambos sticks en reposo sin observa
 ### Evidencia EV-MENU-SETTINGS-01 (2026-07-29)
 
 El propietario abriÃ³ ConfiguraciÃ³n, cambiÃ³ sensibilidad horizontal y vertical, activÃ³ Invertir cÃ¡mara vertical y verificÃ³ el efecto con mouse y mando. Restaurar valores devolviÃ³ los defaults. Log: UnrealProject/Saved/QA/PlayerV0.1/MENU-SETTINGS-20260729/ProyectoMemoria.log (282224 bytes, SHA-256 1EBA47287C8A059922992033ACAD72129FA4589F13186C0F052914AE83102659). Matriz: **57 PASS / 1 BLOCKED / 26 NOT RUN**.
+
+
+### Evidencia EV-PREFLIGHT-20260729
+
+El preflight del 2026-07-29 pasÃ³ las 19 comprobaciones con hardware confirmado, worktree limpio, UE 5.8 instalado, LFS hidratado, Enhanced Input y PMGameUserSettings activos. Se consolidan aquÃ­ las verificaciones de preparaciÃ³n y configuraciÃ³n ya repetidas durante las sesiones PIE. PRE-08 permanece pendiente porque requiere medir automÃ¡ticamente la frontera temporal de crouch.
+
+Matriz: **67 PASS / 1 BLOCKED / 16 NOT RUN**.

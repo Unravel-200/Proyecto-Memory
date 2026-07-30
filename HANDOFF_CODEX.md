@@ -1415,3 +1415,6 @@ Persistencia de configuraciÃ³n (2026-07-29): sensibilidad X/Y e inversiÃ³n Y
 
 MenÃºs completados (2026-07-29): el menÃº principal y el de pausa incluyen ahora Jugar/Continuar, ConfiguraciÃ³n, Volver al menÃº principal y Salir. La salida usa UKismetSystemLibrary::QuitGame. CompilaciÃ³n verificada.
 
+
+Infraestructura Enhanced Input (2026-07-29): se activÃ³ User Settings persistente, se definiÃ³ el slot ProyectoMemoriaInputSettings y `IMC_Player` se registra al iniciar el PlayerController. La reasignaciÃ³n visible queda lista para conectar cuando cada mapping tenga metadata Player Mappable.
+

@@ -1421,3 +1421,11 @@ Infraestructura Enhanced Input (2026-07-29): se activÃ³ User Settings persiste
 
 Preflight consolidado (2026-07-29): las 19 comprobaciones pasaron con hardware confirmado y worktree limpio. Se cerraron PRE-01..07 y SET-01..03 con EV-PREFLIGHT-20260729; PRE-08 queda pendiente por requerir medicion automatizada de la frontera temporal de crouch. Matriz: 67 PASS / 1 BLOCKED / 16 NOT RUN.
 
+Sincronización de documentación de Modelos3D (2026-07-29): Claude terminó su
+sesión en `Proyecto-Memoria-docs` y publicó `main` hasta `0702dd6`. El registro
+maestro incluye los lotes de exteriores/parqueos, soda, residencias y edificios
+trabajados durante la sesión. `Registros/Registro_Activos_Importados.txt` sigue
+vacío de forma intencional: esos activos todavía no se han importado a Unreal.
+El checklist de producción registra esta sincronización y deja la validación UE
+como siguiente estado, sin modificar `Modelos-3D` desde este repositorio.
+

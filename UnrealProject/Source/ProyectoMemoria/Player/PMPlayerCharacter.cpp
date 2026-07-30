@@ -88,6 +88,13 @@ void APMPlayerCharacter::OnStartCrouch(
 
 	// También cubre llamadas a Crouch hechas por un Blueprint o sistema futuro.
 	bIsSprinting = false;
+	if (USkeletalMeshComponent* CharacterMesh = GetMesh())
+	{
+		// El AnimBP provisional no trae una pose de crouch; compactamos la malla
+		// y la bajamos con la cápsula para mantener pies y cámara alineados.
+		CharacterMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.55f));
+		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -54.0f));
+	}
 	ApplyMovementSpeed();
 }
 
@@ -96,6 +103,11 @@ void APMPlayerCharacter::OnEndCrouch(
 	const float ScaledHalfHeightAdjust)
 {
 	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+	if (USkeletalMeshComponent* CharacterMesh = GetMesh())
+	{
+		CharacterMesh->SetRelativeScale3D(FVector::OneVector);
+		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
+	}
 	ApplyMovementSpeed();
 }
 

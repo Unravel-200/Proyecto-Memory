@@ -2,6 +2,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "UserSettings/EnhancedInputUserSettings.h"
 #include "Engine/LocalPlayer.h"
 #include "InputCoreTypes.h"
 #include "InputAction.h"
@@ -75,6 +76,10 @@ void APMPlayerController::BeginPlay()
 	{
 		InputSubsystem->AddMappingContext(PlayerMappingContext, MappingPriority);
 		bMappingContextAdded = true;
+		if (UEnhancedInputUserSettings* UserSettings = InputSubsystem->GetUserSettings())
+		{
+			UserSettings->RegisterInputMappingContext(PlayerMappingContext);
+		}
 	}
 
 	OpenMainMenu();

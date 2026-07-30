@@ -11,6 +11,7 @@
 #include "PMPlayerCharacter.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/SOverlay.h"
@@ -339,12 +340,14 @@ void APMPlayerController::RebuildSlateMenu()
 	{
 		AddButton(TEXT("Jugar"), [this](){ CloseMenuAndResume(); return FReply::Handled(); });
 		AddButton(TEXT("Configuración"), [this](){ bSettingsOpen = true; RebuildSlateMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Salir"), [this](){ UKismetSystemLibrary::QuitGame(this, this, EQuitPreference::Quit, false); return FReply::Handled(); });
 	}
 	else
 	{
 		AddButton(TEXT("Continuar"), [this](){ CloseMenuAndResume(); return FReply::Handled(); });
 		AddButton(TEXT("Configuración"), [this](){ bSettingsOpen = true; RebuildSlateMenu(); return FReply::Handled(); });
 		AddButton(TEXT("Volver al menú principal"), [this](){ OpenMainMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Salir"), [this](){ UKismetSystemLibrary::QuitGame(this, this, EQuitPreference::Quit, false); return FReply::Handled(); });
 	}
 
 	SlateMenu->AddSlot().HAlign(HAlign_Center).VAlign(VAlign_Center)[

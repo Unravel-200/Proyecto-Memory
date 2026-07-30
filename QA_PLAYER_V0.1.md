@@ -714,3 +714,12 @@ El propietario abriÃ³ ConfiguraciÃ³n, cambiÃ³ sensibilidad horizontal y ve
 El preflight del 2026-07-29 pasÃ³ las 19 comprobaciones con hardware confirmado, worktree limpio, UE 5.8 instalado, LFS hidratado, Enhanced Input y PMGameUserSettings activos. Se consolidan aquÃ­ las verificaciones de preparaciÃ³n y configuraciÃ³n ya repetidas durante las sesiones PIE. PRE-08 permanece pendiente porque requiere medir automÃ¡ticamente la frontera temporal de crouch.
 
 Matriz: **67 PASS / 1 BLOCKED / 16 NOT RUN**.
+
+### Smoke test del paquete jugable — 2026-07-30
+
+Se generó un paquete Win64 Development en `Builds/PlayerV0.1/Windows` y se
+ejecutó `ProyectoMemoria.exe` fuera del Editor. El ejecutable cargó
+`/Game/Maps/L_Developer_Testing` con `BP_GameMode_DeveloperTesting_C`; el
+propietario confirmó que teclado, mando y menú responden correctamente.
+Evidencia: `BUILD-PLAY-20260730`. El paquete local queda fuera de Git mediante
+`.gitignore` y no cambia la matriz funcional existente.

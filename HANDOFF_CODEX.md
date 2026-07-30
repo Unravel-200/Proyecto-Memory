@@ -1412,3 +1412,6 @@ AmpliaciÃ³n de configuraciÃ³n (2026-07-29): la pantalla ahora separa Teclado
 
 Persistencia de configuraciÃ³n (2026-07-29): sensibilidad X/Y e inversiÃ³n Y ahora se cargan desde UPMGameUserSettings y se guardan al cambiar desde el menÃº. La siguiente sesiÃ³n conserva esos valores. Se ampliÃ³ la secciÃ³n de configuraciÃ³n con pestaÃ±as informativas de Teclado y mouse / Mando.
 
+
+MenÃºs completados (2026-07-29): el menÃº principal y el de pausa incluyen ahora Jugar/Continuar, ConfiguraciÃ³n, Volver al menÃº principal y Salir. La salida usa UKismetSystemLibrary::QuitGame. CompilaciÃ³n verificada.
+

@@ -95,7 +95,7 @@ void APMPlayerCharacter::OnStartCrouch(
 		CharacterMesh->SetRelativeScale3D(FVector(1.0f, 1.0f, 0.85f));
 		// El root del mannequin está en los pies; conservar la misma altura evita
 		// que la escala visual atraviese el suelo.
-		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
+		CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -60.0f));
 	}
 	ApplyMovementSpeed();
 }

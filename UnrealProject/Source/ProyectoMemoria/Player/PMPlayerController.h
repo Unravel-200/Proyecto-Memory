@@ -5,6 +5,7 @@
 #include "PMPlayerController.generated.h"
 
 class APMPlayerCharacter;
+class APMInteractableDoor;
 class SOverlay;
 class SWidget;
 class UInputAction;
@@ -149,6 +150,9 @@ private:
 	bool bMainMenuOpen;
 	bool bSettingsOpen;
 	bool bControllerTab;
+
+	UPROPERTY()
+	TObjectPtr<APMInteractableDoor> TestInteractableDoor;
 
 	void RebuildSlateMenu();
 };

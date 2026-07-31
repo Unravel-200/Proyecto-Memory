@@ -11,6 +11,7 @@
 #include "PMGameUserSettings.h"
 #include "PMPlayerCharacter.h"
 #include "PMInteractableInterface.h"
+#include "PMInteractableDoor.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -55,6 +56,18 @@ void APMPlayerController::BeginPlay()
 	}
 
 	ApplyPreferredCameraModeToPawn();
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		const FVector DoorLocation = PMCharacter->GetActorLocation() + PMCharacter->GetActorForwardVector() * 300.0f;
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.Owner = this;
+		TestInteractableDoor = GetWorld()->SpawnActor<APMInteractableDoor>(
+			APMInteractableDoor::StaticClass(), DoorLocation, PMCharacter->GetActorRotation(), SpawnParameters);
+		if (TestInteractableDoor)
+		{
+			TestInteractableDoor->SetActorLabel(TEXT("Gameplay_InteractableDoor_Runtime"));
+		}
+	}
 
 	ULocalPlayer* LocalPlayer = GetLocalPlayer();
 	if (!LocalPlayer)

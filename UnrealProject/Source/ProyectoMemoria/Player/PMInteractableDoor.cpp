@@ -18,6 +18,8 @@ APMInteractableDoor::APMInteractableDoor()
 	{
 		DoorMesh->SetStaticMesh(DefaultMesh.Object);
 		DoorMesh->SetRelativeScale3D(FVector(0.12f, 1.0f, 2.0f));
+		// El actor funciona como bisagra; el mesh queda desplazado a un borde.
+		DoorMesh->SetRelativeLocation(FVector(0.0f, 50.0f, 0.0f));
 	}
 }
 

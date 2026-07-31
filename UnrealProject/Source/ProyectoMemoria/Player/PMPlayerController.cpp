@@ -249,6 +249,10 @@ void APMPlayerController::SetupInputComponent()
 
 bool APMPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+	if (Params.Key.IsGamepadKey() && Params.Event == IE_Pressed)
+	{
+		UE_LOG(LogPMPlayerController, Log, TEXT("Gamepad key received: %s"), *Params.Key.GetFName().ToString());
+	}
 	if (Params.Key == EKeys::Gamepad_FaceButton_Left && Params.Event == IE_Pressed)
 	{
 		HandleInteract();
@@ -269,7 +273,15 @@ void APMPlayerController::HandleInteract()
 		if (AActor* Actor = Hit.GetActor(); Actor && Actor->GetClass()->ImplementsInterface(UPMInteractableInterface::StaticClass()))
 		{
 			IPMInteractableInterface::Execute_Interact(Actor, GetPMPlayerCharacter());
+			return;
 		}
+	}
+
+	// Tolerancia para la puerta de prueba: cerca de ella no exige apuntar al píxel exacto.
+	if (TestInteractableDoor && GetPawn() &&
+		FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation()) <= FMath::Square(600.0f))
+	{
+		IPMInteractableInterface::Execute_Interact(TestInteractableDoor, GetPMPlayerCharacter());
 	}
 }
 

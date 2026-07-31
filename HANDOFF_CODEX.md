@@ -1464,3 +1464,8 @@ Los árboles de la Plaza y el
 pupitre del aula (el propietario los modela a mano en Blender) todavía no
 tienen `.fbx`, así que no se importaron.
 
+Validación visual del jugador (2026-07-30): en `L_Developer_Testing`, el
+propietario confirmó en una sola prueba que el mannequin se ve correctamente
+en tercera persona y que caminar, correr, agacharse, saltar y alternar entre
+primera y tercera persona funcionan juntos sin regresión.
+

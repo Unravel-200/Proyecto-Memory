@@ -13,6 +13,7 @@ class UInputMappingContext;
 enum class EPMCameraMode : uint8;
 struct FInputActionInstance;
 struct FInputActionValue;
+struct FInputKeyEventArgs;
 
 /**
  * Traduce Enhanced Input a órdenes del personaje.
@@ -51,6 +52,7 @@ protected:
 	virtual void OnUnPossess() override;
 	virtual void SetPawn(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
+	virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
 	UFUNCTION()
 	void HandleEscape();

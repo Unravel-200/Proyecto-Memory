@@ -247,6 +247,15 @@ void APMPlayerController::SetupInputComponent()
 	}
 }
 
+bool APMPlayerController::InputKey(const FInputKeyEventArgs& Params)
+{
+	if (Params.Key == EKeys::Gamepad_FaceButton_Left && Params.Event == IE_Pressed)
+	{
+		HandleInteract();
+	}
+	return Super::InputKey(Params);
+}
+
 void APMPlayerController::HandleInteract()
 {
 	FVector ViewLocation;

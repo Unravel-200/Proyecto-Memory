@@ -149,7 +149,8 @@ void APMPlayerController::SetupInputComponent()
 
 	InputComponent->BindKey(EKeys::Escape, IE_Pressed, this, &APMPlayerController::HandleEscape);
 	InputComponent->BindKey(EKeys::E, IE_Pressed, this, &APMPlayerController::HandleInteract);
-	InputComponent->BindKey(EKeys::Gamepad_FaceButton_Bottom, IE_Pressed, this, &APMPlayerController::HandleInteract);
+	// A permanece reservado para salto; X se usa para interactuar.
+	InputComponent->BindKey(EKeys::Gamepad_FaceButton_Left, IE_Pressed, this, &APMPlayerController::HandleInteract);
 
 	if (!MoveAction || !LookAction || !SprintAction || !CrouchAction
 		|| !JumpAction || !ToggleCameraAction)

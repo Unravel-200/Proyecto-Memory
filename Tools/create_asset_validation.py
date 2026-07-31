@@ -1,12 +1,11 @@
 import unreal
 
 LEVEL = "/Game/Maps/L_AssetValidation"
-SAMPLES = [
-    ("/Game/Modelos3D/Residencias/SM_Wardrobe_Residencias_A", (0, 0, 0)),
-    ("/Game/Modelos3D/Residencias/SM_BathroomSet_Residencias_A", (500, 0, 0)),
-    ("/Game/Modelos3D/Biblioteca/SM_DoorLeaf_LibraryMain_A_L", (1000, 0, 0)),
-    ("/Game/Modelos3D/Exteriores/SM_ParkingLotLarge_Exteriores_A", (1500, 0, 0)),
-    ("/Game/Modelos3D/Ingenieria/SM_StorageShelf_Ingenieria_A", (2000, 0, 0)),
+ZONES = [
+    "Artes", "AuditorioCentral", "Biblioteca", "CentroCultural", "Ciencias",
+    "Derecho", "Educacion", "Exteriores", "Generales", "Gimnasio", "Historia",
+    "Informatica", "Ingenieria", "Mantenimiento", "Medicina", "Plaza",
+    "Psicologia", "Rectoria", "Residencias", "Soda",
 ]
 
 if unreal.EditorAssetLibrary.does_asset_exist(LEVEL):
@@ -37,7 +36,22 @@ if floor_mesh:
     floor.static_mesh_component.set_static_mesh(floor_mesh)
     floor.static_mesh_component.set_collision_profile_name("BlockAll")
 
-for path, xyz in SAMPLES:
+registry = unreal.AssetRegistryHelpers.get_asset_registry()
+samples = []
+for index, zone in enumerate(ZONES):
+    assets = registry.get_assets_by_path(unreal.Name("/Game/Modelos3D/" + zone), True)
+    meshes = sorted(
+        ["{}.{}".format(a.package_name, a.asset_name) for a in assets
+         if str(a.asset_class_path.asset_name) == "StaticMesh" and str(a.asset_name).startswith("SM_")],
+        key=lambda value: value.lower(),
+    )
+    if not meshes:
+        unreal.log_warning("AssetValidation sin StaticMesh en zona: {}".format(zone))
+        continue
+    column, row = index % 5, index // 5
+    samples.append((meshes[0], (column * 900, row * 900, 0), zone))
+
+for path, xyz, zone in samples:
     mesh = unreal.load_asset(path)
     if not mesh:
         unreal.log_warning("AssetValidation missing: {}".format(path))
@@ -45,7 +59,7 @@ for path, xyz in SAMPLES:
     actor = unreal.EditorLevelLibrary.spawn_actor_from_class(
         unreal.StaticMeshActor, unreal.Vector(*xyz), unreal.Rotator(0, 0, 0)
     )
-    actor.set_actor_label("VALIDATE_" + path.rsplit("/", 1)[-1])
+    actor.set_actor_label("VALIDATE_{}_{}".format(zone, path.rsplit("/", 1)[-1]))
     actor.static_mesh_component.set_static_mesh(mesh)
     actor.static_mesh_component.set_collision_profile_name("BlockAll")
 

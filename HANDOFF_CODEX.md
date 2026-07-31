@@ -1480,3 +1480,8 @@ duplicada del botón `□` que abría y cerraba la puerta en la misma pulsación
 La prueba del propietario confirmó el comportamiento correcto: una pulsación
 abre y la siguiente cierra.
 
+Secuencia jugable inicial (2026-07-30): el propietario confirmó que la puerta
+de prueba abre sin bloquear el paso, puede atravesarse y el fragmento de memoria
+se encuentra y se recoge después. Las zonas de proximidad de puerta y pickup
+quedaron separadas para evitar activaciones accidentales.
+

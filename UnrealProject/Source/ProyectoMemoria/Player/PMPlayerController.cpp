@@ -50,6 +50,7 @@ APMPlayerController::APMPlayerController()
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
 	bControllerTab = false;
+	MemoryFragmentsCollected = 0;
 }
 
 void APMPlayerController::BeginPlay()
@@ -110,6 +111,21 @@ void APMPlayerController::BeginPlay()
 	}
 
 	OpenMainMenu();
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::White,
+			TEXT("Fragmentos de memoria: 0"));
+	}
+}
+
+void APMPlayerController::RegisterMemoryPickupCollected()
+{
+	++MemoryFragmentsCollected;
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow,
+			FString::Printf(TEXT("Fragmento de memoria encontrado (%d)"), MemoryFragmentsCollected));
+	}
 }
 
 void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)

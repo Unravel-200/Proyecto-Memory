@@ -3,6 +3,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "UObject/ConstructorHelpers.h"
+#include "PMPlayerController.h"
+#include "PMPlayerCharacter.h"
+#include "GameFramework/PlayerController.h"
 
 APMMemoryPickup::APMMemoryPickup()
 	: bCollected(false)
@@ -33,6 +36,13 @@ void APMMemoryPickup::Interact_Implementation(APMPlayerCharacter* Player)
 		return;
 	}
 	bCollected = true;
+	if (Player)
+	{
+		if (APMPlayerController* Controller = Cast<APMPlayerController>(Player->GetController()))
+		{
+			Controller->RegisterMemoryPickupCollected();
+		}
+	}
 	UE_LOG(LogTemp, Log, TEXT("Memory pickup collected"));
 	Destroy();
 }

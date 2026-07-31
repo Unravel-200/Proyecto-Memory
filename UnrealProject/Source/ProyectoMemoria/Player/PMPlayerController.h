@@ -47,6 +47,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Input")
 	void SetInvertLookY(bool bShouldInvert);
 
+	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Gameplay")
+	void RegisterMemoryPickupCollected();
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -153,6 +156,7 @@ private:
 	bool bMainMenuOpen;
 	bool bSettingsOpen;
 	bool bControllerTab;
+	int32 MemoryFragmentsCollected;
 
 	UPROPERTY()
 	TObjectPtr<APMInteractableDoor> TestInteractableDoor;

@@ -6,6 +6,7 @@
 
 class APMPlayerCharacter;
 class APMInteractableDoor;
+class APMMemoryPickup;
 class SOverlay;
 class SWidget;
 class UInputAction;
@@ -156,6 +157,10 @@ private:
 	UPROPERTY()
 	TObjectPtr<APMInteractableDoor> TestInteractableDoor;
 
+	UPROPERTY()
+	TObjectPtr<APMMemoryPickup> TestMemoryPickup;
+
 	void RebuildSlateMenu();
 	void EnsureTestInteractableDoor();
+	void EnsureTestMemoryPickup();
 };

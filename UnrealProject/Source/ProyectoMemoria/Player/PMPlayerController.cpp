@@ -12,6 +12,7 @@
 #include "PMPlayerCharacter.h"
 #include "PMInteractableInterface.h"
 #include "PMInteractableDoor.h"
+#include "PMMemoryPickup.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -57,6 +58,7 @@ void APMPlayerController::BeginPlay()
 
 	ApplyPreferredCameraModeToPawn();
 	EnsureTestInteractableDoor();
+	EnsureTestMemoryPickup();
 
 	ULocalPlayer* LocalPlayer = GetLocalPlayer();
 	if (!LocalPlayer)
@@ -121,6 +123,7 @@ void APMPlayerController::SetPawn(APawn* InPawn)
 	Super::SetPawn(InPawn);
 	ApplyPreferredCameraModeToPawn();
 	EnsureTestInteractableDoor();
+	EnsureTestMemoryPickup();
 }
 
 void APMPlayerController::EnsureTestInteractableDoor()
@@ -140,6 +143,29 @@ void APMPlayerController::EnsureTestInteractableDoor()
 		{
 			TestInteractableDoor->SetActorLabel(TEXT("Gameplay_InteractableDoor_Runtime"));
 			UE_LOG(LogPMPlayerController, Log, TEXT("Runtime interactable door spawned at %s"), *DoorLocation.ToString());
+		}
+	}
+}
+
+void APMPlayerController::EnsureTestMemoryPickup()
+{
+	if (TestMemoryPickup || !GetWorld())
+	{
+		return;
+	}
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		const FVector PickupLocation = PMCharacter->GetActorLocation()
+			+ PMCharacter->GetActorForwardVector() * 500.0f
+			+ PMCharacter->GetActorRightVector() * 120.0f
+			+ FVector(0.0f, 0.0f, 80.0f);
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.Owner = this;
+		TestMemoryPickup = GetWorld()->SpawnActor<APMMemoryPickup>(
+			APMMemoryPickup::StaticClass(), PickupLocation, FRotator::ZeroRotator, SpawnParameters);
+		if (TestMemoryPickup)
+		{
+			TestMemoryPickup->SetActorLabel(TEXT("Gameplay_MemoryPickup_Runtime"));
 		}
 	}
 }

@@ -1429,3 +1429,14 @@ vacío de forma intencional: esos activos todavía no se han importado a Unreal.
 El checklist de producción registra esta sincronización y deja la validación UE
 como siguiente estado, sin modificar `Modelos-3D` desde este repositorio.
 
+Actualización de importación de Modelos3D (2026-07-30): el repositorio de
+documentación ya registra que los 203 FBX aprobados fueron importados en la
+rama separada `feature/import-modelos3d-assets` (commit `8229f3e`). Esa rama
+contiene 606 assets de Unreal bajo `/Game/Modelos3D/<Zona>/` y permanece sin
+fusionar a `feature/v0.1-player-cameras` o `main`; la rama de trabajo de Codex
+continúa limpia en `78e6abb`. La importación fue verificada por commandlet en
+una muestra de cinco activos, pero aún falta la revisión visual en el editor y
+la creación de `L_AssetValidation`. Este registro corrige la nota histórica
+anterior: los activos ya fueron importados en la rama aislada, no en la rama
+principal del jugador.
+

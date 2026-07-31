@@ -180,9 +180,9 @@ void APMPlayerController::EnsureTestMemoryPickup()
 	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
 	{
 		const FVector PickupLocation = PMCharacter->GetActorLocation()
-			+ PMCharacter->GetActorForwardVector() * 900.0f
-			+ PMCharacter->GetActorRightVector() * 200.0f
-			+ FVector(0.0f, 0.0f, 80.0f);
+			+ PMCharacter->GetActorForwardVector() * 700.0f
+			+ PMCharacter->GetActorRightVector() * 300.0f
+			+ FVector(0.0f, 0.0f, 100.0f);
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.Owner = this;
 		TestMemoryPickup = GetWorld()->SpawnActor<APMMemoryPickup>(
@@ -338,9 +338,14 @@ void APMPlayerController::HandleInteract()
 
 	// Tolerancia para la puerta de prueba: cerca de ella no exige apuntar al píxel exacto.
 	if (TestInteractableDoor && GetPawn() &&
-		FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation()) <= FMath::Square(600.0f))
+		FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation()) <= FMath::Square(300.0f))
 	{
 		TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
+	}
+	if (TestMemoryPickup && GetPawn() &&
+		FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickup->GetActorLocation()) <= FMath::Square(300.0f))
+	{
+		TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
 	}
 }
 

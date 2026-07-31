@@ -20,12 +20,21 @@ sun = unreal.EditorLevelLibrary.spawn_actor_from_class(
     unreal.DirectionalLight, unreal.Vector(0, 0, 1200), unreal.Rotator(-45, -35, 0)
 )
 sun.set_actor_label("VALIDATE_Sun")
-sun.light_component.set_editor_property("intensity", 5.0)
+sun.light_component.set_editor_property("intensity", 10.0)
 sky = unreal.EditorLevelLibrary.spawn_actor_from_class(
     unreal.SkyLight, unreal.Vector(0, 0, 800), unreal.Rotator(0, 0, 0)
 )
 sky.set_actor_label("VALIDATE_Sky")
-sky.light_component.set_editor_property("intensity", 1.0)
+sky.light_component.set_editor_property("intensity", 4.0)
+sky.light_component.recapture_sky()
+post = unreal.EditorLevelLibrary.spawn_actor_from_class(
+    unreal.PostProcessVolume, unreal.Vector(1000, 0, 400), unreal.Rotator(0, 0, 0)
+)
+post.set_actor_label("VALIDATE_Exposure")
+post.set_editor_property("unbound", True)
+post_settings = post.get_editor_property("settings")
+post_settings.set_editor_property("auto_exposure_bias", 2.0)
+post.set_editor_property("settings", post_settings)
 floor_mesh = unreal.load_asset("/Engine/BasicShapes/Cube.Cube")
 if floor_mesh:
     floor = unreal.EditorLevelLibrary.spawn_actor_from_class(

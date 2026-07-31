@@ -3,6 +3,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Logging/LogMacros.h"
 
 APMInteractableDoor::APMInteractableDoor()
 	: OpenAngle(90.0f)
@@ -36,4 +37,5 @@ void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 {
 	bIsOpen = !bIsOpen;
 	TargetAngle = bIsOpen ? OpenAngle : 0.0f;
+	UE_LOG(LogTemp, Log, TEXT("Interactable door toggled: %s"), bIsOpen ? TEXT("Open") : TEXT("Closed"));
 }

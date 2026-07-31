@@ -292,7 +292,7 @@ void APMPlayerController::HandleInteract()
 	if (TestInteractableDoor && GetPawn() &&
 		FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation()) <= FMath::Square(600.0f))
 	{
-		IPMInteractableInterface::Execute_Interact(TestInteractableDoor, GetPMPlayerCharacter());
+		TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
 	}
 }
 

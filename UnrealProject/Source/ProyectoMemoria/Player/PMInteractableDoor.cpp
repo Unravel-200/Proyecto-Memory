@@ -1,0 +1,28 @@
+#include "PMInteractableDoor.h"
+
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
+#include "UObject/ConstructorHelpers.h"
+
+APMInteractableDoor::APMInteractableDoor()
+	: OpenAngle(90.0f)
+	, bIsOpen(false)
+{
+	PrimaryActorTick.bCanEverTick = false;
+	DoorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMesh"));
+	RootComponent = DoorMesh;
+	DoorMesh->SetCollisionProfileName(TEXT("BlockAll"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> DefaultMesh(
+		TEXT("/Engine/BasicShapes/Cube.Cube"));
+	if (DefaultMesh.Succeeded())
+	{
+		DoorMesh->SetStaticMesh(DefaultMesh.Object);
+		DoorMesh->SetRelativeScale3D(FVector(0.12f, 1.0f, 2.0f));
+	}
+}
+
+void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
+{
+	bIsOpen = !bIsOpen;
+	SetActorRotation(FRotator(0.0f, bIsOpen ? OpenAngle : 0.0f, 0.0f));
+}

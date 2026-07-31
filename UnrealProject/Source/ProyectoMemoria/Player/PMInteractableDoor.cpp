@@ -7,8 +7,10 @@
 APMInteractableDoor::APMInteractableDoor()
 	: OpenAngle(90.0f)
 	, bIsOpen(false)
+	, CurrentAngle(0.0f)
+	, TargetAngle(0.0f)
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	DoorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DoorMesh"));
 	RootComponent = DoorMesh;
 	DoorMesh->SetCollisionProfileName(TEXT("BlockAll"));
@@ -23,8 +25,15 @@ APMInteractableDoor::APMInteractableDoor()
 	}
 }
 
+void APMInteractableDoor::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	CurrentAngle = FMath::FInterpTo(CurrentAngle, TargetAngle, DeltaSeconds, 6.0f);
+	SetActorRotation(FRotator(0.0f, CurrentAngle, 0.0f));
+}
+
 void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 {
 	bIsOpen = !bIsOpen;
-	SetActorRotation(FRotator(0.0f, bIsOpen ? OpenAngle : 0.0f, 0.0f));
+	TargetAngle = bIsOpen ? OpenAngle : 0.0f;
 }

@@ -14,6 +14,7 @@ class PROYECTOMEMORIA_API APMInteractableDoor : public AActor, public IPMInterac
 
 public:
 	APMInteractableDoor();
+	virtual void Tick(float DeltaSeconds) override;
 
 	virtual void Interact_Implementation(class APMPlayerCharacter* Player) override;
 
@@ -26,4 +27,10 @@ protected:
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Door")
 	bool bIsOpen;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Door", meta = (AllowPrivateAccess = "true"))
+	float CurrentAngle;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "Door", meta = (AllowPrivateAccess = "true"))
+	float TargetAngle;
 };

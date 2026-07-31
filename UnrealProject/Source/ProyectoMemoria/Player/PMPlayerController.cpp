@@ -180,8 +180,8 @@ void APMPlayerController::EnsureTestMemoryPickup()
 	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
 	{
 		const FVector PickupLocation = PMCharacter->GetActorLocation()
-			+ PMCharacter->GetActorForwardVector() * 500.0f
-			+ PMCharacter->GetActorRightVector() * 120.0f
+			+ PMCharacter->GetActorForwardVector() * 900.0f
+			+ PMCharacter->GetActorRightVector() * 200.0f
 			+ FVector(0.0f, 0.0f, 80.0f);
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.Owner = this;

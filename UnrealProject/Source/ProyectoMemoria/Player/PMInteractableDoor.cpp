@@ -20,9 +20,9 @@ APMInteractableDoor::APMInteractableDoor()
 	if (DefaultMesh.Succeeded())
 	{
 		DoorMesh->SetStaticMesh(DefaultMesh.Object);
-		DoorMesh->SetRelativeScale3D(FVector(0.12f, 1.0f, 2.0f));
+		DoorMesh->SetRelativeScale3D(FVector(0.08f, 0.65f, 1.6f));
 		// El actor funciona como bisagra; el mesh queda desplazado a un borde.
-		DoorMesh->SetRelativeLocation(FVector(0.0f, -50.0f, 0.0f));
+		DoorMesh->SetRelativeLocation(FVector(0.0f, -32.5f, 0.0f));
 	}
 }
 

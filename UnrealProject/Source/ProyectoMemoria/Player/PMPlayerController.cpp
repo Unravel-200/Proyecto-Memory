@@ -156,7 +156,9 @@ void APMPlayerController::EnsureTestInteractableDoor()
 	}
 	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
 	{
-		const FVector DoorLocation = PMCharacter->GetActorLocation() + PMCharacter->GetActorForwardVector() * 300.0f;
+		const FVector DoorLocation = PMCharacter->GetActorLocation()
+			+ PMCharacter->GetActorForwardVector() * 450.0f
+			+ PMCharacter->GetActorRightVector() * 80.0f;
 		FActorSpawnParameters SpawnParameters;
 		SpawnParameters.Owner = this;
 		TestInteractableDoor = GetWorld()->SpawnActor<APMInteractableDoor>(

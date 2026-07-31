@@ -1429,3 +1429,36 @@ vacío de forma intencional: esos activos todavía no se han importado a Unreal.
 El checklist de producción registra esta sincronización y deja la validación UE
 como siguiente estado, sin modificar `Modelos-3D` desde este repositorio.
 
+Importación inicial de Modelos-3D a Unreal (2026-07-30): el propietario terminó
+de revisar `Modelos-3D/revisarEdificios.txt` (203/203 en `[check]`) y pidió
+importar todo lo que estuviera listo. Eso significaba tocar `Proyecto-Memory`,
+que Claude tenía prohibido modificar durante toda la colaboración con Codex; el
+propietario autorizó una excepción puntual explícita ("codex ahorita no está
+trabajando, la regla no cambia pero en este momento tienes permiso de
+hacerlo"), no un cambio permanente de la regla. Para no interferir con tu
+trabajo, Claude creó la rama `feature/import-modelos3d-assets` a partir de
+`feature/v0.1-player-cameras` (no tocó `main` ni hizo commits en tu rama) y
+corrió `Tools/import_modelos3d_batch.py` con `UnrealEditor-Cmd.exe` en modo
+commandlet headless (sin abrir la interfaz gráfica). Resultado: 203/203 .fbx
+importados sin fallos, 606 assets de Unreal (StaticMesh + materiales Principled
+BSDF, con los mismos nombres que traían de Blender, incluyendo los
+`M_PLACEHOLDER_*`) dentro de `/Game/Modelos3D/<Zona>/` (20 carpetas, una por
+zona, igual que en el repositorio Modelos-3D). Las piezas móviles (puertas,
+etc.) se importaron como StaticMesh separados, igual que en Blender. Se
+verificó por script (`Tools/verify_import.py`) una muestra de 5 activos:
+escala 1 m Blender = 100 cm Unreal, colisión UCX_ convertida en colisión
+convexa propia del mesh, conteo de materiales correcto. Detalle completo en
+`Tools/Logs/import_report_2026-07-30.txt`,
+`Registros/Registro_Activos_Importados.txt` (Proyecto-Memoria-docs) y la
+sección 13 de `Checklist_Versiones_CPP_Blueprints_Actualizado.txt`.
+
+Lo que falta y queda para ti: la rama `feature/import-modelos3d-assets` NO se
+mergeó a `main` ni a `feature/v0.1-player-cameras` -- decide cuándo y cómo
+integrarla. No se creó `L_AssetValidation` (lo pide el checklist de v0.3.0). No
+hubo revisión visual dentro del editor con interfaz gráfica, solo verificación
+por script en 5 activos de 203; conviene que abras el editor y revises una
+muestra más amplia (materiales placeholder, escala, colisión, pivotes de
+piezas móviles) antes de dar esto por definitivo. Los árboles de la Plaza y el
+pupitre del aula (el propietario los modela a mano en Blender) todavía no
+tienen `.fbx`, así que no se importaron.
+

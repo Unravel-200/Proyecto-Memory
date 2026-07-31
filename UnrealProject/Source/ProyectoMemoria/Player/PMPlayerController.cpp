@@ -10,6 +10,7 @@
 #include "PMCameraModeComponent.h"
 #include "PMGameUserSettings.h"
 #include "PMPlayerCharacter.h"
+#include "PMInteractableInterface.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -134,6 +135,7 @@ void APMPlayerController::SetupInputComponent()
 	}
 
 	InputComponent->BindKey(EKeys::Escape, IE_Pressed, this, &APMPlayerController::HandleEscape);
+	InputComponent->BindKey(EKeys::E, IE_Pressed, this, &APMPlayerController::HandleInteract);
 
 	if (!MoveAction || !LookAction || !SprintAction || !CrouchAction
 		|| !JumpAction || !ToggleCameraAction)
@@ -227,6 +229,23 @@ void APMPlayerController::SetupInputComponent()
 			ETriggerEvent::Started,
 			this,
 			&APMPlayerController::HandleToggleCamera);
+	}
+}
+
+void APMPlayerController::HandleInteract()
+{
+	FVector ViewLocation;
+	FRotator ViewRotation;
+	GetPlayerViewPoint(ViewLocation, ViewRotation);
+	const FVector TraceEnd = ViewLocation + ViewRotation.Vector() * 250.0f;
+	FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(PMInteract), true, GetPawn());
+	FHitResult Hit;
+	if (GetWorld() && GetWorld()->LineTraceSingleByChannel(Hit, ViewLocation, TraceEnd, ECC_Visibility, QueryParams))
+	{
+		if (AActor* Actor = Hit.GetActor(); Actor && Actor->GetClass()->ImplementsInterface(UPMInteractableInterface::StaticClass()))
+		{
+			IPMInteractableInterface::Execute_Interact(Actor, GetPMPlayerCharacter());
+		}
 	}
 }
 

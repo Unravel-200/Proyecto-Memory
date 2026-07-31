@@ -115,6 +115,7 @@ private:
 	void HandleJumpStarted();
 	void HandleJumpCompleted();
 	void HandleToggleCamera();
+	void HandleInteract();
 	void ResetCrouchInputState();
 	void ResetTransientPawnInputState();
 	bool EnsureCameraPreferenceLoaded();

@@ -13,6 +13,12 @@
 #include "PMInteractableInterface.h"
 #include "PMInteractableDoor.h"
 #include "PMMemoryPickup.h"
+#include "Engine/DirectionalLight.h"
+#include "Engine/SkyLight.h"
+#include "Engine/PointLight.h"
+#include "Components/LightComponent.h"
+#include "Components/SkyLightComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -59,6 +65,22 @@ void APMPlayerController::BeginPlay()
 	ApplyPreferredCameraModeToPawn();
 	EnsureTestInteractableDoor();
 	EnsureTestMemoryPickup();
+	if (GetWorld())
+	{
+		if (ADirectionalLight* Sun = GetWorld()->SpawnActor<ADirectionalLight>(FVector::ZeroVector, FRotator(-45.0f, -35.0f, 0.0f)))
+		{
+			Sun->GetLightComponent()->SetIntensity(10.0f);
+		}
+		if (ASkyLight* Sky = GetWorld()->SpawnActor<ASkyLight>(FVector(0.0f, 0.0f, 800.0f), FRotator::ZeroRotator))
+		{
+			Sky->GetLightComponent()->SetIntensity(4.0f);
+		}
+		if (APointLight* Fill = GetWorld()->SpawnActor<APointLight>(FVector(0.0f, 0.0f, 300.0f), FRotator::ZeroRotator))
+		{
+			Fill->PointLightComponent->SetIntensity(2500.0f);
+			Fill->PointLightComponent->SetAttenuationRadius(1800.0f);
+		}
+	}
 
 	ULocalPlayer* LocalPlayer = GetLocalPlayer();
 	if (!LocalPlayer)

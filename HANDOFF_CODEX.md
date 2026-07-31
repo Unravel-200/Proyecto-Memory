@@ -1475,3 +1475,8 @@ PlayStation abren y cierran la puerta; `✕` permanece reservado para salto.
 La captura de `□` se hace a bajo nivel para mantener compatibilidad con
 DS4Windows/XInput.
 
+Corrección final de interacción (2026-07-30): se eliminó una vinculación
+duplicada del botón `□` que abría y cerraba la puerta en la misma pulsación.
+La prueba del propietario confirmó el comportamiento correcto: una pulsación
+abre y la siguiente cierra.
+

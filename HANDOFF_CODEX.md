@@ -1454,8 +1454,9 @@ sección 13 de `Checklist_Versiones_CPP_Blueprints_Actualizado.txt`.
 
 Integración completada en la sesión actual: `feature/import-modelos3d-assets`
 se fusionó a `feature/v0.1-player-cameras` mediante el commit de merge que
-acompaña esta actualización; `main` permanece intacta. No se creó
-`L_AssetValidation` (lo pide el checklist de v0.3.0). No
+acompaña esta actualización; `main` permanece intacta. `L_AssetValidation`
+ya fue creado por commandlet con una muestra de activos; queda pendiente
+abrirlo en el editor y hacer la revisión visual. No
 hubo revisión visual dentro del editor con interfaz gráfica, solo verificación
 por script en 5 activos de 203; conviene que abras el editor y revises una
 muestra más amplia (materiales placeholder, escala, colisión, pivotes de

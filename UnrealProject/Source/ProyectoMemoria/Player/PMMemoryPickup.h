@@ -6,6 +6,7 @@
 #include "PMMemoryPickup.generated.h"
 
 class UStaticMeshComponent;
+class UPointLightComponent;
 
 UCLASS()
 class PROYECTOMEMORIA_API APMMemoryPickup : public AActor, public IPMInteractableInterface
@@ -20,5 +21,7 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> PickupMesh;
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UPointLightComponent> PickupLight;
 	bool bCollected;
 };

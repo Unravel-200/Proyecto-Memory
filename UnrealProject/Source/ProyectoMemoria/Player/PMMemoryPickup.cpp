@@ -1,6 +1,7 @@
 #include "PMMemoryPickup.h"
 
 #include "Components/StaticMeshComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Engine/StaticMesh.h"
 #include "UObject/ConstructorHelpers.h"
 #include "PMPlayerController.h"
@@ -21,6 +22,12 @@ APMMemoryPickup::APMMemoryPickup()
 		PickupMesh->SetStaticMesh(Mesh.Object);
 		PickupMesh->SetRelativeScale3D(FVector(0.35f));
 	}
+	PickupLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("PickupLight"));
+	PickupLight->SetupAttachment(RootComponent);
+	PickupLight->SetIntensity(1800.0f);
+	PickupLight->SetAttenuationRadius(500.0f);
+	PickupLight->SetLightColor(FLinearColor(0.2f, 0.65f, 1.0f));
+	PickupLight->SetCastShadows(false);
 }
 
 void APMMemoryPickup::Tick(float DeltaSeconds)

@@ -56,18 +56,7 @@ void APMPlayerController::BeginPlay()
 	}
 
 	ApplyPreferredCameraModeToPawn();
-	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
-	{
-		const FVector DoorLocation = PMCharacter->GetActorLocation() + PMCharacter->GetActorForwardVector() * 300.0f;
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.Owner = this;
-		TestInteractableDoor = GetWorld()->SpawnActor<APMInteractableDoor>(
-			APMInteractableDoor::StaticClass(), DoorLocation, PMCharacter->GetActorRotation(), SpawnParameters);
-		if (TestInteractableDoor)
-		{
-			TestInteractableDoor->SetActorLabel(TEXT("Gameplay_InteractableDoor_Runtime"));
-		}
-	}
+	EnsureTestInteractableDoor();
 
 	ULocalPlayer* LocalPlayer = GetLocalPlayer();
 	if (!LocalPlayer)
@@ -131,6 +120,28 @@ void APMPlayerController::SetPawn(APawn* InPawn)
 {
 	Super::SetPawn(InPawn);
 	ApplyPreferredCameraModeToPawn();
+	EnsureTestInteractableDoor();
+}
+
+void APMPlayerController::EnsureTestInteractableDoor()
+{
+	if (TestInteractableDoor || !GetWorld())
+	{
+		return;
+	}
+	if (APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		const FVector DoorLocation = PMCharacter->GetActorLocation() + PMCharacter->GetActorForwardVector() * 300.0f;
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.Owner = this;
+		TestInteractableDoor = GetWorld()->SpawnActor<APMInteractableDoor>(
+			APMInteractableDoor::StaticClass(), DoorLocation, PMCharacter->GetActorRotation(), SpawnParameters);
+		if (TestInteractableDoor)
+		{
+			TestInteractableDoor->SetActorLabel(TEXT("Gameplay_InteractableDoor_Runtime"));
+			UE_LOG(LogPMPlayerController, Log, TEXT("Runtime interactable door spawned at %s"), *DoorLocation.ToString());
+		}
+	}
 }
 
 void APMPlayerController::SetupInputComponent()

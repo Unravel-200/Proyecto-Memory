@@ -157,4 +157,5 @@ private:
 	TObjectPtr<APMInteractableDoor> TestInteractableDoor;
 
 	void RebuildSlateMenu();
+	void EnsureTestInteractableDoor();
 };

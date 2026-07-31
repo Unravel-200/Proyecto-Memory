@@ -1469,3 +1469,9 @@ propietario confirmó en una sola prueba que el mannequin se ve correctamente
 en tercera persona y que caminar, correr, agacharse, saltar y alternar entre
 primera y tercera persona funcionan juntos sin regresión.
 
+Interacción inicial (2026-07-30): se añadió una puerta de prueba que aparece
+frente al jugador al iniciar PIE. `E` en teclado y el botón `□` del mando de
+PlayStation abren y cierran la puerta; `✕` permanece reservado para salto.
+La captura de `□` se hace a bajo nivel para mantener compatibilidad con
+DS4Windows/XInput.
+

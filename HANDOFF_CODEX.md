@@ -1513,3 +1513,12 @@ reales de teclado. La captura `UnrealProject/Saved/QA/PlayerV0.1/
 CROUCH-AUTOSTART-20260803-4.png` muestra el mannequin visible, agachado y con
 los pies apoyados sobre el suelo. El modo de diagnóstico no altera el arranque
 normal; el menú principal sigue siendo el flujo predeterminado.
+
+### Smoke test automático de interacción — 2026-08-03
+
+El modo Development `-AutoFlow` ejecutó la misma función `HandleInteract` que
+usan `E/□`, colocando temporalmente el Pawn dentro de cada zona. La prueba
+abrió la puerta y después recogió el fragmento con `fragment count=1` en
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260803-4.log`. Durante la
+prueba se detectó que ambas zonas podían solaparse y se corrigió la prioridad
+para que siempre gane el actor más cercano. El arranque normal no cambia.

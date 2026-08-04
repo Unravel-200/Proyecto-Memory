@@ -21,6 +21,7 @@
 #include "Components/PointLightComponent.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
+#include "Engine/World.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -51,6 +52,7 @@ APMPlayerController::APMPlayerController()
 	bSettingsOpen = false;
 	bControllerTab = false;
 	MemoryFragmentsCollected = 0;
+	bAutomatedGameplaySmokeScheduled = false;
 }
 
 void APMPlayerController::BeginPlay()
@@ -122,6 +124,11 @@ void APMPlayerController::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::White,
 			TEXT("Fragmentos de memoria: 0"));
 	}
+	if (!bAutomatedGameplaySmokeScheduled && FParse::Param(FCommandLine::Get(), TEXT("AutoFlow")) && GetWorld())
+	{
+		bAutomatedGameplaySmokeScheduled = true;
+		GetWorld()->GetTimerManager().SetTimerForNextTick(this, &APMPlayerController::RunAutomatedGameplaySmokeTest);
+	}
 }
 
 void APMPlayerController::RegisterMemoryPickupCollected()
@@ -168,6 +175,26 @@ void APMPlayerController::SetPawn(APawn* InPawn)
 	ApplyPreferredCameraModeToPawn();
 	EnsureTestInteractableDoor();
 	EnsureTestMemoryPickup();
+}
+
+void APMPlayerController::RunAutomatedGameplaySmokeTest()
+{
+	APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter();
+	if (!PMCharacter || !TestInteractableDoor || !TestMemoryPickup)
+	{
+		UE_LOG(LogPMPlayerController, Error, TEXT("AUTO_FLOW failed: runtime actors or player are missing"));
+		return;
+	}
+
+	// Usa exactamente HandleInteract, colocando el Pawn dentro de cada zona
+	// para que el smoke test no dependa del foco de ventana ni del hardware.
+	PMCharacter->SetActorLocation(TestInteractableDoor->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
+	HandleInteract();
+	UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW door interaction dispatched"));
+
+	PMCharacter->SetActorLocation(TestMemoryPickup->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
+	HandleInteract();
+	UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW fragment count=%d"), MemoryFragmentsCollected);
 }
 
 void APMPlayerController::EnsureTestInteractableDoor()
@@ -351,17 +378,30 @@ void APMPlayerController::HandleInteract()
 {
 	// Las pruebas runtime solo responden dentro de una zona corta. Esto evita que
 	// el trazado de cámara active la puerta desde lejos.
-	if (TestInteractableDoor && GetPawn() &&
-		FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation()) <= FMath::Square(180.0f))
+	if (GetPawn())
 	{
-		TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
-		return;
-	}
-	if (TestMemoryPickup && GetPawn() &&
-		FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickup->GetActorLocation()) <= FMath::Square(180.0f))
-	{
-		TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
-		return;
+		const float DoorDistanceSquared = TestInteractableDoor
+			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation())
+			: TNumericLimits<float>::Max();
+		const float PickupDistanceSquared = TestMemoryPickup
+			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickup->GetActorLocation())
+			: TNumericLimits<float>::Max();
+		const float InteractionRadiusSquared = FMath::Square(180.0f);
+
+		// Las zonas pueden quedar visualmente cercanas; siempre gana el actor
+		// válido más próximo para que recoger el fragmento no cierre la puerta.
+		if (FMath::Min(DoorDistanceSquared, PickupDistanceSquared) <= InteractionRadiusSquared)
+		{
+			if (PickupDistanceSquared < DoorDistanceSquared && TestMemoryPickup)
+			{
+				TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
+			}
+			else if (TestInteractableDoor)
+			{
+				TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
+			}
+			return;
+		}
 	}
 
 	FVector ViewLocation;

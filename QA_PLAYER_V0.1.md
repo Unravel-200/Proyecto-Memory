@@ -719,11 +719,10 @@ Matriz: **67 PASS / 1 BLOCKED / 16 NOT RUN**.
 
 Se integró el mannequin estándar de Unreal 5.8 bajo
 `UnrealProject/Content/Mannequin` y se verificó su visibilidad en tercera
-persona. La malla se oculta correctamente en primera persona. `PLR-VIS-001`
-no se marca todavía como PASS: el asset estándar no incluye una pose de crouch
-compatible con este Player, por lo que la animación visual de agacharse queda
-pendiente de edición/retargeting. La cápsula, la cámara y la lógica de crouch
-siguen aprobadas por sus evidencias existentes.
+persona. La malla se oculta correctamente en primera persona. La evidencia
+visual automatizada del 2026-08-03 confirma también crouch sin clipping de pies;
+`PLR-VIS-001` queda en PASS. La cápsula, la cámara y la lógica de crouch siguen
+aprobadas por sus evidencias existentes.
 
 ### Smoke test del paquete jugable — 2026-07-30
 
@@ -763,3 +762,12 @@ eventos reales de teclado de Windows. La captura muestra el mannequin visible
 en tercera persona, agachado y con los pies apoyados en el suelo:
 `CROUCH-AUTOSTART-20260803-4.png`. El argumento no cambia el arranque normal
 del juego, que sigue mostrando el menú principal.
+
+### Smoke de interacción puerta → fragmento — 2026-08-03
+
+El modo Development `-AutoFlow` colocó el Pawn dentro de la zona de la puerta,
+ejecutó `HandleInteract` y después lo colocó dentro de la zona del fragmento.
+El log confirma `Interactable door toggled: Open`, `Memory pickup collected` y
+`AUTO_FLOW fragment count=1`: `FLOW-AUTOFLOW-20260803-4.log`. Se corrigió la
+prioridad de proximidad para que el objeto más cercano gane cuando las zonas
+visuales están próximas. El modo normal no usa esta ruta de diagnóstico.

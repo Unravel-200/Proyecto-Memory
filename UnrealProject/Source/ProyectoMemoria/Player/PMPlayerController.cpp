@@ -50,6 +50,9 @@ APMPlayerController::APMPlayerController()
 	bMappingContextAdded = false;
 	PreferredCameraMode = EPMCameraMode::FirstPerson;
 	bCameraPreferenceLoaded = false;
+	SavedGameplayRotation = FRotator::ZeroRotator;
+	bHasSavedGameplayRotation = false;
+	bSavedCrouched = false;
 	bMenuOpen = false;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
@@ -164,6 +167,12 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	InteractionHintTimer = 0.20f;
 
 	const FVector PlayerLocation = GetPawn()->GetActorLocation();
+	SavedGameplayRotation = GetControlRotation();
+	bHasSavedGameplayRotation = true;
+	if (const APMPlayerCharacter* PMCharacter = Cast<APMPlayerCharacter>(GetPawn()))
+	{
+		bSavedCrouched = PMCharacter->IsCrouched();
+	}
 	const float DoorDistance = IsValid(TestInteractableDoor)
 		? FVector::Dist(PlayerLocation, TestInteractableDoor->GetActorLocation())
 		: TNumericLimits<float>::Max();
@@ -219,6 +228,12 @@ void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void APMPlayerController::OnUnPossess()
 {
+	if (const APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter())
+	{
+		SavedGameplayRotation = GetControlRotation();
+		bHasSavedGameplayRotation = true;
+		bSavedCrouched = PMCharacter->IsCrouched();
+	}
 	// Limpia las órdenes mantenidas antes de que Super elimine la referencia al Pawn.
 	ResetTransientPawnInputState();
 	Super::OnUnPossess();
@@ -227,6 +242,14 @@ void APMPlayerController::OnUnPossess()
 void APMPlayerController::SetPawn(APawn* InPawn)
 {
 	Super::SetPawn(InPawn);
+	if (InPawn && bHasSavedGameplayRotation)
+	{
+		SetControlRotation(SavedGameplayRotation);
+		if (APMPlayerCharacter* PMCharacter = Cast<APMPlayerCharacter>(InPawn))
+		{
+			PMCharacter->SetCrouching(bSavedCrouched);
+		}
+	}
 	ApplyPreferredCameraModeToPawn();
 	EnsureTestInteractableDoor();
 	EnsureTestMemoryPickup();

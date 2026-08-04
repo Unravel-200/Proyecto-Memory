@@ -153,6 +153,9 @@ private:
 	EPMCameraMode PreferredCameraMode;
 
 	bool bCameraPreferenceLoaded;
+	FRotator SavedGameplayRotation;
+	bool bHasSavedGameplayRotation;
+	bool bSavedCrouched;
 
 	TSharedPtr<SOverlay> SlateMenu;
 	TSharedPtr<SWidget> SlateMenuPanel;

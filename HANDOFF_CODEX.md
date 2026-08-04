@@ -1500,3 +1500,8 @@ del Editor. Se protegieron esas etiquetas con `WITH_EDITOR` en
 Win64 Development con ZenServer activo; `BuildCookRun` terminó con `BUILD
 SUCCESSFUL`. El paquete local en `Builds/PlayerV0.1/Windows` ya contiene el
 código actual. Falta únicamente el smoke test manual de esta nueva copia.
+Arranque automatizado del paquete actualizado (2026-08-03): con `-nullrhi` y
+`-nosound`, `ProyectoMemoria.exe` cargó `/Game/Maps/L_Developer_Testing`,
+`BP_GameMode_DeveloperTesting_C` y creó la puerta runtime sin errores fatales.
+La ejecución se cerró después de la comprobación de carga para no mantener la
+PC bajo carga. Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/BUILD-START-20260803.log`.

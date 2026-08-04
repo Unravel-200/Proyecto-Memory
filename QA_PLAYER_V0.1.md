@@ -746,3 +746,11 @@ las llamadas `SetActorLabel` exclusivas del Editor. El paquete de
 `Builds/PlayerV0.1/Windows` fue regenerado con el código actual. El smoke test
 fuera del Editor de esta nueva copia aún no se marca como PASS hasta ejecutarlo
 manualmente con la computadora a temperatura segura.
+### Arranque del paquete actualizado — 2026-08-03
+
+Se ejecutó `ProyectoMemoria.exe` con `-nullrhi -nosound -unattended` para una
+prueba de carga sin renderizado. El paquete abrió correctamente el mapa,
+inicializó `BP_GameMode_DeveloperTesting_C` y creó la puerta runtime. No hubo
+errores fatales; los avisos de DLL opcionales de profiling no afectan al juego.
+Evidencia: `BUILD-START-20260803.log`. El smoke test visual y de controles
+queda pendiente porque requiere interacción manual.

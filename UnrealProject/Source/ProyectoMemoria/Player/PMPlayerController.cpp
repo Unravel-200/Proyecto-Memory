@@ -733,7 +733,10 @@ void APMPlayerController::RebuildSlateMenu()
 	const FText Title = bCreditsOpen ? FText::FromString(TEXT("Créditos"))
 		: (bSettingsOpen ? FText::FromString(TEXT("Configuración"))
 		: (bMainMenuOpen ? FText::FromString(TEXT("Proyecto Memoria")) : FText::FromString(TEXT("Pausa"))));
-	Column->AddSlot().AutoHeight().Padding(10)[SNew(STextBlock).Text(Title).Font(FCoreStyle::GetDefaultFontStyle("Bold", 32)).Justification(ETextJustify::Center)];
+	Column->AddSlot().AutoHeight().Padding(10)[SNew(STextBlock).Text(Title)
+		.Font(FCoreStyle::GetDefaultFontStyle("Bold", 32))
+		.ColorAndOpacity(FLinearColor(0.24f, 0.78f, 1.0f, 1.0f))
+		.Justification(ETextJustify::Center)];
 	if (bMainMenuOpen)
 	{
 		Column->AddSlot().AutoHeight().Padding(2)[SNew(STextBlock).Text(FText::FromString(TEXT("Versión jugable 0.1.0"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 16)).Justification(ETextJustify::Center)];
@@ -750,7 +753,10 @@ void APMPlayerController::RebuildSlateMenu()
 		Column->AddSlot().AutoHeight().Padding(8)[
 			SNew(SBox).HeightOverride(58.0f)[
 				SNew(SButton).OnClicked_Lambda(MoveTemp(Callback))[
-					SNew(STextBlock).Text(FText::FromString(Label)).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22)).Justification(ETextJustify::Center)]]];
+				SNew(STextBlock).Text(FText::FromString(Label))
+				.Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))
+				.ColorAndOpacity(FLinearColor(0.92f, 0.96f, 1.0f, 1.0f))
+				.Justification(ETextJustify::Center)]]];
 	};
 
 	if (bCreditsOpen)

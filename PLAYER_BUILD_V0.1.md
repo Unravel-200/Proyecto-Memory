@@ -45,3 +45,12 @@ El ejecutable Shipping principal tiene SHA-256
 
 La distribución debe conservar completa la carpeta `Windows` y cumplir la
 auditoría de [CREDITS_AND_LICENSES.md](CREDITS_AND_LICENSES.md).
+
+## Verificación reproducible
+
+Para comprobar una copia antes de entregarla:
+
+`powershell -ExecutionPolicy Bypass -File Tools/QA/Verify-PlayerPackage.ps1 -Shipping -LaunchSmoke`
+
+El verificador valida el ejecutable, los contenedores de contenido y sus
+SHA-256, y mantiene la build activa durante un smoke test sin Unreal Editor.

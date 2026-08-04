@@ -1547,3 +1547,11 @@ mantiene ahora un contador de fragmentos en una sola línea, sin acumular
 mensajes repetidos. La compilación Development volvió a terminar con éxito y
 el ejecutable raíz y el binario interno de `Builds/PlayerV0.1/Windows` fueron
 actualizados. Commit: `bbdb258` y `808db22`.
+
+### Estado al reaparecer — 2026-08-03
+
+El controlador conserva la rotación de juego y la postura agachada al perder
+la posesión del Pawn. Al recibir un Pawn nuevo reaplica ambos estados antes de
+aplicar la cámara preferida, de modo que una muerte o reinicio no fuerza la
+vista a cero ni deja órdenes de crouch pendientes. Compilación Development
+exitosa y paquete actualizado. Commit: `9848b14`.

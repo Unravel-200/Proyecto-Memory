@@ -5,6 +5,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Logging/LogMacros.h"
 #include "PMPlayerCharacter.h"
+#include "Engine/Engine.h"
 
 APMInteractableDoor::APMInteractableDoor()
 	: OpenAngle(-90.0f)
@@ -46,6 +47,11 @@ void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 		&& FVector::DistSquared(Player->GetActorLocation(), GetActorLocation()) < FMath::Square(120.0f))
 	{
 		UE_LOG(LogTemp, Log, TEXT("Door close blocked: player is still in the doorway"));
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(45, 2.0f, FColor::Yellow,
+				TEXT("Sal de la entrada para cerrar la puerta"));
+		}
 		return;
 	}
 	bIsOpen = !bIsOpen;

@@ -41,7 +41,7 @@ generó el 2026-08-04 con `-clientconfig=Shipping`; ambas cargan
 La Shipping se copió a una carpeta temporal limpia y su binario interno se
 mantuvo activo durante 10 segundos con `-nullrhi -nosound`, sin error de carga.
 El ejecutable Shipping principal tiene SHA-256
-`915DCFF6ED94F60A7760D6717DA4542FDA14184EB610B63C4DF6E962216BB2CD`.
+`5232B8A57876D6E958D8C4F7B6EFEC36BE15FEAA402F1CC3AD6E9233318F01BE`.
 
 La distribución debe conservar completa la carpeta `Windows` y cumplir la
 auditoría de [CREDITS_AND_LICENSES.md](CREDITS_AND_LICENSES.md).

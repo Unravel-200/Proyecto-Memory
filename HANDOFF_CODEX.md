@@ -1563,3 +1563,13 @@ bisagra y selecciona automáticamente el sentido de apertura. Así no depende
 de un ángulo fijo que pueda cruzar la hoja con el personaje. Se agregó la
 inclusión del tipo de Character completo y la compilación Development terminó
 correctamente. El paquete Win64 fue actualizado. Commit: `07f3ef7`.
+
+### BuildCookRun completo — 2026-08-03
+
+Se levantó ZenServer para completar el empaquetado. El segundo ciclo de
+`BuildCookRun` terminó con `BUILD SUCCESSFUL`: compilación, cook, stage, pak y
+archive Win64 Development. El paquete final está en
+`Builds/PlayerV0.1/Windows` e incluye los contenedores IoStore actualizados.
+ZenServer y los procesos de Unreal se cerraron al terminar para no dejar carga
+en la PC. La primera ejecución había fallado únicamente por ZenServer
+detenido; no fue un error de código.

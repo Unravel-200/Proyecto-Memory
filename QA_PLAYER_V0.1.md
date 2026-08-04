@@ -799,3 +799,8 @@ El BuildCookRun posterior al arreglo del mannequin terminÃ³ en
 `BUILD SUCCESSFUL`. El smoke final confirmÃ³ `AUTO_FLOW gate check fragment
 count=0` y `AUTO_FLOW fragment count=2` sin errores fatales. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-10.log`.
+### Cierre visible del objetivo - 2026-08-04
+
+Tras recoger ambos fragmentos, el HUD conserva el mensaje `Objetivo
+completado: memoria recuperada` durante la partida. El smoke sigue confirmando
+`AUTO_FLOW fragment count=2` sin errores.

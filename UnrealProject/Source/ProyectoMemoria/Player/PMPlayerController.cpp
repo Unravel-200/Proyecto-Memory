@@ -203,6 +203,11 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	{
 		GEngine->AddOnScreenDebugMessage(42, 0.0f, FColor::White, TEXT(""));
 	}
+	if (MemoryFragmentsCollected >= 2)
+	{
+		GEngine->AddOnScreenDebugMessage(46, 0.25f, FColor::Green,
+			TEXT("Objetivo completado: memoria recuperada"));
+	}
 }
 
 void APMPlayerController::RegisterMemoryPickupCollected()

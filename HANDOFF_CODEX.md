@@ -1720,3 +1720,9 @@ que los pies se hundan bajo el suelo. CompilaciÃ³n y smoke de gameplay exitoso
 El BuildCookRun posterior a la correcciÃ³n de pies terminÃ³ nuevamente en
 `BUILD SUCCESSFUL`. El smoke del paquete final confirmÃ³ el bloqueo secuencial
 y la recogida `2/2` en `FLOW-AUTOFLOW-20260804-10.log`.
+### Cierre visible del objetivo - 2026-08-04
+
+Al alcanzar `2/2`, el HUD mantiene visible `Objetivo completado: memoria
+recuperada` mientras el jugador sigue en partida. La demo ya comunica de forma
+persistente que su recorrido jugable terminÃ³, en lugar de depender solo del
+mensaje temporal de recogida. CompilaciÃ³n y smoke exitosos.

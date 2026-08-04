@@ -15,7 +15,9 @@ APMMemoryPickup::APMMemoryPickup()
 	PrimaryActorTick.bCanEverTick = true;
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
 	RootComponent = PickupMesh;
-	PickupMesh->SetCollisionProfileName(TEXT("BlockAll"));
+	// El fragmento se puede atravesar; la interacción se decide por distancia
+	// o trazado, no debe convertirse en un obstáculo físico.
+	PickupMesh->SetCollisionProfileName(TEXT("QueryOnly"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> Mesh(
 		TEXT("/Engine/BasicShapes/Sphere.Sphere"));
 	if (Mesh.Succeeded())

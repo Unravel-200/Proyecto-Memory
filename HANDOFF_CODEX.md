@@ -1744,3 +1744,10 @@ Se eliminÃ³ el desplazamiento acumulativo del mesh al alternar crouch. El
 personaje guarda la posiciÃ³n de pie una sola vez, aplica el ajuste relativo al
 agacharse y la restaura exactamente al levantarse. El propietario confirmÃ³
 visualmente que los pies ya conservan la base correcta.
+### Muerte por caÃ­da y reapariciÃ³n - 2026-08-04
+
+Se aÃ±adiÃ³ una muerte por salir del nivel (Z menor que -300) y una llamada al
+GameMode para reaparecer en el Player Start. El controller conserva la
+rotaciÃ³n y la postura guardadas durante `UnPossess`, por lo que la reapariciÃ³n
+usa la misma cÃ¡mara y crouch. `-AutoDeath` ya alcanza el umbral y ejecuta
+`HandlePlayerDeath`; falta confirmar visualmente el retorno al Player Start.

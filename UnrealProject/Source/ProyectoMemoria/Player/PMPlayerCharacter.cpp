@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "PMCameraModeComponent.h"
+#include "PMPlayerController.h"
 
 APMPlayerCharacter::APMPlayerCharacter()
 {
@@ -21,6 +22,7 @@ APMPlayerCharacter::APMPlayerCharacter()
 	bCrouchAnimationWalking = false;
 	StandingMeshRelativeLocation = FVector::ZeroVector;
 	bHasStandingMeshRelativeLocation = false;
+	bDeathHandled = false;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
 
@@ -101,6 +103,20 @@ void APMPlayerCharacter::BeginPlay()
 void APMPlayerCharacter::Tick(const float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	if (!bDeathHandled && GetActorLocation().Z < -300.0f)
+	{
+		bDeathHandled = true;
+		UE_LOG(LogTemp, Log, TEXT("Player fell below kill threshold at Z=%.1f"), GetActorLocation().Z);
+		if (APMPlayerController* PMController = Cast<APMPlayerController>(GetController()))
+		{
+			PMController->HandlePlayerDeath();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Player death had no APMPlayerController"));
+		}
+		return;
+	}
 	if (!bCrouchAnimationActive || !GetMesh())
 	{
 		return;

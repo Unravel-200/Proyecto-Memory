@@ -51,6 +51,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Gameplay")
 	void RegisterMemoryPickupCollected();
+	void HandlePlayerDeath();
 
 protected:
 	virtual void BeginPlay() override;
@@ -180,4 +181,5 @@ private:
 	void EnsureTestMemoryPickup();
 	void RunAutomatedGameplaySmokeTest();
 	bool bAutomatedGameplaySmokeScheduled;
+	bool bRespawnInProgress;
 };

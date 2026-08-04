@@ -22,6 +22,7 @@
 #include "Engine/GameViewportClient.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
+#include "GameFramework/GameModeBase.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -60,6 +61,7 @@ APMPlayerController::APMPlayerController()
 	MemoryFragmentsCollected = 0;
 	InteractionHintTimer = 0.0f;
 	bAutomatedGameplaySmokeScheduled = false;
+	bRespawnInProgress = false;
 }
 
 void APMPlayerController::BeginPlay()
@@ -227,6 +229,33 @@ void APMPlayerController::RegisterMemoryPickupCollected()
 	}
 }
 
+void APMPlayerController::HandlePlayerDeath()
+{
+	UE_LOG(LogPMPlayerController, Log, TEXT("HandlePlayerDeath invoked"));
+	if (bRespawnInProgress)
+	{
+		return;
+	}
+	bRespawnInProgress = true;
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red,
+			TEXT("Has muerto. Reapareciendo..."));
+	}
+	if (GetPawn())
+	{
+		UnPossess();
+	}
+	if (GetWorld())
+	{
+		if (AGameModeBase* GameMode = GetWorld()->GetAuthGameMode())
+		{
+			GameMode->RestartPlayer(this);
+		}
+	}
+	bRespawnInProgress = false;
+}
+
 void APMPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	ResetTransientPawnInputState();
@@ -309,6 +338,11 @@ void APMPlayerController::RunAutomatedGameplaySmokeTest()
 		HandleInteract();
 	}
 	UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW fragment count=%d"), MemoryFragmentsCollected);
+	if (FParse::Param(FCommandLine::Get(), TEXT("AutoDeath")) && PMCharacter)
+	{
+		PMCharacter->SetActorLocation(FVector(0.0f, 0.0f, -500.0f));
+		UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_DEATH fall below kill threshold dispatched"));
+	}
 }
 
 void APMPlayerController::EnsureTestInteractableDoor()

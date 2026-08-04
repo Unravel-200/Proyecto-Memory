@@ -816,3 +816,8 @@ caminata agachada y las transiciones de entrada/salida. El ejecutable cocinado
 inicia sin el error de referencias de Blueprint y conserva el flujo automÃ¡tico
 de puerta y fragmentos (`AUTO_FLOW fragment count=2`). Falta la confirmaciÃ³n
 visual manual de la pose en tercera persona.
+### Smoke de muerte por caÃ­da - 2026-08-04
+
+El modo `-AutoDeath` colocÃ³ el Pawn en Z=-500 y el log confirmÃ³ que cruzÃ³ el
+umbral y ejecutÃ³ `HandlePlayerDeath`. La confirmaciÃ³n visual del nuevo Pawn en
+Player Start queda pendiente para la prueba manual.

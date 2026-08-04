@@ -106,4 +106,5 @@ private:
 	TSubclassOf<UAnimInstance> DefaultAnimInstanceClass;
 	FVector StandingMeshRelativeLocation;
 	bool bHasStandingMeshRelativeLocation;
+	bool bDeathHandled;
 };

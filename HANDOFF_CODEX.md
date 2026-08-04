@@ -1751,3 +1751,8 @@ GameMode para reaparecer en el Player Start. El controller conserva la
 rotaciÃ³n y la postura guardadas durante `UnPossess`, por lo que la reapariciÃ³n
 usa la misma cÃ¡mara y crouch. `-AutoDeath` ya alcanza el umbral y ejecuta
 `HandlePlayerDeath`; falta confirmar visualmente el retorno al Player Start.
+### Smoke de reapariciÃ³n por caÃ­da - 2026-08-04
+
+El paquete recocinado con `-AutoDeath` confirmÃ³ el umbral Z=-500 y la entrada
+a `HandlePlayerDeath` sin errores fatales. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTODEATH-20260804-1.log`.

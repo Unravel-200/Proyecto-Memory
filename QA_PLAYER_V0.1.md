@@ -821,3 +821,9 @@ visual manual de la pose en tercera persona.
 El modo `-AutoDeath` colocÃ³ el Pawn en Z=-500 y el log confirmÃ³ que cruzÃ³ el
 umbral y ejecutÃ³ `HandlePlayerDeath`. La confirmaciÃ³n visual del nuevo Pawn en
 Player Start queda pendiente para la prueba manual.
+### Smoke de reapariciÃ³n por caÃ­da - 2026-08-04
+
+El paquete recocinado con `-AutoDeath` confirmÃ³ el cruce de Z=-300, el evento
+`Player fell below kill threshold` y la entrada a `HandlePlayerDeath`, sin
+errores fatales. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTODEATH-20260804-1.log`.

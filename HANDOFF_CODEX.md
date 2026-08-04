@@ -1610,3 +1610,9 @@ Se ejecutó directamente el binario interno de `Builds/PlayerV0.1/Windows` con
 fragmento con `AUTO_FLOW fragment count=1`. La evidencia se conservó en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-1.log`. No quedaron
 procesos de Unreal abiertos.
+
+La comprobación se repitió sobre el binario más reciente después de los
+últimos cambios de menú, prompt y colisión. La evidencia final es
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-2.log` con SHA-256
+`C3F6B5C3174219C0D456CAF8B3F61CDA82248FAC7DA8DBB3E813CBBE3F45373E`; volvió a
+registrar puerta abierta y `fragment count=1`.

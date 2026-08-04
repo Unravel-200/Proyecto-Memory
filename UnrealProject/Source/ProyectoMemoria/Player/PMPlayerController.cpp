@@ -567,6 +567,7 @@ void APMPlayerController::ResetLookSettings()
 {
 	SetLookSensitivity(1.0f, 1.0f);
 	SetInvertLookY(false);
+	SetBrightness(1.0f);
 }
 
 void APMPlayerController::RebuildSlateMenu()
@@ -587,6 +588,10 @@ void APMPlayerController::RebuildSlateMenu()
 	const FText Title = bSettingsOpen ? FText::FromString(TEXT("Configuración"))
 		: (bMainMenuOpen ? FText::FromString(TEXT("Proyecto Memoria")) : FText::FromString(TEXT("Pausa")));
 	Column->AddSlot().AutoHeight().Padding(10)[SNew(STextBlock).Text(Title).Font(FCoreStyle::GetDefaultFontStyle("Bold", 32)).Justification(ETextJustify::Center)];
+	if (bMainMenuOpen)
+	{
+		Column->AddSlot().AutoHeight().Padding(2)[SNew(STextBlock).Text(FText::FromString(TEXT("Versión jugable 0.1.0"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 16)).Justification(ETextJustify::Center)];
+	}
 
 	const auto AddButton = [&Column](const TCHAR* Label, TFunction<FReply()> Callback)
 	{

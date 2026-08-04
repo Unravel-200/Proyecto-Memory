@@ -1537,3 +1537,13 @@ La pantalla de Configuración ahora incluye un control persistente de brillo
 `PMGameUserSettings`. Compilación Development exitosa y ejecutables del paquete
 actualizados. Commits: `4716a38`, `f781a50`, `12230a1`. El preflight queda en
 0 FAIL / 1 WARN (la única advertencia es la confirmación humana de hardware).
+
+### Estabilidad de interacción y contador — 2026-08-03
+
+Se blindaron las comprobaciones de `TestInteractableDoor` y
+`TestMemoryPickup` con `IsValid`, evitando consultar actores marcados para
+destrucción después de recoger el fragmento o reiniciar la posesión. El HUD
+mantiene ahora un contador de fragmentos en una sola línea, sin acumular
+mensajes repetidos. La compilación Development volvió a terminar con éxito y
+el ejecutable raíz y el binario interno de `Builds/PlayerV0.1/Windows` fueron
+actualizados. Commit: `bbdb258` y `808db22`.

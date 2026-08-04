@@ -606,6 +606,12 @@ void APMPlayerController::RebuildSlateMenu()
 	{
 		Column->AddSlot().AutoHeight().Padding(2)[SNew(STextBlock).Text(FText::FromString(TEXT("Versión jugable 0.1.0"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 16)).Justification(ETextJustify::Center)];
 	}
+	else if (!bSettingsOpen)
+	{
+		Column->AddSlot().AutoHeight().Padding(4)[SNew(STextBlock).Text(FText::FromString(
+			FString::Printf(TEXT("Fragmentos encontrados: %d"), MemoryFragmentsCollected))).Font(
+			FCoreStyle::GetDefaultFontStyle("Regular", 18)).Justification(ETextJustify::Center)];
+	}
 
 	const auto AddButton = [&Column](const TCHAR* Label, TFunction<FReply()> Callback)
 	{

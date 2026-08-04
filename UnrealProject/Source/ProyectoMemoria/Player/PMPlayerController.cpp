@@ -140,7 +140,7 @@ void APMPlayerController::BeginPlay()
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(43, 0.0f, FColor::White,
-			TEXT("Fragmentos de memoria: 0"));
+			TEXT("Fragmentos de memoria: 0/2"));
 		GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Cyan,
 			TEXT("Objetivo: abre la puerta y encuentra el fragmento"));
 	}
@@ -179,10 +179,14 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	const float PickupDistance = IsValid(TestMemoryPickup)
 		? FVector::Dist(PlayerLocation, TestMemoryPickup->GetActorLocation())
 		: TNumericLimits<float>::Max();
+	const float PickupDistanceSecond = IsValid(TestMemoryPickupSecond)
+		? FVector::Dist(PlayerLocation, TestMemoryPickupSecond->GetActorLocation())
+		: TNumericLimits<float>::Max();
+	const float NearestPickupDistance = FMath::Min(PickupDistance, PickupDistanceSecond);
 	const float HintRadius = 220.0f;
-	if (FMath::Min(DoorDistance, PickupDistance) <= HintRadius)
+	if (FMath::Min(DoorDistance, NearestPickupDistance) <= HintRadius)
 	{
-		const TCHAR* InteractionText = DoorDistance <= PickupDistance
+		const TCHAR* InteractionText = DoorDistance <= NearestPickupDistance
 			? (IsValid(TestInteractableDoor) && TestInteractableDoor->IsOpen()
 				? TEXT("E / boton frontal izquierdo: cerrar puerta")
 				: TEXT("E / boton frontal izquierdo: abrir puerta"))
@@ -202,11 +206,14 @@ void APMPlayerController::RegisterMemoryPickupCollected()
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(43, 8.0f, FColor::White,
-			FString::Printf(TEXT("Fragmentos de memoria: %d"), MemoryFragmentsCollected));
+			FString::Printf(TEXT("Fragmentos de memoria: %d/2"), MemoryFragmentsCollected));
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow,
 			FString::Printf(TEXT("Fragmento de memoria encontrado (%d)"), MemoryFragmentsCollected));
-		GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::Green,
-			TEXT("Objetivo completado: fragmento recuperado"));
+		GEngine->AddOnScreenDebugMessage(-1, 6.0f,
+			MemoryFragmentsCollected >= 2 ? FColor::Green : FColor::Cyan,
+			MemoryFragmentsCollected >= 2
+				? TEXT("Objetivo completado: memoria recuperada")
+				: TEXT("Objetivo actualizado: encuentra el segundo fragmento"));
 	}
 }
 
@@ -277,6 +284,11 @@ void APMPlayerController::RunAutomatedGameplaySmokeTest()
 
 	PMCharacter->SetActorLocation(TestMemoryPickup->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
 	HandleInteract();
+	if (IsValid(TestMemoryPickupSecond))
+	{
+		PMCharacter->SetActorLocation(TestMemoryPickupSecond->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
+		HandleInteract();
+	}
 	UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW fragment count=%d"), MemoryFragmentsCollected);
 }
 
@@ -327,6 +339,19 @@ void APMPlayerController::EnsureTestMemoryPickup()
 		{
 			#if WITH_EDITOR
 			TestMemoryPickup->SetActorLabel(TEXT("Gameplay_MemoryPickup_Runtime"));
+			#endif
+		}
+
+		const FVector SecondPickupLocation = PMCharacter->GetActorLocation()
+			+ PMCharacter->GetActorForwardVector() * 900.0f
+			+ PMCharacter->GetActorRightVector() * -140.0f
+			+ FVector(0.0f, 0.0f, 120.0f);
+		TestMemoryPickupSecond = GetWorld()->SpawnActor<APMMemoryPickup>(
+			APMMemoryPickup::StaticClass(), SecondPickupLocation, FRotator::ZeroRotator, SpawnParameters);
+		if (TestMemoryPickupSecond)
+		{
+			#if WITH_EDITOR
+			TestMemoryPickupSecond->SetActorLabel(TEXT("Gameplay_MemoryPickup_Runtime_02"));
 			#endif
 		}
 	}
@@ -466,16 +491,23 @@ void APMPlayerController::HandleInteract()
 		const float DoorDistanceSquared = IsValid(TestInteractableDoor)
 			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation())
 			: TNumericLimits<float>::Max();
-		const float PickupDistanceSquared = IsValid(TestMemoryPickup)
+		const float PickupDistanceSquaredFirst = IsValid(TestMemoryPickup)
 			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickup->GetActorLocation())
 			: TNumericLimits<float>::Max();
+		const float PickupDistanceSquaredSecond = IsValid(TestMemoryPickupSecond)
+			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickupSecond->GetActorLocation())
+			: TNumericLimits<float>::Max();
+		const float PickupDistanceSquared = FMath::Min(PickupDistanceSquaredFirst, PickupDistanceSquaredSecond);
+		APMMemoryPickup* NearestPickup = PickupDistanceSquaredFirst <= PickupDistanceSquaredSecond
+			? TestMemoryPickup.Get()
+			: TestMemoryPickupSecond.Get();
 		const float InteractionRadiusSquared = FMath::Square(180.0f);
 
 		// Las zonas pueden quedar visualmente cercanas; siempre gana el actor
 		// válido más próximo para que recoger el fragmento no cierre la puerta.
 		if (FMath::Min(DoorDistanceSquared, PickupDistanceSquared) <= InteractionRadiusSquared)
 		{
-			if (PickupDistanceSquared < DoorDistanceSquared && IsValid(TestMemoryPickup))
+			if (PickupDistanceSquared < DoorDistanceSquared && IsValid(NearestPickup))
 			{
 				if (IsValid(TestInteractableDoor) && !TestInteractableDoor->IsOpen())
 				{
@@ -486,7 +518,7 @@ void APMPlayerController::HandleInteract()
 					}
 					return;
 				}
-				TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
+				NearestPickup->Interact_Implementation(GetPMPlayerCharacter());
 			}
 			else if (IsValid(TestInteractableDoor))
 			{
@@ -508,6 +540,7 @@ void APMPlayerController::HandleInteract()
 	FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(PMInteract), true, GetPawn());
 	QueryParams.AddIgnoredActor(TestInteractableDoor);
 	QueryParams.AddIgnoredActor(TestMemoryPickup);
+	QueryParams.AddIgnoredActor(TestMemoryPickupSecond);
 	FHitResult Hit;
 	if (GetWorld() && GetWorld()->LineTraceSingleByChannel(Hit, ViewLocation, TraceEnd, ECC_Visibility, QueryParams))
 	{
@@ -614,7 +647,7 @@ void APMPlayerController::RebuildSlateMenu()
 	else if (!bSettingsOpen)
 	{
 		Column->AddSlot().AutoHeight().Padding(4)[SNew(STextBlock).Text(FText::FromString(
-			FString::Printf(TEXT("Fragmentos encontrados: %d"), MemoryFragmentsCollected))).Font(
+			FString::Printf(TEXT("Fragmentos encontrados: %d/2"), MemoryFragmentsCollected))).Font(
 			FCoreStyle::GetDefaultFontStyle("Regular", 18)).Justification(ETextJustify::Center)];
 	}
 

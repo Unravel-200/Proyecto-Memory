@@ -172,6 +172,9 @@ private:
 	UPROPERTY()
 	TObjectPtr<APMMemoryPickup> TestMemoryPickup;
 
+	UPROPERTY()
+	TObjectPtr<APMMemoryPickup> TestMemoryPickupSecond;
+
 	void RebuildSlateMenu();
 	void EnsureTestInteractableDoor();
 	void EnsureTestMemoryPickup();

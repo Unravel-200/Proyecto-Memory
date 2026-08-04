@@ -1821,3 +1821,7 @@ layout maestro para no inventar el campus.
 ### Graybox completo de edificios distribuido - 2026-08-04
 
 Se colocaron en `L_Campus_Blockout` los blockouts representativos de las areas principales del inventario: Biblioteca, Educacion, Ciencias, Historia, Artes, Generales, Mantenimiento, Ingenieria, Informatica, Derecho, Medicina, Psicologia, Gimnasio, Residencias, Auditorio Central, Rectoria, Soda y Centro Cultural. La distribucion usa una reticula provisional a ambos lados de la quebrada, con edificios de apoyo al norte y al sur, manteniendo puentes, caminos y relieve. Es un layout graybox completo para recorrer y validar escala; las coordenadas narrativas finales pueden refinarse cuando exista el plano maestro definitivo.
+
+### Nivel Landscape del campus - 2026-08-04
+
+Se creo `/Game/Maps/L_Campus_Landscape` a partir de la plantilla Open World de Unreal, que incluye un actor Landscape nativo, iluminacion y World Partition. Se reconstruyeron encima el relieve visible, quebrada, taludes, puentes, caminos y la distribucion completa de edificios. El mapa queda como nivel activo del proyecto. La edicion fina del heightmap del Landscape se reserva para el editor porque los proxies World Partition no exponen sus componentes al commandlet; el relieve actual es la base visual de transicion.

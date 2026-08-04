@@ -1667,3 +1667,13 @@ El objetivo inicial ahora indica abrir la puerta y encontrar el fragmento; al
 abrirla se actualiza a `encuentra el fragmento`. Esto refleja la progresión
 real sin depender de instrucciones externas. Compilación exitosa y binario
 actualizado. Commit: `a707054`.
+
+### Segundo fragmento y objetivo múltiple — 2026-08-04
+
+La siguiente versión añade un segundo fragmento runtime detrás de la puerta.
+El controlador elige el pickup válido más cercano, actualiza el contador como
+`N/2` y solo marca el objetivo completo al recoger ambos. El smoke del paquete
+recocinado registró dos líneas `Memory pickup collected` y
+`AUTO_FLOW fragment count=2` en
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-6.log`.
+BuildCookRun terminó en `BUILD SUCCESSFUL`.

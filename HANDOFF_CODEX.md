@@ -1641,3 +1641,10 @@ La comprobación se repitió sobre el binario más reciente después de los
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-2.log` con SHA-256
 `C3F6B5C3174219C0D456CAF8B3F61CDA82248FAC7DA8DBB3E813CBBE3F45373E`; volvió a
 registrar puerta abierta y `fragment count=1`.
+
+### Prompt contextual de interacción — 2026-08-04
+
+El aviso cercano ahora identifica la acción concreta: abrir/cerrar la puerta o
+recoger el fragmento, manteniendo el texto neutral para cualquier mando. La
+compilación fue exitosa y el ejecutable del paquete se actualizó. Commit:
+`f6111ab`.

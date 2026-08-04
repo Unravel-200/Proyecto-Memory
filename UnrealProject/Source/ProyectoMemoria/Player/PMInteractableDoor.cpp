@@ -42,6 +42,12 @@ void APMInteractableDoor::Tick(float DeltaSeconds)
 
 void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 {
+	if (bIsOpen && Player
+		&& FVector::DistSquared(Player->GetActorLocation(), GetActorLocation()) < FMath::Square(120.0f))
+	{
+		UE_LOG(LogTemp, Log, TEXT("Door close blocked: player is still in the doorway"));
+		return;
+	}
 	bIsOpen = !bIsOpen;
 	if (bIsOpen)
 	{

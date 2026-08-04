@@ -1522,3 +1522,18 @@ abrió la puerta y después recogió el fragmento con `fragment count=1` en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260803-4.log`. Durante la
 prueba se detectó que ambas zonas podían solaparse y se corrigió la prioridad
 para que siempre gane el actor más cercano. El arranque normal no cambia.
+
+### Pasada de pulido y visibilidad — 2026-08-03
+
+Después del smoke test se incorporaron tres mejoras de bajo riesgo para la
+primera versión: las luces runtime de prueba tienen más relleno y no proyectan
+sombras que oculten el mapa; la hoja de la puerta deja de bloquear el paso al
+abrirse; y el fragmento tiene un movimiento suave de flotación. El controlador
+también muestra el objetivo inicial, el objetivo completado y un aviso cercano
+`E / Cuadrado: interactuar`.
+
+La pantalla de Configuración ahora incluye un control persistente de brillo
+(0.75–1.50), aplicado mediante `r.TonemapperGamma` y guardado en
+`PMGameUserSettings`. Compilación Development exitosa y ejecutables del paquete
+actualizados. Commits: `4716a38`, `f781a50`, `12230a1`. El preflight queda en
+0 FAIL / 1 WARN (la única advertencia es la confirmación humana de hardware).

@@ -1620,6 +1620,11 @@ y luego `fragment count=1`, en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-3.log`. Commit:
 `946ac7a`.
 
+La build completa posterior a la protección de cierre también terminó en
+`BUILD SUCCESSFUL`; el smoke del paquete final se conservó en
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-4.log` y volvió a
+registrar `AUTO_FLOW fragment count=1`.
+
 ### Seguridad al cerrar la puerta — 2026-08-04
 
 Cerrar la puerta ahora se rechaza mientras el jugador permanece dentro de la

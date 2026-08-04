@@ -4,6 +4,7 @@
 #include "Engine/StaticMesh.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Logging/LogMacros.h"
+#include "PMPlayerCharacter.h"
 
 APMInteractableDoor::APMInteractableDoor()
 	: OpenAngle(-90.0f)
@@ -42,7 +43,18 @@ void APMInteractableDoor::Tick(float DeltaSeconds)
 void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 {
 	bIsOpen = !bIsOpen;
-	TargetAngle = bIsOpen ? OpenAngle : 0.0f;
+	if (bIsOpen)
+	{
+		const FVector ToPlayer = Player
+			? (Player->GetActorLocation() - GetActorLocation()).GetSafeNormal()
+			: GetActorForwardVector();
+		const float Side = FVector::DotProduct(ToPlayer, GetActorRightVector());
+		TargetAngle = (Side >= 0.0f ? -1.0f : 1.0f) * FMath::Abs(OpenAngle);
+	}
+	else
+	{
+		TargetAngle = 0.0f;
+	}
 	if (DoorMesh)
 	{
 		DoorMesh->SetCollisionEnabled(

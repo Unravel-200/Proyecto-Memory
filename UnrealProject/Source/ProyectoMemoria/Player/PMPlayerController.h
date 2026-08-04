@@ -52,6 +52,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void OnUnPossess() override;
 	virtual void SetPawn(APawn* InPawn) override;
@@ -157,6 +158,7 @@ private:
 	bool bSettingsOpen;
 	bool bControllerTab;
 	int32 MemoryFragmentsCollected;
+	float InteractionHintTimer;
 
 	UPROPERTY()
 	TObjectPtr<APMInteractableDoor> TestInteractableDoor;

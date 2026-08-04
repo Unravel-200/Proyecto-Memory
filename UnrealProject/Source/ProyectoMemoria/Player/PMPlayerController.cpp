@@ -37,6 +37,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogPMPlayerController, Log, All);
 
 APMPlayerController::APMPlayerController()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	LookSensitivityX = 1.0f;
 	LookSensitivityY = 1.0f;
 	bInvertLookY = false;
@@ -52,6 +53,7 @@ APMPlayerController::APMPlayerController()
 	bSettingsOpen = false;
 	bControllerTab = false;
 	MemoryFragmentsCollected = 0;
+	InteractionHintTimer = 0.0f;
 	bAutomatedGameplaySmokeScheduled = false;
 }
 
@@ -136,6 +138,40 @@ void APMPlayerController::BeginPlay()
 	{
 		bAutomatedGameplaySmokeScheduled = true;
 		GetWorld()->GetTimerManager().SetTimerForNextTick(this, &APMPlayerController::RunAutomatedGameplaySmokeTest);
+	}
+}
+
+void APMPlayerController::Tick(const float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	if (bMenuOpen || !GetPawn() || !GEngine)
+	{
+		return;
+	}
+
+	InteractionHintTimer -= DeltaSeconds;
+	if (InteractionHintTimer > 0.0f)
+	{
+		return;
+	}
+	InteractionHintTimer = 0.20f;
+
+	const FVector PlayerLocation = GetPawn()->GetActorLocation();
+	const float DoorDistance = TestInteractableDoor
+		? FVector::Dist(PlayerLocation, TestInteractableDoor->GetActorLocation())
+		: TNumericLimits<float>::Max();
+	const float PickupDistance = TestMemoryPickup
+		? FVector::Dist(PlayerLocation, TestMemoryPickup->GetActorLocation())
+		: TNumericLimits<float>::Max();
+	const float HintRadius = 220.0f;
+	if (FMath::Min(DoorDistance, PickupDistance) <= HintRadius)
+	{
+		GEngine->AddOnScreenDebugMessage(42, 0.25f, FColor::White,
+			TEXT("E / Cuadrado: interactuar"));
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(42, 0.0f, FColor::White, TEXT(""));
 	}
 }
 

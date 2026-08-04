@@ -33,6 +33,7 @@ public:
 	void OpenMainMenu();
 	void OpenPauseMenu();
 	void CloseMenuAndResume();
+	void RestartCurrentLevel();
 	void ResetLookSettings();
 	float GetLookSensitivityX() const { return LookSensitivityX; }
 	float GetLookSensitivityY() const { return LookSensitivityY; }

@@ -1766,3 +1766,8 @@ El propietario confirmÃ³ la ruta completa en la build: movimiento, salto,
 carrera, agachado animado, puerta, recogida de ambos fragmentos, objetivo
 `2/2`, muerte por caÃ­da y reapariciÃ³n. La v0.1 queda funcionalmente validada;
 lo pendiente pertenece al pulido y contenido posterior.
+### Reinicio de partida desde pausa - 2026-08-04
+
+El menÃº de pausa ahora incluye `Reiniciar partida`, que recarga el mapa actual
+desde el Player Start y limpia el progreso runtime sin cerrar el ejecutable.
+CompilaciÃ³n exitosa.

@@ -1620,6 +1620,13 @@ y luego `fragment count=1`, en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-3.log`. Commit:
 `946ac7a`.
 
+### Seguridad al cerrar la puerta — 2026-08-04
+
+Cerrar la puerta ahora se rechaza mientras el jugador permanece dentro de la
+zona de la hoja, evitando atraparlo o reactivar la colisión sobre su cápsula.
+Compilación Development exitosa y binario del paquete actualizado. Commit:
+`217eca2`.
+
 La comprobación se repitió sobre el binario más reciente después de los
 últimos cambios de menú, prompt y colisión. La evidencia final es
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-2.log` con SHA-256

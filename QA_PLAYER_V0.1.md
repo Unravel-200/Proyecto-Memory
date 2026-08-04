@@ -804,3 +804,8 @@ count=0` y `AUTO_FLOW fragment count=2` sin errores fatales. Evidencia:
 Tras recoger ambos fragmentos, el HUD conserva el mensaje `Objetivo
 completado: memoria recuperada` durante la partida. El smoke sigue confirmando
 `AUTO_FLOW fragment count=2` sin errores.
+### VerificaciÃ³n directa del paquete - 2026-08-04
+
+La copia ejecutable final confirmÃ³ puerta, gate del segundo fragmento y
+secuencia `2/2`, sin errores fatales. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-12.log`.

@@ -1726,3 +1726,8 @@ Al alcanzar `2/2`, el HUD mantiene visible `Objetivo completado: memoria
 recuperada` mientras el jugador sigue en partida. La demo ya comunica de forma
 persistente que su recorrido jugable terminÃ³, en lugar de depender solo del
 mensaje temporal de recogida. CompilaciÃ³n y smoke exitosos.
+### VerificaciÃ³n de paquete posterior al cierre visible - 2026-08-04
+
+La copia ejecutable probada directamente confirmÃ³ apertura de puerta, bloqueo
+del segundo fragmento hasta recoger el primero y final `2/2`. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-12.log`.

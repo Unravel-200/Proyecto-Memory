@@ -1692,3 +1692,8 @@ El aviso de interacciÃ³n ya informa cuando el segundo fragmento estÃ¡ cerca
 pero todavÃ­a no corresponde recogerlo: `primero recoge el fragmento inicial`.
 AsÃ­ la interfaz coincide con la regla de progresiÃ³n y evita una acciÃ³n que el
 juego rechazarÃ­a silenciosamente. CompilaciÃ³n y smoke del paquete exitosos.
+### Radio de aviso coherente - 2026-08-04
+
+El aviso de interacciÃ³n usa ahora el mismo radio de 180 cm que la ejecuciÃ³n
+real de `HandleInteract`, evitando mostrar una acciÃ³n fuera de alcance.
+CompilaciÃ³n exitosa y binario del paquete actualizado.

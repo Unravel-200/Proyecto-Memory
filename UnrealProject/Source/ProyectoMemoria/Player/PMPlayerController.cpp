@@ -472,6 +472,15 @@ void APMPlayerController::HandleInteract()
 		{
 			if (PickupDistanceSquared < DoorDistanceSquared && IsValid(TestMemoryPickup))
 			{
+				if (IsValid(TestInteractableDoor) && !TestInteractableDoor->IsOpen())
+				{
+					if (GEngine)
+					{
+						GEngine->AddOnScreenDebugMessage(44, 2.0f, FColor::Yellow,
+							TEXT("Primero debes abrir la puerta"));
+					}
+					return;
+				}
 				TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
 			}
 			else if (IsValid(TestInteractableDoor))

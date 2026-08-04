@@ -18,6 +18,9 @@ public:
 
 	virtual void Interact_Implementation(class APMPlayerCharacter* Player) override;
 
+	UFUNCTION(BlueprintPure, Category = "Door")
+	bool IsOpen() const { return bIsOpen; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Door")
 	TObjectPtr<UStaticMeshComponent> DoorMesh;

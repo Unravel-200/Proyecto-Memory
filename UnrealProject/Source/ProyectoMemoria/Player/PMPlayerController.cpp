@@ -181,7 +181,9 @@ void APMPlayerController::EnsureTestInteractableDoor()
 			APMInteractableDoor::StaticClass(), DoorLocation, PMCharacter->GetActorRotation(), SpawnParameters);
 		if (TestInteractableDoor)
 		{
+			#if WITH_EDITOR
 			TestInteractableDoor->SetActorLabel(TEXT("Gameplay_InteractableDoor_Runtime"));
+			#endif
 			UE_LOG(LogPMPlayerController, Log, TEXT("Runtime interactable door spawned at %s"), *DoorLocation.ToString());
 		}
 	}
@@ -207,7 +209,9 @@ void APMPlayerController::EnsureTestMemoryPickup()
 			APMMemoryPickup::StaticClass(), PickupLocation, FRotator::ZeroRotator, SpawnParameters);
 		if (TestMemoryPickup)
 		{
+			#if WITH_EDITOR
 			TestMemoryPickup->SetActorLabel(TEXT("Gameplay_MemoryPickup_Runtime"));
+			#endif
 		}
 	}
 }

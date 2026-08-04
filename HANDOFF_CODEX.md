@@ -1660,3 +1660,10 @@ binario actualizado. Commit: `2420a00`.
 Al recoger el fragmento se desactivan inmediatamente su colisión y visibilidad
 antes de destruirlo, evitando interacción o bloqueo residual durante el frame.
 Compilación exitosa y binario actualizado. Commit: `4edbb63`.
+
+### Objetivo secuencial visible — 2026-08-04
+
+El objetivo inicial ahora indica abrir la puerta y encontrar el fragmento; al
+abrirla se actualiza a `encuentra el fragmento`. Esto refleja la progresión
+real sin depender de instrucciones externas. Compilación exitosa y binario
+actualizado. Commit: `a707054`.

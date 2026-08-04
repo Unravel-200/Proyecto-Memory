@@ -1760,3 +1760,9 @@ a `HandlePlayerDeath` sin errores fatales. Evidencia:
 
 El propietario probÃ³ la caÃ­da en la build y confirmÃ³ que la muerte y la
 reapariciÃ³n funcionan. Se cierra el bloque de respawn de la v0.1.
+### Ruta jugable completa confirmada - 2026-08-04
+
+El propietario confirmÃ³ la ruta completa en la build: movimiento, salto,
+carrera, agachado animado, puerta, recogida de ambos fragmentos, objetivo
+`2/2`, muerte por caÃ­da y reapariciÃ³n. La v0.1 queda funcionalmente validada;
+lo pendiente pertenece al pulido y contenido posterior.

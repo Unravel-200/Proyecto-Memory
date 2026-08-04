@@ -831,3 +831,8 @@ errores fatales. Evidencia:
 
 El propietario confirmÃ³ en la build que la caÃ­da provoca muerte y que el
 personaje reaparece correctamente. Se cierra el bloque de respawn.
+### Ruta jugable completa - 2026-08-04
+
+El propietario recorriÃ³ y confirmÃ³ movimiento, salto, carrera, agachado
+animado, puerta, dos fragmentos, objetivo `2/2`, muerte por caÃ­da y
+reapariciÃ³n. La ruta funcional principal de v0.1 queda validada.

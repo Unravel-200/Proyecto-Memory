@@ -1756,3 +1756,7 @@ usa la misma cÃ¡mara y crouch. `-AutoDeath` ya alcanza el umbral y ejecuta
 El paquete recocinado con `-AutoDeath` confirmÃ³ el umbral Z=-500 y la entrada
 a `HandlePlayerDeath` sin errores fatales. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTODEATH-20260804-1.log`.
+### ConfirmaciÃ³n manual de muerte y reapariciÃ³n - 2026-08-04
+
+El propietario probÃ³ la caÃ­da en la build y confirmÃ³ que la muerte y la
+reapariciÃ³n funcionan. Se cierra el bloque de respawn de la v0.1.

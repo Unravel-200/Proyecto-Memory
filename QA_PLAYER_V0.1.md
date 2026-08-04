@@ -827,3 +827,7 @@ El paquete recocinado con `-AutoDeath` confirmÃ³ el cruce de Z=-300, el evento
 `Player fell below kill threshold` y la entrada a `HandlePlayerDeath`, sin
 errores fatales. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTODEATH-20260804-1.log`.
+### ConfirmaciÃ³n manual de muerte y reapariciÃ³n - 2026-08-04
+
+El propietario confirmÃ³ en la build que la caÃ­da provoca muerte y que el
+personaje reaparece correctamente. Se cierra el bloque de respawn.

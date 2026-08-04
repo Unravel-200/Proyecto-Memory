@@ -1601,3 +1601,12 @@ El menú principal identifica explícitamente `Versión jugable 0.1.0`. El botó
 `Restaurar valores` ahora restablece también el brillo, además de sensibilidad
 e inversión vertical. Compilación Development exitosa y binarios del paquete
 actualizados. Commit: `bd62e3f`.
+
+### Smoke test del paquete cocinado — 2026-08-04
+
+Se ejecutó directamente el binario interno de `Builds/PlayerV0.1/Windows` con
+`-AutoStart -AutoFlow -nullrhi -unattended -nosound`. El paquete cargó
+`L_Developer_Testing`, creó la puerta runtime, abrió la puerta y recogió el
+fragmento con `AUTO_FLOW fragment count=1`. La evidencia se conservó en
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-1.log`. No quedaron
+procesos de Unreal abiertos.

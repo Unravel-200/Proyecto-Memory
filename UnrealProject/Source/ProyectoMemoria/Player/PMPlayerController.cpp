@@ -136,7 +136,7 @@ void APMPlayerController::BeginPlay()
 	}
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::White,
+		GEngine->AddOnScreenDebugMessage(43, 0.0f, FColor::White,
 			TEXT("Fragmentos de memoria: 0"));
 		GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Cyan,
 			TEXT("Objetivo: encuentra el fragmento de memoria"));
@@ -187,6 +187,8 @@ void APMPlayerController::RegisterMemoryPickupCollected()
 	++MemoryFragmentsCollected;
 	if (GEngine)
 	{
+		GEngine->AddOnScreenDebugMessage(43, 8.0f, FColor::White,
+			FString::Printf(TEXT("Fragmentos de memoria: %d"), MemoryFragmentsCollected));
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow,
 			FString::Printf(TEXT("Fragmento de memoria encontrado (%d)"), MemoryFragmentsCollected));
 		GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::Green,

@@ -1580,3 +1580,10 @@ El fragmento de memoria combina rotación y flotación con un pulso suave de su
 luz azul, para mantenerlo localizable sin aumentar la iluminación global. Se
 compiló y empaquetó nuevamente con `BuildCookRun`; la ejecución terminó en
 `BUILD SUCCESSFUL`. ZenServer y Unreal se cerraron después. Commit: `c816f81`.
+
+### Colisión del fragmento — 2026-08-03
+
+El mesh del fragmento usa ahora `QueryOnly`: conserva la detección para
+interactuar, pero el jugador puede atravesarlo sin que funcione como un
+obstáculo. Compilación Development exitosa y binarios del paquete actualizados.
+Commit: `8fb1276`.

@@ -164,10 +164,10 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	InteractionHintTimer = 0.20f;
 
 	const FVector PlayerLocation = GetPawn()->GetActorLocation();
-	const float DoorDistance = TestInteractableDoor
+	const float DoorDistance = IsValid(TestInteractableDoor)
 		? FVector::Dist(PlayerLocation, TestInteractableDoor->GetActorLocation())
 		: TNumericLimits<float>::Max();
-	const float PickupDistance = TestMemoryPickup
+	const float PickupDistance = IsValid(TestMemoryPickup)
 		? FVector::Dist(PlayerLocation, TestMemoryPickup->GetActorLocation())
 		: TNumericLimits<float>::Max();
 	const float HintRadius = 220.0f;
@@ -233,7 +233,7 @@ void APMPlayerController::SetPawn(APawn* InPawn)
 void APMPlayerController::RunAutomatedGameplaySmokeTest()
 {
 	APMPlayerCharacter* PMCharacter = GetPMPlayerCharacter();
-	if (!PMCharacter || !TestInteractableDoor || !TestMemoryPickup)
+	if (!PMCharacter || !IsValid(TestInteractableDoor) || !IsValid(TestMemoryPickup))
 	{
 		UE_LOG(LogPMPlayerController, Error, TEXT("AUTO_FLOW failed: runtime actors or player are missing"));
 		return;
@@ -252,7 +252,7 @@ void APMPlayerController::RunAutomatedGameplaySmokeTest()
 
 void APMPlayerController::EnsureTestInteractableDoor()
 {
-	if (TestInteractableDoor || !GetWorld())
+	if (IsValid(TestInteractableDoor) || !GetWorld())
 	{
 		return;
 	}
@@ -277,7 +277,7 @@ void APMPlayerController::EnsureTestInteractableDoor()
 
 void APMPlayerController::EnsureTestMemoryPickup()
 {
-	if (TestMemoryPickup || !GetWorld())
+	if (IsValid(TestMemoryPickup) || !GetWorld())
 	{
 		return;
 	}
@@ -433,10 +433,10 @@ void APMPlayerController::HandleInteract()
 	// el trazado de cámara active la puerta desde lejos.
 	if (GetPawn())
 	{
-		const float DoorDistanceSquared = TestInteractableDoor
+		const float DoorDistanceSquared = IsValid(TestInteractableDoor)
 			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestInteractableDoor->GetActorLocation())
 			: TNumericLimits<float>::Max();
-		const float PickupDistanceSquared = TestMemoryPickup
+		const float PickupDistanceSquared = IsValid(TestMemoryPickup)
 			? FVector::DistSquared(GetPawn()->GetActorLocation(), TestMemoryPickup->GetActorLocation())
 			: TNumericLimits<float>::Max();
 		const float InteractionRadiusSquared = FMath::Square(180.0f);
@@ -445,11 +445,11 @@ void APMPlayerController::HandleInteract()
 		// válido más próximo para que recoger el fragmento no cierre la puerta.
 		if (FMath::Min(DoorDistanceSquared, PickupDistanceSquared) <= InteractionRadiusSquared)
 		{
-			if (PickupDistanceSquared < DoorDistanceSquared && TestMemoryPickup)
+			if (PickupDistanceSquared < DoorDistanceSquared && IsValid(TestMemoryPickup))
 			{
 				TestMemoryPickup->Interact_Implementation(GetPMPlayerCharacter());
 			}
-			else if (TestInteractableDoor)
+			else if (IsValid(TestInteractableDoor))
 			{
 				TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
 			}

@@ -186,11 +186,14 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	const float HintRadius = 220.0f;
 	if (FMath::Min(DoorDistance, NearestPickupDistance) <= HintRadius)
 	{
+		const bool bSecondPickupNearest = PickupDistanceSecond < PickupDistance;
 		const TCHAR* InteractionText = DoorDistance <= NearestPickupDistance
 			? (IsValid(TestInteractableDoor) && TestInteractableDoor->IsOpen()
 				? TEXT("E / boton frontal izquierdo: cerrar puerta")
 				: TEXT("E / boton frontal izquierdo: abrir puerta"))
-			: TEXT("E / boton frontal izquierdo: recoger fragmento");
+			: (bSecondPickupNearest && MemoryFragmentsCollected < 1
+				? TEXT("E / boton frontal izquierdo: primero recoge el fragmento inicial")
+				: TEXT("E / boton frontal izquierdo: recoger fragmento"));
 		GEngine->AddOnScreenDebugMessage(42, 0.25f, FColor::White,
 			InteractionText);
 	}

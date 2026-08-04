@@ -1686,3 +1686,9 @@ compilacion incremental fue exitosa y el ejecutable se actualizo.
 Prueba de paquete posterior: `FLOW-AUTOFLOW-20260804-7.log` confirmÃ³ apertura
 de puerta, dos recogidas y `AUTO_FLOW fragment count=2`. Preflight: 0 FAIL,
 1 WARN por confirmaciÃ³n humana de hardware.
+### Aviso contextual para segundo fragmento - 2026-08-04
+
+El aviso de interacciÃ³n ya informa cuando el segundo fragmento estÃ¡ cerca
+pero todavÃ­a no corresponde recogerlo: `primero recoge el fragmento inicial`.
+AsÃ­ la interfaz coincide con la regla de progresiÃ³n y evita una acciÃ³n que el
+juego rechazarÃ­a silenciosamente. CompilaciÃ³n y smoke del paquete exitosos.

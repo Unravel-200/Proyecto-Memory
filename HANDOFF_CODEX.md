@@ -1792,3 +1792,19 @@ proyecto, Unreal Engine 5.8 y el Mannequin provisional. La compilación del
 Editor pasó y la build Shipping fue regenerada correctamente. El verificador
 de paquete confirmó ejecutable, contenedores de contenido, SHA-256 y smoke de
 arranque de 6 s sin Editor.
+### Auditoría de Modelos-3D para graybox completo - 2026-08-04
+
+La carpeta hermana contiene 203 FBX únicos y blockouts/props para Biblioteca,
+Generales, Educación, Mantenimiento, Ingeniería, Ciencias, Medicina,
+Psicología, Informática, Artes, Auditorio Central, Historia, Derecho,
+Gimnasio, Residencias, Rectoría/Torre, Soda, Centro Cultural y Plaza. Los
+assets están importados en `UnrealProject/Content/Modelos3D`; cuatro nombres de
+puerta/compuerta se importaron como piezas separadas de marco/hoja.
+
+El graybox completo aún no puede cerrarse porque el inventario no contiene un
+plano maestro con coordenadas, conexiones entre edificios, calles, aceras y
+parqueos. Los documentos indican además que varios edificios solo tienen salas
+independientes, sin planta completa ni pasillos. Calles/exteriores fueron
+descartados deliberadamente en Blender para hacerlos en Unreal; árboles y el
+pupitre de aula siguen reservados para modelado manual. Se requiere definir el
+layout maestro y las conexiones antes de colocar todo el campus.

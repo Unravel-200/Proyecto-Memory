@@ -1715,3 +1715,8 @@ Se invirtiÃ³ el ajuste vertical aplicado al SkeletalMesh durante `OnStartCrouc
 y `OnEndCrouch`. La cÃ¡psula conserva su base y el mannequin ahora acompaÃ±a el
 cambio hacia arriba al agacharse y vuelve a su altura al levantarse, evitando
 que los pies se hundan bajo el suelo. CompilaciÃ³n y smoke de gameplay exitosos.
+### Paquete con correcciÃ³n de agachado - 2026-08-04
+
+El BuildCookRun posterior a la correcciÃ³n de pies terminÃ³ nuevamente en
+`BUILD SUCCESSFUL`. El smoke del paquete final confirmÃ³ el bloqueo secuencial
+y la recogida `2/2` en `FLOW-AUTOFLOW-20260804-10.log`.

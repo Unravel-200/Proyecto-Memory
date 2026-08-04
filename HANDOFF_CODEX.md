@@ -1573,3 +1573,10 @@ archive Win64 Development. El paquete final está en
 ZenServer y los procesos de Unreal se cerraron al terminar para no dejar carga
 en la PC. La primera ejecución había fallado únicamente por ZenServer
 detenido; no fue un error de código.
+
+### Pulso visual del fragmento — 2026-08-03
+
+El fragmento de memoria combina rotación y flotación con un pulso suave de su
+luz azul, para mantenerlo localizable sin aumentar la iluminación global. Se
+compiló y empaquetó nuevamente con `BuildCookRun`; la ejecución terminó en
+`BUILD SUCCESSFUL`. ZenServer y Unreal se cerraron después. Commit: `c816f81`.

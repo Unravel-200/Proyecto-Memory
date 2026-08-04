@@ -1817,3 +1817,7 @@ en ambos ejes y un `PlayerStart`. La inspección automatizada cargó el mapa y
 confirmó 245 actores, 238 tiles, 3 puentes, cauce, caminos y Player Start.
 Todavía no se colocaron edificios: faltan las coordenadas y conexiones del
 layout maestro para no inventar el campus.
+
+### Graybox completo de edificios distribuido - 2026-08-04
+
+Se colocaron en `L_Campus_Blockout` los blockouts representativos de las areas principales del inventario: Biblioteca, Educacion, Ciencias, Historia, Artes, Generales, Mantenimiento, Ingenieria, Informatica, Derecho, Medicina, Psicologia, Gimnasio, Residencias, Auditorio Central, Rectoria, Soda y Centro Cultural. La distribucion usa una reticula provisional a ambos lados de la quebrada, con edificios de apoyo al norte y al sur, manteniendo puentes, caminos y relieve. Es un layout graybox completo para recorrer y validar escala; las coordenadas narrativas finales pueden refinarse cuando exista el plano maestro definitivo.

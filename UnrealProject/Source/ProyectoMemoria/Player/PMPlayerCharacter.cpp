@@ -19,6 +19,8 @@ APMPlayerCharacter::APMPlayerCharacter()
 	bIsSprinting = false;
 	bCrouchAnimationActive = false;
 	bCrouchAnimationWalking = false;
+	StandingMeshRelativeLocation = FVector::ZeroVector;
+	bHasStandingMeshRelativeLocation = false;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
 
@@ -127,7 +129,13 @@ void APMPlayerCharacter::OnStartCrouch(
 	// misma cantidad para que sus pies sigan apoyados sobre el suelo.
 	if (GetMesh())
 	{
-		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, ScaledHalfHeightAdjust));
+		if (!bHasStandingMeshRelativeLocation)
+		{
+			StandingMeshRelativeLocation = GetMesh()->GetRelativeLocation();
+			bHasStandingMeshRelativeLocation = true;
+		}
+		GetMesh()->SetRelativeLocation(
+			StandingMeshRelativeLocation + FVector(0.0f, 0.0f, FMath::Abs(ScaledHalfHeightAdjust)));
 		bCrouchAnimationActive = true;
 		bCrouchAnimationWalking = false;
 		if (CrouchIdleAnimation)
@@ -145,7 +153,10 @@ void APMPlayerCharacter::OnEndCrouch(
 	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 	if (GetMesh())
 	{
-		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, -ScaledHalfHeightAdjust));
+		if (bHasStandingMeshRelativeLocation)
+		{
+			GetMesh()->SetRelativeLocation(StandingMeshRelativeLocation);
+		}
 		bCrouchAnimationActive = false;
 		bCrouchAnimationWalking = false;
 		if (DefaultAnimInstanceClass)

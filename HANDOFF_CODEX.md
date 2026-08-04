@@ -1738,3 +1738,9 @@ Se importaron `Crouching_Idle`, `Crouched_Walking`, `Standing_To_Crouched` y
 la pose idle agachada y la caminata agachada mientras mantiene el estado
 `IsCrouched`; al levantarse restaura `ThirdPerson_AnimBP`. BuildCookRun y smoke
 del paquete terminaron correctamente con `AUTO_FLOW fragment count=2`.
+### Base de mesh estable al cambiar postura - 2026-08-04
+
+Se eliminÃ³ el desplazamiento acumulativo del mesh al alternar crouch. El
+personaje guarda la posiciÃ³n de pie una sola vez, aplica el ajuste relativo al
+agacharse y la restaura exactamente al levantarse. El propietario confirmÃ³
+visualmente que los pies ya conservan la base correcta.

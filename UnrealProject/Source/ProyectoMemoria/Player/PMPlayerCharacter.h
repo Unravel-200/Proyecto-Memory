@@ -104,4 +104,6 @@ private:
 	bool bCrouchAnimationActive;
 	bool bCrouchAnimationWalking;
 	TSubclassOf<UAnimInstance> DefaultAnimInstanceClass;
+	FVector StandingMeshRelativeLocation;
+	bool bHasStandingMeshRelativeLocation;
 };

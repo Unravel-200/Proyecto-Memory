@@ -1683,3 +1683,6 @@ El segundo fragmento ahora exige que el jugador haya recogido primero el
 fragmento inicial. Si se intenta interactuar con el segundo antes de tiempo,
 el juego muestra `Primero recoge el primer fragmento` y no lo consume. La
 compilacion incremental fue exitosa y el ejecutable se actualizo.
+Prueba de paquete posterior: `FLOW-AUTOFLOW-20260804-7.log` confirmÃ³ apertura
+de puerta, dos recogidas y `AUTO_FLOW fragment count=2`. Preflight: 0 FAIL,
+1 WARN por confirmaciÃ³n humana de hardware.

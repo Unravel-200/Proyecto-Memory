@@ -1627,6 +1627,10 @@ zona de la hoja, evitando atraparlo o reactivar la colisión sobre su cápsula.
 Compilación Development exitosa y binario del paquete actualizado. Commit:
 `217eca2`.
 
+La puerta muestra ahora `Sal de la entrada para cerrar la puerta` cuando el
+intento se bloquea por seguridad. Compilación exitosa y binario actualizado.
+Commit: `f031751`.
+
 La comprobación se repitió sobre el binario más reciente después de los
 últimos cambios de menú, prompt y colisión. La evidencia final es
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-2.log` con SHA-256

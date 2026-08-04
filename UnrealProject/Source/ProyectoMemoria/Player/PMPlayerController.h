@@ -167,4 +167,6 @@ private:
 	void RebuildSlateMenu();
 	void EnsureTestInteractableDoor();
 	void EnsureTestMemoryPickup();
+	void RunAutomatedGameplaySmokeTest();
+	bool bAutomatedGameplaySmokeScheduled;
 };

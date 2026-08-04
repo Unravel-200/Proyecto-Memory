@@ -72,16 +72,22 @@ void APMPlayerController::BeginPlay()
 	{
 		if (ADirectionalLight* Sun = GetWorld()->SpawnActor<ADirectionalLight>(FVector::ZeroVector, FRotator(-45.0f, -35.0f, 0.0f)))
 		{
-			Sun->GetLightComponent()->SetIntensity(10.0f);
+			Sun->GetLightComponent()->SetIntensity(12.0f);
+			Sun->GetLightComponent()->SetLightColor(FLinearColor(1.0f, 0.96f, 0.88f));
+			Sun->GetLightComponent()->SetCastShadows(false);
 		}
 		if (ASkyLight* Sky = GetWorld()->SpawnActor<ASkyLight>(FVector(0.0f, 0.0f, 800.0f), FRotator::ZeroRotator))
 		{
-			Sky->GetLightComponent()->SetIntensity(4.0f);
+			Sky->GetLightComponent()->SetIntensity(6.0f);
+			Sky->GetLightComponent()->SetLightColor(FLinearColor(0.72f, 0.82f, 1.0f));
+			Sky->GetLightComponent()->SetCastShadows(false);
 		}
 		if (APointLight* Fill = GetWorld()->SpawnActor<APointLight>(FVector(0.0f, 0.0f, 300.0f), FRotator::ZeroRotator))
 		{
-			Fill->PointLightComponent->SetIntensity(2500.0f);
+			Fill->PointLightComponent->SetIntensity(3500.0f);
 			Fill->PointLightComponent->SetAttenuationRadius(1800.0f);
+			Fill->PointLightComponent->SetLightColor(FLinearColor(1.0f, 0.92f, 0.78f));
+			Fill->PointLightComponent->SetCastShadows(false);
 		}
 	}
 
@@ -123,6 +129,8 @@ void APMPlayerController::BeginPlay()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::White,
 			TEXT("Fragmentos de memoria: 0"));
+		GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Cyan,
+			TEXT("Objetivo: encuentra el fragmento de memoria"));
 	}
 	if (!bAutomatedGameplaySmokeScheduled && FParse::Param(FCommandLine::Get(), TEXT("AutoFlow")) && GetWorld())
 	{
@@ -138,6 +146,8 @@ void APMPlayerController::RegisterMemoryPickupCollected()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow,
 			FString::Printf(TEXT("Fragmento de memoria encontrado (%d)"), MemoryFragmentsCollected));
+		GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::Green,
+			TEXT("Objetivo completado: fragmento recuperado"));
 	}
 }
 

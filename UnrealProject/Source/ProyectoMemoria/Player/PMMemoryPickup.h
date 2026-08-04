@@ -15,6 +15,7 @@ class PROYECTOMEMORIA_API APMMemoryPickup : public AActor, public IPMInteractabl
 
 public:
 	APMMemoryPickup();
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void Interact_Implementation(class APMPlayerCharacter* Player) override;
 
@@ -24,4 +25,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UPointLightComponent> PickupLight;
 	bool bCollected;
+	float BobTime;
+	FVector BaseLocation;
 };

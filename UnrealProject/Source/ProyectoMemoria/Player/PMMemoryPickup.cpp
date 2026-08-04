@@ -10,6 +10,7 @@
 
 APMMemoryPickup::APMMemoryPickup()
 	: bCollected(false)
+	, BobTime(0.0f)
 {
 	PrimaryActorTick.bCanEverTick = true;
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickupMesh"));
@@ -30,9 +31,17 @@ APMMemoryPickup::APMMemoryPickup()
 	PickupLight->SetCastShadows(false);
 }
 
+void APMMemoryPickup::BeginPlay()
+{
+	Super::BeginPlay();
+	BaseLocation = GetActorLocation();
+}
+
 void APMMemoryPickup::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	BobTime += DeltaSeconds;
+	SetActorLocation(BaseLocation + FVector(0.0f, 0.0f, FMath::Sin(BobTime * 2.0f) * 8.0f));
 	AddActorLocalRotation(FRotator(0.0f, 90.0f * DeltaSeconds, 0.0f));
 }
 

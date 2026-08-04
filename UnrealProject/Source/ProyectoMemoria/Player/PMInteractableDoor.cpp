@@ -31,11 +31,22 @@ void APMInteractableDoor::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	CurrentAngle = FMath::FInterpTo(CurrentAngle, TargetAngle, DeltaSeconds, 6.0f);
 	SetActorRotation(FRotator(0.0f, CurrentAngle, 0.0f));
+	if (DoorMesh)
+	{
+		const bool bShouldBlock = FMath::Abs(CurrentAngle) < 65.0f;
+		DoorMesh->SetCollisionEnabled(
+			bShouldBlock ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
+	}
 }
 
 void APMInteractableDoor::Interact_Implementation(APMPlayerCharacter* Player)
 {
 	bIsOpen = !bIsOpen;
 	TargetAngle = bIsOpen ? OpenAngle : 0.0f;
+	if (DoorMesh)
+	{
+		DoorMesh->SetCollisionEnabled(
+			bIsOpen ? ECollisionEnabled::QueryOnly : ECollisionEnabled::QueryAndPhysics);
+	}
 	UE_LOG(LogTemp, Log, TEXT("Interactable door toggled: %s"), bIsOpen ? TEXT("Open") : TEXT("Closed"));
 }

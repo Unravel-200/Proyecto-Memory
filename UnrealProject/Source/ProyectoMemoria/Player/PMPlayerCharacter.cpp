@@ -88,6 +88,12 @@ void APMPlayerCharacter::OnStartCrouch(
 
 	// También cubre llamadas a Crouch hechas por un Blueprint o sistema futuro.
 	bIsSprinting = false;
+	// La cápsula conserva su base al agacharse. El mannequin debe subir la
+	// misma cantidad para que sus pies sigan apoyados sobre el suelo.
+	if (GetMesh())
+	{
+		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, -ScaledHalfHeightAdjust));
+	}
 	ApplyMovementSpeed();
 }
 
@@ -96,6 +102,10 @@ void APMPlayerCharacter::OnEndCrouch(
 	const float ScaledHalfHeightAdjust)
 {
 	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
+	if (GetMesh())
+	{
+		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, ScaledHalfHeightAdjust));
+	}
 	ApplyMovementSpeed();
 }
 

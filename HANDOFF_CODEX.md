@@ -1709,3 +1709,9 @@ Se reconstruyÃ³ el paquete Win64 completo con compilaciÃ³n, cook, stage, pak
 archive; terminÃ³ en `BUILD SUCCESSFUL`. El ejecutable final confirmÃ³ el gate
 (`AUTO_FLOW gate check fragment count=0`) y la recogida ordenada (`AUTO_FLOW
 fragment count=2`). Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-9.log`.
+### CorrecciÃ³n de pies al agacharse - 2026-08-04
+
+Se invirtiÃ³ el ajuste vertical aplicado al SkeletalMesh durante `OnStartCrouch`
+y `OnEndCrouch`. La cÃ¡psula conserva su base y el mannequin ahora acompaÃ±a el
+cambio hacia arriba al agacharse y vuelve a su altura al levantarse, evitando
+que los pies se hundan bajo el suelo. CompilaciÃ³n y smoke de gameplay exitosos.

@@ -92,7 +92,7 @@ void APMPlayerCharacter::OnStartCrouch(
 	// misma cantidad para que sus pies sigan apoyados sobre el suelo.
 	if (GetMesh())
 	{
-		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, -ScaledHalfHeightAdjust));
+		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, ScaledHalfHeightAdjust));
 	}
 	ApplyMovementSpeed();
 }
@@ -104,7 +104,7 @@ void APMPlayerCharacter::OnEndCrouch(
 	Super::OnEndCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 	if (GetMesh())
 	{
-		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, ScaledHalfHeightAdjust));
+		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, -ScaledHalfHeightAdjust));
 	}
 	ApplyMovementSpeed();
 }

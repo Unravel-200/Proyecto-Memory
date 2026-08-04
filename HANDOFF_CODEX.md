@@ -1611,6 +1611,15 @@ fragmento con `AUTO_FLOW fragment count=1`. La evidencia se conservó en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-1.log`. No quedaron
 procesos de Unreal abiertos.
 
+### Progresión puerta → fragmento — 2026-08-04
+
+La interacción del fragmento ahora exige que la puerta runtime esté abierta;
+si el jugador intenta recogerlo antes recibe `Primero debes abrir la puerta`.
+El smoke del paquete actualizado verificó la secuencia correcta: puerta abierta
+y luego `fragment count=1`, en
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-3.log`. Commit:
+`946ac7a`.
+
 La comprobación se repitió sobre el binario más reciente después de los
 últimos cambios de menú, prompt y colisión. La evidencia final es
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-2.log` con SHA-256

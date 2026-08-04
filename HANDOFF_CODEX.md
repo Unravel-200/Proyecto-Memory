@@ -1808,3 +1808,12 @@ independientes, sin planta completa ni pasillos. Calles/exteriores fueron
 descartados deliberadamente en Blender para hacerlos en Unreal; árboles y el
 pupitre de aula siguen reservados para modelado manual. Se requiere definir el
 layout maestro y las conexiones antes de colocar todo el campus.
+### Graybox de terreno del campus creado - 2026-08-04
+
+Se creó el mapa separado `/Game/Maps/L_Campus_Blockout` sin modificar
+`L_Developer_Testing` ni `Modelos-3D`. El graybox tiene 238 tiles de terreno
+con variación de altura, una quebrada central, tres puentes, caminos principales
+en ambos ejes y un `PlayerStart`. La inspección automatizada cargó el mapa y
+confirmó 245 actores, 238 tiles, 3 puentes, cauce, caminos y Player Start.
+Todavía no se colocaron edificios: faltan las coordenadas y conexiones del
+layout maestro para no inventar el campus.

@@ -32,6 +32,7 @@ public:
 
 	void OpenMainMenu();
 	void OpenPauseMenu();
+	void OpenCreditsMenu();
 	void CloseMenuAndResume();
 	void RestartCurrentLevel();
 	void ResetLookSettings();
@@ -164,6 +165,7 @@ private:
 	bool bMenuOpen;
 	bool bMainMenuOpen;
 	bool bSettingsOpen;
+	bool bCreditsOpen;
 	bool bControllerTab;
 	int32 MemoryFragmentsCollected;
 	float InteractionHintTimer;

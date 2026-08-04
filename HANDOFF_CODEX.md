@@ -1785,3 +1785,10 @@ con `-nullrhi -nosound`, sin error de carga. El lanzador
 `Tools/Launch-PlayerV0.1.ps1` admite `-Shipping` y evita el stub defectuoso de
 la raíz del paquete. Esta build queda destinada a pruebas privadas hasta
 completar la auditoría de créditos y licencias.
+### Pulido inicial de menú y build Shipping - 2026-08-04
+
+El menú principal ahora incluye una pantalla de Créditos con autoría del
+proyecto, Unreal Engine 5.8 y el Mannequin provisional. La compilación del
+Editor pasó y la build Shipping fue regenerada correctamente. El verificador
+de paquete confirmó ejecutable, contenedores de contenido, SHA-256 y smoke de
+arranque de 6 s sin Editor.

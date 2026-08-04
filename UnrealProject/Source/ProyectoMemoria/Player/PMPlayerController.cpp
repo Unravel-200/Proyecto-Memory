@@ -58,6 +58,7 @@ APMPlayerController::APMPlayerController()
 	bMenuOpen = false;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
+	bCreditsOpen = false;
 	bControllerTab = false;
 	MemoryFragmentsCollected = 0;
 	InteractionHintTimer = 0.0f;
@@ -621,6 +622,7 @@ void APMPlayerController::OpenMainMenu()
 	bMenuOpen = true;
 	bMainMenuOpen = true;
 	bSettingsOpen = false;
+	bCreditsOpen = false;
 	bControllerTab = false;
 	RebuildSlateMenu();
 	SetPause(true);
@@ -633,6 +635,7 @@ void APMPlayerController::OpenPauseMenu()
 	bMenuOpen = true;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
+	bCreditsOpen = false;
 	bControllerTab = false;
 	RebuildSlateMenu();
 	SetPause(true);
@@ -645,6 +648,7 @@ void APMPlayerController::CloseMenuAndResume()
 	bMenuOpen = false;
 	bMainMenuOpen = false;
 	bSettingsOpen = false;
+	bCreditsOpen = false;
 	if (SlateMenu)
 	{
 		SlateMenu->ClearChildren();
@@ -653,6 +657,18 @@ void APMPlayerController::CloseMenuAndResume()
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
 	bShowMouseCursor = false;
+}
+
+void APMPlayerController::OpenCreditsMenu()
+{
+	bMenuOpen = true;
+	bMainMenuOpen = true;
+	bSettingsOpen = false;
+	bCreditsOpen = true;
+	RebuildSlateMenu();
+	SetPause(true);
+	SetInputMode(FInputModeUIOnly());
+	bShowMouseCursor = true;
 }
 
 void APMPlayerController::RestartCurrentLevel()
@@ -666,13 +682,18 @@ void APMPlayerController::RestartCurrentLevel()
 
 void APMPlayerController::HandleEscape()
 {
-	if (bMainMenuOpen)
+	if (bMainMenuOpen && !bCreditsOpen)
 	{
 		return;
 	}
 
 	if (bMenuOpen)
 	{
+		if (bCreditsOpen)
+		{
+			OpenMainMenu();
+			return;
+		}
 		if (bSettingsOpen)
 		{
 			OpenPauseMenu();
@@ -709,8 +730,9 @@ void APMPlayerController::RebuildSlateMenu()
 
 	SlateMenu->ClearChildren();
 	TSharedRef<SVerticalBox> Column = SNew(SVerticalBox);
-	const FText Title = bSettingsOpen ? FText::FromString(TEXT("Configuración"))
-		: (bMainMenuOpen ? FText::FromString(TEXT("Proyecto Memoria")) : FText::FromString(TEXT("Pausa")));
+	const FText Title = bCreditsOpen ? FText::FromString(TEXT("Créditos"))
+		: (bSettingsOpen ? FText::FromString(TEXT("Configuración"))
+		: (bMainMenuOpen ? FText::FromString(TEXT("Proyecto Memoria")) : FText::FromString(TEXT("Pausa"))));
 	Column->AddSlot().AutoHeight().Padding(10)[SNew(STextBlock).Text(Title).Font(FCoreStyle::GetDefaultFontStyle("Bold", 32)).Justification(ETextJustify::Center)];
 	if (bMainMenuOpen)
 	{
@@ -731,7 +753,14 @@ void APMPlayerController::RebuildSlateMenu()
 					SNew(STextBlock).Text(FText::FromString(Label)).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22)).Justification(ETextJustify::Center)]]];
 	};
 
-	if (bSettingsOpen)
+	if (bCreditsOpen)
+	{
+		Column->AddSlot().AutoHeight().Padding(14)[SNew(STextBlock).Text(FText::FromString(
+			TEXT("Proyecto Memoria\n\nCódigo y diseño: Jefferson Amador\nMotor: Unreal Engine 5.8\nPersonaje provisional: Unreal Engine Mannequin\n\nBuild privada de prueba v0.1.0"))).Font(
+			FCoreStyle::GetDefaultFontStyle("Regular", 21)).Justification(ETextJustify::Center)];
+		AddButton(TEXT("Volver"), [this](){ OpenMainMenu(); return FReply::Handled(); });
+	}
+	else if (bSettingsOpen)
 	{
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad horizontal"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
 		AddButton(TEXT("Teclado y mouse"), [this](){ bControllerTab = false; RebuildSlateMenu(); return FReply::Handled(); });
@@ -753,6 +782,7 @@ void APMPlayerController::RebuildSlateMenu()
 	{
 		AddButton(TEXT("Jugar"), [this](){ CloseMenuAndResume(); return FReply::Handled(); });
 		AddButton(TEXT("Configuración"), [this](){ bSettingsOpen = true; RebuildSlateMenu(); return FReply::Handled(); });
+		AddButton(TEXT("Créditos"), [this](){ OpenCreditsMenu(); return FReply::Handled(); });
 		AddButton(TEXT("Salir"), [this](){ UKismetSystemLibrary::QuitGame(this, this, EQuitPreference::Quit, false); return FReply::Handled(); });
 	}
 	else

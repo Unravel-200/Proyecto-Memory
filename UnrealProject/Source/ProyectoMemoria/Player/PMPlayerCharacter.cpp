@@ -2,6 +2,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimInstance.h"
+#include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -10,12 +11,14 @@
 
 APMPlayerCharacter::APMPlayerCharacter()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	WalkSpeed = 300.0f;
 	SprintSpeed = 550.0f;
 	CrouchSpeed = 180.0f;
 	bIsSprinting = false;
+	bCrouchAnimationActive = false;
+	bCrouchAnimationWalking = false;
 
 	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
 
@@ -45,7 +48,20 @@ APMPlayerCharacter::APMPlayerCharacter()
 		TEXT("/Game/Mannequin/Animations/ThirdPerson_AnimBP"));
 	if (DefaultAnimBP.Succeeded())
 	{
+		DefaultAnimInstanceClass = DefaultAnimBP.Class;
 		GetMesh()->SetAnimInstanceClass(DefaultAnimBP.Class);
+	}
+	static ConstructorHelpers::FObjectFinder<UAnimSequence> CrouchIdle(
+		TEXT("/Game/Mannequin/Animations/Crouch/Crouching_Idle.Crouching_Idle"));
+	if (CrouchIdle.Succeeded())
+	{
+		CrouchIdleAnimation = CrouchIdle.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UAnimSequence> CrouchWalk(
+		TEXT("/Game/Mannequin/Animations/Crouch/Crouched_Walking.Crouched_Walking"));
+	if (CrouchWalk.Succeeded())
+	{
+		CrouchWalkAnimation = CrouchWalk.Object;
 	}
 
 	FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
@@ -80,6 +96,25 @@ void APMPlayerCharacter::BeginPlay()
 	ApplyMovementSpeed();
 }
 
+void APMPlayerCharacter::Tick(const float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	if (!bCrouchAnimationActive || !GetMesh())
+	{
+		return;
+	}
+
+	const bool bShouldWalk = GetVelocity().SizeSquared2D() > FMath::Square(5.0f);
+	if (bShouldWalk != bCrouchAnimationWalking)
+	{
+		bCrouchAnimationWalking = bShouldWalk;
+		if (UAnimSequence* Pose = bShouldWalk ? CrouchWalkAnimation.Get() : CrouchIdleAnimation.Get())
+		{
+			GetMesh()->PlayAnimation(Pose, true);
+		}
+	}
+}
+
 void APMPlayerCharacter::OnStartCrouch(
 	const float HalfHeightAdjust,
 	const float ScaledHalfHeightAdjust)
@@ -93,6 +128,12 @@ void APMPlayerCharacter::OnStartCrouch(
 	if (GetMesh())
 	{
 		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, ScaledHalfHeightAdjust));
+		bCrouchAnimationActive = true;
+		bCrouchAnimationWalking = false;
+		if (CrouchIdleAnimation)
+		{
+			GetMesh()->PlayAnimation(CrouchIdleAnimation, true);
+		}
 	}
 	ApplyMovementSpeed();
 }
@@ -105,6 +146,13 @@ void APMPlayerCharacter::OnEndCrouch(
 	if (GetMesh())
 	{
 		GetMesh()->AddRelativeLocation(FVector(0.0f, 0.0f, -ScaledHalfHeightAdjust));
+		bCrouchAnimationActive = false;
+		bCrouchAnimationWalking = false;
+		if (DefaultAnimInstanceClass)
+		{
+			GetMesh()->SetAnimInstanceClass(DefaultAnimInstanceClass);
+			GetMesh()->InitAnim(true);
+		}
 	}
 	ApplyMovementSpeed();
 }

@@ -809,3 +809,10 @@ completado: memoria recuperada` durante la partida. El smoke sigue confirmando
 La copia ejecutable final confirmÃ³ puerta, gate del segundo fragmento y
 secuencia `2/2`, sin errores fatales. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-12.log`.
+### AnimaciÃ³n de agachado - 2026-08-04
+
+Se importaron cuatro secuencias sobre `SK_Mannequin_Skeleton`: idle agachado,
+caminata agachada y las transiciones de entrada/salida. El ejecutable cocinado
+inicia sin el error de referencias de Blueprint y conserva el flujo automÃ¡tico
+de puerta y fragmentos (`AUTO_FLOW fragment count=2`). Falta la confirmaciÃ³n
+visual manual de la pose en tercera persona.

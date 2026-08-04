@@ -1731,3 +1731,10 @@ mensaje temporal de recogida. CompilaciÃ³n y smoke exitosos.
 La copia ejecutable probada directamente confirmÃ³ apertura de puerta, bloqueo
 del segundo fragmento hasta recoger el primero y final `2/2`. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-12.log`.
+### Animaciones de agachado importadas y conectadas - 2026-08-04
+
+Se importaron `Crouching_Idle`, `Crouched_Walking`, `Standing_To_Crouched` y
+`Crouched_To_Standing` sobre `SK_Mannequin_Skeleton`. El personaje reproduce
+la pose idle agachada y la caminata agachada mientras mantiene el estado
+`IsCrouched`; al levantarse restaura `ThirdPerson_AnimBP`. BuildCookRun y smoke
+del paquete terminaron correctamente con `AUTO_FLOW fragment count=2`.

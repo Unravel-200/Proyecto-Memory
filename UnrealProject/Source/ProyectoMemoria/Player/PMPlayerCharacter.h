@@ -7,6 +7,8 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UPMCameraModeComponent;
+class UAnimSequence;
+class UAnimInstance;
 
 /**
  * Base C++ del jugador de Proyecto Memoria.
@@ -54,6 +56,7 @@ public:
 	UCameraComponent* GetThirdPersonCamera() const;
 
 protected:
+	virtual void Tick(float DeltaSeconds) override;
 	virtual void BeginPlay() override;
 	virtual void OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	virtual void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
@@ -85,10 +88,20 @@ protected:
 		meta = (ClampMin = "0.0", UIMin = "0.0", Units = "cm/s"))
 	float CrouchSpeed;
 
+	/** Animaciones importadas para la pose de crouch de esta primera versiÃ³n. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Animation")
+	TObjectPtr<UAnimSequence> CrouchIdleAnimation;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Animation")
+	TObjectPtr<UAnimSequence> CrouchWalkAnimation;
+
 private:
 	void ApplyMovementSpeed();
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Movement",
 		meta = (AllowPrivateAccess = "true"))
 	bool bIsSprinting;
+	bool bCrouchAnimationActive;
+	bool bCrouchAnimationWalking;
+	TSubclassOf<UAnimInstance> DefaultAnimInstanceClass;
 };

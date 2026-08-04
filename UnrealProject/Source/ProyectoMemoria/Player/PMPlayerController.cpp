@@ -183,7 +183,9 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 		? FVector::Dist(PlayerLocation, TestMemoryPickupSecond->GetActorLocation())
 		: TNumericLimits<float>::Max();
 	const float NearestPickupDistance = FMath::Min(PickupDistance, PickupDistanceSecond);
-	const float HintRadius = 220.0f;
+	// Mantener el aviso dentro del mismo radio que HandleInteract; asÃ­ nunca
+	// se muestra una acciÃ³n que todavÃ­a no puede ejecutarse.
+	const float HintRadius = 180.0f;
 	if (FMath::Min(DoorDistance, NearestPickupDistance) <= HintRadius)
 	{
 		const bool bSecondPickupNearest = PickupDistanceSecond < PickupDistance;

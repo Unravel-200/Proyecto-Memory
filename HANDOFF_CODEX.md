@@ -1594,3 +1594,10 @@ El aviso de interacción dejó de usar el nombre exclusivo de PlayStation y
 ahora indica `E / boton frontal izquierdo`, válido para mandos Xbox, PlayStation
 o compatibles mediante XInput. Compilación exitosa y binarios del paquete
 actualizados. Commit: `fe833ea`.
+
+### Menú de versión y restauración completa — 2026-08-03
+
+El menú principal identifica explícitamente `Versión jugable 0.1.0`. El botón
+`Restaurar valores` ahora restablece también el brillo, además de sensibilidad
+e inversión vertical. Compilación Development exitosa y binarios del paquete
+actualizados. Commit: `bd62e3f`.

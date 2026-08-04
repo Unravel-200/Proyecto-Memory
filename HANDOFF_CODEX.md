@@ -1485,3 +1485,10 @@ de prueba abre sin bloquear el paso, puede atravesarse y el fragmento de memoria
 se encuentra y se recoge después. Las zonas de proximidad de puerta y pickup
 quedaron separadas para evitar activaciones accidentales.
 
+### Corrección visual de crouch — 2026-08-03
+
+Se corrigió `APMPlayerCharacter::OnStartCrouch/OnEndCrouch` para compensar el
+desplazamiento de la cápsula y mantener los pies del mannequin sobre el suelo
+cuando el jugador se agacha. La compilación Development Editor de UE 5.8 fue
+exitosa en `4dcc24a`. Falta confirmar manualmente en PIE que la malla ya no
+atraviesa el suelo; Unreal se dejó cerrado por temperatura elevada.

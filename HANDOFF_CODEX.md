@@ -1775,3 +1775,13 @@ CompilaciÃ³n exitosa.
 
 El propietario probÃ³ `Esc > Reiniciar partida` y confirmÃ³ que el nivel vuelve
 al inicio correctamente.
+### Preparación de distribución privada - 2026-08-04
+
+Se creó `CREDITS_AND_LICENSES.md` con el inventario legal sin inventar
+licencias pendientes. La build Shipping Win64 se generó con BuildCookRun y
+terminó en `BUILD SUCCESSFUL` bajo `Builds/PlayerV0.1/Shipping/Windows`.
+El ejecutable interno se probó desde una copia limpia temporal durante 10 s
+con `-nullrhi -nosound`, sin error de carga. El lanzador
+`Tools/Launch-PlayerV0.1.ps1` admite `-Shipping` y evita el stub defectuoso de
+la raíz del paquete. Esta build queda destinada a pruebas privadas hasta
+completar la auditoría de créditos y licencias.

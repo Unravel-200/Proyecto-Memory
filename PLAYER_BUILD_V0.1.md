@@ -2,9 +2,17 @@
 
 ## Abrir el juego
 
-Ejecutar:
+Para la build Development de pruebas, ejecutar:
 
 `Builds/PlayerV0.1/Windows/ProyectoMemoria.exe`
+
+También se puede usar el lanzador, que abre el binario interno correcto:
+
+`powershell -ExecutionPolicy Bypass -File Tools/Launch-PlayerV0.1.ps1`
+
+Para la build Shipping de distribución privada:
+
+`powershell -ExecutionPolicy Bypass -File Tools/Launch-PlayerV0.1.ps1 -Shipping`
 
 La carpeta `Builds/` es local y está excluida de Git. Si se mueve el paquete,
 debe conservarse la carpeta completa `Windows`, no solo el `.exe`.
@@ -26,7 +34,14 @@ la pausa. Si el teclado no responde, hacer clic una vez dentro de la ventana.
 
 ## Estado
 
-Esta compilación fue regenerada con `BuildCookRun` el 2026-08-03 después de
-proteger las etiquetas exclusivas del Editor para el objetivo runtime. Carga
-`/Game/Maps/L_Developer_Testing` y usa `BP_GameMode_DeveloperTesting_C`.
-El smoke test de esta copia actualizada queda pendiente de ejecución manual.
+La build Development fue regenerada con `BuildCookRun` y la build Shipping se
+generó el 2026-08-04 con `-clientconfig=Shipping`; ambas cargan
+`/Game/Maps/L_Developer_Testing` y usan `BP_GameMode_DeveloperTesting_C`.
+
+La Shipping se copió a una carpeta temporal limpia y su binario interno se
+mantuvo activo durante 10 segundos con `-nullrhi -nosound`, sin error de carga.
+El ejecutable Shipping principal tiene SHA-256
+`203FDF32530AC28F7604F8BE02B205B960DBD13FA5828925A7DFAF0C7ABD247C`.
+
+La distribución debe conservar completa la carpeta `Windows` y cumplir la
+auditoría de [CREDITS_AND_LICENSES.md](CREDITS_AND_LICENSES.md).

@@ -1648,3 +1648,9 @@ El aviso cercano ahora identifica la acción concreta: abrir/cerrar la puerta o
 recoger el fragmento, manteniendo el texto neutral para cualquier mando. La
 compilación fue exitosa y el ejecutable del paquete se actualizó. Commit:
 `f6111ab`.
+
+### Progreso visible en pausa — 2026-08-04
+
+El menú de pausa muestra ahora `Fragmentos encontrados: N`, manteniendo el
+estado de la partida visible sin abandonar el nivel. Compilación exitosa y
+binario actualizado. Commit: `2420a00`.

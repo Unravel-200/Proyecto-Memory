@@ -1654,3 +1654,9 @@ compilación fue exitosa y el ejecutable del paquete se actualizó. Commit:
 El menú de pausa muestra ahora `Fragmentos encontrados: N`, manteniendo el
 estado de la partida visible sin abandonar el nivel. Compilación exitosa y
 binario actualizado. Commit: `2420a00`.
+
+### Recogida inmediata del fragmento — 2026-08-04
+
+Al recoger el fragmento se desactivan inmediatamente su colisión y visibilidad
+antes de destruirlo, evitando interacción o bloqueo residual durante el frame.
+Compilación exitosa y binario actualizado. Commit: `4edbb63`.

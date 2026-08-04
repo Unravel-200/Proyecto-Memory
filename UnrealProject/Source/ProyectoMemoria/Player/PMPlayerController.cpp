@@ -142,7 +142,7 @@ void APMPlayerController::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(43, 0.0f, FColor::White,
 			TEXT("Fragmentos de memoria: 0"));
 		GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Cyan,
-			TEXT("Objetivo: encuentra el fragmento de memoria"));
+			TEXT("Objetivo: abre la puerta y encuentra el fragmento"));
 	}
 	if (!bAutomatedGameplaySmokeScheduled && FParse::Param(FCommandLine::Get(), TEXT("AutoFlow")) && GetWorld())
 	{
@@ -491,6 +491,11 @@ void APMPlayerController::HandleInteract()
 			else if (IsValid(TestInteractableDoor))
 			{
 				TestInteractableDoor->Interact_Implementation(GetPMPlayerCharacter());
+				if (TestInteractableDoor->IsOpen() && GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan,
+						TEXT("Objetivo actualizado: encuentra el fragmento"));
+				}
 			}
 			return;
 		}

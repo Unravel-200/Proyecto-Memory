@@ -183,7 +183,7 @@ void APMPlayerController::Tick(const float DeltaSeconds)
 	if (FMath::Min(DoorDistance, PickupDistance) <= HintRadius)
 	{
 		GEngine->AddOnScreenDebugMessage(42, 0.25f, FColor::White,
-			TEXT("E / Cuadrado: interactuar"));
+			TEXT("E / boton frontal izquierdo: interactuar"));
 	}
 	else
 	{

@@ -26,5 +26,7 @@ la pausa. Si el teclado no responde, hacer clic una vez dentro de la ventana.
 
 ## Estado
 
-Esta compilación fue probada fuera del Editor el 2026-07-30. Carga
+Esta compilación fue regenerada con `BuildCookRun` el 2026-08-03 después de
+proteger las etiquetas exclusivas del Editor para el objetivo runtime. Carga
 `/Game/Maps/L_Developer_Testing` y usa `BP_GameMode_DeveloperTesting_C`.
+El smoke test de esta copia actualizada queda pendiente de ejecución manual.

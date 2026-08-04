@@ -739,3 +739,10 @@ Se corrigió el desplazamiento visual del mannequin durante crouch en
 `APMPlayerCharacter`. La compilación Development Editor pasó sin errores.
 La confirmación de aceptación queda `NOT RUN` hasta probar PIE con la
 computadora a temperatura segura; no se abre Unreal automáticamente.
+### Paquete actualizado — 2026-08-03
+
+`BuildCookRun` Win64 Development terminó con `BUILD SUCCESSFUL` tras corregir
+las llamadas `SetActorLabel` exclusivas del Editor. El paquete de
+`Builds/PlayerV0.1/Windows` fue regenerado con el código actual. El smoke test
+fuera del Editor de esta nueva copia aún no se marca como PASS hasta ejecutarlo
+manualmente con la computadora a temperatura segura.

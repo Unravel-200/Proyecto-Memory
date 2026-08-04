@@ -771,3 +771,12 @@ El log confirma `Interactable door toggled: Open`, `Memory pickup collected` y
 `AUTO_FLOW fragment count=1`: `FLOW-AUTOFLOW-20260803-4.log`. Se corrigió la
 prioridad de proximidad para que el objeto más cercano gane cuando las zonas
 visuales están próximas. El modo normal no usa esta ruta de diagnóstico.
+### Smoke de secuencia completa de fragmentos - 2026-08-04
+
+El paquete Development ejecutado con `-AutoStart -AutoFlow -nullrhi` abriÃ³ la
+puerta, recogiÃ³ el primer fragmento y luego el segundo. El log registrÃ³ dos
+veces `Memory pickup collected` y `AUTO_FLOW fragment count=2`, sin `Fatal
+error` ni `ensure`. Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-7.log`.
+
+La regla de progresiÃ³n tambiÃ©n estÃ¡ aplicada al aviso: al acercarse al segundo
+fragmento antes del primero se informa que debe recogerse el fragmento inicial.

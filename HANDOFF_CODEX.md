@@ -1703,3 +1703,9 @@ El smoke automatizado ahora intenta recoger el segundo fragmento antes del
 primero y confirma `AUTO_FLOW gate check fragment count=0`; despuÃ©s recoge ambos
 en orden y confirma `AUTO_FLOW fragment count=2`. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-8.log`.
+### BuildCookRun y smoke final de esta sesiÃ³n - 2026-08-04
+
+Se reconstruyÃ³ el paquete Win64 completo con compilaciÃ³n, cook, stage, pak y
+archive; terminÃ³ en `BUILD SUCCESSFUL`. El ejecutable final confirmÃ³ el gate
+(`AUTO_FLOW gate check fragment count=0`) y la recogida ordenada (`AUTO_FLOW
+fragment count=2`). Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-9.log`.

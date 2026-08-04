@@ -786,3 +786,10 @@ La prueba automatizada intentÃ³ el segundo fragmento antes del primero y
 confirmÃ³ `AUTO_FLOW gate check fragment count=0`; luego recogiÃ³ ambos en orden
 y confirmÃ³ `AUTO_FLOW fragment count=2`. Evidencia:
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-8.log`.
+### BuildCookRun y smoke final - 2026-08-04
+
+El paquete Win64 se reconstruyÃ³ completamente con compilaciÃ³n, cook, stage,
+pak y archive; terminÃ³ en `BUILD SUCCESSFUL`. El ejecutable final confirmÃ³ el
+bloqueo previo (`AUTO_FLOW gate check fragment count=0`) y la secuencia completa
+(`AUTO_FLOW fragment count=2`). Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-9.log`.

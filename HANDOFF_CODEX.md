@@ -1771,3 +1771,7 @@ lo pendiente pertenece al pulido y contenido posterior.
 El menÃº de pausa ahora incluye `Reiniciar partida`, que recarga el mapa actual
 desde el Player Start y limpia el progreso runtime sin cerrar el ejecutable.
 CompilaciÃ³n exitosa.
+### Reinicio desde pausa confirmado - 2026-08-04
+
+El propietario probÃ³ `Esc > Reiniciar partida` y confirmÃ³ que el nivel vuelve
+al inicio correctamente.

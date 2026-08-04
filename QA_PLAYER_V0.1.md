@@ -836,3 +836,7 @@ personaje reaparece correctamente. Se cierra el bloque de respawn.
 El propietario recorriÃ³ y confirmÃ³ movimiento, salto, carrera, agachado
 animado, puerta, dos fragmentos, objetivo `2/2`, muerte por caÃ­da y
 reapariciÃ³n. La ruta funcional principal de v0.1 queda validada.
+### Reinicio desde pausa confirmado - 2026-08-04
+
+La prueba manual de `Esc > Reiniciar partida` confirmÃ³ que el mapa reinicia
+desde el Player Start y limpia el progreso runtime.

@@ -66,5 +66,7 @@ void APMMemoryPickup::Interact_Implementation(APMPlayerCharacter* Player)
 		}
 	}
 	UE_LOG(LogTemp, Log, TEXT("Memory pickup collected"));
+	SetActorEnableCollision(false);
+	SetActorHiddenInGame(true);
 	Destroy();
 }

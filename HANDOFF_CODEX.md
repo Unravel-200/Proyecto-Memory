@@ -1555,3 +1555,11 @@ la posesión del Pawn. Al recibir un Pawn nuevo reaplica ambos estados antes de
 aplicar la cámara preferida, de modo que una muerte o reinicio no fuerza la
 vista a cero ni deja órdenes de crouch pendientes. Compilación Development
 exitosa y paquete actualizado. Commit: `9848b14`.
+
+### Apertura de puerta según el lado del jugador — 2026-08-03
+
+La puerta calcula el lado de aproximación usando el vector lateral de la
+bisagra y selecciona automáticamente el sentido de apertura. Así no depende
+de un ángulo fijo que pueda cruzar la hoja con el personaje. Se agregó la
+inclusión del tipo de Character completo y la compilación Development terminó
+correctamente. El paquete Win64 fue actualizado. Commit: `07f3ef7`.

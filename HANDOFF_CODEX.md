@@ -1587,3 +1587,10 @@ El mesh del fragmento usa ahora `QueryOnly`: conserva la detección para
 interactuar, pero el jugador puede atravesarlo sin que funcione como un
 obstáculo. Compilación Development exitosa y binarios del paquete actualizados.
 Commit: `8fb1276`.
+
+### Prompt neutral para mando — 2026-08-03
+
+El aviso de interacción dejó de usar el nombre exclusivo de PlayStation y
+ahora indica `E / boton frontal izquierdo`, válido para mandos Xbox, PlayStation
+o compatibles mediante XInput. Compilación exitosa y binarios del paquete
+actualizados. Commit: `fe833ea`.

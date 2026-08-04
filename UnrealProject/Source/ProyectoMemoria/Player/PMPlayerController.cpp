@@ -287,6 +287,15 @@ void APMPlayerController::RunAutomatedGameplaySmokeTest()
 	HandleInteract();
 	UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW door interaction dispatched"));
 
+	// Verifica la regla de progresiÃ³n antes de recoger el primer fragmento:
+	// acercarse al segundo no debe consumirlo prematuramente.
+	if (IsValid(TestMemoryPickupSecond))
+	{
+		PMCharacter->SetActorLocation(TestMemoryPickupSecond->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
+		HandleInteract();
+		UE_LOG(LogPMPlayerController, Log, TEXT("AUTO_FLOW gate check fragment count=%d"), MemoryFragmentsCollected);
+	}
+
 	PMCharacter->SetActorLocation(TestMemoryPickup->GetActorLocation() - PMCharacter->GetActorForwardVector() * 120.0f);
 	HandleInteract();
 	if (IsValid(TestMemoryPickupSecond))

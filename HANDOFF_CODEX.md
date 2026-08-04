@@ -1697,3 +1697,9 @@ juego rechazarÃ­a silenciosamente. CompilaciÃ³n y smoke del paquete exitosos
 El aviso de interacciÃ³n usa ahora el mismo radio de 180 cm que la ejecuciÃ³n
 real de `HandleInteract`, evitando mostrar una acciÃ³n fuera de alcance.
 CompilaciÃ³n exitosa y binario del paquete actualizado.
+### Smoke de bloqueo secuencial - 2026-08-04
+
+El smoke automatizado ahora intenta recoger el segundo fragmento antes del
+primero y confirma `AUTO_FLOW gate check fragment count=0`; despuÃ©s recoge ambos
+en orden y confirma `AUTO_FLOW fragment count=2`. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-8.log`.

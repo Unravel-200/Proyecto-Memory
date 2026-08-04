@@ -780,3 +780,9 @@ error` ni `ensure`. Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-
 
 La regla de progresiÃ³n tambiÃ©n estÃ¡ aplicada al aviso: al acercarse al segundo
 fragmento antes del primero se informa que debe recogerse el fragmento inicial.
+### Smoke de bloqueo secuencial - 2026-08-04
+
+La prueba automatizada intentÃ³ el segundo fragmento antes del primero y
+confirmÃ³ `AUTO_FLOW gate check fragment count=0`; luego recogiÃ³ ambos en orden
+y confirmÃ³ `AUTO_FLOW fragment count=2`. Evidencia:
+`UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-8.log`.

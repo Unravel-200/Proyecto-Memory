@@ -733,3 +733,9 @@ ejecutó `ProyectoMemoria.exe` fuera del Editor. El ejecutable cargó
 propietario confirmó que teclado, mando y menú responden correctamente.
 Evidencia: `BUILD-PLAY-20260730`. El paquete local queda fuera de Git mediante
 `.gitignore` y no cambia la matriz funcional existente.
+### Actualización de código — 2026-08-03
+
+Se corrigió el desplazamiento visual del mannequin durante crouch en
+`APMPlayerCharacter`. La compilación Development Editor pasó sin errores.
+La confirmación de aceptación queda `NOT RUN` hasta probar PIE con la
+computadora a temperatura segura; no se abre Unreal automáticamente.

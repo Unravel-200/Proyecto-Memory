@@ -518,6 +518,15 @@ void APMPlayerController::HandleInteract()
 					}
 					return;
 				}
+				if (NearestPickup == TestMemoryPickupSecond && MemoryFragmentsCollected < 1)
+				{
+					if (GEngine)
+					{
+						GEngine->AddOnScreenDebugMessage(44, 2.0f, FColor::Yellow,
+							TEXT("Primero recoge el primer fragmento"));
+					}
+					return;
+				}
 				NearestPickup->Interact_Implementation(GetPMPlayerCharacter());
 			}
 			else if (IsValid(TestInteractableDoor))

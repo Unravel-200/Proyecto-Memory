@@ -1677,3 +1677,9 @@ recocinado registró dos líneas `Memory pickup collected` y
 `AUTO_FLOW fragment count=2` en
 `UnrealProject/Saved/QA/PlayerV0.1/FLOW-AUTOFLOW-20260804-6.log`.
 BuildCookRun terminó en `BUILD SUCCESSFUL`.
+### Secuencia obligatoria de fragmentos - 2026-08-04
+
+El segundo fragmento ahora exige que el jugador haya recogido primero el
+fragmento inicial. Si se intenta interactuar con el segundo antes de tiempo,
+el juego muestra `Primero recoge el primer fragmento` y no lo consume. La
+compilacion incremental fue exitosa y el ejecutable se actualizo.

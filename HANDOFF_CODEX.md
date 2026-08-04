@@ -1505,3 +1505,11 @@ Arranque automatizado del paquete actualizado (2026-08-03): con `-nullrhi` y
 `BP_GameMode_DeveloperTesting_C` y creó la puerta runtime sin errores fatales.
 La ejecución se cerró después de la comprobación de carga para no mantener la
 PC bajo carga. Evidencia: `UnrealProject/Saved/QA/PlayerV0.1/BUILD-START-20260803.log`.
+### Verificación visual de tercera persona y crouch — 2026-08-03
+
+El paquete Win64 actualizado se ejecutó con `-AutoStart` (diagnóstico
+Development), se cambió a tercera persona y se envió crouch mediante eventos
+reales de teclado. La captura `UnrealProject/Saved/QA/PlayerV0.1/
+CROUCH-AUTOSTART-20260803-4.png` muestra el mannequin visible, agachado y con
+los pies apoyados sobre el suelo. El modo de diagnóstico no altera el arranque
+normal; el menú principal sigue siendo el flujo predeterminado.

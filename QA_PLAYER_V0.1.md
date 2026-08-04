@@ -466,7 +466,7 @@ La frontera exacta se cubre únicamente mediante instrumentación en
 | PLR-CAM-003 | 12.16 | Alternar varias veces quieto, caminando, corriendo y agachado. | Cada pulsación produce un cambio; los estados siguen coherentes; nunca hay dos cámaras activas ni ninguna activa. | PASS | EV-CAM-TOGGLE-02 |
 | PLR-CAM-004 | 12.17 | En 3P, acercarse y girar junto a la pared de cámara. | El boom retrae la cámara sin atravesar la pared y recupera su longitud al alejarse. | PASS | EV-CAM-COLLISION-01 |
 | PLR-CAM-007 | 12.26 | Cambiar de perspectiva y reemplazar el Pawn con un arnés controlado de respawn, documentado y sin lógica central en Level Blueprint; no volver a pulsar Toggle Camera. | El nuevo Character usa la misma perspectiva del anterior, equivalente a conservar la vista al morir y reaparecer. | NOT RUN | |
-| PLR-VIS-001 | Alcance 3P | Evaluar encuadre y apariencia del Character en 3P. | La malla tiene licencia/escala registradas y cumple el criterio visual de clipping anotado para la ejecución. Sin malla o criterio aprobado, solo esta fila queda `BLOCKED`. | NOT RUN | |
+| PLR-VIS-001 | Alcance 3P | Evaluar encuadre y apariencia del Character en 3P. | La malla tiene licencia/escala registradas y cumple el criterio visual de clipping anotado para la ejecución. Sin malla o criterio aprobado, solo esta fila queda `BLOCKED`. | PASS | `CROUCH-AUTOSTART-20260803-4.png` |
 
 ### Espacios y colisión
 
@@ -754,3 +754,12 @@ inicializó `BP_GameMode_DeveloperTesting_C` y creó la puerta runtime. No hubo
 errores fatales; los avisos de DLL opcionales de profiling no afectan al juego.
 Evidencia: `BUILD-START-20260803.log`. El smoke test visual y de controles
 queda pendiente porque requiere interacción manual.
+
+### Smoke visual automatizado de tercera persona y crouch — 2026-08-03
+
+Se ejecutó el paquete Win64 con el argumento de diagnóstico `-AutoStart`, que
+omite únicamente el menú para pruebas Development. Se enviaron `V` y `C` como
+eventos reales de teclado de Windows. La captura muestra el mannequin visible
+en tercera persona, agachado y con los pies apoyados en el suelo:
+`CROUCH-AUTOSTART-20260803-4.png`. El argumento no cambia el arranque normal
+del juego, que sigue mostrando el menú principal.

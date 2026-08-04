@@ -111,6 +111,12 @@ void APMPlayerController::BeginPlay()
 	}
 
 	OpenMainMenu();
+	// Solo para smoke tests automatizados del paquete Development; el juego
+	// normal siempre conserva el menú principal.
+	if (FParse::Param(FCommandLine::Get(), TEXT("AutoStart")))
+	{
+		CloseMenuAndResume();
+	}
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 4.0f, FColor::White,

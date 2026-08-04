@@ -32,6 +32,7 @@
 #include "Widgets/Input/SSlider.h"
 #include "Widgets/Text/STextBlock.h"
 #include "Styling/CoreStyle.h"
+#include "HAL/IConsoleManager.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPMPlayerController, Log, All);
 
@@ -41,6 +42,7 @@ APMPlayerController::APMPlayerController()
 	LookSensitivityX = 1.0f;
 	LookSensitivityY = 1.0f;
 	bInvertLookY = false;
+	Brightness = 1.0f;
 	MappingPriority = 0;
 	CrouchHoldThreshold = 0.25f;
 	bCrouchInputActive = false;
@@ -65,6 +67,11 @@ void APMPlayerController::BeginPlay()
 		LookSensitivityX = Settings->GetLookSensitivityX();
 		LookSensitivityY = Settings->GetLookSensitivityY();
 		bInvertLookY = Settings->GetInvertLookY();
+		Brightness = Settings->GetBrightness();
+	}
+	if (GEngine)
+	{
+		GEngine->Exec(GetWorld(), *FString::Printf(TEXT("r.TonemapperGamma %.3f"), Brightness));
 	}
 
 	ApplyPreferredCameraModeToPawn();
@@ -577,6 +584,8 @@ void APMPlayerController::RebuildSlateMenu()
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Sensibilidad vertical"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return GetLookSensitivityY() * 0.5f; }).OnValueChanged_Lambda([this](float Value){ SetLookSensitivity(GetLookSensitivityX(), Value * 2.0f); })]];
 		Column->AddSlot().AutoHeight().Padding(8)[SNew(SCheckBox).IsChecked_Lambda([this](){ return GetInvertLookY() ? ECheckBoxState::Checked : ECheckBoxState::Unchecked; }).OnCheckStateChanged_Lambda([this](ECheckBoxState State){ SetInvertLookY(State == ECheckBoxState::Checked); })[SNew(STextBlock).Text(FText::FromString(TEXT("Invertir cámara vertical"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))]];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(STextBlock).Text(FText::FromString(TEXT("Brillo"))).Font(FCoreStyle::GetDefaultFontStyle("Regular", 22))];
+		Column->AddSlot().AutoHeight().Padding(8)[SNew(SBox).HeightOverride(42.0f)[SNew(SSlider).Value_Lambda([this](){ return (GetBrightness() - 0.75f) / 0.75f; }).OnValueChanged_Lambda([this](float Value){ SetBrightness(0.75f + Value * 0.75f); })]];
 		AddButton(TEXT("Restaurar valores"), [this](){ ResetLookSettings(); RebuildSlateMenu(); return FReply::Handled(); });
 		AddButton(TEXT("Volver"), [this](){ OpenPauseMenu(); return FReply::Handled(); });
 	}
@@ -623,6 +632,20 @@ void APMPlayerController::SetInvertLookY(const bool bShouldInvert)
 	if (UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings())
 	{
 		Settings->SetLookSettings(LookSensitivityX, LookSensitivityY, bInvertLookY);
+		Settings->SaveSettings();
+	}
+}
+
+void APMPlayerController::SetBrightness(const float NewBrightness)
+{
+	Brightness = FMath::Clamp(NewBrightness, 0.75f, 1.50f);
+	if (GEngine)
+	{
+		GEngine->Exec(GetWorld(), *FString::Printf(TEXT("r.TonemapperGamma %.3f"), Brightness));
+	}
+	if (UPMGameUserSettings* Settings = UPMGameUserSettings::GetPMGameUserSettings())
+	{
+		Settings->SetBrightness(Brightness);
 		Settings->SaveSettings();
 	}
 }

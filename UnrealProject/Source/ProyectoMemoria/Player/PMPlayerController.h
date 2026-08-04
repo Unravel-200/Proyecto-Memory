@@ -37,6 +37,7 @@ public:
 	float GetLookSensitivityX() const { return LookSensitivityX; }
 	float GetLookSensitivityY() const { return LookSensitivityY; }
 	bool GetInvertLookY() const { return bInvertLookY; }
+	float GetBrightness() const { return Brightness; }
 
 	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Player")
 	APMPlayerCharacter* GetPMPlayerCharacter() const;
@@ -46,6 +47,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Player|Input")
 	void SetInvertLookY(bool bShouldInvert);
+	void SetBrightness(float NewBrightness);
 
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Gameplay")
 	void RegisterMemoryPickupCollected();
@@ -108,6 +110,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
 	bool bInvertLookY;
+	float Brightness;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "ProyectoMemoria|Player|Input")
 	int32 MappingPriority;

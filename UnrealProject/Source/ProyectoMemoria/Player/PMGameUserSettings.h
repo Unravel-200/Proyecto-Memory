@@ -38,6 +38,10 @@ public:
 	bool GetInvertLookY() const { return bInvertLookY; }
 	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Settings|Look")
 	void SetLookSettings(float NewSensitivityX, float NewSensitivityY, bool bNewInvertLookY);
+	UFUNCTION(BlueprintPure, Category = "ProyectoMemoria|Settings|Display")
+	float GetBrightness() const { return Brightness; }
+	UFUNCTION(BlueprintCallable, Category = "ProyectoMemoria|Settings|Display")
+	void SetBrightness(float NewBrightness);
 
 private:
 	static bool IsSupportedCameraMode(EPMCameraMode CameraMode);
@@ -51,4 +55,7 @@ private:
 	float LookSensitivityY = 1.0f;
 	UPROPERTY(Config)
 	bool bInvertLookY = false;
+
+	UPROPERTY(Config)
+	float Brightness = 1.0f;
 };

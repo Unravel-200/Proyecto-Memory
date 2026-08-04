@@ -7,6 +7,7 @@ void UPMGameUserSettings::SetToDefaults()
 	LookSensitivityX = 1.0f;
 	LookSensitivityY = 1.0f;
 	bInvertLookY = false;
+	Brightness = 1.0f;
 }
 
 void UPMGameUserSettings::ValidateSettings()
@@ -19,6 +20,12 @@ void UPMGameUserSettings::ValidateSettings()
 	}
 	LookSensitivityX = FMath::Clamp(LookSensitivityX, 0.0f, 2.0f);
 	LookSensitivityY = FMath::Clamp(LookSensitivityY, 0.0f, 2.0f);
+	Brightness = FMath::Clamp(Brightness, 0.75f, 1.50f);
+}
+
+void UPMGameUserSettings::SetBrightness(const float NewBrightness)
+{
+	Brightness = FMath::Clamp(NewBrightness, 0.75f, 1.50f);
 }
 
 void UPMGameUserSettings::SetLookSettings(const float NewSensitivityX, const float NewSensitivityY, const bool bNewInvertLookY)

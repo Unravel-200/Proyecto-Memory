@@ -42,6 +42,10 @@ void APMMemoryPickup::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 	BobTime += DeltaSeconds;
 	SetActorLocation(BaseLocation + FVector(0.0f, 0.0f, FMath::Sin(BobTime * 2.0f) * 8.0f));
+	if (PickupLight)
+	{
+		PickupLight->SetIntensity(1800.0f + FMath::Sin(BobTime * 3.0f) * 450.0f);
+	}
 	AddActorLocalRotation(FRotator(0.0f, 90.0f * DeltaSeconds, 0.0f));
 }
 

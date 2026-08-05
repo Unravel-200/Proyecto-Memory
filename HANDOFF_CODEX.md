@@ -1825,3 +1825,7 @@ Se colocaron en `L_Campus_Blockout` los blockouts representativos de las areas p
 ### Nivel Landscape del campus - 2026-08-04
 
 Se creo `/Game/Maps/L_Campus_Landscape` a partir de la plantilla Open World de Unreal, que incluye un actor Landscape nativo, iluminacion y World Partition. Se reconstruyeron encima el relieve visible, quebrada, taludes, puentes, caminos y la distribucion completa de edificios. El mapa queda como nivel activo del proyecto. La edicion fina del heightmap del Landscape se reserva para el editor porque los proxies World Partition no exponen sus componentes al commandlet; el relieve actual es la base visual de transicion.
+
+### Mapa natural limpio y layout campus - 2026-08-05
+
+Se creo `/Game/Maps/L_Campus_Natural` como mapa activo limpio, con Landscape nativo, relieve organico, valle reservado para la futura quebrada, material de pendiente pasto/roca, edificios de referencia, marcadores de puentes, avenidas, senderos, plazas y PlayerStart. No se modelo aun el cauce ni se agrego vegetacion densa en la franja reservada.

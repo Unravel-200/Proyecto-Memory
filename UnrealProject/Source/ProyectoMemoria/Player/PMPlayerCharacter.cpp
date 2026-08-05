@@ -97,6 +97,17 @@ APMPlayerCharacter::APMPlayerCharacter()
 void APMPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	// El mapa natural usa World Partition y algunos GameModes pueden reutilizar
+	// un punto de spawn antiguo. Garantiza que el jugador comience sobre el
+	// Landscape, dejando que la gravedad lo coloque sobre el terreno.
+	if (GetWorld() && GetWorld()->GetMapName().Contains(TEXT("L_Campus_Natural"))
+		&& GetActorLocation().Z < 5000.0f)
+	{
+		FVector SafeLocation = GetActorLocation();
+		SafeLocation.Z = 10000.0f;
+		SetActorLocation(SafeLocation, false, nullptr, ETeleportType::TeleportPhysics);
+		UE_LOG(LogTemp, Log, TEXT("Natural campus spawn corrected to Z=%.1f"), SafeLocation.Z);
+	}
 	ApplyMovementSpeed();
 }
 

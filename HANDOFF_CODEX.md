@@ -1838,3 +1838,7 @@ terreno natural. El cambio quedo registrado en el commit local
 La pasada siguiente extendio la alineacion a caminos, plazas y marcadores de
 puentes/valle; Unreal confirmo 50 elementos ajustados y el resultado quedo en
 `2d3b555` (`level: align campus circulation with natural terrain`).
+
+La iluminacion del mapa natural se reforzo para evitar vistas negras durante
+la revision: direccional a intensidad 8 y SkyLight a 1.5. Unreal confirmo la
+pasada y se registro en `209c291` (`level: brighten natural campus lighting`).

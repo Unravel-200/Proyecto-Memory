@@ -5,4 +5,5 @@ def run(path):
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/place_natural_layout_markers.py')
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/complete_natural_campus_pass.py')
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/align_natural_buildings_to_ground.py')
+run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/apply_natural_lighting_loaded.py')
 unreal.log('NATURAL_CAMPUS_FINAL_STARTUP_DONE')

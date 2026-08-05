@@ -8,9 +8,9 @@ for actor in unreal.EditorLevelLibrary.get_all_level_actors():
         actor.set_editor_property('landscape_material', mat)
         count += 1
     if isinstance(actor, unreal.DirectionalLight):
-        actor.light_component.set_intensity(3.0)
-        actor.light_component.set_light_color(unreal.LinearColor(1.0, 0.92, 0.78, 1.0))
+        actor.light_component.set_intensity(8.0)
+        actor.light_component.set_light_color(unreal.LinearColor(1.0, 0.96, 0.88, 1.0))
     if isinstance(actor, unreal.SkyLight):
-        actor.light_component.set_intensity(0.75)
+        actor.light_component.set_intensity(1.5)
 unreal.EditorLevelLibrary.save_current_level()
 unreal.log('NATURAL_LANDSCAPE_VISUALS_FIXED proxies=' + str(count))

@@ -1850,3 +1850,7 @@ quebrada, con 173 actores totales. Resultado en `e7d33b9`.
 Se aplicaron materiales de lectura al layout: avenidas oscuras, senderos de
 tierra, plazas claras, puentes azules y buffers verdes para la quebrada. Se
 guardaron en `49dd482`.
+
+Se estabilizo el arranque jugable: queda un unico `PlayerStart_Campus_Natural`
+en una zona segura del campus y se eliminan duplicados al iniciar. Commit
+`0919217`.

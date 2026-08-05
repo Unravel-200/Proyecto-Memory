@@ -1842,3 +1842,7 @@ puentes/valle; Unreal confirmo 50 elementos ajustados y el resultado quedo en
 La iluminacion del mapa natural se reforzo para evitar vistas negras durante
 la revision: direccional a intensidad 8 y SkyLight a 1.5. Unreal confirmo la
 pasada y se registro en `209c291` (`level: brighten natural campus lighting`).
+
+La validacion final elimino duplicados de marcadores: el mapa queda con 19
+edificios, 2 avenidas, 2 senderos, 3 plazas, 3 puentes y 3 buffers de
+quebrada, con 173 actores totales. Resultado en `e7d33b9`.

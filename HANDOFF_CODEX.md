@@ -1851,6 +1851,11 @@ Se aplicaron materiales de lectura al layout: avenidas oscuras, senderos de
 tierra, plazas claras, puentes azules y buffers verdes para la quebrada. Se
 guardaron en `49dd482`.
 
+El mapa natural fue reiniciado desde el Landscape nativo: se eliminaron los
+edificios, marcadores, colinas de respaldo y demas actores del nivel. Quedan
+solo los proxies nativos del Landscape, con relieve esculpido/importado y
+material de Landscape aplicado. Commit `faece2e`.
+
 Se estabilizo el arranque jugable: queda un unico `PlayerStart_Campus_Natural`
 en una zona segura del campus y se eliminan duplicados al iniciar. Commit
 `0919217`.

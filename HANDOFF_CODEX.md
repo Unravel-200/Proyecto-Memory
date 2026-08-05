@@ -1856,6 +1856,11 @@ edificios, marcadores, colinas de respaldo y demas actores del nivel. Quedan
 solo los proxies nativos del Landscape, con relieve esculpido/importado y
 material de Landscape aplicado. Commit `faece2e`.
 
+Por solicitud del usuario, el nivel se vacio completamente para rehacer el
+terreno manualmente: se eliminaron Landscape, proxies, edificios y cualquier
+otro actor. Solo quedaron tres actores de iluminacion (`Natural_Sun`,
+`Natural_Sky` y `Natural_Atmosphere`). Commit `8332b9d`.
+
 Se estabilizo el arranque jugable: queda un unico `PlayerStart_Campus_Natural`
 en una zona segura del campus y se eliminan duplicados al iniciar. Commit
 `0919217`.

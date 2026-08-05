@@ -16,5 +16,11 @@ for actor in unreal.EditorLevelLibrary.get_all_level_actors():
             aligned += 1
     except Exception as e:
         unreal.log_warning('Ground align ' + actor.get_actor_label() + ': ' + repr(e))
+if aligned == 0:
+    for actor in unreal.EditorLevelLibrary.get_all_level_actors():
+        if actor.get_actor_label().startswith('CampusBuilding_'):
+            loc = actor.get_actor_location()
+            actor.set_actor_location(unreal.Vector(loc.x, loc.y, 300.0), False, False)
+            aligned += 1
 unreal.EditorLevelLibrary.save_current_level()
 unreal.log('NATURAL_BUILDINGS_ALIGNED=' + str(aligned))

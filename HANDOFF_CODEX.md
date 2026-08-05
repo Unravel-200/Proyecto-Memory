@@ -1846,3 +1846,7 @@ pasada y se registro en `209c291` (`level: brighten natural campus lighting`).
 La validacion final elimino duplicados de marcadores: el mapa queda con 19
 edificios, 2 avenidas, 2 senderos, 3 plazas, 3 puentes y 3 buffers de
 quebrada, con 173 actores totales. Resultado en `e7d33b9`.
+
+Se aplicaron materiales de lectura al layout: avenidas oscuras, senderos de
+tierra, plazas claras, puentes azules y buffers verdes para la quebrada. Se
+guardaron en `49dd482`.

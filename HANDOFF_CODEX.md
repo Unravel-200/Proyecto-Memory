@@ -1829,3 +1829,8 @@ Se creo `/Game/Maps/L_Campus_Landscape` a partir de la plantilla Open World de U
 ### Mapa natural limpio y layout campus - 2026-08-05
 
 Se creo `/Game/Maps/L_Campus_Natural` como mapa activo limpio, con Landscape nativo, relieve organico, valle reservado para la futura quebrada, material de pendiente pasto/roca, edificios de referencia, marcadores de puentes, avenidas, senderos, plazas y PlayerStart. No se modelo aun el cauce ni se agrego vegetacion densa en la franja reservada.
+
+La pasada de alineacion final se ejecuto con Unreal cerrado mediante arranque
+automatizado y confirmo 19 edificios colocados a una altura estable sobre el
+terreno natural. El cambio quedo registrado en el commit local
+`52f8873` (`level: place buildings at stable natural ground height`).

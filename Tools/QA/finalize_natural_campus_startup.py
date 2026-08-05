@@ -8,4 +8,5 @@ run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/align_natural_buil
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/apply_natural_lighting_loaded.py')
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/validate_natural_campus_loaded.py')
 run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/apply_natural_layout_materials.py')
+run('C:/Users/jeffa/Desktop/Proyecto/Proyecto-Memory/Tools/QA/ensure_natural_playable_setup.py')
 unreal.log('NATURAL_CAMPUS_FINAL_STARTUP_DONE')

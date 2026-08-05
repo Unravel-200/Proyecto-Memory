@@ -18,5 +18,12 @@ marker('Plaza_South', (0, -40000, 220), (7000, 5000, 30))
 starts = [a for a in unreal.EditorLevelLibrary.get_all_level_actors() if isinstance(a, unreal.PlayerStart)]
 if not starts:
     p = unreal.EditorLevelLibrary.spawn_actor_from_class(unreal.PlayerStart, unreal.Vector(-28000, -30000, 500), unreal.Rotator(0,90,0)); p.set_actor_label('PlayerStart_Campus_Natural')
+# Navigation volume covers the playable campus while leaving the future ravine open for later sculpting.
+if not any(a.get_actor_label() == 'NavBounds_Campus_Natural' for a in unreal.EditorLevelLibrary.get_all_level_actors()):
+    nav = unreal.EditorLevelLibrary.spawn_actor_from_class(unreal.NavMeshBoundsVolume, unreal.Vector(0, 0, 0), unreal.Rotator(0,0,0))
+    nav.set_actor_label('NavBounds_Campus_Natural'); nav.set_actor_scale3d(unreal.Vector(350.0, 430.0, 12.0))
+if not any(a.get_actor_label() == 'Campus_PlayableBounds' for a in unreal.EditorLevelLibrary.get_all_level_actors()):
+    vol = unreal.EditorLevelLibrary.spawn_actor_from_class(unreal.BlockingVolume, unreal.Vector(0, 0, -1000), unreal.Rotator(0,0,0))
+    vol.set_actor_label('Campus_PlayableBounds'); vol.set_actor_scale3d(unreal.Vector(350.0, 430.0, 2.0))
 unreal.EditorLevelLibrary.save_current_level()
 unreal.log('NATURAL_CAMPUS_PASS_COMPLETE')

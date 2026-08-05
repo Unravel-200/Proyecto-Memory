@@ -5,6 +5,9 @@ code = code.replace('unreal.EditorLevelLibrary.load_level(MAP)\n', '')
 exec(compile(code, path, 'exec'), {})
 CUBE = unreal.load_object(None, '/Engine/BasicShapes/Cube.Cube')
 def marker(label, loc, dims):
+    for old in unreal.EditorLevelLibrary.get_all_level_actors():
+        if old.get_actor_label() == label:
+            unreal.EditorLevelLibrary.destroy_actor(old)
     a = unreal.EditorLevelLibrary.spawn_actor_from_class(unreal.StaticMeshActor, unreal.Vector(*loc), unreal.Rotator(0,0,0))
     a.set_actor_label(label); a.static_mesh_component.set_static_mesh(CUBE); a.set_actor_scale3d(unreal.Vector(dims[0]/100.0, dims[1]/100.0, dims[2]/100.0)); a.static_mesh_component.set_mobility(unreal.ComponentMobility.STATIC)
 for y in (-30000.0, 0.0, 30000.0):

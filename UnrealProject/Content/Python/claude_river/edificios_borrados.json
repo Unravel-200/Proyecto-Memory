@@ -1,0 +1,458 @@
+[
+ {
+  "label": "CampusBuilding_Ingenieria",
+  "mesh": "/Game/Modelos3D/Ingenieria/SM_TallerBlockout_Ingenieria_A.SM_TallerBlockout_Ingenieria_A",
+  "materiales": [
+   "/Game/Modelos3D/Ingenieria/M_Floor_TallerIngBlockout.M_Floor_TallerIngBlockout",
+   "/Game/Modelos3D/Ingenieria/M_Wall_TallerIngBlockout.M_Wall_TallerIngBlockout"
+  ],
+  "loc": [
+   23000.0,
+   0.0,
+   2300.0
+  ],
+  "rot": [
+   -90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Medicina",
+  "mesh": "/Game/Modelos3D/Medicina/SM_BibliotecaBlockout_Medicina_A.SM_BibliotecaBlockout_Medicina_A",
+  "materiales": [
+   "/Game/Modelos3D/Medicina/M_Floor_BibliotecaMedicina_ABlockout.M_Floor_BibliotecaMedicina_ABlockout",
+   "/Game/Modelos3D/Medicina/M_Wall_BibliotecaMedicina_ABlockout.M_Wall_BibliotecaMedicina_ABlockout"
+  ],
+  "loc": [
+   -30000.0,
+   -37000.0,
+   1700.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Biblioteca",
+  "mesh": "/Game/Modelos3D/Biblioteca/SM_VestibuloBlockout_Library_A.SM_VestibuloBlockout_Library_A",
+  "materiales": [
+   "/Game/Modelos3D/Biblioteca/M_Floor_VestibuloBlockout.M_Floor_VestibuloBlockout",
+   "/Game/Modelos3D/Biblioteca/M_Wall_VestibuloBlockout.M_Wall_VestibuloBlockout"
+  ],
+  "loc": [
+   -23000.0,
+   -30000.0,
+   1800.0
+  ],
+  "rot": [
+   90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Psicologia",
+  "mesh": "/Game/Modelos3D/Psicologia/SM_CamaraGesellBlockout_Psicologia_A.SM_CamaraGesellBlockout_Psicologia_A",
+  "materiales": [
+   "/Game/Modelos3D/Psicologia/M_Floor_CamaraGesellPsicologia_ABlockout.M_Floor_CamaraGesellPsicologia_ABlockout",
+   "/Game/Modelos3D/Psicologia/M_Wall_CamaraGesellPsicologia_ABlockout.M_Wall_CamaraGesellPsicologia_ABlockout"
+  ],
+  "loc": [
+   -8000.0,
+   -37000.0,
+   1600.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Educacion",
+  "mesh": "/Game/Modelos3D/Educacion/SM_ArchivoBlockout_Educacion_A.SM_ArchivoBlockout_Educacion_A",
+  "materiales": [
+   "/Game/Modelos3D/Educacion/M_Floor_ArchivoEducacionBlockout.M_Floor_ArchivoEducacionBlockout",
+   "/Game/Modelos3D/Educacion/M_Wall_ArchivoEducacionBlockout.M_Wall_ArchivoEducacionBlockout"
+  ],
+  "loc": [
+   -23000.0,
+   -15000.0,
+   2100.0
+  ],
+  "rot": [
+   90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Ciencias",
+  "mesh": "/Game/Modelos3D/Ciencias/SM_InvernaderoBlockout_Ciencias_A.SM_InvernaderoBlockout_Ciencias_A",
+  "materiales": [
+   "/Game/Modelos3D/Ciencias/M_Floor_InvernaderoCiencias_ABlockout.M_Floor_InvernaderoCiencias_ABlockout",
+   "/Game/Modelos3D/Ciencias/M_Wall_InvernaderoCiencias_ABlockout.M_Wall_InvernaderoCiencias_ABlockout"
+  ],
+  "loc": [
+   -23000.0,
+   0.0,
+   1800.0
+  ],
+  "rot": [
+   90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Gimnasio",
+  "mesh": "/Game/Modelos3D/Gimnasio/SM_GimnasioBlockout_Gimnasio_A.SM_GimnasioBlockout_Gimnasio_A",
+  "materiales": [
+   "/Game/Modelos3D/Gimnasio/M_Floor_GimnasioGimnasio_ABlockout.M_Floor_GimnasioGimnasio_ABlockout",
+   "/Game/Modelos3D/Gimnasio/M_Wall_GimnasioGimnasio_ABlockout.M_Wall_GimnasioGimnasio_ABlockout"
+  ],
+  "loc": [
+   8000.0,
+   -37000.0,
+   1600.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Generales",
+  "mesh": "/Game/Modelos3D/Generales/SM_VestibuloBlockout_Generales_A.SM_VestibuloBlockout_Generales_A",
+  "materiales": [
+   "/Game/Modelos3D/Generales/M_Floor_VestibuloGeneralesBlockout.M_Floor_VestibuloGeneralesBlockout",
+   "/Game/Modelos3D/Generales/M_Wall_VestibuloGeneralesBlockout.M_Wall_VestibuloGeneralesBlockout"
+  ],
+  "loc": [
+   23000.0,
+   -30000.0,
+   1800.0
+  ],
+  "rot": [
+   -90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Mantenimiento",
+  "mesh": "/Game/Modelos3D/Mantenimiento/SM_TallerBlockout_Mantenimiento_A.SM_TallerBlockout_Mantenimiento_A",
+  "materiales": [
+   "/Game/Modelos3D/Mantenimiento/M_Floor_TallerMantenimientoBlockout.M_Floor_TallerMantenimientoBlockout",
+   "/Game/Modelos3D/Mantenimiento/M_Wall_TallerMantenimientoBlockout.M_Wall_TallerMantenimientoBlockout"
+  ],
+  "loc": [
+   23000.0,
+   -15000.0,
+   1800.0
+  ],
+  "rot": [
+   -90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_CentroCultural",
+  "mesh": "/Game/Modelos3D/CentroCultural/SM_SalaInvestigacionBlockout_CentroCultural_A.SM_SalaInvestigacionBlockout_CentroCultural_A",
+  "materiales": [
+   "/Game/Modelos3D/CentroCultural/M_Floor_SalaInvestigacionCentroCultural_ABlockout.M_Floor_SalaInvestigacionCentroCultural_ABlockout",
+   "/Game/Modelos3D/CentroCultural/M_Wall_SalaInvestigacionCentroCultural_ABlockout.M_Wall_SalaInvestigacionCentroCultural_ABlockout"
+  ],
+  "loc": [
+   15000.0,
+   -5000.0,
+   1900.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Residencias",
+  "mesh": "/Game/Modelos3D/Residencias/SM_SalaBlockout_Residencias_A.SM_SalaBlockout_Residencias_A",
+  "materiales": [
+   "/Game/Modelos3D/Residencias/M_Floor_SalaResidencias_ABlockout.M_Floor_SalaResidencias_ABlockout",
+   "/Game/Modelos3D/Residencias/M_Wall_SalaResidencias_ABlockout.M_Wall_SalaResidencias_ABlockout"
+  ],
+  "loc": [
+   30000.0,
+   -37000.0,
+   1800.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_AuditorioCentral",
+  "mesh": "/Game/Modelos3D/AuditorioCentral/SM_SalaBlockout_AuditorioCentral_A.SM_SalaBlockout_AuditorioCentral_A",
+  "materiales": [
+   "/Game/Modelos3D/AuditorioCentral/M_Floor_SalaAuditorioCentral_ABlockout.M_Floor_SalaAuditorioCentral_ABlockout",
+   "/Game/Modelos3D/AuditorioCentral/M_Wall_SalaAuditorioCentral_ABlockout.M_Wall_SalaAuditorioCentral_ABlockout"
+  ],
+  "loc": [
+   -30000.0,
+   37000.0,
+   1900.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Historia",
+  "mesh": "/Game/Modelos3D/Historia/SM_HemerotecaBlockout_Historia_A.SM_HemerotecaBlockout_Historia_A",
+  "materiales": [
+   "/Game/Modelos3D/Historia/M_Floor_HemerotecaHistoria_ABlockout.M_Floor_HemerotecaHistoria_ABlockout",
+   "/Game/Modelos3D/Historia/M_Wall_HemerotecaHistoria_ABlockout.M_Wall_HemerotecaHistoria_ABlockout"
+  ],
+  "loc": [
+   -23000.0,
+   15000.0,
+   2100.0
+  ],
+  "rot": [
+   90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Soda",
+  "mesh": "/Game/Modelos3D/Soda/SM_ComedorBlockout_Soda_A.SM_ComedorBlockout_Soda_A",
+  "materiales": [
+   "/Game/Modelos3D/Soda/M_Floor_ComedorSoda_ABlockout.M_Floor_ComedorSoda_ABlockout",
+   "/Game/Modelos3D/Soda/M_Wall_ComedorSoda_ABlockout.M_Wall_ComedorSoda_ABlockout"
+  ],
+  "loc": [
+   -12000.0,
+   37000.0,
+   1800.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Artes",
+  "mesh": "/Game/Modelos3D/Artes/SM_TeatroExperimentalBlockout_Artes_A.SM_TeatroExperimentalBlockout_Artes_A",
+  "materiales": [
+   "/Game/Modelos3D/Artes/M_Floor_TeatroExperimentalArtes_ABlockout.M_Floor_TeatroExperimentalArtes_ABlockout",
+   "/Game/Modelos3D/Artes/M_Wall_TeatroExperimentalArtes_ABlockout.M_Wall_TeatroExperimentalArtes_ABlockout"
+  ],
+  "loc": [
+   -23000.0,
+   30000.0,
+   2300.0
+  ],
+  "rot": [
+   90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Informatica",
+  "mesh": "/Game/Modelos3D/Informatica/SM_ServidoresBlockout_Informatica_A.SM_ServidoresBlockout_Informatica_A",
+  "materiales": [
+   "/Game/Modelos3D/Informatica/M_Floor_ServidoresInformatica_ABlockout.M_Floor_ServidoresInformatica_ABlockout",
+   "/Game/Modelos3D/Informatica/M_Wall_ServidoresInformatica_ABlockout.M_Wall_ServidoresInformatica_ABlockout"
+  ],
+  "loc": [
+   23000.0,
+   15000.0,
+   2200.0
+  ],
+  "rot": [
+   -90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_RectoriaNucleo",
+  "mesh": "/Game/Modelos3D/Rectoria/SM_NucleoBlockout_Rectoria_A.SM_NucleoBlockout_Rectoria_A",
+  "materiales": [
+   "/Game/Modelos3D/Rectoria/M_Floor_NucleoRectoria_ABlockout.M_Floor_NucleoRectoria_ABlockout",
+   "/Game/Modelos3D/Rectoria/M_Wall_NucleoRectoria_ABlockout.M_Wall_NucleoRectoria_ABlockout"
+  ],
+  "loc": [
+   12000.0,
+   37000.0,
+   2200.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_Derecho",
+  "mesh": "/Game/Modelos3D/Derecho/SM_SalaJuicioBlockout_Derecho_A.SM_SalaJuicioBlockout_Derecho_A",
+  "materiales": [
+   "/Game/Modelos3D/Derecho/M_Floor_SalaJuicioDerecho_ABlockout.M_Floor_SalaJuicioDerecho_ABlockout",
+   "/Game/Modelos3D/Derecho/M_Wall_SalaJuicioDerecho_ABlockout.M_Wall_SalaJuicioDerecho_ABlockout"
+  ],
+  "loc": [
+   23000.0,
+   30000.0,
+   2100.0
+  ],
+  "rot": [
+   -90.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ },
+ {
+  "label": "CampusBuilding_DerechoBoveda",
+  "mesh": "/Game/Modelos3D/Derecho/SM_BovedaBlockout_Derecho_A.SM_BovedaBlockout_Derecho_A",
+  "materiales": [
+   "/Game/Modelos3D/Derecho/M_Floor_BovedaDerecho_ABlockout.M_Floor_BovedaDerecho_ABlockout",
+   "/Game/Modelos3D/Derecho/M_Wall_BovedaDerecho_ABlockout.M_Wall_BovedaDerecho_ABlockout"
+  ],
+  "loc": [
+   30000.0,
+   37000.0,
+   2100.0
+  ],
+  "rot": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "escala": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "movilidad": "<ComponentMobility.STATIC: 0>"
+ }
+]

@@ -13,6 +13,7 @@ Saved/
 # Compilados y paquetes
 *.pak
 *.sig
+/Builds/
 
 # Visual Studio
 .vs/
@@ -30,3 +31,6 @@ Saved/
 # Otros generados por el editor
 *.tmp
 *.log
+
+# Cache de Python de los scripts de claude_river
+UnrealProject/Content/Python/claude_river/__pycache__/

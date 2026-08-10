@@ -1,0 +1,23 @@
+VERIFY ALL IMPORTED ASSETS
+===========================
+Total StaticMesh: 210
+Bounds invalidos: 0
+Sin materiales: 0
+Sin colision convex/box: 0
+Errores de lectura: 0
+
+BOUNDS_INVALIDOS
+----------------
+(ninguno)
+
+SIN_MATERIALES
+--------------
+(ninguno)
+
+SIN_COLISION
+------------
+(ninguno)
+
+ERRORES
+-------
+(ninguno)

@@ -1,0 +1,230 @@
+[
+ {
+  "label": "CampusBuilding_Artes",
+  "ok": true,
+  "loc": [
+   -25203.4,
+   31223.0,
+   1089.6
+  ],
+  "desplazado": 2520.0,
+  "desnivel": 282.0,
+  "margen_rio": 6422.0
+ },
+ {
+  "label": "CampusBuilding_AuditorioCentral",
+  "ok": true,
+  "loc": [
+   -31716.7,
+   40648.3,
+   821.7
+  ],
+  "desplazado": 4032.0,
+  "desnivel": 286.0,
+  "margen_rio": 8658.0
+ },
+ {
+  "label": "CampusBuilding_Biblioteca",
+  "ok": true,
+  "loc": [
+   -23000.0,
+   -30000.0,
+   686.9
+  ],
+  "desplazado": 0.0,
+  "desnivel": 152.0,
+  "margen_rio": 34362.0
+ },
+ {
+  "label": "CampusBuilding_CentroCultural",
+  "ok": true,
+  "loc": [
+   15000.0,
+   -5000.0,
+   786.3
+  ],
+  "desplazado": 0.0,
+  "desnivel": 98.0,
+  "margen_rio": 9363.0
+ },
+ {
+  "label": "CampusBuilding_Ciencias",
+  "ok": true,
+  "loc": [
+   -23000.0,
+   0.0,
+   403.1
+  ],
+  "desplazado": 0.0,
+  "desnivel": 99.0,
+  "margen_rio": 19763.0
+ },
+ {
+  "label": "CampusBuilding_Derecho",
+  "ok": true,
+  "loc": [
+   23000.0,
+   30000.0,
+   1398.6
+  ],
+  "desplazado": 0.0,
+  "desnivel": 76.0,
+  "margen_rio": 30207.0
+ },
+ {
+  "label": "CampusBuilding_DerechoBoveda",
+  "ok": true,
+  "loc": [
+   30000.0,
+   37000.0,
+   754.8
+  ],
+  "desplazado": 0.0,
+  "desnivel": 143.0,
+  "margen_rio": 39498.0
+ },
+ {
+  "label": "CampusBuilding_Educacion",
+  "ok": true,
+  "loc": [
+   -23000.0,
+   -15000.0,
+   221.1
+  ],
+  "desplazado": 0.0,
+  "desnivel": 43.0,
+  "margen_rio": 26112.0
+ },
+ {
+  "label": "CampusBuilding_Generales",
+  "ok": true,
+  "loc": [
+   23504.0,
+   -30000.0,
+   1747.3
+  ],
+  "desplazado": 504.0,
+  "desnivel": 230.0,
+  "margen_rio": 2140.0
+ },
+ {
+  "label": "CampusBuilding_Gimnasio",
+  "ok": true,
+  "loc": [
+   -708.3,
+   -42076.5,
+   1275.8
+  ],
+  "desplazado": 10080.0,
+  "desnivel": 277.0,
+  "margen_rio": 23492.0
+ },
+ {
+  "label": "CampusBuilding_Historia",
+  "ok": true,
+  "loc": [
+   -23000.0,
+   15000.0,
+   552.9
+  ],
+  "desplazado": 0.0,
+  "desnivel": 87.0,
+  "margen_rio": 15632.0
+ },
+ {
+  "label": "CampusBuilding_Informatica",
+  "ok": true,
+  "loc": [
+   23000.0,
+   15000.0,
+   786.6
+  ],
+  "desplazado": 0.0,
+  "desnivel": 176.0,
+  "margen_rio": 25070.0
+ },
+ {
+  "label": "CampusBuilding_Ingenieria",
+  "ok": true,
+  "loc": [
+   21125.6,
+   742.1,
+   1032.9
+  ],
+  "desplazado": 2016.0,
+  "desnivel": 238.0,
+  "margen_rio": 17600.0
+ },
+ {
+  "label": "CampusBuilding_Mantenimiento",
+  "ok": true,
+  "loc": [
+   23000.0,
+   -15000.0,
+   592.1
+  ],
+  "desplazado": 0.0,
+  "desnivel": 138.0,
+  "margen_rio": 10029.0
+ },
+ {
+  "label": "CampusBuilding_Medicina",
+  "ok": true,
+  "loc": [
+   -30000.0,
+   -37000.0,
+   546.0
+  ],
+  "desplazado": 0.0,
+  "desnivel": 177.0,
+  "margen_rio": 43924.0
+ },
+ {
+  "label": "CampusBuilding_Psicologia",
+  "ok": true,
+  "loc": [
+   -8000.0,
+   -37000.0,
+   920.3
+  ],
+  "desplazado": 0.0,
+  "desnivel": 145.0,
+  "margen_rio": 26109.0
+ },
+ {
+  "label": "CampusBuilding_RectoriaNucleo",
+  "ok": true,
+  "loc": [
+   10488.0,
+   37000.0,
+   1027.3
+  ],
+  "desplazado": 1512.0,
+  "desnivel": 273.0,
+  "margen_rio": 21023.0
+ },
+ {
+  "label": "CampusBuilding_Residencias",
+  "ok": true,
+  "loc": [
+   31952.7,
+   -37501.4,
+   4323.6
+  ],
+  "desplazado": 2016.0,
+  "desnivel": 256.0,
+  "margen_rio": 2478.0
+ },
+ {
+  "label": "CampusBuilding_Soda",
+  "ok": true,
+  "loc": [
+   -12000.0,
+   37000.0,
+   431.3
+  ],
+  "desplazado": 0.0,
+  "desnivel": 130.0,
+  "margen_rio": 5742.0
+ }
+]

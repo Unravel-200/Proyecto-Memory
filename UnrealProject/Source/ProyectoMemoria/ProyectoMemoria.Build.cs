@@ -11,7 +11,10 @@ public class ProyectoMemoria : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
-			"InputCore"
+			"EnhancedInput",
+			"InputCore",
+			"Slate",
+			"SlateCore"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

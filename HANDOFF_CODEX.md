@@ -2,6 +2,21 @@
 
 ## Identificación de esta entrega
 
+### Transferencia GitHub — 2026-08-09
+
+- `Proyecto-Memory`: rama `feature/v0.1-player-cameras`, HEAD `70811ae`, sincronizada con `origin`.
+- `Proyecto-Memoria-docs`: rama `main`, HEAD `d2cf72a`, sincronizada con `origin`.
+- `Modelos-3D`: rama `main`, HEAD `aba67ef`, sincronizada con `origin`.
+- Se preservaron y publicaron en `Modelos-3D` `revisarEdificios.txt`,
+  `Plaza/SM_Tree_PlazaCentral_A.blend` y `Plaza/SM_Tree_PlazaCentral_A.py`.
+- Para continuar desde otra computadora, clonar los tres repositorios y comprobar
+  que cada worktree esté limpio antes de abrir Unreal o Blender.
+- Regla de colaboración: no editar simultáneamente el mismo `.umap`, `.blend` o
+  archivo de documentación. Antes de empezar una sesión, avisar qué repositorio
+  y archivos se tomarán; al terminar, hacer commit y push de esa sesión.
+- No usar `reset --hard`, `clean -fd`, `merge`, `rebase`, `tag` ni borrar assets
+  sin autorización explícita del propietario.
+
 - Versión de trabajo: v0.1.0 — personaje, movimiento y cámaras.
 - Fecha local: 2026-07-28 (America/Costa_Rica).
 - Última actualización: 2026-07-27 — movimiento diagonal y look con ratÃ³n aprobados: las cuatro
